@@ -1,0 +1,151 @@
+## ==========================================================================
+## .gitignore for Agentic (.NET 10 + Angular + Node.js)
+## ==========================================================================
+
+# ── .NET Build Output ─────────────────────────────────────────────────────
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+artifacts/
+publish/
+out/
+
+# ── .NET / NuGet ──────────────────────────────────────────────────────────
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+.nuget/
+packages/
+
+# ── MSBuild ───────────────────────────────────────────────────────────────
+*.binlog
+[Bb]uild[Ll]og.*
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# ── Test Results ──────────────────────────────────────────────────────────
+[Tt]est[Rr]esult*/
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+coverage/
+CodeCoverage/
+*.coverage
+*.coveragexml
+*.opencover.xml
+lcov.info
+
+# ── Visual Studio ─────────────────────────────────────────────────────────
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.pfx
+*.publishsettings
+launchSettings.json
+!**/Properties/launchSettings.json
+
+# Visual Studio cache/options
+*.csproj.user
+*.vbproj.user
+*.fsproj.user
+
+# ── JetBrains Rider / IntelliJ ───────────────────────────────────────────
+.idea/
+*.sln.iml
+
+# ── VS Code ──────────────────────────────────────────────────────────────
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ── Node.js / Angular ────────────────────────────────────────────────────
+node_modules/
+dist/
+.angular/
+.cache/
+tmp/
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── OS Files ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Temp/swap files
+~$*
+*~
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# ── Secrets / Credentials (never commit) ─────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+secrets.*
+credentials.*
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json
+
+# ── Agentic-specific ─────────────────────────────────────────────────────
+
+# Local ONNX models (large binary files, downloaded at setup)
+.agentic/models/
+
+# Local data (created at runtime, user-specific)
+.agentic/server/
+.agentic/*.db
+.agentic/*.db-wal
+.agentic/*.db-shm
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# ── Docker ────────────────────────────────────────────────────────────────
+docker-compose.override.yml
+
+# ── Misc ──────────────────────────────────────────────────────────────────
+*.DotSettings.user
+BenchmarkDotNet.Artifacts/
+#plans/
+codex/
+.claude/

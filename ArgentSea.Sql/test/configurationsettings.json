@@ -1,0 +1,167 @@
+﻿{
+  "SqlGlobalSettings": {
+    "RetryCount": 15,
+    "RetryInterval": 10,
+    "RetryLengthening": "Fibonacci",
+    "CircuitBreakerFailureCount": 20,
+    "CircuitBreakerTestInterval": 25,
+    "ApplicationName": "MyApp",
+    "TypeSystemVersion": "SQL Server 2012"
+  },
+  "SqlDbConnections": [
+    {
+      "DataSource": "10.10.25.1",
+      "DatabaseKey": "MainDb",
+      "InitialCatalog": "MainDb",
+      "WriteConnection": {
+        "DataSource": "10.10.25.5"
+      }
+    },
+    {
+      "DatabaseKey": "OtherDb",
+      "ApplicationName": "MyOtherApp",
+      "ConnectTimeout": 20,
+      "CurrentLanguage": "English",
+      "DataSource": "MyOtherServer",
+      "InitialCatalog": "OtherDb"
+    }
+  ],
+  "SqlShardSets": [
+    {
+      "ShardSetName": "Inherit",
+      "DataSource": "10.10.23.19",
+      "ApplicationName": "MyOtherApp",
+      "Read": {
+        "ApplicationIntent": "ReadOnly"
+      },
+      "Write": {
+        "ApplicationIntent": "ReadWrite"
+      },
+      "Shards": [
+        {
+          "ShardId": 0,
+          "DataSource": "10.10.23.20",
+          "FailoverPartner": "MyMirror",
+          "InitialCatalog": "dbName2"
+        },
+        {
+          "InitialCatalog": "dbName3",
+          "ShardId": 1,
+          "ReadConnection": {
+            "DataSource": "MyOtherServer",
+            "InitialCatalog": "dbName4"
+          },
+          "WriteConnection": {
+            "DataSource": "MyOtherOtherServer"
+          }
+        }
+      ]
+    },
+    {
+      "ShardSetName": "Explicit",
+      "ApplicationName": "Non-Inheritance",
+      "Shards": [
+        {
+          "ShardId": 0,
+          "ApplicationIntent": "ReadWrite",
+          "ApplicationName": "MyWebApp2",
+          "CircuitBreakerFailureCount": 20,
+          "CircuitBreakerTestInterval": 5001,
+          "ConnectTimeout": 2,
+          "CurrentLanguage": "english",
+          "DataSource": "localhost",
+          "Encrypt": false,
+          "FailoverPartner": "",
+          "InitialCatalog": "MyDb1",
+          "LoadBalanceTimeout": 0,
+          "MaxPoolSize": 100,
+          "MinPoolSize": 0,
+          "MultipleActiveResultSets": false,
+          "MultiSubnetFailover": true,
+          "PacketSize": 8000,
+          "Password": "",
+          "PersistSecurityInfo": false,
+          "Pooling": true,
+          "Replication": false,
+          "RetryCount": 6,
+          "RetryInterval": 256,
+          "RetryLengthening": "Fibonacci",
+          "TransactionBinding": "",
+          "TrustServerCertificate": true,
+          "TypeSystemVersion": "Latest",
+          "UserInstance": "",
+          "UserName": "",
+          "WindowsAuth": false,
+          "WorkstationID": ""
+        },
+        {
+          "ShardId": 1,
+          "ReadConnection": {
+            "ApplicationIntent": "ReadOnly",
+            "ApplicationName": "MyWebApp3",
+            "CircuitBreakerFailureCount": 21,
+            "CircuitBreakerTestInterval": 5002,
+            "ConnectTimeout": 2,
+            "CurrentLanguage": "english",
+            "DataSource": "localhost",
+            "Encrypt": false,
+            "FailoverPartner": "rorriMyM",
+            "InitialCatalog": "MyDb2",
+            "LoadBalanceTimeout": 0,
+            "MaxPoolSize": 100,
+            "MinPoolSize": 0,
+            "MultipleActiveResultSets": false,
+            "MultiSubnetFailover": true,
+            "PacketSize": 8000,
+            "Password": "",
+            "PersistSecurityInfo": false,
+            "Pooling": true,
+            "Replication": false,
+            "RetryCount": 6,
+            "RetryInterval": 256,
+            "RetryLengthening": "Fibonacci",
+            "TransactionBinding": "",
+            "TrustServerCertificate": true,
+            "TypeSystemVersion": "Latest",
+            "UserInstance": "",
+            "UserName": "",
+            "WindowsAuth": false,
+            "WorkstationID": ""
+          },
+          "WriteConnection": {
+            "ApplicationIntent": "ReadWrite",
+            "ApplicationName": "MyWebApp4",
+            "CircuitBreakerFailureCount": 22,
+            "CircuitBreakerTestInterval": 5003,
+            "ConnectTimeout": 2,
+            "CurrentLanguage": "english",
+            "DataSource": "localhost",
+            "Encrypt": false,
+            "FailoverPartner": "",
+            "InitialCatalog": "MyDb3",
+            "LoadBalanceTimeout": 0,
+            "MaxPoolSize": 100,
+            "MinPoolSize": 0,
+            "MultipleActiveResultSets": false,
+            "MultiSubnetFailover": true,
+            "PacketSize": 8000,
+            "Password": "",
+            "PersistSecurityInfo": false,
+            "Pooling": true,
+            "Replication": false,
+            "RetryCount": 6,
+            "RetryInterval": 256,
+            "RetryLengthening": "Fibonacci",
+            "TransactionBinding": "",
+            "TrustServerCertificate": true,
+            "TypeSystemVersion": "Latest",
+            "UserInstance": "",
+            "UserName": "",
+            "WindowsAuth": false,
+            "WorkstationID": ""
+          }
+        }
+      ]
+    }
+  ]
+}
