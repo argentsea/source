@@ -1,0 +1,17 @@
+- name: Home
+  href: index.md
+- name: Configuration
+  href: configuration/toc.yml
+  topicHref: configuration/configuration.md
+- name: Mapping
+  href: mapping/toc.yml
+  topicHref: mapping/mapping.md
+- name: Querying
+  href: querying/toc.yml
+  topicHref: querying/querying.md
+- name: Sharding
+  href: sharding/toc.yml
+  topicHref: sharding/sharding.md
+- name: QuickStarts
+  href: quickstarts/toc.yml
+  topicHref: quickstarts/configuration.md
