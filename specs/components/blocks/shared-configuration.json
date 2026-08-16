@@ -1,0 +1,34 @@
+{
+  "id": "shared-configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SharedConfiguration",
+    "responsibility": "Holds the shared configuration value types and interfaces that provider-specific options implement.",
+    "parent": "configuration-and-resilience",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "12-14",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "pg-map-to-pg-attribute-family",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "MapToPg*Attribute",
+    "responsibility": "Owns the Surveyor-merged PostgreSQL mapping attribute family whose subclasses vary mechanically by target PostgreSQL data type.",
+    "parent": "pg-mapping",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "pg-parameter-map-attribute"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "41-1034",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

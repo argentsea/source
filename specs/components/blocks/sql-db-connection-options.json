@@ -1,0 +1,40 @@
+{
+  "id": "sql-db-connection-options",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlDbConnectionOptions",
+    "responsibility": "Owns the SqlDbConnectionOptions class and the contract expressed by its 1 public property (DbConnections).",
+    "parent": "sql-database-facades",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-i-database-configuration-options"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "30-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

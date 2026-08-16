@@ -1,0 +1,41 @@
+{
+  "id": "shared-databases-base",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "DatabasesBase<TConfiguration>",
+    "responsibility": "Owns the DatabasesBase<TConfiguration> class (abstract) and the contract expressed by its 6 public members (indexer, Count, IsSynchronized, SyncRoot, CopyTo, GetEnumerator).",
+    "parent": "data-connection-and-query",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "24-85",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "1013-1014",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

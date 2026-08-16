@@ -1,0 +1,49 @@
+{
+  "id": "obj-purpose",
+  "specId": "constitution",
+  "type": "Objective",
+  "fields": {
+    "statement": "Give .NET applications a data-access framework built for simplicity, high performance, and global scale — the one framework designed from the ground up for scaling data out, whether that means sharding a large data set or giving every cloud tenant a database of their own.",
+    "elaboration": "**Scale-out is the reason it exists.** Internet-scale growth demands strategies most data layers ignore: dividing load across many servers (*sharding*), isolating each customer's data (*tenanting*), reading from passive/mirrored endpoints, and caching across global datacenters. ArgentSea is the only .NET data-access framework designed to support this — and it makes querying a shard set nearly as easy as querying a single database.\n\n**Tenanting is the most active use case.** A distinct database store for each cloud tenant consolidates infrastructure while: preventing accidental cross-tenant query results (isolation is structural, not a WHERE clause); enabling per-tenant data management — backups, SLAs, replication, and clean deletion/decommissioning; and supporting a multi-tenant Microsoft Orleans instance behind a single cluster.\n\n**Great even when you don't shard.** Every other aspect — mapping, configuration, resilience, querying — is tuned for performance and supportability, so ArgentSea is a strong choice for ordinary applications too, and leaves the door open to scale later without a rewrite.\n\n**Built on ADO.NET, for SQL Server and PostgreSQL.** A shared core sits over ADO.NET and ships as thin provider packages (`ArgentSea.Sql`, `ArgentSea.Pg`).\n\n**A first-class Microsoft Orleans provider.** Version 2.0 serves as both a persistence and clustering provider for Orleans. Uniquely among Orleans providers, it can manage data shards or tenants behind a single cluster and persist grain state into third-normal-form SQL tables — so grain data can be searched, queried, and aggregated *across* grains by the SQL engine, combining the actor model's transactional power with real relational reach. ShardKey values serialize natively as grain keys.\n\n**Proven and open.** ArgentSea is MIT-licensed open source; version 1.0 ran in production for years and handled billions of dollars in transactions."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from the ArgentSea.DocFx documentation and the ArgentSea.Home landing page during initial agentic onboarding, 2026-07-19. Revised same day per operator direction: tenanting (distinct database per cloud tenant) is the more active use case than sharding — isolation, per-tenant data management, multi-tenant Orleans; Orleans capabilities expanded from the ArgentSea.Orleans readmes. Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Home/index.html",
+        "lines": null,
+        "label": "Landing page — problem statement and feature overview"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/index.md",
+        "lines": null,
+        "label": "Overview tutorial"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/readme.md",
+        "lines": null,
+        "label": "Orleans SQL provider — 3NF grain persistence, per-tenant shards, clustering client"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/readme.md",
+        "lines": null,
+        "label": "Orleans provider — abstract implementation over providers"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "purpose",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

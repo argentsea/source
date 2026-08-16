@@ -1,0 +1,34 @@
+{
+  "id": "attribute-mapping",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "AttributeMapping",
+    "responsibility": "Holds provider-neutral attribute mapping types because they collaborate to construct parameter, reader, and model mapping expressions.",
+    "parent": "argentsea",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "12-19",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

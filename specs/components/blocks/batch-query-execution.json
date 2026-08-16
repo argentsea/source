@@ -1,0 +1,34 @@
+{
+  "id": "batch-query-execution",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "BatchQueryExecution",
+    "responsibility": "Holds batch abstractions, steps, aggregators, and database or shard batch entry points that compose transactional query sequences.",
+    "parent": "argentsea",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "12-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

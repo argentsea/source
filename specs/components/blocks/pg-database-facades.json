@@ -1,0 +1,34 @@
+{
+  "id": "pg-database-facades",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgDatabaseFacades",
+    "responsibility": "Holds PostgreSQL database collection and database-connection option types that compose the non-sharded PostgreSQL facade.",
+    "parent": "postgresql-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDatabases.cs",
+        "lines": "1-11",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,37 @@
+{
+  "id": "blk-94a03d4f8f454af0b2be951ab8a8ac0a",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Change PostgreSQL connect timeout default to 5s to match SQL Server.",
+        "whyRejected": "SQL Server uses 5s based on SQL Server database mirroring recommendations; PostgreSQL targeted 2s for fast datacenter failover as documented in resilience.md."
+      },
+      {
+        "option": "Remove DefaultConnectTimeout in PgConnectionConfiguration and keep Npgsql default (15s).",
+        "whyRejected": "15s is too long for high-availability datacenter retry strategies and violates resilience design goals."
+      }
+    ],
+    "consequences": "PgConnectionConfiguration applies csb.Timeout = 2 when Timeout is not explicitly set; resilience.md table and text explicitly document 5s (SQL Server) / 2s (PostgreSQL).",
+    "context": "PgConnectionConfiguration.cs declared DefaultConnectTimeout = 2 but never assigned it, causing unconfigured PostgreSQL connections to use Npgsql 15s default. resilience.md table listed 5s while section text stated 2s.",
+    "decision": "Apply DefaultConnectTimeout = 2 in PgConnectionConfiguration when props.Timeout is null, and update resilience.md table to clarify provider defaults (5s for SQL Server, 2s for PostgreSQL).",
+    "status": "Accepted",
+    "title": "B3: Reconcile PostgreSQL Connect Timeout Default and Documentation"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "surveyor",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

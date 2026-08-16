@@ -1,0 +1,34 @@
+{
+  "id": "orleans-db-persistence-options-validator",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSeaDbPersistenceOptionsValidator<TDatabaseOptions>",
+    "responsibility": "Owns the ArgentSeaDbPersistenceOptionsValidator<TDatabaseOptions> class and the contract expressed by its 1 public method implemen….",
+    "parent": "orleans-grain-persistence",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbPersistenceOptionsValidator.cs",
+        "lines": "16-68",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

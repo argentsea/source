@@ -1,0 +1,34 @@
+{
+  "id": "pg-sharding",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgSharding",
+    "responsibility": "Holds PostgreSQL shard option and shard-set facade types that bind shared sharding contracts to PostgreSQL connections.",
+    "parent": "postgresql-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "8-12",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

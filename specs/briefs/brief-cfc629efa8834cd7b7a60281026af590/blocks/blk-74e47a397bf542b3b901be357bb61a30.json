@@ -1,0 +1,24 @@
+{
+  "id": "blk-74e47a397bf542b3b901be357bb61a30",
+  "specId": "brief-cfc629efa8834cd7b7a60281026af590",
+  "type": "Criterion",
+  "fields": {
+    "condition": "Orleans grain persistence — read, write, clear, ETag concurrency, grain-id parsing, and the clustering, membership and reminder providers — is specced against its 37 source files rather than four blocks.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0006",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

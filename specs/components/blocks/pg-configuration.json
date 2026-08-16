@@ -1,0 +1,34 @@
+{
+  "id": "pg-configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgConfiguration",
+    "responsibility": "Holds PostgreSQL connection properties, concrete connections, and global option types that share the PostgreSQL configuration base.",
+    "parent": "postgresql-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionPropertiesBase.cs",
+        "lines": "1-7",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

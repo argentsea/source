@@ -1,0 +1,34 @@
+{
+  "id": "shard-fan-out",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ShardFanOut",
+    "responsibility": "Holds shard-set topology, per-shard access, targeted values, and fan-out read or write execution types.",
+    "parent": "argentsea",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetsBase.cs",
+        "lines": "18-25",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

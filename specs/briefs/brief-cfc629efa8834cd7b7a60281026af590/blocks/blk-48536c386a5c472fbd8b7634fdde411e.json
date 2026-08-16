@@ -1,0 +1,24 @@
+{
+  "id": "blk-48536c386a5c472fbd8b7634fdde411e",
+  "specId": "brief-cfc629efa8834cd7b7a60281026af590",
+  "type": "Criterion",
+  "fields": {
+    "condition": "The adr document contains real ADRs recording the as-built decisions — attribute mapping over convention, stored-procedure-first, compiled expression trees, the ShardKey binary format, one-model-one-provider, Polly for resilience, and the multi-target framework set.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0008",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

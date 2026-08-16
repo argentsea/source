@@ -1,0 +1,38 @@
+{
+  "id": "p5-manageable-configuration",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "Make many connections manageable and secure",
+    "statement": "Sharding, read/write splitting, and multi-environment deployment can explode the number of connections to manage. Tame this with the Hereditary Configuration Hierarchy — connection values inherited from parent to child and overridable at any level, down to an individual read or write endpoint — built on the .NET Core configuration system so secrets stay out of source and promotion across environments needs no messy file transforms.",
+    "rationale": "A large fleet of connections with mostly-shared settings is unmanageable if each is configured independently. Inheritance collapses the redundancy (a shard set that varies only by server address need not repeat login and database name), .NET Core's configuration providers keep passwords in secure stores rather than connection strings, and the same layered configuration promotes cleanly across dev, test, staging, and multiple production regions. Connection properties stay updatable at runtime (enabling caller-built failover) even though the hierarchy layout, once built, is immutable."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/configuration.md",
+        "lines": null,
+        "label": "Configuration deep-dive — connection explosion; Hereditary Configuration Hierarchy"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": null,
+        "label": "Immutable hierarchy with updatable connection properties (failover)"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmr",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

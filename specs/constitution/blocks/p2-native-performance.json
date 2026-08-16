@@ -1,0 +1,38 @@
+{
+  "id": "p2-native-performance",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "Native-code performance, no abstraction tax",
+    "statement": "The framework must never be the bottleneck. Deliver ORM-level convenience at hand-optimized ADO.NET speed: compile property-to-data mapping into cached expression trees so reflection runs only once per model, favor stored procedures to cut parse/compile overhead and round-trips, and run shard queries concurrently across servers.",
+    "rationale": "Most ORMs trade performance for convenience; ArgentSea refuses that trade. Reflection on every data access is too slow, so the mapper pays it once and reuses compiled code at machine-code speed thereafter. The only cost is a sub-second first-call compilation (repaid on every subsequent call and reset only on restart) — an acceptable price for native speed and the reason ArgentSea suits even performance-critical, non-sharded applications."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/mapping.md",
+        "lines": null,
+        "label": "Mapper performance — reflection once, then compiled expression trees"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Home/index.html",
+        "lines": null,
+        "label": "Performance feature — expression trees, stored procs, multi-threaded shard queries"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmo",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

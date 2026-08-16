@@ -1,0 +1,35 @@
+{
+  "id": "blk-ad4c792d69dc4e109c89882a39a47c97",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardKey<int> is serialized to a byte array via ToArray(), so byte 0 carries a 1-byte metadata length and byte 1 carries the type-metadata code for int.",
+      "when": "That same byte array is passed to ShardKey<string>.TryParse (a target arity whose encoded type metadata differs).",
+      "then": "TryParse returns false and yields no key. Today it returns TRUE and produces a ShardKey<string> from int-typed payload bytes, because ShardKey.cs:118 short-circuits its metadata comparison on metadataSpan.Length != 1. The equivalent case must be covered for all four arities (ShardKey, ShardChild, ShardGrandChild, ShardGreatGrandChild)."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "interfaces",
+        "blockId": "blk-162464097c9e4230ba7221bfa3ae80fa"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

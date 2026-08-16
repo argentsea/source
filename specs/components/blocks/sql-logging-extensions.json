@@ -1,0 +1,41 @@
+{
+  "id": "sql-logging-extensions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlLoggingExtensions",
+    "responsibility": "Owns the SqlLoggingExtensions class (static) and the contract expressed by its SQL Server logging extension methods.",
+    "parent": "sql-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlLoggingExtensions.cs",
+        "lines": "12-13",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlLoggingExtensions.cs",
+        "lines": "19-50",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

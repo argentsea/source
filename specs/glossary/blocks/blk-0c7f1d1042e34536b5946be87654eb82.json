@@ -1,0 +1,33 @@
+{
+  "id": "blk-0c7f1d1042e34536b5946be87654eb82",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard",
+    "definition": "A single data segment stored in one database within a shard set.",
+    "synonyms": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

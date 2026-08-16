@@ -1,0 +1,34 @@
+{
+  "id": "orleans-logging-extensions-event-identifier",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "LoggingExtensions.EventIdentifier",
+    "responsibility": "Owns the LoggingExtensions.EventIdentifier enum and the contract expressed by its 4 enum values for Orleans logging event categories.",
+    "parent": "orleans-logging-extensions",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/LoggingExtensions.cs",
+        "lines": "15-24",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

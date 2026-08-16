@@ -1,0 +1,38 @@
+{
+  "id": "p4-loose-coupling",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "Loosely couple the application from the database",
+    "statement": "Keep SQL static, consolidated, and segregated from application binaries, and strictly parameterized — ideally behind stored procedures. The parameter set and result shape are the contract; the database implementation behind it can be tuned, rewritten, partitioned, hinted, or re-indexed without breaking the application. Discourage dynamic, C#-generated SQL.",
+    "rationale": "Compiling SQL into application code creates tight coupling to table and column internals and blocks independent optimization over an application's lifetime. Static, segregated SQL lets DBAs (or data SMEs) adapt data-domain code as data grows, and surfaces orphaned/unused queries via reference counts. Parameterized stored procedures with EXECUTE-only permissions also shrink the attack surface: no arbitrary SQL, far less SQL-injection risk, and full DBA visibility into what the application touches."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review. Consolidates the querying 'static/consolidated/segregated' guidance with the stored-procedure security rationale from the FAQ.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/querying.md",
+        "lines": null,
+        "label": "Queries — loose coupling; static, consolidated, segregated SQL"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/documentation/faqs.md",
+        "lines": null,
+        "label": "FAQ — stored-procedure performance, manageability, and security benefits"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmq",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

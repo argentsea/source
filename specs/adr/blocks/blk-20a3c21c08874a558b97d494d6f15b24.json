@@ -1,0 +1,69 @@
+{
+  "id": "blk-20a3c21c08874a558b97d494d6f15b24",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Use inheritable configuration properties instead of traditional connection strings",
+    "decision": "Configure connection attributes as discrete properties in the Hereditary Configuration Hierarchy; allow a child to inherit a parent value and override it at a lower level.",
+    "context": "Applications can need many database and shard connections, with separate read and write endpoints and many repeated values. Repeating complete connection strings makes that fleet difficult to manage.",
+    "alternatives": [
+      {
+        "option": "Traditional connection strings configured independently for every connection.",
+        "whyRejected": "They repeat common values across a large connection fleet; the document adopts inheritance specifically to reduce that redundancy and make many connections manageable."
+      }
+    ],
+    "consequences": "A global, database, shard-set, shard, or endpoint setting can supply a value; read/write-specific values can differ only where necessary. Secrets can remain outside source through the .NET configuration system.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/hierarchy.md",
+        "lines": "3-5",
+        "label": "Hereditary Configuration Hierarchy",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p5-manageable-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,34 @@
+{
+  "id": "shared-i-keyed-model",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "IKeyedModel<...>",
+    "responsibility": "Owns the four Surveyor-merged IKeyedModel generic-arity contracts and their typed Key property.",
+    "parent": "shard-keys",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/IKeyedModel.cs",
+        "lines": "11-29",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

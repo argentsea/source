@@ -1,0 +1,34 @@
+{
+  "id": "orleans-fake-grain-storage-serializer",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "FakeGrainStorageSerializer",
+    "responsibility": "Owns the FakeGrainStorageSerializer class and the contract expressed by its Stub serializer implementation for Orleans persistence.",
+    "parent": "orleans-providers",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/FakeGrainStorageSerializer.cs",
+        "lines": "5-9",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

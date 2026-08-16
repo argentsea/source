@@ -1,0 +1,34 @@
+{
+  "id": "orleans-extensions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansExtensions",
+    "responsibility": "Holds Orleans query, parsing, and logging helpers grouped by the Extensions source folder and shared persistence collaborators.",
+    "parent": "orleans-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "14-19",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

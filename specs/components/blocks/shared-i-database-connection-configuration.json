@@ -1,0 +1,34 @@
+{
+  "id": "shared-i-database-connection-configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "IDatabaseConnectionConfiguration",
+    "responsibility": "Owns the IDatabaseConnectionConfiguration interface and the contract expressed by its 3 public properties (DatabaseKey, ReadConnectionInternal, WriteConnectionInternal).",
+    "parent": "shared-configuration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

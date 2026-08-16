@@ -1,0 +1,40 @@
+{
+  "id": "pg-parameter-map-attribute",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgParameterMapAttribute",
+    "responsibility": "Owns the PgParameterMapAttribute class (abstract) and the contract expressed by its Abstract base class for PostgreSQL parameter attributes.",
+    "parent": "pg-mapping",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-parameter-map-attribute-base"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "23-35",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "pg-data-provider-service-factory",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "DataProviderServiceFactory",
+    "responsibility": "Owns the DataProviderServiceFactory class and the contract expressed by its 4 public methods implementing IDataProviderServiceFactory interface.",
+    "parent": "pg-integration",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-i-data-provider-service-factory"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "16-103",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

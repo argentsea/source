@@ -1,0 +1,55 @@
+{
+  "id": "brief-blk-a49de5aa2aff4e0f8478ab83388eb934",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Brief",
+  "fields": {
+    "goal": "Fix four verified ArgentSea code defects found during the spec-corpus audit: ShardKey.TryParse accepting mismatched type metadata in all four arities, the mislabelled default retry curve, the never-applied PostgreSQL connect-timeout default, and eleven unconsumed linked CancellationTokenSources in ShardSet.",
+    "context": "Found incidentally while auditing the ArgentSea spec corpus on 2026-07-30 (three parallel area audits: ShardKey/sharding, attribute mapping, configuration/resilience). These are **code** defects, not spec defects — filed separately so they are not lost inside the spec-quality work.\n\nEach was re-verified directly against source before filing. Two came from subagent reports and were corrected on verification: B4's scope is 11 sites, not 1, and its \"swallows per-shard failures\" claim was overstated (see B4).\n\nNote B1's significance to the spec programme: `interfaces/blk-162464097c` already asserts the exact invariant B1 violates (\"TryParse must never report success for undersized, unsupported, incompatible, or unconvertible ShardKey data\"). It carries `verificationStatus: Unverified`, like all 652 blocks in the corpus — a correct invariant, never wired to anything that runs, so the defect shipped underneath it. B1 is the concrete argument for the verification wiring in agentic brief-deacf39763c04667ab264de2caf2dc66 (deliverable D7).",
+    "constraints": [
+      "Behavior-preserving elsewhere: these are contained defect fixes, not a refactor of ShardKey serialization or the resilience model.",
+      "B2 and B3 require a truth decision (code vs docs) before coding — surface the choice, do not pick silently.",
+      "Do not act on the retracted claim that ReadFirst swallows per-shard query failures (see B4).",
+      "B1 changes parse-rejection behavior: check for callers relying on the current permissive TryParse before landing it."
+    ],
+    "deliverables": [
+      {
+        "name": "B1 ShardKey.TryParse accepts mismatched type metadata (all 4 arities)",
+        "description": "ShardKey.cs:118 reads `if (metadataSpan.Length != 1 && saved.Length != 1 && metadataSpan[0] != saved[0]) return false;`. For the single-arity key metadataSpan.Length IS 1, so the &&-chain short-circuits false and the metadata comparison never executes — a serialized ShardKey whose generic type metadata does not match is accepted as a successful parse. Identical defect: ShardChild.cs:134, ShardGrandChild.cs:148, ShardGreatGrandChild.cs:161. The constructors get it right by splitting the test (ShardKey.cs:74 then :78). Fix: compare the metadata spans for equality (e.g. !metadataSpan.SequenceEqual(saved)) rather than &&-chaining length guards with the byte compare. Test gap: ShardKeyRobustTests.cs:199 covers undersized input only — add a wrong-type-metadata rejection case per arity. Existing spec block interfaces/blk-162464097c already states this invariant.",
+        "format": "code fix + test"
+      },
+      {
+        "name": "B2 \"Fibonacci\" retry lengthening is linear, and RetryInterval default disagrees with docs",
+        "description": "DataConnectionConfigurationBase.cs:145 (the DEFAULT branch — Fibonacci is the default lengthening) computes `(attempt + (attempt - 1)) * retryInterval`, i.e. (2n-1) x interval: linear odd multiples 1x, 3x, 5x, 7x. resilience.md:35 defines Fibonacci as \"each subsequent retry interval pauses for the duration of the previous two combined\". Separately resilience.md:54 states a RetryInterval default of 256 while the code uses 250 (DataConnectionConfigurationBase.cs:33). Because Fibonacci is the default, every consumer that does not set RetryLengthening gets the undocumented curve. Decide which is truth: implement a real Fibonacci sequence, or correct the doc and rename the enum member to match the implemented curve. Reconcile 250 vs 256 in the same pass.",
+        "format": "decision + code or doc fix"
+      },
+      {
+        "name": "B3 PostgreSQL DefaultConnectTimeout declared but never applied",
+        "description": "PgConnectionConfiguration.cs:26 declares `private const int DefaultConnectTimeout = 2;` and that is its ONLY occurrence in the file — no code path assigns it. The SQL Server side applies its equivalent (SqlConnectionConfiguration.cs:151, default 5). Consequence: a PostgreSQL connection with no explicit Timeout falls through to Npgsql built-in default (15s) rather than the intended 2s, so the two providers have materially different connect-failure latency. The plumbing for an explicit value already exists (PgConnectionConfiguration.cs:224-226 sets csb.Timeout from props.Timeout); only the default application is missing. Fix: apply the default when props.Timeout is null, or delete the unused const if the Npgsql default is actually intended. Docs also disagree with themselves: resilience.md:63 says 2s, the table at resilience.md:56 says 5 — reconcile.",
+        "format": "code fix"
+      },
+      {
+        "name": "B4 Eleven linked CancellationTokenSources created and never consumed in ShardSet",
+        "description": "ShardSet.cs contains 11 `CancellationTokenSources.CreateLinkedTokenSource(cancellationToken, cancelTokenSource.Token)` sites, and the resulting `queryCancelationToken` is never referenced outside its own creation at ANY of them — every per-shard QueryAsync call receives the bare `cancellationToken` instead. Consequence at the 2 sites that call cancelTokenSource.Cancel() (ShardSet.cs:199 and :208 — the ReadFirst \"first non-null result wins\" path): the Cancel is a no-op, so losing shard queries run to completion rather than being abandoned. On a wide shard set every first-result read costs the full query time of every shard. Additionally `cancelTokenSource` is never disposed at any of the 11 sites — only the (unused) linked source is using-scoped. Fix: pass queryCancelationToken.Token to the per-shard calls and dispose cancelTokenSource; or delete the linked-source machinery at the 9 sites that never cancel. CORRECTION to the original audit report: the claim that ReadFirst silently swallows per-shard failures is overstated — `await tsk` unwraps a faulted task to its first inner exception, so `catch (AggregateException)` at ShardSet.cs:213 is effectively dead and genuine query exceptions reach `catch { throw; }` and propagate. Only OperationCanceledException is swallowed, which is defensible. Do not \"fix\" the exception handling on the strength of that claim.",
+        "format": "code fix"
+      }
+    ],
+    "displayName": "Audit-found code defects (4)"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal",
+    "briefStatus": "Done",
+    "statusTrigger": "gate:terminal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

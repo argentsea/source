@@ -1,0 +1,34 @@
+{
+  "id": "pg-parameters",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgParameters",
+    "responsibility": "Holds PostgreSQL parameter collection and parameter helpers that materialize Npgsql parameter values.",
+    "parent": "postgresql-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

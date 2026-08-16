@@ -1,0 +1,34 @@
+{
+  "id": "orleans-shard-key-orleans-serializer",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ShardKeyOrleansSerializer<...>",
+    "responsibility": "Owns the four Surveyor-merged Orleans shard-key serializers whose implementations vary mechanically by shard-key generic arity.",
+    "parent": "orleans-providers",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "16-180",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

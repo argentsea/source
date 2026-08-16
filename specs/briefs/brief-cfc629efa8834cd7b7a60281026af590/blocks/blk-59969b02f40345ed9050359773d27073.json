@@ -1,0 +1,24 @@
+{
+  "id": "blk-59969b02f40345ed9050359773d27073",
+  "specId": "brief-cfc629efa8834cd7b7a60281026af590",
+  "type": "Criterion",
+  "fields": {
+    "condition": "Circuit-breaker behaviour is a Behavioral naming the concrete configured defaults and their observable effect, not only a glossary Term.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0005",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

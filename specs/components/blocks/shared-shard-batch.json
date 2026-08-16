@@ -1,0 +1,40 @@
+{
+  "id": "shared-shard-batch",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ShardBatch<TResult>",
+    "responsibility": "Owns the ShardBatch<TResult> class and the contract expressed by its 3 public methods (3 Add overloads).",
+    "parent": "batch-query-execution",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-batch-base"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardBatch.cs",
+        "lines": "14-96",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

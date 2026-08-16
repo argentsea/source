@@ -1,0 +1,23 @@
+{
+  "id": "note-aec4dae039cb428897baffb62dcd741e",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Note",
+  "fields": {
+    "body": "Verification record for the four defects, 2026-07-30 (Claude Code audit session; operator jhicks). Every line below was read directly from source in this session, not relayed.\n\nB1 — ShardKey.cs:118 verbatim:\n    if (metadataSpan.Length != 1 && saved.Length != 1 && metadataSpan[0] != saved[0])\n    {\n        return false;\n    }\nmetadataSpan comes from ShardKeySerialization.TryEncodeTypeMetadata for a single-arity key, so its Length is 1 and the conjunction can never reach the byte comparison. Correct pattern in the same file's constructor path: ShardKey.cs:74 and :78 test the two conditions separately. Sibling sites: ShardChild.cs:134, ShardGrandChild.cs:148, ShardGreatGrandChild.cs:161.\n\nB2 — DataConnectionConfigurationBase.cs:133-147, default branch (comment reads \"//Finonacci is default\"):\n    default: result = (attempt + (attempt - 1)) * retryInterval; break;\nYields 1x, 3x, 5x, 7x x retryInterval. resilience.md:35 specifies \"the previous two combined\". DataConnectionConfigurationBase.cs:33 sets DefaultRetryInterval 250; resilience.md:54 documents 256.\n\nB3 — grep of DefaultConnectTimeout across ArgentSea.Pg/src returns exactly one source hit: PgConnectionConfiguration.cs:26 (the declaration). No assignment exists. Compare SqlConnectionConfiguration.cs:25 (const 5) applied at :151. Pg's explicit-value path is present at :224-226 (csb.Timeout from props.Timeout), so only the default is unwired.\n\nB4 — grep -c CreateLinkedTokenSource in ArgentSea.Shared/src/ShardSet.cs = 11. grep of queryCancelationToken excluding its own creation lines returns NOTHING: the linked token is consumed nowhere. Both branches of the ReadFirst path pass the bare cancellationToken to QueryAsync (ShardSet.cs:177 and :187). cancelTokenSource.Cancel() appears exactly twice (:199, :208) and is therefore inert. cancelTokenSource is never disposed at any of the 11 sites.\n\nRETRACTED from the original subagent report: \"ReadFirst silently swallows per-shard failures.\" On `await tsk` a faulted Task throws its first inner exception rather than an AggregateException, so `catch (AggregateException)` (ShardSet.cs:213) is effectively unreachable and real query exceptions fall through to `catch { throw; }` and propagate. Only OperationCanceledException is swallowed (ShardSet.cs:212), which is reasonable for a race that cancels its losers. The unconsumed linked token is the real defect; the exception handling is not."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "Claude Code (corpus audit session)",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": null,
+    "packId": null
+  },
+  "references": [],
+  "evidenceLinks": []
+}

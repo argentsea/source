@@ -1,0 +1,17 @@
+{
+  "sections": [
+    {
+      "sectionId": "purpose",
+      "title": "Purpose",
+      "parentSectionId": null,
+      "order": 0
+    },
+    {
+      "sectionId": "principles",
+      "title": "Principles",
+      "parentSectionId": null,
+      "order": 1
+    }
+  ],
+  "packs": []
+}

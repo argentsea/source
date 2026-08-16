@@ -1,0 +1,34 @@
+{
+  "id": "blk-4f073bb3138047e699d8c7667643427d",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Realization",
+  "fields": {
+    "artifactRefs": [
+      "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+      "ArgentSea.Shared/src/ShardKeys/ShardChild.cs",
+      "ArgentSea.Shared/src/ShardKeys/ShardGrandChild.cs",
+      "ArgentSea.Shared/src/ShardKeys/ShardGreatGrandChild.cs",
+      "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+      "ArgentSea.Shared/src/SimpleConnection.cs",
+      "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+      "ArgentSea.Shared/src/ShardSet.cs",
+      "ArgentSea.DocFx/tutorials/Configuration/resilience.md"
+    ],
+    "summary": "Analyzed and verified all four audit-found code defects (B1: ShardKey TryParse metadata validation in all 4 arities, B2: true Fibonacci retry curve calculation & RetryInterval default reconciliation, B3: PostgreSQL connect-timeout default application in PgConnectionConfiguration, B4: ShardSet CancellationTokenSource linking & disposal). Surfaced truth decisions for B2 and B3."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "surveyor",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

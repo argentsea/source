@@ -1,0 +1,24 @@
+{
+  "id": "blk-613381c549bb4931ada2fa47e51950ba",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC2: The retry-lengthening curve and its documentation agree, and the RetryInterval default is a single value stated identically in code and docs.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0001",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

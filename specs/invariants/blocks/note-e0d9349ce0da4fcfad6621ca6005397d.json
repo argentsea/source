@@ -1,0 +1,23 @@
+{
+  "id": "note-e0d9349ce0da4fcfad6621ca6005397d",
+  "specId": "invariants",
+  "type": "Note",
+  "fields": {
+    "body": "Corpus reset 2026-08-13 (operator-approved). Every descriptive block was deleted from behavior, interfaces, schemas, invariants, glossary, components and adr — 162 blocks — leaving the 8 ImportedFromDocs constitution blocks as the only committed content.\n\nReason: the descriptive corpus came from Spec Populator runs whose granularity was set relative to whatever scope each run was handed rather than measured from the code, so the same machinery produced 8 components for the whole solution and 6-8 for one eighth of it. Its blocks also carry name-form sectionId values that resolve to no Component block, so every component rollup read empty. Migrating identity, scope and vocabulary across 162 Unverified blocks costs more than rebuilding them.\n\nThe corpus will be rebuilt by the staged Spec Builder pipeline (agentic brief-c25ba6f985cc4f92a9ff3e337bc33e83). A full copy of the pre-reset folder is at G:/Git/ArgentSea/specs-backup-2026-08-13.\n\nThis spec is intentionally EMPTY, not un-surveyed — a census should read it as a deliberate reset, not as greenfield."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": null,
+    "packId": null
+  },
+  "references": [],
+  "evidenceLinks": []
+}

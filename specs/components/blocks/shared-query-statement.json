@@ -1,0 +1,40 @@
+{
+  "id": "shared-query-statement",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "QueryStatement",
+    "responsibility": "Owns the QueryStatement class and the contract expressed by its 6 public members (2 static properties Folder/Extension, 1 override property Type, 4 static Create method overloads).",
+    "parent": "shared-query-types",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-query"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "15-111",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "blk-5a609a263dd34f5d865a994451aae0c9",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard identifier",
+    "definition": "The value that selects the specific data subset, or shard, containing a record within a shard set.",
+    "synonyms": [
+      "ShardId"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/shardtype.md",
+        "lines": "3-3",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Resilience strategy",
+    "definition": "The configured combination of retry and circuit-breaking policies used to recover from transient connection or command failures.",
+    "synonyms": [
+      "resilience policy"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "3-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

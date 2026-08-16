@@ -1,0 +1,37 @@
+{
+  "id": "blk-b6acf88135514bc8a9de98dbe5d42ca6",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Keep linear odd calculation (1x, 3x, 5x...) in code and update docs/enum name to match.",
+        "whyRejected": "Renaming the enum member from Fibonacci to LinearOdd would break public API compatibility, and docs explicitly specify true Fibonacci."
+      },
+      {
+        "option": "Keep 250 ms default in code and update resilience.md documentation to match.",
+        "whyRejected": "resilience.md default strategy table explicitly documents 256 ms as canonical."
+      }
+    ],
+    "consequences": "DataConnectionConfigurationBase and SimpleConnection now produce true Fibonacci retry backoff delays (1x, 1x, 2x, 3x, 5x, 8x, 13x...) and default to 256 ms, aligning code and documentation.",
+    "context": "DataConnectionConfigurationBase.cs computed (2n-1) * retryInterval (linear odd steps) under the default Fibonacci enum member, while resilience.md specified true Fibonacci (previous two combined). Separately, code used DefaultRetryInterval = 250 ms while resilience.md documented 256 ms.",
+    "decision": "Implement true Fibonacci sequence in code for SequenceLengthening.Fibonacci (1x, 1x, 2x, 3x, 5x, 8x...) and set DefaultRetryInterval to 256 ms in DataConnectionConfigurationBase and SimpleConnection.",
+    "status": "Accepted",
+    "title": "B2: Reconcile Fibonacci Retry Curve and RetryInterval Default"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "surveyor",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

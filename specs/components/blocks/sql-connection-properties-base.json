@@ -1,0 +1,40 @@
+{
+  "id": "sql-connection-properties-base",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlConnectionPropertiesBase",
+    "responsibility": "Owns the SqlConnectionPropertiesBase class (abstract) and the contract expressed by its Base SQL Server connection properties (ApplicationName, ConnectTimeout….",
+    "parent": "sql-configuration",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-data-connection-configuration-base"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "9-384",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

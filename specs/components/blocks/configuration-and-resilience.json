@@ -1,0 +1,34 @@
+{
+  "id": "configuration-and-resilience",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ConfigurationAndResilience",
+    "responsibility": "Holds shared connection-configuration contracts and public failure types because they define setup, retry, and execution failure boundaries.",
+    "parent": "argentsea",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "12-14",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

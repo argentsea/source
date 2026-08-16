@@ -1,0 +1,40 @@
+{
+  "id": "pg-db-connection-options",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgDbConnectionOptions",
+    "responsibility": "Owns the PgDbConnectionOptions class and the contract expressed by its 1 public property (DbConnections).",
+    "parent": "pg-database-facades",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-i-database-configuration-options"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "31-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

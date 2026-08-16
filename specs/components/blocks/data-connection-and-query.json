@@ -1,0 +1,34 @@
+{
+  "id": "data-connection-and-query",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "DataConnectionAndQuery",
+    "responsibility": "Holds provider-neutral non-sharded connection, query, parameter, result-handler, logging, and utility types used by database execution.",
+    "parent": "argentsea",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "16-23",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

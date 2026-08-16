@@ -1,0 +1,45 @@
+{
+  "id": "pg-shard-connection-options-pg-shard-connection-configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgShardConnectionOptions.PgShardConnectionConfiguration",
+    "responsibility": "Owns the PgShardConnectionOptions.PgShardConnectionConfiguration class and the contract expressed by its declared members.",
+    "parent": "pg-shard-connection-options",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "pg-connection-properties-base"
+      },
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-i-shard-connection-configuration"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "31-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

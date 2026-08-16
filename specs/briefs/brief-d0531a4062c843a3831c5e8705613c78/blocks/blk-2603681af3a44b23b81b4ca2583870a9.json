@@ -1,0 +1,24 @@
+{
+  "id": "blk-2603681af3a44b23b81b4ca2583870a9",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC3: An unset PostgreSQL connect timeout resolves to a documented, intentional value, and the SQL/PostgreSQL defaults are either equal or their difference is documented.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0002",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

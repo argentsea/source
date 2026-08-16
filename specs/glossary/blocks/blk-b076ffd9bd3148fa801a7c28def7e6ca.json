@@ -1,0 +1,35 @@
+{
+  "id": "blk-b076ffd9bd3148fa801a7c28def7e6ca",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Tenanting",
+    "definition": "Isolating each cloud customer's data in a distinct database.",
+    "synonyms": [
+      "tenant isolation"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Home/index.html",
+        "lines": "111-120",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

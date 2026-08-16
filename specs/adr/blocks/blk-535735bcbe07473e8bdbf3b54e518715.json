@@ -1,0 +1,51 @@
+{
+  "id": "blk-535735bcbe07473e8bdbf3b54e518715",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Keep SQL Server and PostgreSQL implementations separate within a project",
+    "decision": "Do not support combining the PostgreSQL and SQL Server implementations in one project; a model targets one provider.",
+    "context": "The Mapper must know which provider will execute created parameters and would otherwise encounter attributes for multiple providers; provider delegates would also have to be separated.",
+    "alternatives": [
+      {
+        "option": "Enable both provider implementations in one project.",
+        "whyRejected": "The documented review found the added Mapper ambiguity and delegate complexity exceed the potential value."
+      }
+    ],
+    "consequences": "Provider-specific behavior remains explicit and simpler; applications needing multiple providers must separate that work rather than mix providers in one project.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/documentation/faqs.md",
+        "lines": "11-15",
+        "label": "Provider-combination FAQ decision",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p7-shared-core-providers",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

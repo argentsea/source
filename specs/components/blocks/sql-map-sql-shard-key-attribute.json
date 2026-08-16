@@ -1,0 +1,40 @@
+{
+  "id": "sql-map-sql-shard-key-attribute",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "MapSqlShardKeyAttribute",
+    "responsibility": "Owns the MapSqlShardKeyAttribute class and the contract expressed by its 6 constructor overloads.",
+    "parent": "sql-mapping",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-map-shard-key-attribute"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "8-217",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

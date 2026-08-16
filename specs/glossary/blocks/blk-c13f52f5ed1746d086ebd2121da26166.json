@@ -1,0 +1,33 @@
+{
+  "id": "blk-c13f52f5ed1746d086ebd2121da26166",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Circuit breaker",
+    "definition": "A fail-fast resilience mechanism that, after its configured sequential failures, rejects subsequent connections immediately and periodically permits a recovery test.",
+    "synonyms": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "74-78",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

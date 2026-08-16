@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-persistence",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansSqlPersistence",
+    "responsibility": "Holds SQL-backed Orleans grain-storage factories and silo registration extensions.",
+    "parent": "orleans-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "1-9",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

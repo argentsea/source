@@ -1,0 +1,34 @@
+{
+  "id": "shared-mapper-dummy-type",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Mapper.DummyType",
+    "responsibility": "Owns the Mapper.DummyType nested declaration used as the mapper's public placeholder type.",
+    "parent": "shared-mapper",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "3981-3983",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

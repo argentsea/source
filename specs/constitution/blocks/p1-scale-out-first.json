@@ -1,0 +1,38 @@
+{
+  "id": "p1-scale-out-first",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "Design for scale-out and tenant isolation first",
+    "statement": "Treat data distribution as a first-class, day-one concern — never a feature bolted on later — in both of its forms: scale-out (sharding a large data set across servers) and tenant isolation (a distinct database store per cloud tenant). Both share the same machinery: make querying a shard set as simple as querying a single database, provide a global record identity (the ShardKey virtual compound key) where the engine no longer enforces one, and let applications be explicit about read vs. write connections from the start.",
+    "rationale": "Neither form can be retrofitted: sharding forces a careful rethink of the data model and data access (unique/foreign-key guarantees no longer come from the engine), and tenant isolation must be structural — a database boundary, not a WHERE clause — to reliably prevent cross-tenant query results and to enable per-tenant backups, SLAs, replication, and clean decommissioning. Scale-out underwrites cost-effective growth, active/active disaster recovery, regional latency, and data-residency compliance; tenanting underwrites consolidated infrastructure with per-customer guarantees, including multi-tenant Orleans behind a single cluster. ArgentSea exists precisely because it is the only .NET framework built for this — so being explicit about topology and read/write today makes later scaling a configuration change rather than a rewrite."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Reframed same day per operator direction: tenanting elevated to equal footing with scale-out (structural isolation, per-tenant data management, multi-tenant Orleans). Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/sharding.md",
+        "lines": null,
+        "label": "Sharding: scalability, DR, global availability, ShardSet & ShardKey"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/index.md",
+        "lines": null,
+        "label": "Overview — sharding challenges and virtual compound key"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmn",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

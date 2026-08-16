@@ -1,0 +1,60 @@
+{
+  "id": "blk-eeec7240b88c4bdab98d751c228daf28",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Keep SQL static, consolidated, and segregated from application binaries",
+    "decision": "Use static, parameterized SQL that is consolidated and kept separate from application binaries; discourage dynamic SQL generated from C# object models.",
+    "context": "Application code coupled to table and column implementation inhibits database changes and makes queries difficult to understand and improve as data changes.",
+    "alternatives": [
+      {
+        "option": "Generate dynamic SQL from a C# object model or compile SQL into application binaries.",
+        "whyRejected": "It adds SQL compilation and injection risks, obscures SQL for optimization, and tightly couples application code to database implementation details."
+      }
+    ],
+    "consequences": "Parameters and returned results remain the query contract while database implementation can be rewritten, partitioned, hinted, or otherwise optimized without breaking consumers; SQL experts can work on data-domain changes independently.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/querying.md",
+        "lines": "37-51",
+        "label": "Static, consolidated, segregated SQL rationale",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p4-loose-coupling",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

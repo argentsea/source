@@ -1,0 +1,34 @@
+{
+  "id": "sql-configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlConfiguration",
+    "responsibility": "Holds SQL Server connection properties, concrete connections, and global option types that share the SQL configuration base.",
+    "parent": "sql-server-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "1-8",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

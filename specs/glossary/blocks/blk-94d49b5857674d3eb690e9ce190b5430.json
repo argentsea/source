@@ -1,0 +1,36 @@
+{
+  "id": "blk-94d49b5857674d3eb690e9ce190b5430",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Configuration hierarchy",
+    "definition": "A hierarchy in which a setting may be supplied globally or at shard-set, database, or connection level, and a child inherits its parent setting unless it overrides it.",
+    "synonyms": [
+      "Hereditary Configuration Hierarchy",
+      "global settings"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/hierarchy.md",
+        "lines": "1-11",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

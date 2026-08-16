@@ -1,0 +1,34 @@
+{
+  "id": "sql-parameters",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlParameters",
+    "responsibility": "Holds SQL Server parameter collection and table-valued-parameter mapping helpers that collaborate on parameter materialization.",
+    "parent": "sql-server-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "15-19",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

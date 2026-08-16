@@ -1,0 +1,34 @@
+{
+  "id": "orleans-query-not-provided-exception",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansQueryNotProvidedException",
+    "responsibility": "Owns the OrleansQueryNotProvidedException class (sealed) and the contract expressed by its 3 constructor overloads.",
+    "parent": "orleans-exceptions",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansQueryNotProvidedException.cs",
+        "lines": "11-40",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

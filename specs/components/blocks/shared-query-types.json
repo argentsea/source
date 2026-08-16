@@ -1,0 +1,34 @@
+{
+  "id": "shared-query-types",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SharedQueryTypes",
+    "responsibility": "Holds query representations because the Query folder defines procedure and statement forms over the same provider-neutral query contract.",
+    "parent": "data-connection-and-query",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "1-7",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,35 @@
+{
+  "id": "blk-fe859b22ef8b4f1aa31d78df1d45860a",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Default shard",
+    "definition": "The shard selected as the destination for newly inserted records for a client context.",
+    "synonyms": [
+      "default shard destination"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "80-82",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

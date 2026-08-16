@@ -1,0 +1,34 @@
+{
+  "id": "pg-integration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgIntegration",
+    "responsibility": "Holds PostgreSQL provider factories, service registration, and logging hooks used to integrate the provider with applications.",
+    "parent": "postgresql-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "12-16",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

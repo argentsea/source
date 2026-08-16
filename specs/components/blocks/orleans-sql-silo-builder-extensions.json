@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-silo-builder-extensions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSeaSiloBuilderExtensions",
+    "responsibility": "Owns the ArgentSeaSiloBuilderExtensions class (static) and the contract expressed by its Extension methods for registering grain storage with SiloBuilder.",
+    "parent": "orleans-sql-persistence",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "10-56",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

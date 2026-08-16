@@ -1,0 +1,34 @@
+{
+  "id": "sql-server-provider",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlServerProvider",
+    "responsibility": "Holds SQL Server provider bindings for connection configuration, mapping, parameters, sharding, registration, and diagnostics.",
+    "parent": "argentsea",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "12-13",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

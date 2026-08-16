@@ -1,0 +1,41 @@
+{
+  "id": "shared-map-attribute-missing-exception",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "MapAttributeMissingException",
+    "responsibility": "Owns the MapAttributeMissingException class and the contract expressed by its 2 public properties (Element, AttributeName), 4 constructor overloads.",
+    "parent": "shared-exceptions",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "7-8",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "16-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

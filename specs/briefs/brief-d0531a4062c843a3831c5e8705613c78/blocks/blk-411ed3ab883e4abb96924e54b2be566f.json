@@ -1,0 +1,24 @@
+{
+  "id": "blk-411ed3ab883e4abb96924e54b2be566f",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC5: Each fix carries a test that fails before it and passes after.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0004",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

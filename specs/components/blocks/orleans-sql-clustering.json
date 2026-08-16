@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-clustering",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansSqlClustering",
+    "responsibility": "Holds SQL-backed Orleans clustering builders, gateway discovery, membership storage, and registration extensions.",
+    "parent": "orleans-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ClusteringExtensions.cs",
+        "lines": "1-7",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

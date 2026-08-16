@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-gateway-list-provider",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSeaGatewayListProvider",
+    "responsibility": "Owns the ArgentSeaGatewayListProvider class and the contract expressed by its 4 public methods implementing IGatewayListProvider.",
+    "parent": "orleans-sql-clustering",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "13-87",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

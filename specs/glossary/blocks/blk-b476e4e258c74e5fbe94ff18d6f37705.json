@@ -1,0 +1,35 @@
+{
+  "id": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Query contract",
+    "definition": "The defined boundary of parameters accepted and results returned by a query, allowing its database implementation to change without changing its consumers.",
+    "synonyms": [
+      "query interface"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/querying.md",
+        "lines": "26-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

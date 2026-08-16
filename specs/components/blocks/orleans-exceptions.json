@@ -1,0 +1,34 @@
+{
+  "id": "orleans-exceptions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansExceptions",
+    "responsibility": "Holds Orleans integration failures because the Exceptions folder defines persistence, key, and query error outcomes.",
+    "parent": "orleans-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/ArgentSeaGrainPersistenceException.cs",
+        "lines": "8-13",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

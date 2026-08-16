@@ -1,0 +1,34 @@
+{
+  "id": "shared-unexpected-null-exception",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "UnexpectedNullException",
+    "responsibility": "Owns the enumerated UnexpectedNullException declaration and its unexpected database-null failure contract.",
+    "parent": "shared-exceptions",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedNullException.cs",
+        "lines": "13-56",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

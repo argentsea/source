@@ -1,0 +1,35 @@
+{
+  "id": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Batch",
+    "definition": "A group of database commands that execute within one transaction on the same connection.",
+    "synonyms": [
+      "query batch"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/batches.md",
+        "lines": "1-5",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

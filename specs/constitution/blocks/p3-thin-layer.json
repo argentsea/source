@@ -1,0 +1,38 @@
+{
+  "id": "p3-thin-layer",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "Stay a thin, composable layer over ADO.NET",
+    "statement": "Remain a simple layer over ADO.NET, never a walled garden. Keep setting parameters, invoking queries, and collecting results as independent steps a developer can use, skip, or override individually — and always leave an escape hatch to raw ADO.NET for anything the framework doesn't cover.",
+    "rationale": "No framework anticipates every requirement. Because ArgentSea stays close to ADO.NET and keeps each step separable, a developer can handle a unique case directly (as they would without the framework) while still reusing the parts that help — create parameters with the Mapper but issue the command by hand, or drop an unwanted parameter after mapping. A capability gap therefore never becomes a dead end."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/documentation/faqs.md",
+        "lines": null,
+        "label": "FAQ — amend functionality via raw ADO.NET; separable parameter/query/result steps"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/index.md",
+        "lines": null,
+        "label": "Overview — built on ADO.NET; still use ADO.NET for capability gaps"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmp",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

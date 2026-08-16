@@ -1,0 +1,40 @@
+{
+  "id": "sql-map-to-sql-attribute-family",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "MapToSql*Attribute",
+    "responsibility": "Owns the Surveyor-merged SQL mapping attribute family whose subclasses vary mechanically by target SQL Server data type.",
+    "parent": "sql-mapping",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "sql-parameter-map-attribute"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "55-1325",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

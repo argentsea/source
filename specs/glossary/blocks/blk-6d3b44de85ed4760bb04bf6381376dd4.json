@@ -1,0 +1,35 @@
+{
+  "id": "blk-6d3b44de85ed4760bb04bf6381376dd4",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Read scale-out",
+    "definition": "Routing read-only traffic to separate replica or clone instances while write traffic remains on the write-capable endpoint.",
+    "synonyms": [
+      "read replica scale-out"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "118-118",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

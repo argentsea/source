@@ -1,0 +1,69 @@
+{
+  "id": "blk-f1e19bff96ac40b8b58438ac0af68788",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Leave database failover coordinated outside the client",
+    "decision": "Do not provide native automatic failover to a standby database server; permit callers to build failover by updating connection properties in the configuration hierarchy.",
+    "context": "High-availability and disaster-recovery approaches vary across DNS, provider configuration, and infrastructure coordination. A robust strategy cannot be assumed at an individual client.",
+    "alternatives": [
+      {
+        "option": "Have an individual ArgentSea client automatically fail over to a standby database.",
+        "whyRejected": "Business-continuity failover requires coordinated infrastructure signals; an uncoordinated client could make a rogue failover decision."
+      }
+    ],
+    "consequences": "ArgentSea remains compatible with high-availability and disaster-recovery solutions while avoiding an opinionated native policy; callers can select their own trigger and update endpoints or database names.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "80-89",
+        "label": "Failover boundary and configuration update capability",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p6-resilient-by-default",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

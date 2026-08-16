@@ -1,0 +1,24 @@
+{
+  "id": "blk-c9b75e12867f4489b40f08360f8e4130",
+  "specId": "brief-cfc629efa8834cd7b7a60281026af590",
+  "type": "Criterion",
+  "fields": {
+    "condition": "ShardKey identity carries at least one Behavioral, one concrete-valued Scenario and one Invariant covering external-string and binary round-trip, equality, and the shard-id/record-id/type-metadata composition — not merely an Interface contract.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0002",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

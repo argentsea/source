@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-reminders",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansSqlReminders",
+    "responsibility": "Holds SQL-backed Orleans reminder storage and silo registration extensions.",
+    "parent": "orleans-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
+        "lines": "8-13",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

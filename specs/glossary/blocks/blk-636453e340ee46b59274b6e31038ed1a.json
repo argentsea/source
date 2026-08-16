@@ -1,0 +1,35 @@
+{
+  "id": "blk-636453e340ee46b59274b6e31038ed1a",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Virtual compound key",
+    "definition": "A key that identifies a sharded record across a shard set by combining its shard identifier with its record identity and, where needed, subordinate identities.",
+    "synonyms": [
+      "shard key"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "14-14",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

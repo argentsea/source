@@ -1,0 +1,40 @@
+{
+  "id": "pg-shard-sets",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgShardSets",
+    "responsibility": "Owns the PgShardSets class and the contract expressed by its 1 constructor.",
+    "parent": "pg-sharding",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-shard-sets-base"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardSets.cs",
+        "lines": "14-24",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

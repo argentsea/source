@@ -1,0 +1,23 @@
+{
+  "id": "note-667655ae749d4fd7878824bd10ab45c4",
+  "specId": "adr",
+  "type": "Note",
+  "fields": {
+    "body": "Corpus reset 2026-08-13 (operator-approved). Every descriptive block was deleted from behavior, interfaces, schemas, invariants, glossary, components and adr — 162 blocks — leaving the 8 ImportedFromDocs constitution blocks as the only committed content.\n\nNote on this document specifically: before the reset the adr spec held ZERO actual ADR blocks — its only content was a Note from the 2026-07-31 reset. ArgentSea has never had a recorded architecture decision in the corpus. Spec Builder 0 should harvest ADRs from the project's documentation and git history; an empty adr spec after that run is a finding, not a default.\n\nThe corpus will be rebuilt by the staged Spec Builder pipeline (agentic brief-c25ba6f985cc4f92a9ff3e337bc33e83). A full copy of the pre-reset folder is at G:/Git/ArgentSea/specs-backup-2026-08-13.\n\nThis spec is intentionally EMPTY, not un-surveyed — a census should read it as a deliberate reset, not as greenfield."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": null,
+    "packId": null
+  },
+  "references": [],
+  "evidenceLinks": []
+}

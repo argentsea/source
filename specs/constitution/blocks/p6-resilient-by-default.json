@@ -1,0 +1,32 @@
+{
+  "id": "p6-resilient-by-default",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "Be resilient by default, and never hide it",
+    "statement": "Recover gracefully from transient failures out of the box: automatic retries (with configurable count, interval, and lengthening curve) plus circuit breaking, provided via Polly, with sensible defaults that apply unless overridden anywhere in the configuration hierarchy. Retries and breaker trips must always be logged.",
+    "rationale": "Business-critical applications must survive transient network and database hiccups, and an unbounded backlog of stalled connections can cascade into total system failure — hence fail-fast circuit breaking that reopens automatically once a server recovers. Resilience that happens silently robs operators of vital diagnostics, so ArgentSea deliberately disables the provider's own hidden retry logic in favor of its own logged behavior. ArgentSea makes failover easy to build but stays unopinionated about it, since robust failover must be coordinated at the infrastructure level, not decided by a rogue client."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": null,
+        "label": "Resilience strategies — retries, circuit breaking, logged behavior, failover stance"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmms",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

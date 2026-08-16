@@ -1,0 +1,40 @@
+{
+  "id": "sql-parameter-map-attribute",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlParameterMapAttribute",
+    "responsibility": "Owns the SqlParameterMapAttribute class (abstract) and the contract expressed by its Abstract base class for SQL Server parameter attributes.",
+    "parent": "sql-mapping",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-parameter-map-attribute-base"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "23-49",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

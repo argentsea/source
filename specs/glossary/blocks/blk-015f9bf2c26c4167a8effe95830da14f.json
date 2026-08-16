@@ -1,0 +1,35 @@
+{
+  "id": "blk-015f9bf2c26c4167a8effe95830da14f",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard set",
+    "definition": "A collection of databases with essentially identical schemas, each containing a segment of a dataset; one system may use more than one independent partition plan.",
+    "synonyms": [
+      "shardset"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "1-5",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,34 @@
+{
+  "id": "pg-mapping",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "PgMapping",
+    "responsibility": "Holds PostgreSQL mapping attributes and binary-copy mapping because they share model-mapping collaborators and PostgreSQL type semantics.",
+    "parent": "postgresql-provider",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "15-22",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

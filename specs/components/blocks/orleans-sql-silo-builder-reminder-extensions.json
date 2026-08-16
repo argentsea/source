@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-silo-builder-reminder-extensions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SiloBuilderReminderExtensions",
+    "responsibility": "Owns the SiloBuilderReminderExtensions class (static) and the contract expressed by its Extension methods for registering reminder service with SiloBuilder.",
+    "parent": "orleans-sql-reminders",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/SiloBuilderReminderExtensions.cs",
+        "lines": "6-47",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

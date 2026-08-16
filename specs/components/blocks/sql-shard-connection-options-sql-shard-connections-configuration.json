@@ -1,0 +1,45 @@
+{
+  "id": "sql-shard-connection-options-sql-shard-connections-configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SqlShardConnectionOptions.SqlShardConnectionsConfiguration",
+    "responsibility": "Owns the SqlShardConnectionOptions.SqlShardConnectionsConfiguration class and the contract expressed by its declared members.",
+    "parent": "sql-shard-connection-options",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "sql-connection-properties-base"
+      },
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-i-shard-set-connections-configuration"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardConnectionOptions.cs",
+        "lines": "18-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

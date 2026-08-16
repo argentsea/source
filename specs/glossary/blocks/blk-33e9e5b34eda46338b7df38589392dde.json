@@ -1,0 +1,36 @@
+{
+  "id": "blk-33e9e5b34eda46338b7df38589392dde",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Read/write connection pair",
+    "definition": "Optional distinct connection endpoints for read traffic and write traffic; when not separately supplied, both inherit the parent connection settings.",
+    "synonyms": [
+      "read connection",
+      "write connection"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/hierarchy.md",
+        "lines": "141-143",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

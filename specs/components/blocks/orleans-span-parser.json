@@ -1,0 +1,34 @@
+{
+  "id": "orleans-span-parser",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SpanParser",
+    "responsibility": "Owns the SpanParser class (static) and the contract expressed by its Span and ReadOnlySpan parsing extension methods for Orleans primary key string conversions.",
+    "parent": "orleans-extensions",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "20-474",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

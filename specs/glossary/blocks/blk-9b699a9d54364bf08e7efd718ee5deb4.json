@@ -1,0 +1,35 @@
+{
+  "id": "blk-9b699a9d54364bf08e7efd718ee5deb4",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Two-phase query execution",
+    "definition": "The query organization that separates single-threaded parameter setup from result construction that may run on multiple threads.",
+    "synonyms": [
+      "ArgentSea Query Paradigm"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sequence.md",
+        "lines": "29-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

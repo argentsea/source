@@ -1,0 +1,40 @@
+{
+  "id": "pg-map-pg-shard-key-attribute",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "MapPgShardKeyAttribute",
+    "responsibility": "Owns the MapPgShardKeyAttribute class and the contract expressed by its 6 constructor overloads.",
+    "parent": "pg-mapping",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-map-shard-key-attribute"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "8-215",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

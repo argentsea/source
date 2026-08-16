@@ -1,0 +1,24 @@
+{
+  "id": "blk-28e1cc5b22d84057a779ce48f6ce2e52",
+  "specId": "brief-d0531a4062c843a3831c5e8705613c78",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC4: No CancellationTokenSource in ShardSet.cs is created without being consumed, and every CancellationTokenSource is disposed; where cancellation is intended, cancelling it demonstrably abandons the in-flight per-shard queries.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0003",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

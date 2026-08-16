@@ -1,0 +1,69 @@
+{
+  "id": "blk-9c60b6576e70453aa5440391c60db0a6",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Fix ShardId as a 16-bit integer",
+    "decision": "Use a 16-bit integer (Int16/short) for every ShardId rather than a generic ShardId type.",
+    "context": "Earlier releases allowed the shard identifier to use a generic type such as string, byte, or Guid. Within a project that type could not change, yet consumers had to repeatedly declare it.",
+    "alternatives": [
+      {
+        "option": "Keep a generic ShardId type.",
+        "whyRejected": "It produced a verbose, unnecessarily complex object model and redundant client code without a per-project flexibility benefit."
+      }
+    ],
+    "consequences": "Shard identifiers are compact in storage and memory while theoretically supporting more than 65,000 shards; the consuming object model is simpler.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "34-40",
+        "label": "ShardId design history",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p1-scale-out-first",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

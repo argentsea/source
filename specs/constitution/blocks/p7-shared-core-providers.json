@@ -1,0 +1,38 @@
+{
+  "id": "p7-shared-core-providers",
+  "specId": "constitution",
+  "type": "Principle",
+  "fields": {
+    "title": "One shared core, thin provider-specific packages",
+    "statement": "Concentrate the framework's logic in a shared core and expose it through thin, provider-specific packages (ArgentSea.Sql for SQL Server, ArgentSea.Pg for PostgreSQL). Support each provider fully on its own terms and keep dependencies minimal; a single model class targets exactly one provider, not several at once.",
+    "rationale": "Most behavior is provider-agnostic and belongs in one place; only the ADO.NET-specific bindings (SqlClient, Npgsql) differ, which is why the two packages both install a shared core and split into `ArgentSea` versus `ArgentSea.Sql`/`ArgentSea.Pg` namespaces. Mixing providers within one model would force the Mapper to guess which provider will execute its parameters and would multiply the per-provider delegate machinery — complexity that a review found exceeds its value. Separate projects or microservices are the clean answer when an application must reach multiple providers."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "ImportedFromDocs",
+    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/setup.md",
+        "lines": null,
+        "label": "Setup — shared package, two provider namespaces, minimal dependencies, one provider per model"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/documentation/faqs.md",
+        "lines": null,
+        "label": "FAQ — why PostgreSQL and SQL Server cannot be combined in one project"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmt",
+    "sectionId": "principles",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

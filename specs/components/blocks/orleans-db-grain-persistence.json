@@ -1,0 +1,34 @@
+{
+  "id": "orleans-db-grain-persistence",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSeaDbGrainPersistence<TDatabaseOptions>",
+    "responsibility": "Owns the ArgentSeaDbGrainPersistence<TDatabaseOptions> class and the contract expressed by its 3 public methods implementing IGrainStorage (ReadStateAs….",
+    "parent": "orleans-grain-persistence",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "23-184",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

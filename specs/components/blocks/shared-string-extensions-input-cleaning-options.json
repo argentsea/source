@@ -1,0 +1,34 @@
+{
+  "id": "shared-string-extensions-input-cleaning-options",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "StringExtensions.InputCleaningOptions",
+    "responsibility": "Owns the StringExtensions.InputCleaningOptions enum and the contract expressed by its 3 enum flags (CleanAll, AllowEmojis, AllowMultiline).",
+    "parent": "shared-string-extensions",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "18-31",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

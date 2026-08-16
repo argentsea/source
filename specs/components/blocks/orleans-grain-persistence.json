@@ -1,0 +1,34 @@
+{
+  "id": "orleans-grain-persistence",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansGrainPersistence",
+    "responsibility": "Holds grain-storage implementations, options, validators, activators, and query definitions that implement database-backed grain persistence.",
+    "parent": "orleans-integration",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/IActivator.cs",
+        "lines": "10-14",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

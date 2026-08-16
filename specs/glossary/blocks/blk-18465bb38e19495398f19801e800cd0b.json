@@ -1,0 +1,35 @@
+{
+  "id": "blk-18465bb38e19495398f19801e800cd0b",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Retry backoff",
+    "definition": "The policy that determines how long later retry attempts wait after transient failures, including whether the wait lengthens between attempts.",
+    "synonyms": [
+      "retry sequence lengthening"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "22-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

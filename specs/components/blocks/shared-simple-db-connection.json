@@ -1,0 +1,40 @@
+{
+  "id": "shared-simple-db-connection",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SimpleDbConnection",
+    "responsibility": "Owns the SimpleDbConnection class and the contract expressed by its 10 public members (7 properties, 3 methods).",
+    "parent": "data-connection-and-query",
+    "inherits": [
+      {
+        "kind": "spec",
+        "specId": "components",
+        "blockId": "shared-i-data-connection"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/SimpleConnection.cs",
+        "lines": "11-67",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

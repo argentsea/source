@@ -1,0 +1,41 @@
+{
+  "id": "shared-mapper",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Mapper",
+    "responsibility": "Owns the Mapper class (static) and the contract expressed by its Public static mapping methods (CreateInputParameters, SetOutputParameters, ReadOutputParameters, MapToModel overloads).",
+    "parent": "attribute-mapping",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "24-3980",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "3984-3984",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

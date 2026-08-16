@@ -1,0 +1,78 @@
+{
+  "id": "blk-bb4276873b3d442798e5ca95b2d28a2f",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Provide built-in compound-key support for sharded record identity",
+    "decision": "Provide the ShardKey virtual compound key that combines a shard connection key with a record key to identify and route a record in a shard set.",
+    "context": "A record key alone is not unique across multiple databases, and a dispatcher must know the target connection for a record.",
+    "alternatives": [
+      {
+        "option": "Assign each database a distinct identity range.",
+        "whyRejected": "That approach requires client and server range configuration, makes mistakes more likely and hard to correct, and requires the dispatcher to know every range."
+      }
+    ],
+    "consequences": "The target shard is encoded in the key and database servers need not carry separate identity ranges; combining or splitting shards can be more complicated. ArgentSea still works with either overall identity design.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "3-10",
+        "label": "ShardKey identity alternatives",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p1-scale-out-first",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

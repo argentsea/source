@@ -1,0 +1,35 @@
+{
+  "id": "blk-d527344991cf4b07adc892ff766a405f",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Sharding",
+    "definition": "Partitioning a dataset across multiple database servers so that each server owns a segment of the data.",
+    "synonyms": [
+      "data sharding"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/sharding.md",
+        "lines": "3-5",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

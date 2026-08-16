@@ -1,0 +1,34 @@
+{
+  "id": "orleans-shard-query-definitions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "OrleansShardQueryDefinitions",
+    "responsibility": "Owns the OrleansShardQueryDefinitions struct and the contract expressed by its Query definition struct members and static factory methods for sharded persistence queries.",
+    "parent": "orleans-grain-persistence",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "161-291",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

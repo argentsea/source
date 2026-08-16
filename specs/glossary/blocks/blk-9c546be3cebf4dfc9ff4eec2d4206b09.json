@@ -1,0 +1,35 @@
+{
+  "id": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "External key",
+    "definition": "A URL-safe, tamper-resistant serialized representation of a virtual compound key for use outside the application boundary.",
+    "synonyms": [
+      "external identifier"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": null,
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

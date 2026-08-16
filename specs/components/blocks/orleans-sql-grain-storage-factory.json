@@ -1,0 +1,34 @@
+{
+  "id": "orleans-sql-grain-storage-factory",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSeaGrainStorageFactory",
+    "responsibility": "Owns the ArgentSeaGrainStorageFactory class (static) and the contract expressed by its 2 public static factory methods (CreateDb, CreateShards).",
+    "parent": "orleans-sql-persistence",
+    "inherits": []
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "10-29",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,24 @@
+{
+  "id": "blk-55423c1783ac42d185f0998e7c5ddbec",
+  "specId": "brief-cfc629efa8834cd7b7a60281026af590",
+  "type": "Criterion",
+  "fields": {
+    "condition": "Service registration (SqlServiceBuilderExtensions, PgServiceBuilderExtensions) and the connection-options binding path have Interface and Schema blocks, so a consumer's bootstrap path is specified.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0004",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
