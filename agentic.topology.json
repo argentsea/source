@@ -6,13 +6,5 @@
       "workingDirectory": "."
     }
   ],
-  "dependencies": [
-    {
-      "consumer": "argentsea",
-      "provider": "agentic",
-      "grants": [
-        "specs"
-      ]
-    }
-  ]
+  "dependencies": []
 }
