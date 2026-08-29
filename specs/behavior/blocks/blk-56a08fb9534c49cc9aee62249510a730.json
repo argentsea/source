@@ -1,0 +1,61 @@
+{
+  "id": "blk-56a08fb9534c49cc9aee62249510a730",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgConnectionConfiguration",
+    "trigger": "a caller reads ConnectionDescription before a connection string has been generated",
+    "response": "resolve Database and Host through the Configuration hierarchy in the order global, shard set, read/write, shard, then local, and return \"database {Database} on server {Host}\""
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "319-365",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-e01e74190009483f90b1ef64b92e45db",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-192c2f136e7a42cdbd93d8ed1fd79ee2",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

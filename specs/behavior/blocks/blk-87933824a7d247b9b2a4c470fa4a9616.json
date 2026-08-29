@@ -1,0 +1,53 @@
+{
+  "id": "blk-87933824a7d247b9b2a4c470fa4a9616",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "DatabasesBase<TConfiguration>.Database is constructed from a read/write connection pair with no read endpoint and a write endpoint named W.",
+      "when": "its Read and Write properties are obtained.",
+      "then": "both properties are DataConnection handles configured with endpoint W."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-5d4f7991c3214198883eb97f8b715002"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "86-107",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base-database",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

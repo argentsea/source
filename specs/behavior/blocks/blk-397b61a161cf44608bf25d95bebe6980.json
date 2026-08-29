@@ -1,0 +1,62 @@
+{
+  "id": "blk-397b61a161cf44608bf25d95bebe6980",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a service provider resolves a distinct OrleansShardPersistenceOptions value for provider name \"catalog-shards\", along with the required shard-set and cluster services",
+      "when": "ArgentSeaGrainStorageFactory.CreateShards is called with that service provider and \"catalog-shards\"",
+      "then": "the returned IGrainStorage is constructed as sharded persistence with the options resolved for \"catalog-shards\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b7039682f75745e3871e492698af0dd1"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-sql-grain-storage-factory'. Content is grounded in ArgentSeaGrainStorageFactory.cs:21-27 and falsifiable, but without sectionId set to committed component block ID 'orleans-sql-grain-storage-factory' (e.g. 'spec:components/orleans-sql-grain-storage-factory'), read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "21-27",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-grain-storage-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b7039682f75745e3871e492698af0dd1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-d527344991cf4b07adc892ff766a405f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

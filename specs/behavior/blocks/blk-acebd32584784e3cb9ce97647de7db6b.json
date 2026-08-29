@@ -1,0 +1,44 @@
+{
+  "id": "blk-acebd32584784e3cb9ce97647de7db6b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "QueryProcedure",
+    "where": "a consumer uses the query contract",
+    "trigger": "the consumer reads Type",
+    "response": "return System.Data.CommandType.StoredProcedure"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryProcedure.cs",
+        "lines": "21",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-procedure",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

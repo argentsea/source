@@ -1,0 +1,44 @@
+{
+  "id": "blk-ead57f0f7da642f1850f13e02fc6f74d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlServerProvider.DataProviderServiceFactory provider-neutral execution surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Provides SQL Server-specific resources to provider-neutral execution callers. NewConnection returns a SQL Server database connection initialized from the supplied connection string. NewCommand returns a SQL Server command bound to the supplied SQL Server connection and named by the supplied stored-procedure string. SetParameters populates a destination command from SQL Server source parameters: it copies every source parameter when no query parameter names are supplied, or copies only requested names after SQL parameter-name normalization; supplied values replace copied values only for matching parameter names."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "105-202",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

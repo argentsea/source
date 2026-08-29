@@ -1,0 +1,69 @@
+{
+  "id": "blk-1b9b1b387fab4da2b441435c71c49d54",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A four-part virtual compound key has shard identifier 1, record identifier 6, child identifier 7, grandchild identifier 8, and great-grandchild identifier \"9\"; its ToArray() bytes are retained by ShardKeys.GhostShardKey.",
+      "when": "GetInstance is invoked.",
+      "then": "The returned virtual compound key has the same text as the source four-part key."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-2b260aa4b2a544ffb697e711413eddf8"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "29-64,95-104",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/ShardSerializationTests.cs",
+        "lines": "110-115",
+        "label": null,
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-keys-ghost-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

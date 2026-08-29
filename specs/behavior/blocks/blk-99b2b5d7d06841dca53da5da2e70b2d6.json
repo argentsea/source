@@ -1,0 +1,62 @@
+{
+  "id": "blk-99b2b5d7d06841dca53da5da2e70b2d6",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an OrleansShardQueryDefinitions value constructed with grain type \"OrderGrain\", eager QueryProcedure instances read, write, and clear, and result format format",
+      "when": "a consumer reads ReadQuery, WriteQuery, ClearQuery, GrainType, and ResultFormat",
+      "then": "the properties return the same read, write, and clear instances, \"OrderGrain\", and format respectively"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-f4ca7618f59f45eda1eb6588177965c0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-query-definitions'. Grounded in OrleansQueryDefinitions.cs:176-290 and falsifiable scenario block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "176-185,273-290",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-f4ca7618f59f45eda1eb6588177965c0",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

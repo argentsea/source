@@ -1,0 +1,61 @@
+{
+  "id": "blk-9ee50cdec49c47d4840beb945cd1015a",
+  "specId": "behavior",
+  "type": "Example",
+  "fields": {
+    "narrative": "A query contract with an input parameter \"name\" and nullable result property Status first builds one add expression for \"name\" when it is not ignored. It resolves a returned column called \"STATUS\" through case-insensitive field lookup; if the resolved column contains DBNull, the generated reader expression sets Status to null. A second build for \"name\" using the same parameter-name set adds no duplicate parameter expression.",
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-1ad7e1657ba540d0b0c4f26504453189"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-81272a256dda480ea83d7417c3f74d97"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-a4e5d704d059402183a36ee6efa79939"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "23-163, 301-355, 552-579",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

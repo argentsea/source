@@ -1,0 +1,188 @@
+{
+  "id": "blk-6d0dfdad34f9467db4ae1002f3d4a997",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlConnectionPropertiesBase SQL Server connection-property values",
+    "description": "The independently optional SQL Server connection attributes carried by SqlConnectionPropertiesBase.",
+    "members": [
+      {
+        "name": "ApplicationIntent",
+        "type": "union<enum<ApplicationIntent>|null>",
+        "required": false,
+        "description": "Availability-group workload type."
+      },
+      {
+        "name": "ApplicationName",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "Application name supplied during connection initiation."
+      },
+      {
+        "name": "ConnectTimeout",
+        "type": "union<int|null>",
+        "required": false,
+        "description": "Seconds to wait for a server connection attempt before it terminates."
+      },
+      {
+        "name": "CurrentLanguage",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "SQL Server language record name."
+      },
+      {
+        "name": "DataSource",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "SQL Server instance name or network address."
+      },
+      {
+        "name": "Encrypt",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether client-server traffic requests SSL encryption."
+      },
+      {
+        "name": "FailoverPartner",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "Partner server name or address used when the primary server is down."
+      },
+      {
+        "name": "InitialCatalog",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "Database associated with the connection."
+      },
+      {
+        "name": "LoadBalanceTimeout",
+        "type": "union<int|null>",
+        "required": false,
+        "description": "Minimum seconds that a pooled connection remains alive before destruction."
+      },
+      {
+        "name": "MaxPoolSize",
+        "type": "union<int|null>",
+        "required": false,
+        "description": "Maximum connections allowed in this connection string's pool."
+      },
+      {
+        "name": "MinPoolSize",
+        "type": "union<int|null>",
+        "required": false,
+        "description": "Minimum connections allowed in this connection string's pool."
+      },
+      {
+        "name": "MultipleActiveResultSets",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether a connection permits more than one active result set."
+      },
+      {
+        "name": "MultiSubnetFailover",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether availability-group connection detection uses multi-subnet failover."
+      },
+      {
+        "name": "PacketSize",
+        "type": "union<int|null>",
+        "required": false,
+        "description": "Network packet size in bytes."
+      },
+      {
+        "name": "PersistSecurityInfo",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether security-sensitive connection information remains returnable after the connection is opened."
+      },
+      {
+        "name": "Pooling",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether requested connections are pooled rather than explicitly opened each time."
+      },
+      {
+        "name": "Replication",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether the connection supports replication."
+      },
+      {
+        "name": "TransactionBinding",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "How the connection associates with an enlisted System.Transactions transaction."
+      },
+      {
+        "name": "TrustServerCertificate",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether an encrypted channel bypasses certificate-chain trust validation."
+      },
+      {
+        "name": "TypeSystemVersion",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "Type system expected by the application."
+      },
+      {
+        "name": "UserInstance",
+        "type": "union<bit|null>",
+        "required": false,
+        "description": "Whether SQL Server Express redirects to a caller-owned runtime instance."
+      },
+      {
+        "name": "WorkstationID",
+        "type": "union<nvarchar(max)|null>",
+        "required": false,
+        "description": "Workstation name supplied to SQL Server."
+      }
+    ],
+    "representations": {
+      "CSharp": "Nullable value types and nullable strings exposed as public properties on SqlConnectionPropertiesBase."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "9-384",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-properties-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-bcf40cddec984e70be95a1fe48b962e0",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-20a3c21c08874a558b97d494d6f15b24",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

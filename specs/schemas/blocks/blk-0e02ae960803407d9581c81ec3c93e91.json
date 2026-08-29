@@ -1,0 +1,86 @@
+{
+  "id": "blk-0e02ae960803407d9581c81ec3c93e91",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgParameterCollectionExtensions parameter-family matrix",
+    "description": "The selectable parameter shape created by PgParameterCollectionExtensions for a Query contract.",
+    "members": [
+      {
+        "name": "postgresqlType",
+        "type": "enum<Varchar|Char|Text|Bigint|Integer|Smallint|InternalChar|Boolean|Numeric|Money|Double|Real|Timestamp|TimestampTz|Date|Time|Interval|TimeTz|Array|Bytea|Hstore|Uuid>",
+        "required": true,
+        "description": "The named PostgreSQL type selected by the AddPg*Parameter member."
+      },
+      {
+        "name": "direction",
+        "type": "enum<Input|Output>",
+        "required": true,
+        "description": "Whether the member sends a supplied value or reserves a returned value."
+      },
+      {
+        "name": "value",
+        "type": "union<string|bigint|int|smallint|tinyint|bit|decimal|float|real|datetime2|datetimeoffset|time|array|varbinary|object|uniqueidentifier|DBNull>",
+        "required": false,
+        "description": "Input value; nullable and reference inputs map an absent value to database null."
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "required": false,
+        "description": "Declared size for Varchar, Char, or sized Bytea members."
+      },
+      {
+        "name": "precision",
+        "type": "tinyint",
+        "required": false,
+        "description": "Numeric precision for Numeric members."
+      },
+      {
+        "name": "scale",
+        "type": "tinyint",
+        "required": false,
+        "description": "Numeric scale for Numeric members."
+      },
+      {
+        "name": "arrayElementType",
+        "type": "enum<Varchar|Char|Text|Bigint|Integer|Smallint|InternalChar|Boolean|Numeric|Money|Double|Real|Timestamp|TimestampTz|Date|Time|Interval|TimeTz|Bytea|Hstore|Uuid>",
+        "required": false,
+        "description": "Element type required by Array members."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "19-1356",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

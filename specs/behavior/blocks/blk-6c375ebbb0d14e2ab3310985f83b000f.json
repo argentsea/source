@@ -1,0 +1,92 @@
+{
+  "id": "blk-6c375ebbb0d14e2ab3310985f83b000f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "ShardKey<int, short, byte, string>(3, 2, 77, 9, \"X\") is a virtual compound key.",
+      "when": "Its ToString representation is requested.",
+      "then": "The representation includes shard identifier 3 and the identity values 2, 77, 9, and \"X\" in their record-to-great-grandchild order."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-a6ac290717d948e1b37f0596ad60af4e"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "14-457",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardChild.cs",
+        "lines": "18-514",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGrandChild.cs",
+        "lines": "18-561",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGreatGrandChild.cs",
+        "lines": "18-605",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-a6ac290717d948e1b37f0596ad60af4e",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

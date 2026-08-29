@@ -1,0 +1,162 @@
+{
+  "id": "blk-12ba6c965cca4c08983142307c8543fc",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "MapToSql*Attribute target-type matrix",
+    "description": "The target SQL Server type and accepted CLR property-shape dimensions for the MapToSql*Attribute family.",
+    "members": [
+      {
+        "name": "NVarChar",
+        "type": "nvarchar(n)",
+        "description": "string, enum, nullable enum; length -1 selects nvarchar(max)"
+      },
+      {
+        "name": "NChar",
+        "type": "nchar(n)",
+        "description": "string, enum, nullable enum; length"
+      },
+      {
+        "name": "VarChar",
+        "type": "varchar(n)",
+        "description": "string, enum, nullable enum; length -1 selects varchar(max), and localeId"
+      },
+      {
+        "name": "Char",
+        "type": "char(n)",
+        "description": "string, enum, nullable enum; length and localeId"
+      },
+      {
+        "name": "BigInt",
+        "type": "bigint",
+        "description": "long"
+      },
+      {
+        "name": "Int",
+        "type": "int",
+        "description": "int"
+      },
+      {
+        "name": "SmallInt",
+        "type": "smallint",
+        "description": "short"
+      },
+      {
+        "name": "TinyInt",
+        "type": "tinyint",
+        "description": "byte"
+      },
+      {
+        "name": "Bit",
+        "type": "bit",
+        "description": "bool or nullable bool"
+      },
+      {
+        "name": "Decimal",
+        "type": "decimal(p,s)",
+        "description": "decimal or nullable decimal; precision and scale"
+      },
+      {
+        "name": "Money",
+        "type": "money",
+        "description": "decimal or nullable decimal"
+      },
+      {
+        "name": "SmallMoney",
+        "type": "smallmoney",
+        "description": "decimal or nullable decimal"
+      },
+      {
+        "name": "Float",
+        "type": "float",
+        "description": "double or nullable double"
+      },
+      {
+        "name": "Real",
+        "type": "real",
+        "description": "float or nullable float"
+      },
+      {
+        "name": "DateTime",
+        "type": "datetime",
+        "description": "DateTime or nullable DateTime"
+      },
+      {
+        "name": "DateTime2",
+        "type": "datetime2",
+        "description": "DateTime or nullable DateTime"
+      },
+      {
+        "name": "Date",
+        "type": "date",
+        "description": "DateOnly or nullable DateOnly"
+      },
+      {
+        "name": "Time",
+        "type": "time",
+        "description": "TimeSpan, TimeOnly, or nullable form"
+      },
+      {
+        "name": "DateTimeOffset",
+        "type": "datetimeoffset",
+        "description": "DateTimeOffset or nullable DateTimeOffset"
+      },
+      {
+        "name": "VarBinary",
+        "type": "varbinary(n)",
+        "description": "byte[], ReadOnlySpan<byte>, ReadOnlyMemory<byte>, Span<byte>, or Memory<byte>; length -1 selects varbinary(max)"
+      },
+      {
+        "name": "Binary",
+        "type": "binary(n)",
+        "description": "byte[]; length"
+      },
+      {
+        "name": "UniqueIdentifier",
+        "type": "uniqueidentifier",
+        "description": "Guid or nullable Guid"
+      },
+      {
+        "name": "Json",
+        "type": "json",
+        "description": "JsonDocument"
+      }
+    ],
+    "representations": {
+      "C#": "Each member is realized by a MapToSql<member>Attribute subclass."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "55-1325",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-map-to-sql-attribute-family",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "sql-parameter-map-attribute",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

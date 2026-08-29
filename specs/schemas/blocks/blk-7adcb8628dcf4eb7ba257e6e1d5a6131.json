@@ -1,0 +1,95 @@
+{
+  "id": "blk-7adcb8628dcf4eb7ba257e6e1d5a6131",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlParameterCollectionExtensions scalar SQL parameter mapping",
+    "description": "The scalar parameter shape emitted by SqlParameterCollectionExtensions; its members state the variation dimensions shared by the input and output helper family.",
+    "members": [
+      {
+        "name": "parameterName",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "SQL Server parameter name, normalized to begin with @."
+      },
+      {
+        "name": "sqlType",
+        "type": "enum<nvarchar|nchar|varchar|char|bigint|int|smallint|tinyint|float|real|bit|decimal|money|smallmoney|date|datetime|datetime2|time|datetimeoffset|uniqueidentifier|varbinary|binary|json>",
+        "required": true,
+        "description": "Requested SQL Server type."
+      },
+      {
+        "name": "direction",
+        "type": "enum<input|output>",
+        "required": true,
+        "description": "Whether the parameter supplies or receives a query-contract value."
+      },
+      {
+        "name": "value",
+        "type": "union<string|bigint|int|smallint|tinyint|float|real|bit|decimal|date|datetime|time|datetimeoffset|uniqueidentifier|varbinary|json>",
+        "required": false,
+        "description": "Input value; absent for output parameters and represented as database null for the nullable cases supported by the family."
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "required": false,
+        "description": "Declared character or binary size for NVarChar, NChar, VarChar, Char, VarBinary, and Binary."
+      },
+      {
+        "name": "localeId",
+        "type": "int",
+        "required": false,
+        "description": "ANSI locale for VarChar and Char."
+      },
+      {
+        "name": "precision",
+        "type": "tinyint",
+        "required": false,
+        "description": "Decimal precision."
+      },
+      {
+        "name": "scale",
+        "type": "tinyint",
+        "required": false,
+        "description": "Decimal scale."
+      }
+    ],
+    "representations": {
+      "csharp": "SqlParameter with SqlDbType, ParameterDirection, Value, and the applicable size, LocaleId, Precision, or Scale."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "51-1117",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

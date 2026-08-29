@@ -1,0 +1,71 @@
+{
+  "id": "blk-aced36156609442283540c1ed93448a2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardSetsBase<TConfiguration>.ShardSetReadAll QueryAsync family",
+    "kind": "Library",
+    "contract": "Executes a query contract across every shard in a shard set, or across the shards named by supplied shard-specific values. A caller-provided thread-safe handler converts each shard result to TModel; the completed task yields the combined non-null TModel results. Generic variants may pass a TArg context object to that handler.",
+    "language": "text"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetReadAll.cs",
+        "lines": "33-145",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base-shard-set-read-all",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

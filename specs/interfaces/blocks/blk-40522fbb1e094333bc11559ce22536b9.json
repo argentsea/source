@@ -1,0 +1,53 @@
+{
+  "id": "blk-40522fbb1e094333bc11559ce22536b9",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansShardPersistenceOptions",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "OrleansShardPersistenceOptions is a mutable options surface for sharded Orleans persistence. A caller may create it empty or supply a shard-set key and a list of query definitions; the supplied key is retained and the definitions are exposed through the Queries lookup by each definition's GrainType."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-persistence-options'. Grounded in OrleansShardPersistenceOptions.cs:13-54 and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "13-54",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-persistence-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,34 @@
+{
+  "id": "blk-e2ecccf4af964c5abb42137a3429257a",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> MapOutputAsync family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "For a supplied model instance and Query contract, MapOutputAsync returns that model populated from output parameters and zero to eight reader result sets. Variants choose the reader-result type sequence and optionally bind a named parameter to the endpoint's current shard identifier."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "658-1409",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,58 @@
+{
+  "id": "blk-10a87b096ba148f995c4a86656e6f08f",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "QueryResultFormat",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "QueryResultFormat is the query-contract selection for an Orleans grain read: ResultSet selects mapping returned rows into the grain state, while OutputArgs selects mapping stored-procedure output arguments into that state."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "16-21",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "82-89",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "108-115",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-query-result-format",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

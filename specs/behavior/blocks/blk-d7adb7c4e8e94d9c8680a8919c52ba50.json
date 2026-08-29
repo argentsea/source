@@ -1,0 +1,54 @@
+{
+  "id": "blk-d7adb7c4e8e94d9c8680a8919c52ba50",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlConnectionConfiguration",
+    "where": "a Configuration hierarchy supplies InitialCatalog and DataSource values across global, shard-set, read/write, shard, and local layers",
+    "trigger": "a caller reads ConnectionDescription before a connection string has set it",
+    "response": "return database {InitialCatalog} on server {DataSource} using the last non-empty value for each field in global, shard-set, read/write, shard, then local order",
+    "postcondition": "a later layer may replace the database name independently of the server name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "208-253",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-10caf47e852e4a28b7d69a8da1ea358b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

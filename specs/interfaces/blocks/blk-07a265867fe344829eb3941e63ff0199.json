@@ -1,0 +1,53 @@
+{
+  "id": "blk-07a265867fe344829eb3941e63ff0199",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapShardKeyAttribute property-mapping contract",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "MapShardKeyAttribute is an abstract attribute applicable to one property only. Its construction retains a shard parameter, record, child, grandchild, and great-grandchild column names, plus the record-identifier flag, as metadata for mapping a Virtual compound key. ShardIdName exposes the associated Shard identifier parameter's ColumnName when a shard parameter is present; otherwise it exposes null. The attribute exposes the retained shard parameter without mutation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "14-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-map-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

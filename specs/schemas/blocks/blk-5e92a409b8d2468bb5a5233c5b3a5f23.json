@@ -1,0 +1,49 @@
+{
+  "id": "blk-5e92a409b8d2468bb5a5233c5b3a5f23",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgShardConnectionOptions",
+    "description": "The PostgreSQL provider's sharded-connection options shape, containing its provider-specific shard-set configuration collection and the shared-interface view of that collection.",
+    "members": [
+      {
+        "name": "PgShardSets",
+        "type": "array<PgShardConnectionsConfiguration>",
+        "required": false,
+        "description": "Provider-specific shard-set configuration collection."
+      },
+      {
+        "name": "ShardSetsConfigInternal",
+        "type": "array<IShardSetConnectionsConfiguration>",
+        "required": false,
+        "description": "Shared sharding-options view of PgShardSets."
+      }
+    ],
+    "representations": {
+      "CSharp": "PgShardSets is PgShardConnectionsConfiguration[]; ShardSetsConfigInternal exposes that collection as IShardSetConnectionsConfiguration[]."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "13-17",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

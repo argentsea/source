@@ -1,0 +1,53 @@
+{
+  "id": "blk-2b260aa4b2a544ffb697e711413eddf8",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardKeys.GhostShardKey",
+    "condition": "its retained bytes encode a one- through four-part virtual compound key",
+    "trigger": "GetInstance is invoked",
+    "response": "return a virtual compound key whose generic shape is selected by the encoded metadata"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "29-64,67-104",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-keys-ghost-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-725fe0c21f064dafb817cd89e040353c",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaDbGrainPersistence<TDatabaseOptions> database-backed grain-storage library contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSeaDbGrainPersistence<TDatabaseOptions> implements the IGrainStorage read, write, and clear operations for configured grain types. Read initializes a missing model before database mapping and selects result-set versus output-parameter mapping from the query contract’s result format. Write requires a model state, sends generated input parameters to that type’s configured write query, and marks the record as existing after completion. Clear requires a model state, derives key parameters, sends that type’s configured clear query, and marks the record as absent after completion."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-grain-persistence'. Grounded and falsifiable interface block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "23-162",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

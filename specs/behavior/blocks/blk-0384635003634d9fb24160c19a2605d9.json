@@ -1,0 +1,53 @@
+{
+  "id": "blk-0384635003634d9fb24160c19a2605d9",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "the all-membership query returns one version row with ETagNo=7 and Version=3, then reports no member result set.",
+      "when": "ReadAll is invoked for the cluster.",
+      "then": "ArgentSeaOrleansMembershipTable returns membership-table data with version (3, \"7\") and no member entries."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9f9dec6bf4664bfc8e80a06ec25f0500"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "159-176",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-membership-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-9f9dec6bf4664bfc8e80a06ec25f0500",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

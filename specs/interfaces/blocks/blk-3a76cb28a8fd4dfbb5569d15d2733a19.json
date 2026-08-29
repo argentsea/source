@@ -1,0 +1,44 @@
+{
+  "id": "blk-3a76cb28a8fd4dfbb5569d15d2733a19",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapToPg*Attribute property-mapping family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "A consumer annotates a model property with one MapToPg*Attribute variant and supplies a parameter name. The selected variant associates that property with its PostgreSQL target type, accepts only the CLR property types defined by the family matrix, and participates in input-parameter creation, output-parameter readback, and row-to-property readback. Every variant provides a parameter-name constructor and an overload that additionally records whether the mapping is required; Varchar, Char, Bytea, Numeric, and Array additionally require their variant-specific sizing, precision/scale, or element-type configuration."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "41-1034",
+        "label": "MapToPg attribute family definitions and compatibility predicates",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-map-to-pg-attribute-family",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-parameter-map-attribute",
+      "blobHash": null,
+      "label": "PgParameterMapAttribute component",
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

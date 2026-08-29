@@ -1,0 +1,60 @@
+{
+  "id": "blk-f8cd232c3d50449aad3f306b66210337",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a ShardKey<int> with shard identifier 42 and record identity 123456",
+      "when": "ShardKeyOrleansSerializer<...>.DeepCopy is invoked for that key",
+      "then": "the result is a ShardKey<int> reconstructed from the key's ToArray bytes and equals the input key"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-f7c7ad67a313423c93c6cc2d0879ab13"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-key-orleans-serializer'. Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable scenario block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "18-21",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/ShardKeyRobustTests.cs",
+        "lines": "100-108",
+        "label": null,
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-key-orleans-serializer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

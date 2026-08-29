@@ -1,0 +1,67 @@
+{
+  "id": "blk-00bf528251094545bea964085158fc9c",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "QueryResultFormat",
+    "description": "The query-contract result-representation selection used for an Orleans grain read.",
+    "members": [
+      {
+        "name": "value",
+        "type": "enum<OutputArgs|ResultSet>",
+        "required": true,
+        "description": "OutputArgs represents a result mapped from stored-procedure output arguments; ResultSet represents a result mapped from returned rows."
+      }
+    ],
+    "representations": {
+      "CSharp": "public enum QueryResultFormat with OutputArgs and ResultSet values."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "16-21",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "82-89",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "108-115",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-query-result-format",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

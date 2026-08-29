@@ -1,0 +1,59 @@
+{
+  "id": "blk-e17384f08ede4e69aa69fca3b733e2a7",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "DatabasesBase<TConfiguration>.DataConnection mock result entry",
+    "description": "A caller-provided entry that substitutes an operation result for a named query.",
+    "members": [
+      {
+        "name": "QueryName",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The Query name used as the dictionary key."
+      },
+      {
+        "name": "Result",
+        "type": "object<runtime result>",
+        "required": true,
+        "description": "The object returned by the operation; its runtime type must match the operation's expected result type."
+      }
+    ],
+    "representations": {
+      "C#": "Dictionary<string, object> exposed through the MockResults property."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "109-1012",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

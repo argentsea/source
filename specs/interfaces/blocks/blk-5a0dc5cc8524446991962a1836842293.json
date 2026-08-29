@@ -1,0 +1,44 @@
+{
+  "id": "blk-5a0dc5cc8524446991962a1836842293",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlDbConnectionOptions.SqlDbConnectionConfiguration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SqlDbConnectionOptions.SqlDbConnectionConfiguration exposes one database identifier together with a read/write connection pair. Consumers can access each endpoint as a concrete SqlConnectionConfiguration or through the IDataConnection views required by IDatabaseConnectionConfiguration. A newly created instance supplies separate SqlConnectionConfiguration instances for the read and write endpoints."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "37-45",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-db-connection-options-sql-db-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

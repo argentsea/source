@@ -1,0 +1,62 @@
+{
+  "id": "blk-0e1732fa0eb94384a6755f8eebfeee39",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "QueryExtensions",
+    "condition": "the Orleans grain identity's key contains a serialized virtual compound key",
+    "trigger": "a caller invokes ShardId",
+    "response": "return the shard identifier encoded by that key as a 16-bit signed integer"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-query-extensions'. Grounded in QueryExtensions.cs:5-19 and falsifiable behavioral block citing committed Term.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/QueryExtensions.cs",
+        "lines": "5-19",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-query-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-bcaead24e52742fbac05f9e00437d433",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

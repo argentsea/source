@@ -1,0 +1,62 @@
+{
+  "id": "blk-9eef5f8bfcd34f60bcc36a36b932e50d",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a DatabaseBatch<TResult> instance B for TResult=int, a Query contract Q, and a DbParameterCollection P",
+      "when": "B.Add(Q, P) is invoked",
+      "then": "the returned DatabaseBatch<TResult> reference is B, and executing B creates a command from Q, assigns P using Q's parameter names, executes the command as a non-query, and produces default(int) for that added operation"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-362df8c527ec44039e7721b973e0c961"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "62-65,82-91",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-database-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

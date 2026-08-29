@@ -1,0 +1,53 @@
+{
+  "id": "blk-a9c6ac31b48e4deea41688cc834a355b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a membership update has suspect report A=(address 10.0.0.1, port 1111, generation 1, timestamp 2026-08-16T10:00:00Z) and report B=(address 10.0.0.2, port 2222, generation 2, timestamp 2026-08-16T11:00:00Z).",
+      "when": "UpdateRow prepares the SuspectTimes table-valued parameter.",
+      "then": "the parameter contains exactly one row with A's address, port, and generation and timestamp 2026-08-16T11:00:00Z."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9f8fd4c6d54a48e388ad4ede378babc2"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "350-377",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-membership-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-9f8fd4c6d54a48e388ad4ede378babc2",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

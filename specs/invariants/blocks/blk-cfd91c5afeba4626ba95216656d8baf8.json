@@ -1,0 +1,42 @@
+{
+  "id": "blk-cfd91c5afeba4626ba95216656d8baf8",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "After ArgentSeaDbGrainPersistence<TDatabaseOptions> completes a configured write, the supplied grain state must report RecordExists as true; after it completes a configured clear, it must report RecordExists as false.",
+    "scope": "Successful WriteStateAsync and ClearStateAsync operations using a configured query contract."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-grain-persistence'. Grounded and falsifiable invariant block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "114-162",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

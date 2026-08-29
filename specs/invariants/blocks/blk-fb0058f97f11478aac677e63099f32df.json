@@ -1,0 +1,81 @@
+{
+  "id": "blk-fb0058f97f11478aac677e63099f32df",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ShardKey<...> must never treat two virtual compound keys as equal when their shard identifier differs or when any identity position represented by their arity differs; equal values must yield equal hash codes.",
+    "scope": "All ShardKey<...> equality, equality-operator, inequality-operator, and hash-code operations across generic arities 1 through 4."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "14-457",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardChild.cs",
+        "lines": "18-514",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGrandChild.cs",
+        "lines": "18-561",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGreatGrandChild.cs",
+        "lines": "18-605",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

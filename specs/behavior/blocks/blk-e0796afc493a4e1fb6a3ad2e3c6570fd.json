@@ -1,0 +1,75 @@
+{
+  "id": "blk-e0796afc493a4e1fb6a3ad2e3c6570fd",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A 65-byte buffer, an initial position of 0, Guid 00112233-4455-6677-8899-aabbccddeeff, and Guid ffeeddcc-bbaa-9988-7766-554433221100.",
+      "when": "SpanParser appends the first Guid and then the second using the returned position, and the resulting span is extracted twice as Guid values.",
+      "then": "The first append returns 32, the second returns 65, the serialized bytes are 00112233445566778899aabbccddeeff+ffeeddccbbaa99887766554433221100, both extracted values equal their inputs, and the second extraction returns an empty suffix."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9370ebac48704ec4876e2f184f028139"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e45646b846444943904345e272f161aa"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "73-95,258-273",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/test/ArgentSea.Orleans.Test/GrainIdSerializationTests.cs",
+        "lines": "19-31",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-span-parser",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-9370ebac48704ec4876e2f184f028139",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-e45646b846444943904345e272f161aa",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

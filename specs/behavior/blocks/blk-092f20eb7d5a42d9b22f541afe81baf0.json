@@ -1,0 +1,44 @@
+{
+  "id": "blk-092f20eb7d5a42d9b22f541afe81baf0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgParameterExtensions",
+    "condition": "an output parameter in a query contract has been populated after execution",
+    "trigger": "GetHStore reads the parameter Value",
+    "response": "return null when Value is System.DBNull.Value; otherwise return Value as a string-to-string dictionary through IDictionary<string, string>"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterExtensions.cs",
+        "lines": "12-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,53 @@
+{
+  "id": "blk-d99d3a2a5c9c492590ade62b854dff2a",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardKeys.GhostShardKey",
+    "condition": "its retained bytes contain at least five bytes encoding a shard identifier",
+    "trigger": "GetShardId is invoked",
+    "response": "return the signed 16-bit shard identifier stored immediately after the metadata-length segment"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "118-132",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-keys-ghost-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

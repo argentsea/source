@@ -1,0 +1,51 @@
+{
+  "id": "blk-0f7571664007455992ca53dc9b557aeb",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "QueryProcedure stored-procedure query contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "QueryProcedure represents a query contract executed as a stored procedure. Constructing it with sprocName makes inherited Sql and Name return that same value and leaves ParameterNames null. Constructing it with sprocName and parameterNames makes inherited Sql and Name return sprocName and ParameterNames return parameterNames. Its Type reports CommandType.StoredProcedure."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryProcedure.cs",
+        "lines": "9-22",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "14-26",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-procedure",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

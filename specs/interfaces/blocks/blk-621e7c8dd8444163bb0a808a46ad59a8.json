@@ -1,0 +1,34 @@
+{
+  "id": "blk-621e7c8dd8444163bb0a808a46ad59a8",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ClusteringExtensions.UseArgentSeaClustering (IClientBuilder)",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Configures an Orleans client builder for ArgentSea clustering. It applies a non-null Action<IConfiguration> to service configuration before registering singleton IMembershipTable resolution as ArgentSeaOrleansMembershipTable and singleton IConfigurationValidator resolution as ClusterOptionsValidator; a null action is skipped. The method returns the configured IClientBuilder."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ClusteringExtensions.cs",
+        "lines": "36-54",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-clustering-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

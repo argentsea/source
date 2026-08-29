@@ -1,0 +1,44 @@
+{
+  "id": "blk-01161845aae94b10bb90bad566c6ac99",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaGrainPersistenceException construction",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "Consumers can construct ArgentSeaGrainPersistenceException with no diagnostic text, with diagnostic text, or with diagnostic text and a causal Exception. For the latter two variants, the resulting exception preserves the supplied diagnostic text; the causal variant also preserves the supplied Exception as InnerException."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-grain-persistence-exception'. Grounded and falsifiable exception constructor contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/ArgentSeaGrainPersistenceException.cs",
+        "lines": "14-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-persistence-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "orleans-grain-persistence-exception",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

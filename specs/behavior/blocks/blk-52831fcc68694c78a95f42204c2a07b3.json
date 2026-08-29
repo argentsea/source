@@ -1,0 +1,53 @@
+{
+  "id": "blk-52831fcc68694c78a95f42204c2a07b3",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a PostgreSQL connection with connection text \"Host=db;Database=app\" and a query contract procedure name \"get_account\"",
+      "when": "PostgreSqlProvider.DataProviderServiceFactory creates the command",
+      "then": "the result is a PostgreSQL command with command text \"get_account\" and the same supplied connection"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-f8c9932da7564a80b5bb0b8f02dcd526"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "28-35",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-f8c9932da7564a80b5bb0b8f02dcd526",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

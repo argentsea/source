@@ -1,0 +1,96 @@
+{
+  "id": "blk-e04b6bf7290f4cc888d1230b6c775f01",
+  "specId": "behavior",
+  "type": "Example",
+  "fields": {
+    "narrative": "A caller creates ShardsValues, adds shard 2 with no named value and shard 5 with the named value region=west. The collection then has two entries: the placeholder (2, null, null) and (5, region, west). Given virtual compound keys from shards 2, 5, and 5 with shard 2 excluded, ShardListForeign returns the one empty entry for shard 5.",
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-0bf207dc0f1848e2b89a180338d82543",
+        "relation": "illustrates"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-fc9cd525b2644a1daf53f6a2f8a8b495",
+        "relation": "illustrates"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-123b620a02214432a1be5269c91992d7",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "32-59",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "61-114",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "187-214",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-0bf207dc0f1848e2b89a180338d82543",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-fc9cd525b2644a1daf53f6a2f8a8b495",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-123b620a02214432a1be5269c91992d7",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

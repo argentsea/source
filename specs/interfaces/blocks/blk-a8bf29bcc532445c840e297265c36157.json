@@ -1,0 +1,44 @@
+{
+  "id": "blk-a8bf29bcc532445c840e297265c36157",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DebugViewWriter.WriteTo",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "public static void WriteTo(Expression node, TextWriter writer)\n\nDebugViewWriter.WriteTo renders the supplied expression into the supplied writer using the component's debug-view notation. A root lambda is rendered as its definition; nested lambda nodes are recorded while the root is traversed and their definitions are appended after the root rendering in first-encounter order."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "36-186",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-debug-view-writer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "shared-debug-view-writer",
+      "blobHash": null,
+      "label": null,
+      "relation": "contains"
+    }
+  ],
+  "evidenceLinks": []
+}

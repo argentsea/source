@@ -1,0 +1,72 @@
+{
+  "id": "blk-dbf4e37dd8e4466391df45f277524793",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgDbConnectionOptions.PgDbConnectionConfiguration data shape",
+    "description": "The configurable database key and read/write connection pair exposed by PgDbConnectionOptions.PgDbConnectionConfiguration.",
+    "members": [
+      {
+        "name": "DatabaseKey",
+        "type": "string",
+        "description": "The configured database key."
+      },
+      {
+        "name": "ReadConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "description": "The current read endpoint exposed through the IDataConnection abstraction."
+      },
+      {
+        "name": "WriteConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "description": "The current write endpoint exposed through the IDataConnection abstraction."
+      },
+      {
+        "name": "ReadConnection",
+        "type": "object<PgConnectionConfiguration>",
+        "description": "The configurable PostgreSQL read endpoint."
+      },
+      {
+        "name": "WriteConnection",
+        "type": "object<PgConnectionConfiguration>",
+        "description": "The configurable PostgreSQL write endpoint."
+      }
+    ],
+    "representations": {
+      "CSharp": "DatabaseKey is string; both Internal members return IDataConnection; both endpoint members are PgConnectionConfiguration."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "38-46",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-db-connection-options-pg-db-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

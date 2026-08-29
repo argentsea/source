@@ -1,0 +1,42 @@
+{
+  "id": "blk-3c87c5334ff74b5b84a38f73df21dcf1",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A MapToPg*Attribute variant must never report a model-property CLR type as valid unless that type is listed for its selected PostgreSQL target in the MapToPg*Attribute supported-type matrix.",
+    "scope": "The public IsValidType(Type) compatibility check of every MapToPg*Attribute variant."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "41-1034",
+        "label": "MapToPg IsValidType compatibility enforcement",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-map-to-pg-attribute-family",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-0d79efbbc48647019bb1089e43551823",
+      "blobHash": null,
+      "label": "MapToPg supported-type matrix proposal",
+      "relation": "validates"
+    }
+  ],
+  "evidenceLinks": []
+}

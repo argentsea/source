@@ -1,0 +1,61 @@
+{
+  "id": "blk-f09e5e3da06d471dacb922688dbd3e04",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Query",
+    "trigger": "a Query-derived instance is constructed with SQL text, a logical name, and a parameter-name sequence",
+    "response": "make those supplied values observable through Sql, Name, and ParameterNames"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "14-24",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-5bdaec2404b34a9e98d438dbbac67797",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-3283695957f94e069b461c6e262b3bed",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

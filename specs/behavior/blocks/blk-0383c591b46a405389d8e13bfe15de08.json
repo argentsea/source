@@ -1,0 +1,62 @@
+{
+  "id": "blk-0383c591b46a405389d8e13bfe15de08",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a source collection contains SQL parameters @id with value 1 and @label with value \"old\", requested names are [\"@id\"], and replacement values map @id to 42",
+      "when": "SqlServerProvider.DataProviderServiceFactory.SetParameters prepares an empty destination command",
+      "then": "the destination command contains exactly one parameter named @id with value 42, and contains no @label parameter"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-c9156902e6d74713a73697f03934c01c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "119-202",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-c9156902e6d74713a73697f03934c01c",
+      "blobHash": null,
+      "label": "Parameter selection and override behavior",
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

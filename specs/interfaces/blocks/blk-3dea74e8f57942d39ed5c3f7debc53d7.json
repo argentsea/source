@@ -1,0 +1,44 @@
+{
+  "id": "blk-3dea74e8f57942d39ed5c3f7debc53d7",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IShardSetsConfigurationOptions",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "IShardSetsConfigurationOptions exposes the shard-set connection configuration collection through ShardSetsConfigInternal. Consumers can read the property as an IShardSetConnectionsConfiguration[]; the interface provides no setter for replacing that collection."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-shard-sets-configuration-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

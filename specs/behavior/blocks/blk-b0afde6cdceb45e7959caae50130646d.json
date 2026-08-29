@@ -1,0 +1,44 @@
+{
+  "id": "blk-b0afde6cdceb45e7959caae50130646d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgParameterCollectionExtensions",
+    "trigger": "a Query contract selects a Double or Real input with NaN, or a Uuid input with Guid.Empty",
+    "response": "append an Input parameter with the selected PostgreSQL type and database null rather than the sentinel value",
+    "postcondition": "return the same parameter collection"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "594-614, 668-687, 1289-1310",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

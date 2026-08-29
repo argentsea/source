@@ -1,0 +1,44 @@
+{
+  "id": "blk-1b90d7630d384cc0a907f1be231869a1",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansDbPersistenceOptions library contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "OrleansDbPersistenceOptions supplies a database/provider selection key and a grain-type-indexed set of query contracts. A parameterless instance starts with DatabaseKey \"Common\", no query mappings, and InitStage ApplicationServices. Construction from a database key and query definitions retains the supplied key and creates a new mapping from each definition's GrainType to that definition."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-persistence-options'. Grounded in OrleansDbPersistenceOptions.cs:12-20 and falsifiable.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansDbPersistenceOptions.cs",
+        "lines": "12-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-persistence-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

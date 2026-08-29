@@ -1,0 +1,58 @@
+{
+  "id": "blk-a3444630c58c46fb903aca5e02760c3d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "StringExtensions.InputCleaningOptions library contract",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "StringExtensions.InputCleaningOptions is a flags selection for StringExtensions.CleanInput. CleanAll = 0 selects default cleaning. AllowEmojis = 1 retains surrogate-pair characters that default cleaning removes. AllowMultiline = 2 converts each LF to CRLF; other control characters, including a standalone CR, remain removed. AllowEmojis and AllowMultiline are independent nonzero flag bits and can be combined."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "18-31",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "55-74",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/StringExtensionTests.cs",
+        "lines": "22-58",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-string-extensions-input-cleaning-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-string-extensions",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

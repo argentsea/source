@@ -1,0 +1,63 @@
+{
+  "id": "blk-b34f1178b89f4afaabdeea96fdc04901",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameterCollection has no parameters and a query contract needs a Float input named \"score\" with value NaN.",
+      "when": "A caller invokes SqlParameterCollectionExtensions.AddSqlFloatInputParameter(collection, \"score\", double.NaN).",
+      "then": "The same collection contains one Input Float parameter named \"@score\" whose value is DBNull."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ddff8ceba2ae42999cbc87880bd1a92c",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "20-27,407-415",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ddff8ceba2ae42999cbc87880bd1a92c",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

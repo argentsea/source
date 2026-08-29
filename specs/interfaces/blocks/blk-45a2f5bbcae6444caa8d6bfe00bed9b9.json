@@ -1,0 +1,44 @@
+{
+  "id": "blk-45a2f5bbcae6444caa8d6bfe00bed9b9",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardParameterValue",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ShardParameterValue is a mutable library value carrier. Its parameterless creation exposes ShardId = 0, ParameterName = null, and ParameterValue = null. Its three-argument creation exposes the supplied shard identifier, parameter name, and parameter value through the corresponding mutable properties."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardParameterValue.cs",
+        "lines": "14-34",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-parameter-value",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

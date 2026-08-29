@@ -1,0 +1,45 @@
+{
+  "id": "blk-259c49a3bbb94a6196ae8522a440c288",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardDataConnection<TConfiguration>",
+    "condition": "MockResults contains an entry whose key equals the Query contract name",
+    "trigger": "ReturnValueAsync is invoked for that Query contract",
+    "response": "return the associated entry cast to the requested value type",
+    "postcondition": "the database-return path is not invoked"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "101-108",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

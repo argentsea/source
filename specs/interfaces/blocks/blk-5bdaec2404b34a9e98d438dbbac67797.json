@@ -1,0 +1,53 @@
+{
+  "id": "blk-5bdaec2404b34a9e98d438dbbac67797",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "Query",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Query is an abstract query descriptor. Construction associates one SQL text value, one logical name value, and one parameter-name sequence with the descriptor. Consumers can read those same associated values through Sql, Name, and ParameterNames. Each concrete Query type must supply its System.Data.CommandType through Type."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "8-27",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-3283695957f94e069b461c6e262b3bed",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

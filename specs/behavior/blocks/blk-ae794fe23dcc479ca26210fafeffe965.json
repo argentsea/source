@@ -1,0 +1,43 @@
+{
+  "id": "blk-ae794fe23dcc479ca26210fafeffe965",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SharedQueryTypes",
+    "trigger": "a concrete SharedQueryTypes implementation is initialized with SQL text, a name, and parameter names",
+    "response": "expose those supplied values as its Query contract and expose its command classification"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "8-26",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-types",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,82 @@
+{
+  "id": "blk-7da052ec763441d8ba829f64bde519af",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgShardConnectionOptions.PgShardConnectionConfiguration",
+    "description": "The declared per-shard configuration shape for PgShardConnectionOptions.PgShardConnectionConfiguration: a shard identifier plus independently held read and write PostgreSQL connection configurations, with interface-facing endpoint views.",
+    "members": [
+      {
+        "name": "ShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "Identifier carried by this shard configuration."
+      },
+      {
+        "name": "ReadConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "description": "Interface-facing view of the current read connection."
+      },
+      {
+        "name": "WriteConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "description": "Interface-facing view of the current write connection."
+      },
+      {
+        "name": "ReadConnection",
+        "type": "ref<PgConnectionConfiguration>",
+        "description": "Typed read endpoint; new instances initialize it with a PgConnectionConfiguration."
+      },
+      {
+        "name": "WriteConnection",
+        "type": "ref<PgConnectionConfiguration>",
+        "description": "Typed write endpoint; new instances initialize it with a PgConnectionConfiguration."
+      }
+    ],
+    "representations": {
+      "C#": "Nested public class whose interface-facing endpoint views derive from the typed read and write endpoint properties."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "31-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options-pg-shard-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-1db453c809c44182aeae2e188b28f2ee",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "shared-i-shard-connection-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

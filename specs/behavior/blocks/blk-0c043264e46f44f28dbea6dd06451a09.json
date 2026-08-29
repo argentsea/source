@@ -1,0 +1,54 @@
+{
+  "id": "blk-0c043264e46f44f28dbea6dd06451a09",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "CopyMapper",
+    "condition": "a Batch has an operation registered through a model-collection Add overload and the supplied table name is valid",
+    "trigger": "the Batch executes that operation",
+    "response": "create the destination table, using a transaction-local table that drops on commit for an unqualified name and a persistent table for a schema-qualified name, then import one binary COPY row for each supplied model using its mapped properties",
+    "postcondition": "the binary import is completed after all supplied models have been written"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "27-42,114-120,376-421,467-479,621-711",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-copy-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-7cee1125d4324f8cb4978303e9a3e1f9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

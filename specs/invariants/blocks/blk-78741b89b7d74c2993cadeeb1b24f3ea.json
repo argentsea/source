@@ -1,0 +1,32 @@
+{
+  "id": "blk-78741b89b7d74c2993cadeeb1b24f3ea",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "TvpExpressionHelpers must never contribute more than one metadata entry or record-assignment expression for the same normalized column name.",
+    "scope": "The table-valued-record plans built by every TvpExpressionHelpers builder variant."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-expression-helpers'. Grounded invariant block, but without sectionId equal to component ID 'sql-tvp-expression-helpers', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "19-298",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-tvp-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

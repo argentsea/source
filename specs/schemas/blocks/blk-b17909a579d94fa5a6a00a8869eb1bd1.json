@@ -1,0 +1,59 @@
+{
+  "id": "blk-b17909a579d94fa5a6a00a8869eb1bd1",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "DatabasesBase<TConfiguration>.Database access pair",
+    "description": "The public read/write connection pair exposed by DatabasesBase<TConfiguration>.Database after endpoint fallback has been applied.",
+    "members": [
+      {
+        "name": "Read",
+        "type": "ref<DataConnection>",
+        "required": true,
+        "description": "The DataConnection handle for the read role."
+      },
+      {
+        "name": "Write",
+        "type": "ref<DataConnection>",
+        "required": true,
+        "description": "The DataConnection handle for the write role."
+      }
+    ],
+    "representations": {
+      "CSharp": "DatabasesBase<TConfiguration>.Database exposes get-only Read and Write DataConnection properties."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "86-107",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base-database",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

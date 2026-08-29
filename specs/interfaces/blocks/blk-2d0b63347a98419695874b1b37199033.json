@@ -1,0 +1,51 @@
+{
+  "id": "blk-2d0b63347a98419695874b1b37199033",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansSqlPersistence silo grain-storage registration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "OrleansSqlPersistence lets an Orleans silo builder or service collection register grain storage under a caller-supplied provider name. The selected database or shard-set registration uses its matching grain-storage factory and returns the same builder or service collection for fluent composition."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "12-53",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "12-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "blk-542dbb9bdedb42c59e81b63c00568aac",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardDataConnection<TConfiguration> for shard identifier 4 receives one row whose record-identity column 'RecordId' is 19.",
+      "when": "ListAsync<int> is invoked with 'RecordId' and no shard-identity column.",
+      "then": "The result contains one virtual compound key with shard identifier 4 and record identity 19."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-4a906e29c44f409e9d466f8daf1e6225"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "351-364",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

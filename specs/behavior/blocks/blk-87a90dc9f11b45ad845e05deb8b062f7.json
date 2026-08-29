@@ -1,0 +1,44 @@
+{
+  "id": "blk-87a90dc9f11b45ad845e05deb8b062f7",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgDbConnectionOptions.PgDbConnectionConfiguration",
+    "trigger": "a new instance is constructed",
+    "response": "initialize its read/write connection pair with two distinct PgConnectionConfiguration endpoint instances and expose each endpoint through the matching IDataConnection internal alias",
+    "postcondition": "ReadConnectionInternal is the current ReadConnection instance and WriteConnectionInternal is the current WriteConnection instance"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "38-46",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-db-connection-options-pg-db-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

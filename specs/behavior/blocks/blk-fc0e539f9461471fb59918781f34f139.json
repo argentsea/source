@@ -1,0 +1,54 @@
+{
+  "id": "blk-fc0e539f9461471fb59918781f34f139",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ParameterCollection",
+    "condition": "a Query contract's ParameterCollection contains parameters with ParameterName values",
+    "trigger": "a caller performs a name-based lookup",
+    "response": "identify the first parameter whose ParameterName exactly equals the requested name",
+    "postcondition": "Contains reports whether such a parameter exists, IndexOf returns its position or -1, and parameter retrieval returns that parameter or null"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ParameterCollection.cs",
+        "lines": "52-79,110-119,151-169",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-parameter-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-9653b178c7b848449e47d323657276c1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

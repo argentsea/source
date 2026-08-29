@@ -1,0 +1,62 @@
+{
+  "id": "blk-e6191e65523646849af2a6c3f4c78d6b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlShardConnectionOptions",
+    "trigger": "ShardSetsConfigInternal is read",
+    "response": "return the current SQL shard-set configuration collection through the IShardSetConnectionsConfiguration[] view",
+    "postcondition": "the provider-neutral view contains the current SqlShardSets entries"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-shard-connection-options'. Grounded in ArgentSea.Sql/src/SqlShardConnectionOptions.cs:13-17, but without sectionId equal to component ID 'sql-shard-connection-options', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardConnectionOptions.cs",
+        "lines": "13-17",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-shard-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-fc813402dab8486dbb8bb81c1308a70f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-shard-sets-configuration-options",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

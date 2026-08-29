@@ -1,0 +1,44 @@
+{
+  "id": "blk-cce005d48ad44ea0aff90fe2a57857cd",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IKeyedModel<...> keyed-model contract",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "A keyed model at arity N (N = 1, 2, 3, or 4) exposes a read-only Key whose type is ShardKey<T1, …, TN>. Each generic type argument T1…TN must implement IComparable; the Key property's ShardKey type preserves the same ordered generic argument sequence and arity."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/IKeyedModel.cs",
+        "lines": "11-29",
+        "label": "IKeyedModel generic-arity interfaces",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-keyed-model",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": "Virtual compound key",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

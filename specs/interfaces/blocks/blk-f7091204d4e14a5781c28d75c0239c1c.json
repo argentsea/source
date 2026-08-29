@@ -1,0 +1,34 @@
+{
+  "id": "blk-f7091204d4e14a5781c28d75c0239c1c",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaClusteringProviderBuilder host-builder configuration family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ArgentSeaClusteringProviderBuilder is a final provider-builder surface for both Orleans host roles.\n\nFor either a silo host or a client host, Configure accepts that host builder, a provider name, and a configuration section. The operation binds ClusterOptions from the supplied configuration section and enables ArgentSea clustering on the same host builder. The two host-role overloads provide the same clustering-setup outcome."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-sql-clustering-provider-builder'. Grounded in ArgentSeaClusteringProviderBuilder.cs:12-25 and falsifiable, but without sectionId set to committed component block ID 'orleans-sql-clustering-provider-builder', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaClusteringProviderBuilder.cs",
+        "lines": "12-25",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-clustering-provider-builder",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

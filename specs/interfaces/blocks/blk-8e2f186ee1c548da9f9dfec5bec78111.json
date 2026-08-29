@@ -1,0 +1,53 @@
+{
+  "id": "blk-8e2f186ee1c548da9f9dfec5bec78111",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ExpressionHelpers mapping expression builders",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ExpressionHelpers exposes static expression-builder families for query-contract mapping: input and output parameter expressions; reader-property expressions; parameter and field lookup; and virtual-compound-key parameter expansion. Input builders vary by simple, string, enum-backed, and binary values; reader/output builders vary by strings, enums, simple values, binary values, arrays, nullable values, and null-result substitutions. Each family appends executable expression nodes to the caller-provided collection rather than executing the database operation itself."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "23-849",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

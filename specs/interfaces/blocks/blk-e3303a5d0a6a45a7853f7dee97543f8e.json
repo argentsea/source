@@ -1,0 +1,34 @@
+{
+  "id": "blk-e3303a5d0a6a45a7853f7dee97543f8e",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> ReturnValueAsync family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "For a Query contract, ReturnValueAsync returns either an integer return value, a named scalar output, or a virtual compound key. Variants select whether database parameters are supplied, whether a named parameter receives the current shard identifier, and whether a returned key derives its shard identifier from query output or from the endpoint's current shard."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "66-265",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

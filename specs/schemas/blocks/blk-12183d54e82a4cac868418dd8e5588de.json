@@ -1,0 +1,86 @@
+{
+  "id": "blk-12183d54e82a4cac868418dd8e5588de",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlShardConnectionOptions.SqlShardConnectionConfiguration shard endpoint configuration",
+    "description": "The configuration shape for one shard endpoint: a shard identifier plus independently assignable read and write SQL connection configurations and their IDataConnection projections.",
+    "members": [
+      {
+        "name": "ShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "Identifier of the shard represented by this configuration."
+      },
+      {
+        "name": "ReadConnection",
+        "type": "object<SqlConnectionConfiguration>",
+        "required": false,
+        "description": "SQL Server connection configuration selected for reads; a new instance initializes this slot with a new SqlConnectionConfiguration."
+      },
+      {
+        "name": "WriteConnection",
+        "type": "object<SqlConnectionConfiguration>",
+        "required": false,
+        "description": "SQL Server connection configuration selected for writes; a new instance initializes this slot with a new SqlConnectionConfiguration."
+      },
+      {
+        "name": "ReadConnectionInternal",
+        "type": "object<IDataConnection>",
+        "required": false,
+        "description": "IDataConnection projection of ReadConnection."
+      },
+      {
+        "name": "WriteConnectionInternal",
+        "type": "object<IDataConnection>",
+        "required": false,
+        "description": "IDataConnection projection of WriteConnection."
+      }
+    ],
+    "representations": {
+      "C#": "ShardId is short. ReadConnection and WriteConnection are settable SqlConnectionConfiguration properties initialized by property initializers; the corresponding Internal properties expose them as IDataConnection."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'sql-shard-connection-options-sql-shard-connection-configuration'. Grounded in ArgentSea.Sql/src/SqlShardConnectionOptions.cs:30-37 and falsifiable schema block, but without sectionId equal to component ID 'sql-shard-connection-options-sql-shard-connection-configuration', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardConnectionOptions.cs",
+        "lines": "30-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-shard-connection-options-sql-shard-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

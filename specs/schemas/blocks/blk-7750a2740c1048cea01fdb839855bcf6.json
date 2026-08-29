@@ -1,0 +1,74 @@
+{
+  "id": "blk-7750a2740c1048cea01fdb839855bcf6",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSeaOrleansReminderTable reminder row",
+    "description": "The reminder-row shape decoded and written by ArgentSeaOrleansReminderTable.",
+    "members": [
+      {
+        "name": "GrainId",
+        "type": "object<GrainId>",
+        "required": true,
+        "description": "The reminder owner reconstructed from grain type and key bytes."
+      },
+      {
+        "name": "ReminderName",
+        "type": "nvarchar(150)",
+        "required": true,
+        "description": "The reminder name."
+      },
+      {
+        "name": "StartAt",
+        "type": "datetime2",
+        "required": true,
+        "description": "The scheduled start timestamp."
+      },
+      {
+        "name": "Period",
+        "type": "bigint",
+        "required": true,
+        "description": "The reminder period expressed as TimeSpan ticks."
+      },
+      {
+        "name": "ETag",
+        "type": "int",
+        "required": true,
+        "description": "The integer row version represented at the library surface as an invariant-culture string."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
+        "lines": "74-86,106-118,193-215",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-reminder-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-165ab70846224c2ba61f6c50a355fa45",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

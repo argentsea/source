@@ -1,0 +1,43 @@
+{
+  "id": "blk-a15aa975eb0d4dbaa3346b8e898dd737",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaSiloBuilderExtensions",
+    "trigger": "a caller invokes either grain-storage registration family on an ISiloBuilder with a provider name",
+    "response": "configure the builder's service collection to register the corresponding database or Shard grain-storage factory under that provider name and return the builder; when the caller supplies a persistence-options action, apply it to the options registered under that same provider name before the storage registration is added"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "12-53",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-silo-builder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": "Shard",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

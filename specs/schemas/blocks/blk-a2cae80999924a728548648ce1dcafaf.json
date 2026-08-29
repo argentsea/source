@@ -1,0 +1,62 @@
+{
+  "id": "blk-a2cae80999924a728548648ce1dcafaf",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "IDatabaseConfigurationOptions connection collection",
+    "description": "The read-only options-provider shape for the collection of database connection configurations exposed by IDatabaseConfigurationOptions.",
+    "members": [
+      {
+        "name": "DbConnectionsInternal",
+        "type": "array<ref<IDatabaseConnectionConfiguration>>",
+        "required": true,
+        "description": "The database connection configuration entries made available by IDatabaseConfigurationOptions."
+      }
+    ],
+    "representations": {
+      "CSharp": "IDatabaseConnectionConfiguration[] exposed by a get-only property on IDatabaseConfigurationOptions."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-database-configuration-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-d4ca447227c6464aab769f60463e0a83",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-database-connection-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

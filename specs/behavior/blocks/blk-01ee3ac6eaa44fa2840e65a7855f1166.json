@@ -1,0 +1,53 @@
+{
+  "id": "blk-01ee3ac6eaa44fa2840e65a7855f1166",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an ISiloBuilder B, provider name \"orders-shard\", and an OrleansShardPersistenceOptions action",
+      "when": "ArgentSeaSiloBuilderExtensions.AddArgentSeaShardOrleansGrainStorage(B, \"orders-shard\", options) is called",
+      "then": "B is returned; the action is applied to options named \"orders-shard\" and its configured services register the Shard grain-storage factory under \"orders-shard\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-a15aa975eb0d4dbaa3346b8e898dd737"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "34-53",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-silo-builder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": "Shard",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

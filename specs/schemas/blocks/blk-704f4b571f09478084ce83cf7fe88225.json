@@ -1,0 +1,49 @@
+{
+  "id": "blk-704f4b571f09478084ce83cf7fe88225",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlLoggingExtensions.SqlEventIdentifier",
+    "description": "SqlLoggingExtensions.SqlEventIdentifier is a closed event-identifier value whose only declared selections are MapperTvpCacheStatus and MapperTvpTrace.",
+    "members": [
+      {
+        "name": "value",
+        "type": "enum<MapperTvpCacheStatus|MapperTvpTrace>",
+        "required": true,
+        "description": "The SqlLoggingExtensions.SqlEventIdentifier selection."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlLoggingExtensions.cs",
+        "lines": "14-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "components",
+        "blockId": "sql-logging-extensions-sql-event-identifier",
+        "blobHash": null,
+        "label": "Conflicting responsibility count",
+        "relation": "references"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-logging-extensions-sql-event-identifier",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

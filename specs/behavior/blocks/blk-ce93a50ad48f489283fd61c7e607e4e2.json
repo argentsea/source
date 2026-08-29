@@ -1,0 +1,60 @@
+{
+  "id": "blk-ce93a50ad48f489283fd61c7e607e4e2",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "MapPgShardKeyAttribute",
+    "trigger": "a caller constructs it with a shard identifier name and a record identity name, optionally followed by up to four subordinate identity names and an explicit record-identifier flag",
+    "response": "configure the supplied shard identifier as a PostgreSQL smallint mapping and retain the supplied identity names as selectors for the virtual compound key",
+    "postcondition": "the record-identifier selector is true for overloads without the Boolean argument and equals the supplied Boolean for overloads with it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "42-214",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "36-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-map-pg-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,53 @@
+{
+  "id": "blk-969d29c8d4bc4914a15e26847f8a326f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a DatabaseBatch<string> has no copy step, models [{ Id = 7, Name = \"Ada\" }, { Id = 8, Name = \"Lin\" }], and tableName \"stage_people\"",
+      "when": "CopyMapper.Add is called with the model list and the batch later executes",
+      "then": "the returned object is that DatabaseBatch<string>, a transaction-local stage_people table is created, and binary COPY receives two mapped rows before the importer completes"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-0c043264e46f44f28dbea6dd06451a09"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "27-34,376-421,467-479",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-copy-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-0c043264e46f44f28dbea6dd06451a09",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

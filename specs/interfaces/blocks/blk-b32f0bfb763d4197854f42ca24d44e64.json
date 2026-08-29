@@ -1,0 +1,53 @@
+{
+  "id": "blk-b32f0bfb763d4197854f42ca24d44e64",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgDbConnectionOptions configuration collection contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "PgDbConnectionOptions exposes a writable PgDbConnections collection of PgDbConnectionConfiguration entries. Its IDatabaseConfigurationOptions view exposes the same collection as IDatabaseConnectionConfiguration entries through DbConnectionsInternal."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "31-35",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-db-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-database-configuration-options",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-db-connection-options-pg-db-connection-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

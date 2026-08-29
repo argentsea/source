@@ -1,0 +1,44 @@
+{
+  "id": "blk-c9156902e6d74713a73697f03934c01c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlServerProvider.DataProviderServiceFactory",
+    "trigger": "a provider-neutral caller prepares a query contract with a destination command, source SQL parameters, requested parameter names, and optional replacement values",
+    "response": "copy every source SQL parameter when requested parameter names are absent or empty; otherwise copy only source parameters whose names match the normalized requested names, preserving their provider metadata and original value except where a replacement value exists for the parameter name",
+    "postcondition": "the destination command contains the selected SQL parameters in the requested-selection order"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "119-202",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

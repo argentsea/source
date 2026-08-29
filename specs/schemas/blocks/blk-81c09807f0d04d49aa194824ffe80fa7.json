@@ -1,0 +1,77 @@
+{
+  "id": "blk-81c09807f0d04d49aa194824ffe80fa7",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "OrleansShardQueryDefinitions observable query-definition shape",
+    "description": "The sharded-persistence query definitions exposed by OrleansShardQueryDefinitions.",
+    "members": [
+      {
+        "name": "ReadQuery",
+        "type": "object<Query>",
+        "required": false,
+        "description": "The configured read query, exposed after eager or deferred resolution."
+      },
+      {
+        "name": "WriteQuery",
+        "type": "object<Query>",
+        "required": false,
+        "description": "The configured write query, exposed after eager or deferred resolution."
+      },
+      {
+        "name": "ClearQuery",
+        "type": "object<Query>",
+        "required": false,
+        "description": "The configured clear query, exposed after eager or deferred resolution."
+      },
+      {
+        "name": "GrainType",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The grain type associated with this query definition set."
+      },
+      {
+        "name": "ResultFormat",
+        "type": "object<QueryResultFormat>",
+        "required": true,
+        "description": "The result format preserved for the definition set."
+      }
+    ],
+    "representations": {
+      "CSharp": "public properties ReadQuery, WriteQuery, ClearQuery : Query; GrainType : string; ResultFormat : QueryResultFormat. Each query property resolves either its eager QueryProcedure or its Lazy<QueryStatement> definition when accessed."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-query-definitions'. Grounded in OrleansQueryDefinitions.cs:161-291 and falsifiable schema block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "161-291",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

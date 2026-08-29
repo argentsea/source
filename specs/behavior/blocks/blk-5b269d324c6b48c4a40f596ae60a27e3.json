@@ -1,0 +1,62 @@
+{
+  "id": "blk-5b269d324c6b48c4a40f596ae60a27e3",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgShardConnectionOptions.PgShardConnectionConfiguration",
+    "trigger": "a consumer reads the IShardConnectionConfiguration endpoint views",
+    "response": "return the current typed read and write connection instances through ReadConnectionInternal and WriteConnectionInternal respectively",
+    "postcondition": "the shard identifier remains the value carried by the same configuration"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "33-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options-pg-shard-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-1db453c809c44182aeae2e188b28f2ee",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

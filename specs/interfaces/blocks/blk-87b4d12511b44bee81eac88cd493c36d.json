@@ -1,0 +1,67 @@
+{
+  "id": "blk-87b4d12511b44bee81eac88cd493c36d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapSqlShardKeyAttribute constructor family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "MapSqlShardKeyAttribute configures an attributed virtual compound key for SQL mapping. All overloads require recordIdName; overloads may add shardIdName, childIdName, grandChildIdName, greatGrandChildIdName, and isRecordIdentifier. A supplied shardIdName is represented by a SQL SmallInt mapping with isRequired=false. Overloads without isRecordIdentifier set it to true; overloads with it preserve the supplied value. The three-argument (shardIdName, recordIdName, childIdName) overload assigns childIdName to the child, grandchild, and great-grandchild configuration slots; the four- through six-argument forms assign each supplied subordinate name to its corresponding slot."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'sql-map-sql-shard-key-attribute'. The block accurately describes the 10-constructor overload family of MapSqlShardKeyAttribute and is falsifiable, but without sectionId equal to component BLOCK ID 'sql-map-sql-shard-key-attribute', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "23-215",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "36-65",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "398-421",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-map-sql-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

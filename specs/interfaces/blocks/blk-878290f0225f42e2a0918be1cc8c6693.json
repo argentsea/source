@@ -1,0 +1,44 @@
+{
+  "id": "blk-878290f0225f42e2a0918be1cc8c6693",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaGatewayListProvider gateway-list contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSeaGatewayListProvider implements the gateway-list provider contract: GetGateways retrieves gateway endpoints by executing its configured query with the configured cluster identifier as @ClusterId, then returns one gateway URI for each [IP-address bytes, port, generation] result row. MaxStaleness exposes the configured maximum refresh interval; IsUpdatable is always true. InitializeGatewayListProvider completes without retrieving gateways."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "13-87",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-gateway-list-provider",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

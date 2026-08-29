@@ -1,0 +1,44 @@
+{
+  "id": "blk-29988f43ddb2412291fb928738c7af65",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardKeyOrleansSerializer<...> Orleans codec family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "For each ShardKey arity 1, 2, 3, and 4 whose generic arguments implement IComparable, ShardKeyOrleansSerializer<...> exposes Orleans IFieldCodec and IDeepCopier surfaces. DeepCopy rebuilds the same-arity ShardKey from its byte representation. WriteField first delegates reference values to Orleans reference handling; otherwise it writes a LengthPrefixed field whose payload is the key's ToArray bytes preceded by one byte containing that payload length. ReadValue reads a reference field through Orleans reference handling; otherwise it requires a LengthPrefixed wire type, reads one length byte and that many bytes, rebuilds the same-arity ShardKey, and records the rebuilt object in the reader session."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-key-orleans-serializer'. Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "16-180",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-key-orleans-serializer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

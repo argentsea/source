@@ -1,0 +1,52 @@
+{
+  "id": "blk-578cd7199de843e6a7e8cba2a78851b7",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaOrleansReminderTable",
+    "trigger": "a caller reads one reminder using a grain's Shard identifier and a reminder name",
+    "response": "select the corresponding Shard, return the matching reminder row when present, and otherwise return a ReminderEntry bearing the supplied GrainId"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
+        "lines": "33-52,59-86",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-reminder-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

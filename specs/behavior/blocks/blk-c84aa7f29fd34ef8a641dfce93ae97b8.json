@@ -1,0 +1,60 @@
+{
+  "id": "blk-c84aa7f29fd34ef8a641dfce93ae97b8",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DatabasesBase<TConfiguration>.DataConnection",
+    "condition": "MockResults contains an entry whose key is the empty string",
+    "trigger": "a caller invokes RunAsync<TResult> for a Batch",
+    "response": "return the entry's object cast to TResult without executing the Batch commands"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "1001-1009",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "220-232",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-e17384f08ede4e69aa69fca3b733e2a7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

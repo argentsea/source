@@ -1,0 +1,44 @@
+{
+  "id": "blk-643a8cdaf4e34817b6037c584c960aa0",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DatabasesBase<TConfiguration>.Database read/write access",
+    "kind": "Library",
+    "language": "text",
+    "contract": "DatabasesBase<TConfiguration>.Database exposes two DataConnection handles, Read and Write, as a read/write connection pair. If configuration supplies only one role's endpoint, both handles use that supplied endpoint; if both endpoints are supplied, each handle uses its corresponding endpoint."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "86-107",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base-database",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

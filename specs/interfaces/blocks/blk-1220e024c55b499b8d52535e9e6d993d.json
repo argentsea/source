@@ -1,0 +1,44 @@
+{
+  "id": "blk-1220e024c55b499b8d52535e9e6d993d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansDbQueryDefinitions query-definition library surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "OrleansDbQueryDefinitions constructs the persistence-query definition for one grain identifier. Its constructor family accepts a result format and exactly one representation for each of the read, write, and clear roles: an eager QueryProcedure or a deferred Lazy<QueryStatement>. The eight overloads cover every independent eager/deferred combination across those three roles."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-query-definitions'. Grounded and falsifiable interface.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "26-156",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-581e371f27fe439fa7b4f93812b288b3",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PostgreSqlProvider.DataProviderServiceFactory",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Provides the PostgreSQL realization of IDataProviderServiceFactory: it creates a PostgreSQL connection from supplied connection text; creates a command for a supplied procedure name only when given a PostgreSQL connection; and materializes independent PostgreSQL command parameters from a source collection, either all source entries or the requested named entries in request order."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "16-103",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-data-provider-service-factory",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

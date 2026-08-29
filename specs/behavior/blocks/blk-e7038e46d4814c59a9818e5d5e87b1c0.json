@@ -1,0 +1,41 @@
+{
+  "id": "blk-e7038e46d4814c59a9818e5d5e87b1c0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "StringExtensions",
+    "trigger": "a caller encodes and then decodes a nonempty byte sequence through either public representation",
+    "response": "recover the original byte sequence",
+    "postcondition": "the encoded representation contains only 0-9, A-Z, a-z, underscore, and tilde"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by rework-author: The byte encoding round-trip behavior names no committed glossary term. Linking an unrelated Term solely to satisfy lint would be false provenance; no honest in-scope repair exists.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "255-425",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/StringExtensionTests.cs",
+        "lines": "62-79",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-string-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

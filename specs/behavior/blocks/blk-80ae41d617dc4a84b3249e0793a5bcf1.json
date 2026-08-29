@@ -1,0 +1,72 @@
+{
+  "id": "blk-80ae41d617dc4a84b3249e0793a5bcf1",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlParameters",
+    "where": "a caller materializes a parameter for a Query contract",
+    "trigger": "the caller invokes a typed scalar input or output parameter extension",
+    "response": "append exactly one parameter to the supplied collection with an `@`-prefixed name and the overload-selected SQL type; input parameters shall be marked Input and carry the supplied value (or database null for nullable scalar inputs), while output parameters shall be marked Output."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by rework-author: Source review contradicts the duplicate finding: this proposal specifies typed scalar input/output parameter construction, while a98f921c92a64ff2a99849500bf99287 specifies table-valued parameter records. The scalar Scenario blk-1a26e415e1b74f9680285c2d9b7d9b3b illustrates this proposal; a98f… cannot replace it without changing the claimed behavior.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "15-19",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "22-37",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "51-75",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "205-240",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "557-606",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

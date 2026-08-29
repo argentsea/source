@@ -1,0 +1,34 @@
+{
+  "id": "blk-442183723e8e4c988bcd907ca510bf7e",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> MapReaderAsync family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "For a supplied model instance and Query contract, MapReaderAsync returns that model populated from zero to eight reader result sets; when the model type is one of the selected reader-result types, that result set must contain exactly one row. Variants choose the reader-result type sequence and optionally bind a named parameter to the endpoint's current shard identifier."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "1431-2183",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

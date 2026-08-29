@@ -1,0 +1,62 @@
+{
+  "id": "blk-faafe4db721d43e4a811667821eb51b7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A consumer needs the reminder read query contract for grain key `g-17`, grain type `Example.Grain`, and reminder name `wake`.",
+      "when": "The consumer retrieves `Queries.OrleansReminderReadRowKey`.",
+      "then": "The returned contract identifies `rdr.OrleansReminderReadRowKeyV1` and accepts parameters in this order: `@GrainKey`, `@GrainType`, `@ReminderName`."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-0d4ca4935e0a4dc2ac95690d5a9e64f8"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "37-40",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-queries",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-0d4ca4935e0a4dc2ac95690d5a9e64f8",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

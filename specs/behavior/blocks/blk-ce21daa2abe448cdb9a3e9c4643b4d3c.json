@@ -1,0 +1,44 @@
+{
+  "id": "blk-ce21daa2abe448cdb9a3e9c4643b4d3c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "OrleansDbQueryDefinitions",
+    "condition": "the selected read, write, or clear query role has neither an eager nor a deferred Query contract",
+    "trigger": "a caller accesses that role",
+    "response": "throw OrleansQueryNotProvidedException with the definition's grain type"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'orleans-db-query-definitions'. Grounded in ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs:140-150 and falsifiable, but without sectionId equal to component ID 'orleans-db-query-definitions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "140-150",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

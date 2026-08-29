@@ -1,0 +1,44 @@
+{
+  "id": "blk-0199f57510164986bd6db66be30abde4",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SharedQueryTypes query contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "A concrete SharedQueryTypes implementation is initialized with SQL text, a name, and a sequence of parameter names. Consumers can retrieve those supplied values through Sql, Name, and ParameterNames. Each concrete implementation supplies its CommandType classification through Type."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "8-26",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-types",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-6159891108c2437c89a821e7ad58d9df",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansSqlPersistence grain-storage factory",
+    "kind": "Library",
+    "language": "text",
+    "contract": "OrleansSqlPersistence creates an IGrainStorage for either a single database (CreateDb) or a shard set (CreateShards). The shard-set operation selects the provider-specific persistence options identified by its provider name."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "12-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

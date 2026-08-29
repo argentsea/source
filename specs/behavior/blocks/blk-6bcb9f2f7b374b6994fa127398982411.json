@@ -1,0 +1,44 @@
+{
+  "id": "blk-6bcb9f2f7b374b6994fa127398982411",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an empty IServiceCollection and an IConfiguration containing a SqlGlobalSettings section",
+      "when": "SqlServiceBuilderExtensions.AddSqlServices is invoked with those instances",
+      "then": "the same IServiceCollection is returned and contains option bindings for SqlGlobalPropertiesOptions, SqlDbConnectionOptions, and SqlShardConnectionOptions plus singleton registrations for SqlDatabases and SqlShardSets"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e59218f8b90e43e9bd48acb746ef44ab",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-service-builder-extensions'. Grounded scenario block, but without sectionId equal to component ID 'sql-service-builder-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs",
+        "lines": "25-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-service-builder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-40233d060df34e109af2dde22c05553f",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansShardQueryDefinitions query-definition construction family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "OrleansShardQueryDefinitions accepts a grain type, a result format, and one definition for each of the read, write, and clear operations. Each operation is independently supplied either as an eager QueryProcedure or as a deferred Lazy<QueryStatement>, yielding all eight eager/deferred combinations. The constructed value preserves the supplied grain type and result format for later observation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-query-definitions'. Grounded in OrleansQueryDefinitions.cs:161-291 and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "161-291",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

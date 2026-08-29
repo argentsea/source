@@ -1,0 +1,44 @@
+{
+  "id": "blk-e8aa2f5d048f4f1da98bdde13cca6bd2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "BatchStep<TResult> batch-step extension contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "BatchStep<TResult> is an abstract batch-item extension boundary. A derived batch item must provide the protected-internal asynchronous execution operation, accepting the supplied shard identifier, database connection, transaction, connection name, provider services, logger, and cancellation token, and resolving a Task<TResult> for that execution context. The operation is unavailable as a public API."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchStep.cs",
+        "lines": "14-17",
+        "label": "BatchStep<TResult> declaration and abstract execution member",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-step",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": "Batch",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

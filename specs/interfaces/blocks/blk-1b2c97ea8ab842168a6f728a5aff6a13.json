@@ -1,0 +1,44 @@
+{
+  "id": "blk-1b2c97ea8ab842168a6f728a5aff6a13",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlShardSets",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "SqlShardSets is the library facade for SQL shard sets configured through SqlShardConnectionOptions. Constructing SqlShardSets binds shard-set access to the supplied SQL shard-connection configuration and SQL global-properties options."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-shard-sets'. Grounded in ArgentSea.Sql/src/SqlShardSets.cs:14-24, but without sectionId equal to component ID 'sql-shard-sets', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardSets.cs",
+        "lines": "14-24",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-shard-sets",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

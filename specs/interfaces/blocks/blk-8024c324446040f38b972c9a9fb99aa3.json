@@ -1,0 +1,83 @@
+{
+  "id": "blk-8024c324446040f38b972c9a9fb99aa3",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardKey<...> hierarchical virtual-compound-key library family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ShardKey<...> provides one value-key family with generic arities 1, 2, 3, and 4. Each value combines one shard identifier with one record identity and zero to three ordered subordinate identities. Consumers can construct a value from those constituents; serialize it as binary, UTF-8, or an external key; reconstruct it from binary/UTF-8 or an external key; compare it for complete constituent identity; derive a hash code; obtain its empty value; collect distinct shard identifiers; exclude its own shard identifier from a collection; and merge keyed records by this complete identity."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "14-457",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardChild.cs",
+        "lines": "18-514",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGrandChild.cs",
+        "lines": "18-561",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGreatGrandChild.cs",
+        "lines": "18-605",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

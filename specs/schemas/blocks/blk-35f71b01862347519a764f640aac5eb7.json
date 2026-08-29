@@ -1,0 +1,77 @@
+{
+  "id": "blk-35f71b01862347519a764f640aac5eb7",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlDbConnectionOptions",
+    "description": "The provider-specific database-connection configuration collection and its provider-neutral interface view exposed by SqlDbConnectionOptions.",
+    "members": [
+      {
+        "name": "SqlDbConnections",
+        "type": "array<object<SqlDbConnectionConfiguration>>",
+        "required": false,
+        "description": "Writable collection of SQL Server database-connection configuration entries."
+      },
+      {
+        "name": "DbConnectionsInternal",
+        "type": "array<object<IDatabaseConnectionConfiguration>>",
+        "required": false,
+        "description": "Read-only provider-neutral view of SqlDbConnections."
+      }
+    ],
+    "representations": {
+      "CSharp": "SqlDbConnectionOptions exposes SqlDbConnections as SqlDbConnectionConfiguration[] and DbConnectionsInternal as IDatabaseConnectionConfiguration[]."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "30-34",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-db-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-e0effff43c6b4d4daa3244a3bb19ec2a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-database-configuration-options",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "sql-db-connection-options-sql-db-connection-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "contains"
+    }
+  ],
+  "evidenceLinks": []
+}

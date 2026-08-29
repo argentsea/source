@@ -1,0 +1,88 @@
+{
+  "id": "blk-6d2272b6ef59433ab62510a23273d238",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "StringExtensions.InputCleaningOptions",
+    "description": "Public option-set shape used to select StringExtensions.CleanInput character-cleaning behavior.",
+    "members": [
+      {
+        "name": "CleanAll",
+        "type": "int",
+        "required": true,
+        "description": "Value 0 selects default cleaning: leading and trailing separators, control characters, and surrogate-pair characters are omitted."
+      },
+      {
+        "name": "AllowEmojis",
+        "type": "int",
+        "required": true,
+        "description": "Value 1 is an independent flag that retains surrogate-pair characters."
+      },
+      {
+        "name": "AllowMultiline",
+        "type": "int",
+        "required": true,
+        "description": "Value 2 is an independent flag that converts each LF to CRLF while other control characters remain omitted."
+      }
+    ],
+    "representations": {
+      "CSharp": "[Flags] public enum with CleanAll = 0, AllowEmojis = 1, and AllowMultiline = 2; nonzero values may be combined."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "18-31",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "55-74",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/StringExtensionTests.cs",
+        "lines": "22-58",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-string-extensions-input-cleaning-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-string-extensions",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-a3444630c58c46fb903aca5e02760c3d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-0a1e09d3a0cd4dcdbdf60d9b1983f067",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "OrleansDbQueryDefinitions",
+    "condition": "a read, write, or clear query contract was supplied as either a QueryProcedure or a Lazy<QueryStatement>",
+    "trigger": "a caller accesses the property for that query role",
+    "response": "resolve and return that role's query contract"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-query-definitions'. Grounded and falsifiable behavioral block citing committed Term.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "26-156",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

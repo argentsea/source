@@ -1,0 +1,32 @@
+{
+  "id": "blk-dfbe80d34b56419890a3e24db9e5f7d8",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ShardDataConnection<TConfiguration>.MockResults must never return null.",
+    "scope": "Every read of the public MockResults property on ShardDataConnection<TConfiguration>."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "46-56",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,179 @@
+{
+  "id": "blk-d9223aaad5f54ee184b3aff766aa4009",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlConfiguration SQL Server connection property values",
+    "description": "SqlConfiguration carries the optional SQL Server-specific values that its connection-property family can contribute to a connection string.",
+    "members": [
+      {
+        "name": "ApplicationIntent",
+        "type": "enum<ReadWrite|ReadOnly>",
+        "required": false,
+        "description": "Requested workload intent for an availability-group connection."
+      },
+      {
+        "name": "ApplicationName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Application name sent during connection initiation."
+      },
+      {
+        "name": "ConnectTimeout",
+        "type": "int",
+        "required": false,
+        "description": "Connection-attempt timeout in seconds."
+      },
+      {
+        "name": "CurrentLanguage",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "SQL Server language record name."
+      },
+      {
+        "name": "DataSource",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "SQL Server instance name or network address."
+      },
+      {
+        "name": "Encrypt",
+        "type": "bit",
+        "required": false,
+        "description": "Whether client-server data uses encryption."
+      },
+      {
+        "name": "FailoverPartner",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Partner server name or address."
+      },
+      {
+        "name": "InitialCatalog",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Database name."
+      },
+      {
+        "name": "LoadBalanceTimeout",
+        "type": "int",
+        "required": false,
+        "description": "Minimum pool lifetime in seconds."
+      },
+      {
+        "name": "MaxPoolSize",
+        "type": "int",
+        "required": false,
+        "description": "Maximum connection-pool size."
+      },
+      {
+        "name": "MinPoolSize",
+        "type": "int",
+        "required": false,
+        "description": "Minimum connection-pool size."
+      },
+      {
+        "name": "MultipleActiveResultSets",
+        "type": "bit",
+        "required": false,
+        "description": "Whether one connection permits multiple active result sets."
+      },
+      {
+        "name": "MultiSubnetFailover",
+        "type": "bit",
+        "required": false,
+        "description": "Whether multi-subnet availability-group connection behavior is enabled."
+      },
+      {
+        "name": "PacketSize",
+        "type": "int",
+        "required": false,
+        "description": "Network packet size in bytes."
+      },
+      {
+        "name": "PersistSecurityInfo",
+        "type": "bit",
+        "required": false,
+        "description": "Whether security-sensitive connection information is retained after opening."
+      },
+      {
+        "name": "Pooling",
+        "type": "bit",
+        "required": false,
+        "description": "Whether connection pooling is enabled."
+      },
+      {
+        "name": "Replication",
+        "type": "bit",
+        "required": false,
+        "description": "Whether the connection supports replication."
+      },
+      {
+        "name": "TransactionBinding",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Association behavior with an enlisted transaction."
+      },
+      {
+        "name": "TrustServerCertificate",
+        "type": "bit",
+        "required": false,
+        "description": "Whether certificate-chain trust validation is bypassed for an encrypted channel."
+      },
+      {
+        "name": "TypeSystemVersion",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Expected SQL Server type-system version."
+      },
+      {
+        "name": "UserInstance",
+        "type": "bit",
+        "required": false,
+        "description": "Whether SQL Server Express redirects to a caller-specific runtime instance."
+      },
+      {
+        "name": "WorkstationID",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Connecting workstation name."
+      }
+    ],
+    "representations": {
+      "CSharp": "ApplicationIntent?; string; int?; and bool? public properties, each initialized to null when no value is supplied."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "11-382",
+        "label": "SQL Server connection property declarations",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

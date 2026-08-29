@@ -1,0 +1,53 @@
+{
+  "id": "blk-9b9cbd31d7b04dfcb525398f376bd809",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardSetBatch",
+    "trigger": "a caller invokes any Add overload with a BatchStep<object>, a Query, or a Query and DbParameterCollection",
+    "response": "append exactly one corresponding no-result step and return the same ShardSetBatch instance",
+    "postcondition": "the accepted steps are retained in their invocation order for subsequent execution on the selected shard"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/ShardSetBatch.cs",
+        "lines": "14-63",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-set-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

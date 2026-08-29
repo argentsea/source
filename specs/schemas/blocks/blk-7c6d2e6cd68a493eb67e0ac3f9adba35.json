@@ -1,0 +1,60 @@
+{
+  "id": "blk-7c6d2e6cd68a493eb67e0ac3f9adba35",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardKey Orleans non-reference field payload",
+    "description": "The non-reference payload emitted and consumed by ShardKeyOrleansSerializer<...> for every supported ShardKey arity.",
+    "members": [
+      {
+        "name": "payloadLength",
+        "type": "tinyint",
+        "required": true,
+        "description": "One byte written from the ShardKey byte representation's length and read as the count of following payload bytes."
+      },
+      {
+        "name": "payload",
+        "type": "varbinary(max)",
+        "required": true,
+        "description": "The ShardKey ToArray byte representation; the reader consumes the number of bytes specified by payloadLength."
+      }
+    ],
+    "representations": {
+      "CSharp": "writer.WriteByte((byte)bytes.Length) followed by writer.Write(bytes.Span); reader.ReadByte() followed by reader.ReadBytes(numBytes).",
+      "Orleans": "Carried in a field whose wire type is LengthPrefixed when it is not encoded as a reference."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-key-orleans-serializer'. Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable schema block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "16-180",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-key-orleans-serializer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

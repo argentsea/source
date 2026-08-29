@@ -1,0 +1,53 @@
+{
+  "id": "blk-2459809b36504a51877b8bef73dbdd35",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgServiceBuilderExtensions.AddPgServices",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "IServiceCollection AddPgServices(this IServiceCollection services, IConfiguration config)\n\nCalling PgServiceBuilderExtensions.AddPgServices establishes the PostgreSQL service-registration set on the supplied collection: it assigns the query statement extension \"psql\"; binds PgGlobalPropertiesOptions from the \"PgGlobalSettings\" section; binds PgDbConnectionOptions and PgShardConnectionOptions from the supplied configuration; registers PgDatabases and PgShardSets as singleton services; and returns the same IServiceCollection."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'pg-service-builder-extensions'. Grounded in ArgentSea.Pg/src/PgServiceBuilderExtensions.cs:17-37 and falsifiable interface contract for PgServiceBuilderExtensions.AddPgServices.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "17-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-service-builder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

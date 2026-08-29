@@ -1,0 +1,62 @@
+{
+  "id": "blk-2bcd39286101474db8464c5ef39f88c9",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ParameterCollection in this order: pA with ParameterName '@a', pB with ParameterName '@b', and pB2 with ParameterName '@b'.",
+      "when": "a caller uses '@b' for name-based Contains, IndexOf, and parameter retrieval.",
+      "then": "Contains('@b') is true, IndexOf('@b') is 1, and parameter retrieval returns pB; for '@missing', Contains is false, IndexOf is -1, and parameter retrieval returns null."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-fc0e539f9461471fb59918781f34f139"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ParameterCollection.cs",
+        "lines": "52-79,110-119,162-170",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-parameter-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-fc0e539f9461471fb59918781f34f139",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

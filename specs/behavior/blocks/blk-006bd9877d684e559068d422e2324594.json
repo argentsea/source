@@ -1,0 +1,63 @@
+{
+  "id": "blk-006bd9877d684e559068d422e2324594",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameterCollection has no parameters and a query contract needs an NVarChar input with name \"note\", null value, and size 20.",
+      "when": "A caller invokes SqlParameterCollectionExtensions.AddSqlNVarCharInputParameter(collection, \"note\", null, 20).",
+      "then": "The same collection contains one Input NVarChar parameter named \"@note\", sized 20, whose value is DBNull."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ddff8ceba2ae42999cbc87880bd1a92c",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "20-27,51-62",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ddff8ceba2ae42999cbc87880bd1a92c",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

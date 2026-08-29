@@ -1,0 +1,43 @@
+{
+  "id": "blk-a2b9274a172a4475b81b9135e0936ca9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardParameterValue",
+    "trigger": "a caller constructs it with a shard identifier, parameter name, and parameter value",
+    "response": "expose those three supplied values through its mutable ShardId, ParameterName, and ParameterValue properties"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardParameterValue.cs",
+        "lines": "14-34",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-parameter-value",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

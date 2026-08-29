@@ -1,0 +1,44 @@
+{
+  "id": "blk-ddff8ceba2ae42999cbc87880bd1a92c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlParameterCollectionExtensions",
+    "trigger": "a caller invokes a scalar input or output helper for a query contract",
+    "response": "append one SQL Server parameter to the supplied collection using the helper's selected SQL type and direction, then return that collection",
+    "postcondition": "the parameter name is @-prefixed; input helpers preserve supplied values except that null reference or nullable values, NaN floating-point values, and an empty Guid are represented as database null; output helpers omit an input value and retain requested size, ANSI locale, or decimal precision and scale where their type requires it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "20-1117",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,51 @@
+{
+  "id": "blk-77629f39d38b451582ac97e64b2b88d8",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A newly constructed PgSharding PgShardConnectionOptions.PgShardConnectionConfiguration must always have initialized provider-specific read and write connection configuration objects.",
+    "scope": "Default construction of PgSharding shard connection configuration entries."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "31-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-sharding",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

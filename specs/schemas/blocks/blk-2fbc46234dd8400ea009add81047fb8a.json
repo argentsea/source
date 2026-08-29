@@ -1,0 +1,121 @@
+{
+  "id": "blk-2fbc46234dd8400ea009add81047fb8a",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "IShardSetConnectionsConfiguration property shape",
+    "description": "IShardSetConnectionsConfiguration is the provider-specific shard-set connection shape: it identifies a shard set, identifies its default shard, and exposes the member shard configurations plus the read and write connection configurations.",
+    "members": [
+      {
+        "name": "ShardSetName",
+        "type": "nvarchar(max)",
+        "description": "The name identifying the shard set."
+      },
+      {
+        "name": "DefaultShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "The identifier of the default shard."
+      },
+      {
+        "name": "ShardsConfigInternal",
+        "type": "array<ref<IShardConnectionConfiguration>>",
+        "description": "The shard connection configurations in the shard set.",
+        "notes": "Exposed through a getter only."
+      },
+      {
+        "name": "ReadConfigInternal",
+        "type": "ref<IShardConnectionConfiguration>",
+        "description": "The read connection configuration for the shard set.",
+        "notes": "Exposed through a getter only."
+      },
+      {
+        "name": "WriteConfigInternal",
+        "type": "ref<IShardConnectionConfiguration>",
+        "description": "The write connection configuration for the shard set.",
+        "notes": "Exposed through a getter only."
+      }
+    ],
+    "representations": {
+      "CSharp": "string ShardSetName { get; set; }; short DefaultShardId { get; set; }; IShardConnectionConfiguration[] ShardsConfigInternal { get; }; IShardConnectionConfiguration ReadConfigInternal { get; }; IShardConnectionConfiguration WriteConfigInternal { get; };"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetConnectionsConfiguration.cs",
+        "lines": "13-21",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-shard-set-connections-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-eff2763239614e469469ff8fc2d907e5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-fe859b22ef8b4f1aa31d78df1d45860a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

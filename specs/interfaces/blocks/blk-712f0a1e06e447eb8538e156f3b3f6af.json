@@ -1,0 +1,44 @@
+{
+  "id": "blk-712f0a1e06e447eb8538e156f3b3f6af",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgParameterExtensions output-value extraction",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "PgParameterExtensions exposes two DbParameter extension operations for an output value populated after execution: GetArray<T> returns null when Value is System.DBNull.Value and otherwise returns Value as T[]; GetHStore returns null under the same condition and otherwise returns Value as a string-to-string dictionary through IDictionary<string, string>."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterExtensions.cs",
+        "lines": "10-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

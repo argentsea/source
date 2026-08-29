@@ -1,0 +1,44 @@
+{
+  "id": "blk-7451904a594940aa921088f17859a1ab",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgParameterCollectionExtensions typed PostgreSQL parameter library",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "PgParameterCollectionExtensions extends a DbParameterCollection with the AddPg*Parameter family. For a Query contract, every member appends exactly one parameter for its named PostgreSQL type and returns the same collection. The family varies by PostgreSQL type (Varchar, Char, Text; Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real; Timestamp, TimestampTz, Date, Time, Interval, TimeTz; Array, Bytea, Hstore, Uuid), direction (Input or Output), nullable/reference value support, and only where applicable size, precision, scale, or an Array element type."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "19-1356",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

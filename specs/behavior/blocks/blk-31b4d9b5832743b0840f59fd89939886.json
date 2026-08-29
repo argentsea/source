@@ -1,0 +1,53 @@
+{
+  "id": "blk-31b4d9b5832743b0840f59fd89939886",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A PgShardConnectionOptions instance has PgShardSets set to an array containing two PgShardConnectionsConfiguration entries.",
+      "when": "A consumer reads ShardSetsConfigInternal through IShardSetsConfigurationOptions.",
+      "then": "The returned IShardSetConnectionsConfiguration[] view contains those two configured shard-set entries."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-724161b41bdb40ff84491716cf6d0ca9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "13-17",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-724161b41bdb40ff84491716cf6d0ca9",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

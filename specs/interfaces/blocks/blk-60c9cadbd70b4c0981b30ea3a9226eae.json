@@ -1,0 +1,53 @@
+{
+  "id": "blk-60c9cadbd70b4c0981b30ea3a9226eae",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgGlobalPropertiesOptions",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "A caller can construct PgGlobalPropertiesOptions as the concrete global-level PostgreSQL configuration node. The constructed object exposes the connection-property surface inherited from PgConnectionPropertiesBase; PgGlobalPropertiesOptions declares no additional member surface."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgGlobalPropertiesOptions.cs",
+        "lines": "10-13",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-global-properties-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-connection-properties-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

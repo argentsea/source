@@ -1,0 +1,83 @@
+{
+  "id": "blk-7cc0f1eb547544479693400fcf368edd",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ParameterMapAttributeBase mapping metadata",
+    "description": "The retained metadata exposed by ParameterMapAttributeBase for one property-to-database mapping.",
+    "members": [
+      {
+        "name": "Name",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The source mapping name."
+      },
+      {
+        "name": "ParameterName",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The database parameter name; initialized from the constructor name."
+      },
+      {
+        "name": "ColumnName",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The database column name; initialized from the constructor name."
+      },
+      {
+        "name": "SqlType",
+        "type": "int",
+        "required": true,
+        "description": "The provider-specific database type code."
+      },
+      {
+        "name": "SqlTypeName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "An optional provider-specific type name."
+      },
+      {
+        "name": "IsRecordIdentifier",
+        "type": "bit",
+        "required": true,
+        "description": "Whether a null mapped value represents an absent record."
+      }
+    ],
+    "representations": {
+      "CSharp": "Read-only public properties with private setters; strings are exposed as string and SqlTypeName has no constructor assignment in this base class."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ParameterMapAttributeBase.cs",
+        "lines": "13-70",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-parameter-map-attribute-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-parameter-map-attribute-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

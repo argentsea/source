@@ -1,0 +1,63 @@
+{
+  "id": "blk-ffd930ed1489492585b0cc385b445284",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A concrete BatchBase<int> retains the ordered BatchStep<int> sequence [A, B].",
+      "when": "A caller reads Count, index 0, and both generic and nongeneric enumerators.",
+      "then": "Count is 2, index 0 is A, and each enumeration yields [A, B]."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-596fbdf06ef847ea9347cc630f0a6dba",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Subject rule defect: block does not state unique committed name 'BatchBase<TResult>' verbatim, using only concrete instantiation 'BatchBase<int>'. Grounded and falsifiable otherwise.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "19-47",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-a66f35b85fa24525af42af4fac1d74a7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

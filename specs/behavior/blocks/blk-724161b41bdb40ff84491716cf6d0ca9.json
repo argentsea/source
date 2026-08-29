@@ -1,0 +1,44 @@
+{
+  "id": "blk-724161b41bdb40ff84491716cf6d0ca9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgShardConnectionOptions",
+    "trigger": "a consumer reads the shared shard-set configuration view",
+    "response": "return the current PgShardSets collection as IShardSetConnectionsConfiguration[]",
+    "postcondition": "the shared view contains the configured shard-set entries"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "13-17",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": "Shard set",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

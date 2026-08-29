@@ -1,0 +1,62 @@
+{
+  "id": "blk-080ea93c36384501ad2677f13ffc95b0",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "BatchExtensions Add overload family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "BatchExtensions exposes one Add extension family for composing a Batch from a Query contract. A ShardBatch<TResult> or DatabaseBatch<TResult> receiver selects the result shape: a comparable scalar record, a sequence of records, a virtual compound key or key sequence with optional child identity and optional shard-identifier column, or a model produced by a supplied QueryResultModelHandler. Every overload adds one matching result operation and returns the original receiver. Overloads either accept an explicit DbParameterCollection or use an empty parameter collection; record and key type arguments are comparable, and model type arguments have a public parameterless constructor."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "14-233",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

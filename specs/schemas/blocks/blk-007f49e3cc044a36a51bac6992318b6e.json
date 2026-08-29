@@ -1,0 +1,135 @@
+{
+  "id": "blk-007f49e3cc044a36a51bac6992318b6e",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSeaOrleansMembershipTable membership record and version mutation shape",
+    "description": "The membership mutation shape that ArgentSeaOrleansMembershipTable passes to its cluster membership query contract combines the addressed member state with the presented table-version concurrency state.",
+    "members": [
+      {
+        "name": "ClusterId",
+        "type": "nvarchar(150)",
+        "required": true,
+        "description": "Cluster whose membership table is mutated or read."
+      },
+      {
+        "name": "Address",
+        "type": "varbinary(16)",
+        "required": true,
+        "description": "Network address bytes identifying the member."
+      },
+      {
+        "name": "Port",
+        "type": "int",
+        "required": true,
+        "description": "Member endpoint port."
+      },
+      {
+        "name": "Generation",
+        "type": "int",
+        "required": true,
+        "description": "Member address generation."
+      },
+      {
+        "name": "SiloName",
+        "type": "nvarchar(150)",
+        "required": true,
+        "description": "Member silo name."
+      },
+      {
+        "name": "HostName",
+        "type": "nvarchar(150)",
+        "required": true,
+        "description": "Member host name."
+      },
+      {
+        "name": "Status",
+        "type": "smallint",
+        "required": true,
+        "description": "Member status code.",
+        "notes": "ReadRow reconstructs this value through an int reader while the mutation path sends a smallint."
+      },
+      {
+        "name": "ProxyPort",
+        "type": "int",
+        "required": true,
+        "description": "Member proxy port."
+      },
+      {
+        "name": "StartTime",
+        "type": "datetime2",
+        "required": true,
+        "description": "Member start timestamp."
+      },
+      {
+        "name": "IAmAliveTime",
+        "type": "datetime2",
+        "required": true,
+        "description": "Most recent liveness timestamp."
+      },
+      {
+        "name": "ETagNo",
+        "type": "int",
+        "required": true,
+        "description": "Numeric concurrency token supplied from the table version's ETag string."
+      },
+      {
+        "name": "Version",
+        "type": "int",
+        "required": true,
+        "description": "Presented table-version number."
+      },
+      {
+        "name": "SuspectTimes",
+        "type": "array<object<SuspectReport>>",
+        "required": false,
+        "description": "Suspect reports sent as a table-valued parameter; each report has Address varbinary(150), Port int, Generation int, and Timestamp datetime2."
+      }
+    ],
+    "representations": {
+      "CSharp": "MembershipEntry supplies member state; TableVersion supplies Version and a string VersionEtag parsed as int; suspect reports are materialized as SqlDataRecord values."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "119-131,321-325,379-389",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-membership-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "orleans-sql-orleans-membership-table",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-38b686606e9c4870904ca712c505ff14",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

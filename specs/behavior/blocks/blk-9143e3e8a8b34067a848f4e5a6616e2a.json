@@ -1,0 +1,63 @@
+{
+  "id": "blk-9143e3e8a8b34067a848f4e5a6616e2a",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A concrete BatchBase<int> retains the BatchStep<int> sequence [A, B].",
+      "when": "A caller invokes Clear.",
+      "then": "Count is 0 and enumeration yields []."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-8f7b929582d84b66b0a570778f63c0d7",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Subject rule defect: block does not state unique committed name 'BatchBase<TResult>' verbatim, using only concrete instantiation 'BatchBase<int>'. Grounded and falsifiable otherwise.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "19-47",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-a66f35b85fa24525af42af4fac1d74a7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

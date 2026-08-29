@@ -1,0 +1,44 @@
+{
+  "id": "blk-5998974b207a44639094d50cd6bd39b7",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlParameterCollectionExtensions typed SQL Server parameter family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "SqlParameterCollectionExtensions adds exactly one typed SQL Server parameter to a supplied DbParameterCollection and returns that same collection. Its scalar input/output family varies by SQL type (NVarChar, NChar, VarChar, Char, BigInt, Int, SmallInt, TinyInt, Float, Real, Bit, Decimal, Money, SmallMoney, Date, DateTime, DateTime2, Time, DateTimeOffset, UniqueIdentifier, VarBinary, Binary, Json), direction, nullable value support, and applicable size, ANSI locale, or decimal precision and scale. Its table-valued input family accepts supplied SqlDataRecord rows, mapped model rows, keyed-model rows, or ShardKey rows and adds one Structured input parameter. All methods normalize a parameter name to an @-prefixed SQL Server name."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "20-1381",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

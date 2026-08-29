@@ -1,0 +1,61 @@
+{
+  "id": "blk-babf779e363c4343b33c62efa8e84b8d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IDataConnection",
+    "kind": "Library",
+    "contract": "IDataConnection defines the connection-configuration values available to connection execution: a connection description; a connection string derived from configured connection properties; nullable retry-count, circuit-breaker failure-count, and circuit-breaker test-interval settings; and a retry time span selected for an attempt count. It accepts ambient configuration at global, read/write, shard-set, and shard scopes."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataConnection.cs",
+        "lines": "8-30",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

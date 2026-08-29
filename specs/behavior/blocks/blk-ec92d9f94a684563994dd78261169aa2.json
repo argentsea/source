@@ -1,0 +1,62 @@
+{
+  "id": "blk-ec92d9f94a684563994dd78261169aa2",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a shard-set key of \"orders\" and two supplied query definitions whose GrainType values are \"Order\" and \"Invoice\"",
+      "when": "OrleansShardPersistenceOptions is constructed with that key and definition list",
+      "then": "ShardSetKey is \"orders\" and Queries maps \"Order\" and \"Invoice\" to their respective supplied definitions"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-d992dcdc96ea4a01a8a70621985905b8"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-persistence-options'. Grounded in OrleansShardPersistenceOptions.cs:18-22 and falsifiable scenario block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "18-22",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-persistence-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-d992dcdc96ea4a01a8a70621985905b8",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

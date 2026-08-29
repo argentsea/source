@@ -1,0 +1,53 @@
+{
+  "id": "blk-3fc167cbdf3e49c6a8e47b4bb8fb2396",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "ArgentSeaOrleansMembershipTable is configured for cluster \"cluster-a\" and its membership version record has not been initialized.",
+      "when": "InitializeMembershipTable is invoked with tryInitTableVersion=true.",
+      "then": "the membership query receives ClusterId=\"cluster-a\", ETagNo=0, and Version=0; invoking it with tryInitTableVersion=false completes without a membership query."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-48618b09dcfc422591d98f6a12b2decb"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "43-56",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-membership-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-48618b09dcfc422591d98f6a12b2decb",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

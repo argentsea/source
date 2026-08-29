@@ -1,0 +1,39 @@
+{
+  "id": "blk-c097ca91f3854f53b45b348090cbf3f0",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "TvpExpressionHelpers must never execute a compiled column assignment when a non-null selection list omits that column name.",
+    "scope": "The column-selection guard applied to assignments emitted by TvpExpressionHelpers."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-expression-helpers'. Grounded invariant block, but without sectionId equal to component ID 'sql-tvp-expression-helpers', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "19-298",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "300-313",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-tvp-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

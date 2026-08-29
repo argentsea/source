@@ -1,0 +1,53 @@
+{
+  "id": "blk-3ebafd328e244ca783b773ec5461d015",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a newly constructed PgDbConnectionOptions.PgDbConnectionConfiguration",
+      "when": "its read and write endpoints and their internal aliases are inspected",
+      "then": "ReferenceEquals(ReadConnection, WriteConnection) is false, ReferenceEquals(ReadConnection, ReadConnectionInternal) is true, and ReferenceEquals(WriteConnection, WriteConnectionInternal) is true"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-87a90dc9f11b45ad845e05deb8b062f7"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "38-46",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-db-connection-options-pg-db-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

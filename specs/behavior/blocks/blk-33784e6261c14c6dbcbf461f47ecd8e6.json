@@ -1,0 +1,63 @@
+{
+  "id": "blk-33784e6261c14c6dbcbf461f47ecd8e6",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "CopyMapper",
+    "condition": "a Batch has an operation registered through a virtual compound key Add overload and the supplied table name is valid",
+    "trigger": "the Batch executes that operation",
+    "response": "create the destination table and import one binary COPY row per key, placing its shard identifier and record identity first, followed by each supplied child, grandchild, and great-grandchild identity in key-arity order",
+    "postcondition": "the COPY columns use the PgParameterMapAttribute definitions supplied for the identity members"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "46-108,123-130,149-184,204-240,262-300,324-362",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-copy-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-7cee1125d4324f8cb4978303e9a3e1f9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

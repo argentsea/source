@@ -1,0 +1,60 @@
+{
+  "id": "blk-74cb7f841ec74553849e26e3d9785a41",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "Mapper mapped query-contract materialization",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Mapper is a static library surface that translates declared model mapping metadata at a query contract boundary. Its extension families (1) append mapped input or output parameters while allowing already-present and explicitly ignored names to remain excluded, (2) materialize a new or supplied model from output parameters or one reader row, and (3) materialize a list from reader rows. Each materialization family has a variant accepting a Shard identifier; query-result handler variants accept a root model plus zero through eight typed dependent reader-result collections, with optional output-parameter materialization."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded and falsifiable interface contract for Mapper mapped query-contract materialization.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "24-3980",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "3984-3984",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

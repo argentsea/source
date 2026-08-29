@@ -1,0 +1,42 @@
+{
+  "id": "blk-895a4143df974151a86c94cbf9838d78",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ShardSetsBase<TConfiguration> membership must never change after construction.",
+    "scope": "The named shard-set collection exposed by ShardSetsBase<TConfiguration>."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetsBase.cs",
+        "lines": "26-84",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

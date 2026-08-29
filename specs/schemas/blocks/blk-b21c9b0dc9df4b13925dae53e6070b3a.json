@@ -1,0 +1,138 @@
+{
+  "id": "blk-b21c9b0dc9df4b13925dae53e6070b3a",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardSetsBase<TConfiguration>.ShardSet public state and access shape",
+    "description": "C# public state, member access, and operation-entry surfaces of a configured shard set; no database or wire representation is established by the source.",
+    "members": [
+      {
+        "name": "Key",
+        "type": "string",
+        "required": false,
+        "description": "Caller-assigned key."
+      },
+      {
+        "name": "MockResults",
+        "type": "object<Dictionary<string, object>>",
+        "required": true,
+        "description": "Lazily created mapping from query name to caller-supplied result."
+      },
+      {
+        "name": "byShardId",
+        "type": "ref<ShardInstance<TConfiguration>>",
+        "required": true,
+        "description": "Member selected by a short shard identifier."
+      },
+      {
+        "name": "byShardKey",
+        "type": "ref<ShardInstance<TConfiguration>>",
+        "required": true,
+        "description": "Member selected by the ShardId carried by an IShardKey."
+      },
+      {
+        "name": "Count",
+        "type": "int",
+        "required": true,
+        "description": "Number of configured members."
+      },
+      {
+        "name": "DefaultShard",
+        "type": "ref<ShardInstance<TConfiguration>>",
+        "required": true,
+        "description": "Member selected by the configured default shard identifier."
+      },
+      {
+        "name": "IsSynchronized",
+        "type": "bool",
+        "required": true,
+        "description": "Collection synchronization indicator."
+      },
+      {
+        "name": "SyncRoot",
+        "type": "object",
+        "required": true,
+        "description": "Synchronization object for collection consumers."
+      },
+      {
+        "name": "ReadAll",
+        "type": "ref<ShardSetReadAll>",
+        "required": true,
+        "description": "Fan-out read-all operation surface."
+      },
+      {
+        "name": "ReadFirst",
+        "type": "ref<ShardSetReadFirst>",
+        "required": true,
+        "description": "Fan-out read-first operation surface."
+      },
+      {
+        "name": "Write",
+        "type": "ref<ShardSetWrite>",
+        "required": true,
+        "description": "Fan-out write operation surface."
+      }
+    ],
+    "representations": {
+      "csharp": "The source defines these public members only in C#: string, Dictionary<string, object>, two indexers returning ShardInstance<TConfiguration>, int, bool, object, and three operation-surface types. It provides no SQL, JSON, or TypeScript representation."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "55-93",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "723-725",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base-shard-set",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-fe859b22ef8b4f1aa31d78df1d45860a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-a66f35b85fa24525af42af4fac1d74a7",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "BatchBase<TResult> ordered batch-step collection",
+    "kind": "Library",
+    "language": "text",
+    "contract": "BatchBase<TResult> is an ordered collection of BatchStep<TResult> for a Batch. Count, indexed access, generic enumeration, and nongeneric enumeration expose the same current order. CopyTo writes that order into a BatchStep<TResult>[] starting at the supplied destination index. Remove returns true only when it removes the supplied step; Clear leaves the collection empty. IsSynchronized reports true and SyncRoot supplies one stable synchronization identity for the instance."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "19-47",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

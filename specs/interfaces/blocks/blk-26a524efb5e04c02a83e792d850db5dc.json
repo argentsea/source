@@ -1,0 +1,44 @@
+{
+  "id": "blk-26a524efb5e04c02a83e792d850db5dc",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "QueryStatement.Create factory family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "QueryStatement.Create returns Lazy<QueryStatement> so command text is not read until Value is requested. Every overload accepts a statement name; callers may omit parameter names, supply parameter names, select a folder and extension, or supply a full file path. When materialized, the result is a QueryStatement query contract whose name and parameter names are the supplied values and whose command type is Text."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "34-72",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-statement",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

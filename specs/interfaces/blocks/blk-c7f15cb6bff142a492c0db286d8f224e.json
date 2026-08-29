@@ -1,0 +1,69 @@
+{
+  "id": "blk-c7f15cb6bff142a492c0db286d8f224e",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardSetsBase<TConfiguration>.ShardSet collection and shard-selection interface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ShardSetsBase<TConfiguration>.ShardSet represents one configured shard set. Construction establishes the collection of configured ShardInstance<TConfiguration> values and exposes ReadAll, ReadFirst, and Write operation surfaces. Callers can retrieve a member by its short shard identifier or by an IShardKey's ShardId; Count reports the member count; DefaultShard returns the configured default member; CopyTo and GetEnumerator expose the member collection; IsSynchronized reports true and SyncRoot supplies the collection's synchronization object."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "24-93",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "723-725",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base-shard-set",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

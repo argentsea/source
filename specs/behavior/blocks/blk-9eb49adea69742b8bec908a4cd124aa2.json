@@ -1,0 +1,54 @@
+{
+  "id": "blk-9eb49adea69742b8bec908a4cd124aa2",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlConnectionConfiguration",
+    "where": "a Configuration hierarchy has been supplied and a connection string was previously resolved",
+    "trigger": "a supplied ambient layer reports that one of its properties changed",
+    "response": "discard the previously resolved connection string",
+    "postcondition": "the next connection-string request resolves from the current layer values"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "32-35,183-205",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-10caf47e852e4a28b7d69a8da1ea358b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

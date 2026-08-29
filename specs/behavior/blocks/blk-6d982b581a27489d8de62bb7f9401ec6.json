@@ -1,0 +1,58 @@
+{
+  "id": "blk-6d982b581a27489d8de62bb7f9401ec6",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "the mapping layer",
+    "condition": "a model property is mapped to an incompatible database parameter type",
+    "trigger": "the layer builds parameters or mapping expressions",
+    "response": "throw InvalidMapTypeException with the mapped property's diagnostic context"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-mapper' and subject string 'the mapping layer' drifted from component name 'Mapper'. Grounded in Mapper.cs, CopyMapper.cs, and TvpMapper.cs and falsifiable.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "443-451,750-804,849-880,963-992,1428-1451",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "545-593,637",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "117-198",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-invalid-map-type-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

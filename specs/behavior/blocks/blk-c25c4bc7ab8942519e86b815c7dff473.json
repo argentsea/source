@@ -1,0 +1,54 @@
+{
+  "id": "blk-c25c4bc7ab8942519e86b815c7dff473",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an excluded shard identifier 2 and input virtual compound keys with shard identifiers [2, 5, 5, 9]",
+      "when": "ShardListForeign is called",
+      "then": "the returned ShardsValues has empty entries for shard identifiers 5 and 9 only"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-123b620a02214432a1be5269c91992d7",
+        "relation": "validates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "187-214",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-123b620a02214432a1be5269c91992d7",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

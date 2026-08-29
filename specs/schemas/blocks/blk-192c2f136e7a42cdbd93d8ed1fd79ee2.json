@@ -1,0 +1,71 @@
+{
+  "id": "blk-192c2f136e7a42cdbd93d8ed1fd79ee2",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgConnectionConfiguration resolved connection identity",
+    "description": "The externally exposed identity of the PostgreSQL endpoint after PgConnectionConfiguration resolves database and host across its configuration hierarchy.",
+    "members": [
+      {
+        "name": "ConnectionDescription",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "A resolved value formatted as \"database {Database} on server {Host}\"; each segment uses the latest non-null Database or Host among global, shard-set, read/write, shard, and local values."
+      }
+    ],
+    "representations": {
+      "CSharp": "string ConnectionDescription { get; }"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "16-367",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-connection-properties-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-data-connection",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

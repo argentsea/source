@@ -1,0 +1,53 @@
+{
+  "id": "blk-b7157e6187b34d4cb5eb55d0b25c9cdf",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SequenceLengthening",
+    "description": "SequenceLengthening is the finite public selection shape for a retry-backoff lengthening mode.",
+    "members": [
+      {
+        "name": "value",
+        "type": "enum<Linear|Fibonacci|HalfSquare|Squaring>",
+        "required": true,
+        "description": "The selected retry-backoff mode; no other named enum member is declared."
+      }
+    ],
+    "representations": {
+      "C#": "public enum SequenceLengthening { Linear, Fibonacci, HalfSquare, Squaring }"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "15-21",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-sequence-lengthening",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

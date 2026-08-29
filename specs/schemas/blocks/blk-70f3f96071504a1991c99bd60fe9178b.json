@@ -1,0 +1,122 @@
+{
+  "id": "blk-70f3f96071504a1991c99bd60fe9178b",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgShardConnectionOptions.PgShardConnectionsConfiguration",
+    "description": "The configurable PostgreSQL connection settings for one shard set; interface-only views are projections of the three concrete configuration members and are not separately stored fields.",
+    "members": [
+      {
+        "name": "ShardSetName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Name of the shard set this configuration identifies."
+      },
+      {
+        "name": "DefaultShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "Identifier of the default shard for this configuration."
+      },
+      {
+        "name": "Shards",
+        "type": "array<ref<PgShardConnectionOptions.PgShardConnectionConfiguration>>",
+        "required": false,
+        "description": "Concrete PostgreSQL configuration entries for the shards in the shard set."
+      },
+      {
+        "name": "Read",
+        "type": "ref<PgShardConnectionOptions.PgShardConnectionConfiguration>",
+        "required": false,
+        "description": "Concrete read configuration exposed through the read side of the read/write connection pair."
+      },
+      {
+        "name": "Write",
+        "type": "ref<PgShardConnectionOptions.PgShardConnectionConfiguration>",
+        "required": false,
+        "description": "Concrete write configuration exposed through the write side of the read/write connection pair."
+      }
+    ],
+    "representations": {
+      "C#": "public properties: string ShardSetName; short DefaultShardId; PgShardConnectionConfiguration[] Shards; PgShardConnectionConfiguration Read; PgShardConnectionConfiguration Write."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "18-29",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options-pg-shard-connections-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-78027f6b8bfc4ef18f919a327340dca7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-fe859b22ef8b4f1aa31d78df1d45860a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

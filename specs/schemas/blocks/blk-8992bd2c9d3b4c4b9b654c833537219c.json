@@ -1,0 +1,135 @@
+{
+  "id": "blk-8992bd2c9d3b4c4b9b654c833537219c",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgSharding PostgreSQL shard-connection configuration family",
+    "description": "PgSharding represents a PostgreSQL shard-set collection, each set's identity and default shard, its shard connection configurations, optional set-level read/write configurations, and each shard's initialized read/write connection configurations.",
+    "members": [
+      {
+        "name": "PgShardSets",
+        "type": "array<object<PgShardConnectionsConfiguration>>",
+        "required": false,
+        "description": "The provider-specific collection of shard-set connection configurations."
+      },
+      {
+        "name": "PgShardConnectionsConfiguration.ShardSetName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "The name identifying the shard set."
+      },
+      {
+        "name": "PgShardConnectionsConfiguration.DefaultShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "The default shard identifier for the shard set."
+      },
+      {
+        "name": "PgShardConnectionsConfiguration.Shards",
+        "type": "array<object<PgShardConnectionConfiguration>>",
+        "required": false,
+        "description": "The provider-specific shard connection configurations in the shard set."
+      },
+      {
+        "name": "PgShardConnectionsConfiguration.Read",
+        "type": "ref<PgShardConnectionConfiguration>",
+        "required": false,
+        "description": "The optional set-level read connection configuration."
+      },
+      {
+        "name": "PgShardConnectionsConfiguration.Write",
+        "type": "ref<PgShardConnectionConfiguration>",
+        "required": false,
+        "description": "The optional set-level write connection configuration."
+      },
+      {
+        "name": "PgShardConnectionConfiguration.ShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "The shard identifier for the connection configuration."
+      },
+      {
+        "name": "PgShardConnectionConfiguration.ReadConnection",
+        "type": "ref<PgConnectionConfiguration>",
+        "required": true,
+        "description": "The initialized provider-specific read connection configuration."
+      },
+      {
+        "name": "PgShardConnectionConfiguration.WriteConnection",
+        "type": "ref<PgConnectionConfiguration>",
+        "required": true,
+        "description": "The initialized provider-specific write connection configuration."
+      }
+    ],
+    "representations": {
+      "CSharp": "PgShardConnectionOptions and its nested PgShardConnectionsConfiguration and PgShardConnectionConfiguration classes; the internal shared-interface views are covariant views of the provider-specific arrays and read/write objects."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "8-12",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "13-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-sharding",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

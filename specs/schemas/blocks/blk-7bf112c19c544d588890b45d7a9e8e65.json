@@ -1,0 +1,282 @@
+{
+  "id": "blk-7bf112c19c544d588890b45d7a9e8e65",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgConnectionPropertiesBase PostgreSQL connection settings",
+    "description": "The nullable setting family that a PgConnectionPropertiesBase-derived configuration can use to specify PostgreSQL connection identity, preparation, timeout, pool, session, security, transport, and buffering options; a null member is unspecified by this layer.",
+    "members": [
+      {
+        "name": "ApplicationName",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "ClientCertificate",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "ClientCertificateKey",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "ClientEncoding",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "Database",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "Encoding",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "Host",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "KerberosServiceName",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "Options",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "Passfile",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "RootCertificate",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "SearchPath",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "Timezone",
+        "type": "nvarchar(max)",
+        "required": false
+      },
+      {
+        "name": "AutoPrepareMinUsages",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "CancellationTimeout",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "CommandTimeout",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "ConnectionIdleLifetime",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "ConnectionLifetime",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "ConnectionPruningInterval",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "InternalCommandTimeout",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "KeepAlive",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "MaxAutoPrepare",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "MaxPoolSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "MinPoolSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "Port",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "ReadBufferSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "SocketReceiveBufferSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "SocketSendBufferSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "TcpKeepAliveInterval",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "TcpKeepAliveTime",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "Timeout",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "WriteBufferSize",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "WriteCoalescingBufferThresholdBytes",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "WriteCoalescingDelayUs",
+        "type": "int",
+        "required": false
+      },
+      {
+        "name": "CheckCertificateRevocation",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "ConvertInfinityDateTime",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "Enlist",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "IncludeErrorDetails",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "IncludeRealm",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "LoadTableComposites",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "LogParameters",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "Multiplexing",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "NoResetOnClose",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "PersistSecurityInfo",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "Pooling",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "TcpKeepAlive",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "TrustServerCertificate",
+        "type": "bit",
+        "required": false
+      },
+      {
+        "name": "ServerCompatibilityMode",
+        "type": "enum<ServerCompatibilityMode>",
+        "required": false
+      },
+      {
+        "name": "SslMode",
+        "type": "enum<SslMode>",
+        "required": false
+      }
+    ],
+    "representations": {
+      "CSharp": "All members are public nullable properties on PgConnectionPropertiesBase: string members represent textual values; int? and bool? members represent optional numeric and Boolean settings; ServerCompatibilityMode? and SslMode? represent optional provider enums."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionPropertiesBase.cs",
+        "lines": "8-884",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-connection-properties-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

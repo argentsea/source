@@ -1,0 +1,53 @@
+{
+  "id": "blk-09b23cd07bdb4db2b54e66a285b59868",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DataConnectionConfigurationBase",
+    "condition": "a connection has a RetryInterval and a RetryLengthening strategy",
+    "trigger": "a caller requests the retry delay for attempt n",
+    "response": "return n times the interval for Linear, floor(n squared divided by 2) times the interval for HalfSquare, 2 to the power n minus 1 times the interval for Squaring, and (2n minus 1) times the interval for the default strategy"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-data-connection-configuration-base'. Grounded in ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs:120-149 and falsifiable, but without sectionId equal to component ID 'shared-data-connection-configuration-base', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "120-149",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-data-connection-configuration-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

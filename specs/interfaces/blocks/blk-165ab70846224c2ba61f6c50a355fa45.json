@@ -1,0 +1,44 @@
+{
+  "id": "blk-165ab70846224c2ba61f6c50a355fa45",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaOrleansReminderTable IReminderTable operations",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ArgentSeaOrleansReminderTable provides an IReminderTable implementation for its selected shard set. It reads one reminder by grain and name, reads the reminders for one grain or a hash range, removes a named reminder conditionally using its version text, exposes a completed no-op test-clear operation, and upserts a reminder. A missing single-row result is represented by a ReminderEntry bearing the requested GrainId; a successful upsert returns the new row version as an invariant-culture string; removal returns whether the row was found."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
+        "lines": "14-223",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-reminder-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-7750a2740c1048cea01fdb839855bcf6",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

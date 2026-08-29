@@ -1,0 +1,35 @@
+{
+  "id": "blk-7b9c62c5475e49499cee996ea98f177e",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "StringExtensions",
+    "where": "a caller selects AllowEmojis and/or AllowMultiline",
+    "trigger": "the caller cleans text",
+    "response": "retain surrogate characters when AllowEmojis is selected and represent every retained line feed as CRLF when AllowMultiline is selected",
+    "postcondition": "all other control-character removal and boundary-separator trimming remain in effect"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by rework-author: The option-controlled text-cleaning behavior names no committed glossary term. Linking an unrelated Term solely to satisfy lint would be false provenance; no honest in-scope repair exists.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "46-94",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-string-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

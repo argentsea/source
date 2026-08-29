@@ -1,0 +1,62 @@
+{
+  "id": "blk-6ceac425143f4505b29c166145cc23f5",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgDatabases",
+    "kind": "Library",
+    "language": "text",
+    "contract": "PgDatabases constructs the non-sharded PostgreSQL database collection from PgDbConnectionOptions and PgGlobalPropertiesOptions."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'pg-databases'. Grounded in PgDatabases.cs:12-22 and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDatabases.cs",
+        "lines": "12-22",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-databases",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-databases-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-db-connection-options",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-global-properties-options",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

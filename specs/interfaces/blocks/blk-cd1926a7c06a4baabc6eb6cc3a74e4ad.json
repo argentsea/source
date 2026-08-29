@@ -1,0 +1,44 @@
+{
+  "id": "blk-cd1926a7c06a4baabc6eb6cc3a74e4ad",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "Queries default Orleans SQL query catalogue",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Queries exposes a static catalogue of fixed query contracts for Orleans cluster-membership and reminder operations. Each public query member identifies one versioned database procedure and, where an operation requires inputs, the exact ordered parameter names that the procedure accepts. The catalogue also exposes the reminder read/write/delete definition as a single composed default."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "11-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-queries",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

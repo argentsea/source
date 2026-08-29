@@ -1,0 +1,45 @@
+{
+  "id": "blk-36e0b96ba78b469ca4d807da68da10bb",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaGatewayListProvider",
+    "condition": "a Query contract and cluster identifier are configured",
+    "trigger": "GetGateways is invoked",
+    "response": "execute the configured query with the cluster identifier bound as the @ClusterId parameter and map every returned [IP-address bytes, port, generation] row to a gateway URI",
+    "postcondition": "the returned list contains one gateway URI for each result row in result order"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "57-80",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-gateway-list-provider",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

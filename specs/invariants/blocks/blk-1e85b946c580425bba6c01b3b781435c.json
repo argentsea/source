@@ -1,0 +1,42 @@
+{
+  "id": "blk-1e85b946c580425bba6c01b3b781435c",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Queries QueryProcedure members must always resolve to the declared version-1 procedure identifier and declared ordered parameter list.",
+    "scope": "The public QueryProcedure catalogue exposed by Queries."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "11-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-queries",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

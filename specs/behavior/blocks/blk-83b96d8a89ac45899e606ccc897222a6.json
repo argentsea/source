@@ -1,0 +1,64 @@
+{
+  "id": "blk-83b96d8a89ac45899e606ccc897222a6",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "title": "OrleansSqlPersistence registers database grain storage by name",
+    "gwt": {
+      "given": "an ISiloBuilder and provider name \"catalog\"",
+      "when": "the caller invokes AddArgentSeaDbOrleansGrainStorage(\"catalog\")",
+      "then": "the same ISiloBuilder is returned and its services register grain storage named \"catalog\" with the database factory"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-424b9c87d4814d67874b812d2bb81e61",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "12-31",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-424b9c87d4814d67874b812d2bb81e61",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

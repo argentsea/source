@@ -1,0 +1,44 @@
+{
+  "id": "blk-953dd93d5e8346bb92dc455a25e5da93",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "Mapper.DummyType",
+    "kind": "Library",
+    "contract": "Consumers may instantiate Mapper.DummyType as a public nested marker value. The type supplies the language-default public parameterless constructor and declares no members, so consumers cannot supply initialization data or invoke type-specific behavior through this surface.",
+    "language": "text"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "3981-3983",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-mapper-dummy-type",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "shared-mapper-dummy-type",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

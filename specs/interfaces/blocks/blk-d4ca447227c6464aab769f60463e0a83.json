@@ -1,0 +1,44 @@
+{
+  "id": "blk-d4ca447227c6464aab769f60463e0a83",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IDatabaseConfigurationOptions",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "IDatabaseConfigurationOptions makes the DbConnectionsInternal collection of IDatabaseConnectionConfiguration values available for reading. The interface offers no operation to replace that collection."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-database-configuration-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-database-connection-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

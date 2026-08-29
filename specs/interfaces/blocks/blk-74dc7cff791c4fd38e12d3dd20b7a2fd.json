@@ -1,0 +1,34 @@
+{
+  "id": "blk-74dc7cff791c4fd38e12d3dd20b7a2fd",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ClusteringExtensions.UseArgentSeaClustering (ISiloBuilder)",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Configures an Orleans silo builder for ArgentSea clustering. Both overloads register singleton IMembershipTable resolution as ArgentSeaOrleansMembershipTable and singleton IConfigurationValidator resolution as ClusterOptionsValidator. The overload with an Action<IConfiguration> applies a non-null action to service configuration before those registrations; a null action is skipped. The parameterless overload binds the builder Configuration to ClusterOptions before those registrations. Each overload returns the configured ISiloBuilder."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ClusteringExtensions.cs",
+        "lines": "13-40",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-clustering-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

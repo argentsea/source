@@ -1,0 +1,51 @@
+{
+  "id": "blk-44e348d5a90846c09952ed57c4091e2d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlConfiguration SQL Server connection-property family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SqlConfiguration exposes one SQL Server connection-property family for choosing application identity and workload, endpoint and catalog, transport and certificate handling, pooling and capacity, execution options, and client identity. Every member is optional: an unset member is not applied when a SQL Server connection string is constructed. Within the Configuration hierarchy, construction applies supplied values from global, shard-set, read/write, shard, and connection-local levels in that order; a later supplied value replaces an earlier one for the same property."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "9-382",
+        "label": "SQL Server property family",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "37-143,146-170",
+        "label": "SQL Server connection-string application order",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

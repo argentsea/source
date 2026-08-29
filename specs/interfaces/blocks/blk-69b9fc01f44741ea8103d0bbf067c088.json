@@ -1,0 +1,34 @@
+{
+  "id": "blk-69b9fc01f44741ea8103d0bbf067c088",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlServiceBuilderExtensions.AddSqlServices service-registration extension",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SqlServiceBuilderExtensions exposes a service-collection extension that accepts an application configuration and returns the same service collection after installing SQL global, database-connection, and shard-connection option bindings plus singleton SQL database and shard-set services."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-service-builder-extensions'. Grounded in ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs:17-39, but without sectionId equal to component ID 'sql-service-builder-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs",
+        "lines": "17-39",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-service-builder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

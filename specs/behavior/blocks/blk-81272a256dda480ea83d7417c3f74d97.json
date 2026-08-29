@@ -1,0 +1,44 @@
+{
+  "id": "blk-81272a256dda480ea83d7417c3f74d97",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ExpressionHelpers",
+    "condition": "a mapped reader column is found and the target property is nullable",
+    "trigger": "the reader reports DBNull for that column",
+    "response": "assign null to the target property instead of reading or converting the database value"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "301-506",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

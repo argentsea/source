@@ -1,0 +1,86 @@
+{
+  "id": "blk-0539e7af93cc455ba620a90d60dd1467",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlParameterCollectionExtensions table-valued parameter mapping",
+    "description": "The structured input shape emitted by SqlParameterCollectionExtensions for table-valued parameter helpers.",
+    "members": [
+      {
+        "name": "parameterName",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "SQL Server parameter name, normalized to begin with @."
+      },
+      {
+        "name": "sqlType",
+        "type": "enum<structured>",
+        "required": true,
+        "description": "Structured SQL Server type for a table-valued input."
+      },
+      {
+        "name": "direction",
+        "type": "enum<input>",
+        "required": true,
+        "description": "Table-valued parameters are emitted as input."
+      },
+      {
+        "name": "rows",
+        "type": "array<object<SqlDataRecord>>",
+        "required": true,
+        "description": "Rows supplied directly or materialized from models, keyed models, or virtual compound keys."
+      },
+      {
+        "name": "columns",
+        "type": "array<object<name,type>>",
+        "required": false,
+        "description": "Column names and SQL types used by keyed-model and virtual compound-key overloads."
+      }
+    ],
+    "representations": {
+      "csharp": "SqlParameter(SqlDbType.Structured) whose Value is supplied SqlDataRecord rows or a list constructed in the source iteration order."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1130-1381",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,92 @@
+{
+  "id": "blk-8ef360077bef4801952eaacd6a438b9e",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SpanParser delimiter-separated key encoding",
+    "description": "The byte-level representation written and consumed by SpanParser for a sequence of supported key values.",
+    "members": [
+      {
+        "name": "segmentSeparator",
+        "type": "tinyint",
+        "required": true,
+        "description": "ASCII '+' (0x2B) inserted before each segment after the first."
+      },
+      {
+        "name": "guidSegment",
+        "type": "varchar(32)",
+        "required": true,
+        "description": "A Guid formatted as 32 hexadecimal digits."
+      },
+      {
+        "name": "int64OrUInt64Segment",
+        "type": "varchar(16)",
+        "required": true,
+        "description": "A signed or unsigned 64-bit integer formatted in hexadecimal, up to 16 digits."
+      },
+      {
+        "name": "int32OrUInt32Segment",
+        "type": "varchar(8)",
+        "required": true,
+        "description": "A signed or unsigned 32-bit integer formatted in hexadecimal, up to 8 digits."
+      },
+      {
+        "name": "int16OrUInt16Segment",
+        "type": "varchar(4)",
+        "required": true,
+        "description": "A signed or unsigned 16-bit integer formatted in hexadecimal, up to 4 digits."
+      },
+      {
+        "name": "int8OrUInt8Segment",
+        "type": "varchar(2)",
+        "required": true,
+        "description": "A signed or unsigned 8-bit integer formatted in hexadecimal, up to 2 digits."
+      },
+      {
+        "name": "decimalSegment",
+        "type": "varchar(32)",
+        "required": true,
+        "description": "A decimal value formatted in hexadecimal into a buffer of up to 32 bytes."
+      },
+      {
+        "name": "textOrByteSegment",
+        "type": "varbinary(max)",
+        "required": true,
+        "description": "UTF-8 string bytes or supplied bytes, with embedded '+' replaced by 0x1D on append."
+      }
+    ],
+    "representations": {
+      "CSharp": "ReadOnlySpan<byte> is the consumed representation; Span<byte> is the caller-owned output buffer."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "22-23,258-450",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/test/ArgentSea.Orleans.Test/GrainIdSerializationTests.cs",
+        "lines": "60-85",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-span-parser",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

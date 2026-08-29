@@ -1,0 +1,44 @@
+{
+  "id": "blk-d9b43f91c5724d29a6d2a02c160b7924",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgShardSets construction surface",
+    "kind": "Library",
+    "contract": "`PgShardSets` provides a constructible shard-set collection whose inherited collection operations are typed for `PgShardConnectionOptions` entries.",
+    "language": "text"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardSets.cs",
+        "lines": "14-24",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-sets",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

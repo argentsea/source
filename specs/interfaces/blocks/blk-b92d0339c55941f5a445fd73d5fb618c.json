@@ -1,0 +1,34 @@
+{
+  "id": "blk-b92d0339c55941f5a445fd73d5fb618c",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "FakeGrainStorageSerializer generic serializer stub",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "For every generic type T, Deserialize<T>(BinaryData input) returns default(T) and does not derive a value from input. Serialize<T>(T input) returns BinaryData.Empty and does not derive bytes from input."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-fake-grain-storage-serializer'. Grounded and falsifiable interface stub contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/FakeGrainStorageSerializer.cs",
+        "lines": "5-8",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-fake-grain-storage-serializer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

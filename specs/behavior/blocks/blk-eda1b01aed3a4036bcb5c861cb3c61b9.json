@@ -1,0 +1,62 @@
+{
+  "id": "blk-eda1b01aed3a4036bcb5c861cb3c61b9",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A Query contract for cluster identifier \"alpha\" returns one row with IP-address bytes [127, 0, 0, 1], port 30000, and generation 7.",
+      "when": "ArgentSeaGatewayListProvider.GetGateways is invoked.",
+      "then": "The returned list contains exactly one gateway URI for endpoint 127.0.0.1:30000 at generation 7."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-36e0b96ba78b469ca4d807da68da10bb"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "62-79",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-gateway-list-provider",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-36e0b96ba78b469ca4d807da68da10bb",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

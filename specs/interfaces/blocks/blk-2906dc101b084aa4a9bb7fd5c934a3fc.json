@@ -1,0 +1,44 @@
+{
+  "id": "blk-2906dc101b084aa4a9bb7fd5c934a3fc",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SimpleDbConnection direct-connection library contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SimpleDbConnection exposes independently mutable connection-description and connection-string values, together with optional retry and circuit-breaker settings. Resolving the connection string returns the currently configured connection-string value without transforming it. Its retry-delay operation supplies a delay from its retry-backoff settings. Ambient-configuration input does not alter the stored SimpleDbConnection values."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/SimpleConnection.cs",
+        "lines": "11-67",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-simple-db-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

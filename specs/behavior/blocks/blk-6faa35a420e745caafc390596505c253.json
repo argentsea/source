@@ -1,0 +1,44 @@
+{
+  "id": "blk-6faa35a420e745caafc390596505c253",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapper",
+    "condition": "a Query contract result contains more than one root row",
+    "trigger": "the mapper reads a single root model",
+    "response": "throw UnexpectedMultiRowResultException"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded in ArgentSea.Shared/src/Mapping/Mapper.cs:324-325 and falsifiable, but without sectionId equal to component ID 'shared-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "324-325",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-unexpected-multi-row-result-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

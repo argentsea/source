@@ -1,0 +1,44 @@
+{
+  "id": "blk-81e07142b5f641cb81cb5ac91699f00a",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SharedConfiguration.IDatabaseConfigurationOptions",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "Provider-specific database configuration option implementations expose DbConnectionsInternal as an array of IDatabaseConnectionConfiguration values. Consumers of SharedConfiguration.IDatabaseConfigurationOptions obtain the complete database-connection configuration collection through that property."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-configuration'. Furthermore, SharedConfiguration (shared-configuration) is a structural parent component whose assigned source span (IDatabaseConfigurationOptions.cs:12-14) contains only XML documentation comments. IDatabaseConfigurationOptions is owned by committed child component shared-i-database-configuration-options (tasks surface-0231/surface-0232); proposing it here duplicates child ownership and is ungrounded by lines 12-14.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "12-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-database-configuration-options",
+      "blobHash": null,
+      "label": "Owning interface component",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

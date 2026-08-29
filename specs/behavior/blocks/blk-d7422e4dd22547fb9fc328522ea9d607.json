@@ -1,0 +1,44 @@
+{
+  "id": "blk-d7422e4dd22547fb9fc328522ea9d607",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "OrleansExpressionHelper",
+    "condition": "an Orleans grain lacks ShardKey routing metadata",
+    "trigger": "the helper generates its grain serialization or mapping expression",
+    "response": "throw ShardKeyNotFoundException with the grain type"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'orleans-shard-grain-persistence'. Grounded in ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs:92,141,263,351 and falsifiable, but without sectionId equal to component ID 'orleans-shard-grain-persistence', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "92,141,263,351",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-key-not-found-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,39 @@
+{
+  "id": "blk-02ec2f3044644aea934d6dd236776ba8",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "DatabasesBase<TConfiguration> membership must never change after construction; all lookup, count, copy, and enumeration operations observe the same immutable configured entry set.",
+    "scope": "The public ICollection surface of each DatabasesBase<TConfiguration> instance."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "24-85",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "1013-1014",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

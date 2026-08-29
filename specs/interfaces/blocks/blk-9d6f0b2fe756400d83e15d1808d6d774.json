@@ -1,0 +1,44 @@
+{
+  "id": "blk-9d6f0b2fe756400d83e15d1808d6d774",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgDbConnectionOptions.PgDbConnectionConfiguration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "PgDbConnectionOptions.PgDbConnectionConfiguration represents the configuration for one database key and provides a read/write connection pair. Its read and write endpoint configurations may be set independently; ReadConnectionInternal and WriteConnectionInternal expose the current corresponding endpoint instances as IDataConnection without copying or substituting them."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "38-46",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-db-connection-options-pg-db-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

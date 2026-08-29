@@ -1,0 +1,54 @@
+{
+  "id": "blk-915bec8a5ce24f9ca3f1832c1fa38282",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a new ShardsValues collection",
+      "when": "Add((short)7) is called and then Add((short)7, \"region\", \"west\") is called",
+      "then": "the collection returns itself from both calls and enumerates one entry with ShardId 7, ParameterName \"region\", and ParameterValue \"west\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-0bf207dc0f1848e2b89a180338d82543",
+        "relation": "validates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "32-59",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-0bf207dc0f1848e2b89a180338d82543",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,45 @@
+{
+  "id": "blk-67158cfafab944f28c38b6bafc5ae730",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardKeyOrleansSerializer<...>",
+    "condition": "the Orleans field is not represented as a reference",
+    "trigger": "a caller writes or reads a virtual compound key of any supported arity",
+    "response": "write or consume a LengthPrefixed field containing one byte of payload length followed by that many ShardKey byte-representation bytes, and rebuild and session-record the key on read",
+    "postcondition": "the decoded key is constructed from exactly the bytes consumed after the length byte"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-key-orleans-serializer'. Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable behavioral block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "16-180",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-key-orleans-serializer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

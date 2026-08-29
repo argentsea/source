@@ -1,0 +1,45 @@
+{
+  "id": "blk-dc178c0efbcf49e2ab40d9ebdb586181",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "where": "the setting participates in the Configuration hierarchy",
+    "trigger": "a declared setting is assigned a value different from its current value",
+    "subject": "PgConnectionPropertiesBase",
+    "response": "retain the assigned value and emit a property-change notification identifying that setting",
+    "postcondition": "observers can read the revised setting"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionPropertiesBase.cs",
+        "lines": "67-883",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-connection-properties-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

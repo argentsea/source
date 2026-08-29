@@ -1,0 +1,53 @@
+{
+  "id": "blk-9c6558d4aab04ee29f1589e5317b7900",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IShardKey",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "IShardKey is the library contract for a shard-key value. An implementation exposes a signed 16-bit ShardId, an IsEmpty indicator, a string external representation through ToExternalString(), a binary representation through ToArray(), and a UTF-8 byte representation through ToUtf8()."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-i-shard-key'. The Interface block is grounded in ArgentSea.Shared/src/ShardKeys/IShardKey.cs:8-25 and falsifiable, but without sectionId equal to committed component block ID 'shared-i-shard-key', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/IShardKey.cs",
+        "lines": "8-25",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

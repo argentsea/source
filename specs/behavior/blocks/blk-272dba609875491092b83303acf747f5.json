@@ -1,0 +1,69 @@
+{
+  "id": "blk-272dba609875491092b83303acf747f5",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A Query contract uses PgParameters with an empty DbParameterCollection and a Varchar input named \"1\" whose value is null and declared size is -1.",
+      "when": "PgParameters adds the Varchar input parameter.",
+      "then": "The collection contains parameter \"1\" with Value equal to System.DBNull.Value and its nullable string interpretation is null."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-6b6d98d2520e465b9c2615e5e0961fbb"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "43-51",
+        "label": "Varchar null materialization",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ParameterExtensionsTests.cs",
+        "lines": "145-158",
+        "label": "Varchar null worked case",
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-6b6d98d2520e465b9c2615e5e0961fbb",
+      "blobHash": null,
+      "label": "PgParameters nullable input behavioral",
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

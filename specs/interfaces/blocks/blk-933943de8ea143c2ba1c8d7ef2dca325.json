@@ -1,0 +1,44 @@
+{
+  "id": "blk-933943de8ea143c2ba1c8d7ef2dca325",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardsValues CopyTo observable behavior",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The ShardsValues CopyTo(Array, int) surface enumerates entries into a new temporary ShardParameterValue array but does not read or write the supplied array or its index; therefore the caller-supplied array is unchanged."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "84-93",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-0c881ae8341e4adda228a41ee4619c75",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

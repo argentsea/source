@@ -1,0 +1,44 @@
+{
+  "id": "blk-bcf40cddec984e70be95a1fe48b962e0",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlConnectionPropertiesBase SQL Server connection-property surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SqlConnectionPropertiesBase is an abstract library surface through which derived SQL Server configurations may independently provide optional connection attributes. The attributes cover server and database selection (DataSource, InitialCatalog), client identity and session settings (ApplicationName, WorkstationID, CurrentLanguage, TypeSystemVersion), availability routing (ApplicationIntent, FailoverPartner, MultiSubnetFailover), connection-attempt and pooling limits (ConnectTimeout, LoadBalanceTimeout, MinPoolSize, MaxPoolSize, Pooling), protocol/session capabilities (PacketSize, MultipleActiveResultSets, TransactionBinding, Replication, UserInstance), and transport/security choices (Encrypt, TrustServerCertificate, PersistSecurityInfo). Each attribute may remain unspecified."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "9-384",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-properties-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-20a3c21c08874a558b97d494d6f15b24",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

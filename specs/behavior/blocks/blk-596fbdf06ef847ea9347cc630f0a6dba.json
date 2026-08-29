@@ -1,0 +1,53 @@
+{
+  "id": "blk-596fbdf06ef847ea9347cc630f0a6dba",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "BatchBase<TResult>",
+    "trigger": "a caller inspects the Batch",
+    "response": "expose its current BatchStep<TResult> sequence consistently through Count, indexed access, generic enumeration, and nongeneric enumeration",
+    "postcondition": "each surface identifies the same ordered members"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "19-47",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-a66f35b85fa24525af42af4fac1d74a7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

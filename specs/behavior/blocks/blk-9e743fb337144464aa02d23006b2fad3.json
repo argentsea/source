@@ -1,0 +1,53 @@
+{
+  "id": "blk-9e743fb337144464aa02d23006b2fad3",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "the global layer initially has DataSource=sql-a and SqlConnectionConfiguration has already returned a connection string for it",
+      "when": "the global layer changes DataSource to sql-b and the caller requests the connection string again",
+      "then": "the new result contains Data Source=sql-b rather than Data Source=sql-a"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9eb49adea69742b8bec908a4cd124aa2"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "32-35,76-79,146-180,183-205",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-9eb49adea69742b8bec908a4cd124aa2",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

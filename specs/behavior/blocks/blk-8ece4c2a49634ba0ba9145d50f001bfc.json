@@ -1,0 +1,44 @@
+{
+  "id": "blk-8ece4c2a49634ba0ba9145d50f001bfc",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgParameterCollectionExtensions",
+    "trigger": "an AddPg*OutputParameter member is called for a Query contract",
+    "response": "append one Output parameter whose PostgreSQL type matches the selected member and whose declared size, precision, scale, or Array element type is retained when that member accepts it",
+    "postcondition": "return the same parameter collection"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "19-1356",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,62 @@
+{
+  "id": "blk-8f0a11f25afd4fbe91a23f21f80c8224",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "OrleansDbPersistenceOptions",
+    "description": "Public data used by OrleansDbPersistenceOptions to select its database/provider and hold its grain-type-indexed query contracts.",
+    "members": [
+      {
+        "name": "DatabaseKey",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The database configuration key and Orleans provider key; defaults to \"Common\"."
+      },
+      {
+        "name": "Queries",
+        "type": "object<Dictionary<string, OrleansDbQueryDefinitions>>",
+        "required": true,
+        "description": "Maps each grain type to its available CRUD query definitions; defaults to an empty dictionary."
+      },
+      {
+        "name": "InitStage",
+        "type": "int",
+        "required": true,
+        "description": "The silo lifecycle stage at which storage must be initialized before use; defaults to ApplicationServices."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-persistence-options'. Grounded in OrleansDbPersistenceOptions.cs:23-48 and falsifiable.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansDbPersistenceOptions.cs",
+        "lines": "23-48",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-persistence-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

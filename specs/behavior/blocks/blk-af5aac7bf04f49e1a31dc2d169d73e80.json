@@ -1,0 +1,53 @@
+{
+  "id": "blk-af5aac7bf04f49e1a31dc2d169d73e80",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DatabaseBatch<TResult>",
+    "condition": "a query-backed Batch operation has been registered",
+    "trigger": "the Batch begins that operation with a cancelled token",
+    "response": "observe cancellation before creating the database command"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-database-batch'. Grounded in ArgentSea.Shared/src/Batch/DatabaseBatch.cs:82-85 and falsifiable, but without sectionId equal to component ID 'shared-database-batch', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "82-85",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-database-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

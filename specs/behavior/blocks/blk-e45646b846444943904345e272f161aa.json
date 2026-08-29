@@ -1,0 +1,60 @@
+{
+  "id": "blk-e45646b846444943904345e272f161aa",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SpanParser",
+    "trigger": "a caller extracts a supported value from a ReadOnlySpan<byte>",
+    "response": "consume the bytes before the next '+' delimiter, populate the caller's requested value, and return the unconsumed suffix after that delimiter",
+    "postcondition": "the returned suffix can be passed to a subsequent extraction for the next serialized value"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by rework-author: Correctable only by a replacement that cites committed Term 'Virtual compound key' (blk-636453e340ee46b59274b6e31038ed1a) and SpanParser.cs:26-255; retirement is currently refused because the proposal belongs to another invocation.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "26-255",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/test/ArgentSea.Orleans.Test/GrainIdSerializationTests.cs",
+        "lines": "19-31,45-57,60-85",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-span-parser",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-f1fc490b84124413b27a81dae7774e68",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-8ef360077bef4801952eaacd6a438b9e",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

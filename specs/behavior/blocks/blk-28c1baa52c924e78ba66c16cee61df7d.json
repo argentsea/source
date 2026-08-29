@@ -1,0 +1,50 @@
+{
+  "id": "blk-28c1baa52c924e78ba66c16cee61df7d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PostgreSqlProvider.DataProviderServiceFactory",
+    "trigger": "the shared retry policy asks whether an exception is transient",
+    "response": "return the Npgsql exception's transient classification for an NpgsqlException and false for every other exception type"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'pg-data-provider-service-factory'. Grounded in ArgentSea.Pg/src/DataProviderServiceFactory.cs:18-26 and falsifiable, but without sectionId equal to component ID 'pg-data-provider-service-factory', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "18-26",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "41-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

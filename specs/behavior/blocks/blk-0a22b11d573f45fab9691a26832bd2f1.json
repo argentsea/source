@@ -1,0 +1,44 @@
+{
+  "id": "blk-0a22b11d573f45fab9691a26832bd2f1",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaDbPersistenceOptionsValidator<TDatabaseOptions>",
+    "trigger": "ValidateConfiguration is invoked",
+    "response": "throw OrleansConfigurationException when the options are absent, the database key is empty or differs from the registration name, the query collection is absent or empty, the database entry is absent, or either member of the read/write connection pair has an empty connection string",
+    "postcondition": "a successful return establishes that all of those persistence prerequisites are present"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-persistence-options-validator'. Grounded and falsifiable behavioral block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbPersistenceOptionsValidator.cs",
+        "lines": "16-68",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-persistence-options-validator",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,32 @@
+{
+  "id": "blk-fa97502c32fc46a086c7424e0618b2e6",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "TvpMapper must never construct a selected table-valued-parameter record containing a column name that is not present in the model's mapped metadata.",
+    "scope": "TvpMapper.ToTvpRecord<TModel> calls that supply a column list."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-mapper'. Grounded invariant block, but without sectionId equal to component ID 'sql-tvp-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "305-330",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-tvp-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-566c476d46b8403da27b52d87ef4263e",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ClusterClientDbOptions library configuration record",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ClusterClientDbOptions exposes a mutable configuration record for a cluster client. Its public contract carries: a required DatabaseKey initialized to \"Common\"; an optional ConnectionString initialized to null; a required GatewayListQuery initialized to QueryProcedure(\"rdr.OrleansClusterGatewayListV1\", [\"@ClusterId\"]); and a MaxRefreshInterval initialized to 60 seconds. The declaration alone does not establish how any consumer resolves these values."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-cluster-client-db-options'. Grounded and falsifiable contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/OrleansClusteringClientOptions.cs",
+        "lines": "6-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-client-db-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

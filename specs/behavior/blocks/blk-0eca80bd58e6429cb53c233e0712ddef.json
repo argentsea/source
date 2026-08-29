@@ -1,0 +1,44 @@
+{
+  "id": "blk-0eca80bd58e6429cb53c233e0712ddef",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "GhostShardKey",
+    "condition": "a retained virtual compound key serialization is shorter than five bytes",
+    "trigger": "a caller requests its shard identifier",
+    "response": "throw InvalidShardKeyMetadataException"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-shard-keys-ghost-shard-key'. Grounded in ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs:120-122 and falsifiable, but without sectionId equal to component ID 'shared-shard-keys-ghost-shard-key', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "120-122",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-invalid-shard-key-metadata-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

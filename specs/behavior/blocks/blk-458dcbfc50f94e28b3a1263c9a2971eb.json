@@ -1,0 +1,53 @@
+{
+  "id": "blk-458dcbfc50f94e28b3a1263c9a2971eb",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "global settings provide InitialCatalog=MainDb and DataSource=sql-a, shard settings provide DataSource=sql-b, and local settings provide InitialCatalog=Tenant42",
+      "when": "the caller reads ConnectionDescription before requesting a connection string",
+      "then": "the result is database Tenant42 on server sql-b"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-d7adb7c4e8e94d9c8680a8919c52ba50"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "208-253",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-d7adb7c4e8e94d9c8680a8919c52ba50",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

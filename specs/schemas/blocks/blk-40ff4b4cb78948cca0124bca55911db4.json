@@ -1,0 +1,49 @@
+{
+  "id": "blk-40ff4b4cb78948cca0124bca55911db4",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> public connection state",
+    "description": "Public state exposed by the single-shard data-access endpoint.",
+    "members": [
+      {
+        "name": "ConnectionString",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The connection string used by the endpoint."
+      },
+      {
+        "name": "MockResults",
+        "type": "object<QueryNameToResult>",
+        "required": true,
+        "description": "A lazily created mapping from query name to caller-supplied result object used by execution families."
+      }
+    ],
+    "representations": {
+      "CSharp": "string ConnectionString; Dictionary<string, object> MockResults"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "38-56",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

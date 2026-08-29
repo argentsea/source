@@ -1,0 +1,58 @@
+{
+  "id": "blk-fa098f31c5d548d789a47a63aa3cf838",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapper",
+    "trigger": "a caller creates output parameters for a mapped model at a query contract boundary",
+    "response": "append output parameters for the model's declared mappings, preserving each mapping's database type and size and excluding pre-existing or explicitly ignored names",
+    "postcondition": "return the same parameter collection for fluent use"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded and falsifiable behavioral block for Mapper output parameter creation citing committed Term.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "24-3980",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "3984-3984",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/MappingTests.cs",
+        "lines": "368-410",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

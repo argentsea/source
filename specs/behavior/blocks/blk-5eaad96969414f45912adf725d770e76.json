@@ -1,0 +1,51 @@
+{
+  "id": "blk-5eaad96969414f45912adf725d770e76",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SimpleDbConnection",
+    "trigger": "a caller requests the retry delay for an attempt number",
+    "response": "return a Retry backoff TimeSpan using the configured interval and lengthening selection: HalfSquare uses (attempt × attempt ÷ 2), Linear uses attempt, Squaring uses 2^(attempt − 1), and every other selection uses (attempt + attempt − 1); when the corresponding settings are absent, use 250 milliseconds and the default selection.",
+    "postcondition": "the returned duration is determined without modifying the SimpleDbConnection settings."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/SimpleConnection.cs",
+        "lines": "22-60",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "26-37,52-56",
+        "label": "Divergent resilience documentation",
+        "relation": "references"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-simple-db-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

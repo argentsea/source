@@ -1,0 +1,49 @@
+{
+  "id": "blk-46e89b65b0d54ec9b781190ca4e5af28",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSeaGatewayListProvider metadata",
+    "description": "The stable metadata supplied by ArgentSeaGatewayListProvider to gateway-list consumers.",
+    "members": [
+      {
+        "name": "MaxStaleness",
+        "type": "time",
+        "required": true,
+        "description": "The configured maximum interval for which a gateway list may be treated as fresh."
+      },
+      {
+        "name": "IsUpdatable",
+        "type": "bit",
+        "required": true,
+        "description": "Whether consumers may refresh the gateway list; this provider reports true."
+      }
+    ],
+    "representations": {
+      "CSharp": "MaxStaleness is System.TimeSpan; IsUpdatable is System.Boolean."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "48-55",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-gateway-list-provider",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

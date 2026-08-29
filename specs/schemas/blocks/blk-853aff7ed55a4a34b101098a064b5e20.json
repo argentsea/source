@@ -1,0 +1,101 @@
+{
+  "id": "blk-853aff7ed55a4a34b101098a064b5e20",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardSetsBase<TConfiguration>.ShardSetReadFirst invocation",
+    "description": "The C# invocation shape shared by the three read-first fan-out method families; this schema does not assign database-level types to its members.",
+    "members": [
+      {
+        "name": "operation",
+        "type": "enum<QueryAsync|MapReaderAsync|MapOutputAsync>",
+        "required": true,
+        "description": "Selects custom-handler, data-reader mapping, or output-parameter mapping result construction."
+      },
+      {
+        "name": "query",
+        "type": "object<Query>",
+        "required": true,
+        "description": "The Query instance invoked for each selected shard."
+      },
+      {
+        "name": "parameters",
+        "type": "object<DbParameterCollection>",
+        "required": true,
+        "description": "The C# database-parameter collection passed to every target invocation."
+      },
+      {
+        "name": "targetShardValues",
+        "type": "object<ShardsValues>",
+        "required": false,
+        "description": "When supplied, limits execution to named shard entries and carries their parameter values."
+      },
+      {
+        "name": "shardParameterName",
+        "type": "string",
+        "required": false,
+        "description": "When supplied, names the C# parameter set to each target shard identifier."
+      },
+      {
+        "name": "resultConstruction",
+        "type": "union<QueryResultModelHandler|ReaderMapping|OutputMapping>",
+        "required": true,
+        "description": "Defines how a target produces TModel; mapping overloads declare zero through eight typed child reader-result generic parameters."
+      }
+    ],
+    "representations": {
+      "CSharp": "Generic Task<TModel> overloads. QueryAsync may carry caller TArg data and QueryResultModelHandler; MapReaderAsync and MapOutputAsync encode zero through eight reader-result generic types."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetReadFirst.cs",
+        "lines": "24-1665",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base-shard-set-read-first",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

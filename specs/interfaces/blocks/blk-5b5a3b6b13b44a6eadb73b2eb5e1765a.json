@@ -1,0 +1,83 @@
+{
+  "id": "blk-5b5a3b6b13b44a6eadb73b2eb5e1765a",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgSharding shared shard-set configuration view",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "PgSharding accepts provider-specific PostgreSQL shard-set configurations through PgShardConnectionOptions.PgShardSets. Consumers of the shared sharding contract obtain that same collection through IShardSetsConfigurationOptions.ShardSetsConfigInternal as IShardSetConnectionsConfiguration entries; each returned entry preserves its shard-set identity, default shard identifier, shard collection, and optional read/write configuration views."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "8-12",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "13-28",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "13-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetConnectionsConfiguration.cs",
+        "lines": "13-21",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-sharding",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

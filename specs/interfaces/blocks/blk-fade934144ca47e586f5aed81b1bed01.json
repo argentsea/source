@@ -1,0 +1,41 @@
+{
+  "id": "blk-fade934144ca47e586f5aed81b1bed01",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "StringExtensions text cleaning and byte encoding library surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "StringExtensions accepts caller text for configurable cleanup and nonempty byte sequences for URL-safe encoding. Its cleaning overloads differ only by InputCleaningOptions. Its encoding overloads return the same encoded sequence as text or UTF-8 bytes, and its decoding overloads accept either representation and return the encoded bytes."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "18-94",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "261-425",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-string-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

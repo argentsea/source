@@ -1,0 +1,41 @@
+{
+  "id": "blk-555c07ab1e724e48beeef741f9ab9996",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DatabasesBase<TConfiguration> configured database collection",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "A DatabasesBase<TConfiguration> instance exposes a fixed, keyed collection of Database entries derived when the instance is constructed.\n\n- If no database-connection configuration is supplied, the collection is empty.\n- `this[key]` returns the entry configured with `key`; a key that is absent fails with the dictionary key-not-found behavior.\n- `Count` is the number of configured entries.\n- `GetEnumerator()` yields the collection's key/Database entry pairs.\n- `CopyTo(array, index)` copies the collection's Database values to a Database array beginning at `index`.\n- `IsSynchronized` is true, and `SyncRoot` returns the same synchronization object for the lifetime of the instance."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "24-85",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "1013-1014",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

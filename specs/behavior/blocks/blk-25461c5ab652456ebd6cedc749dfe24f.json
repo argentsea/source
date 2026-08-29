@@ -1,0 +1,64 @@
+{
+  "id": "blk-25461c5ab652456ebd6cedc749dfe24f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "title": "OrleansSqlPersistence registers shard-set grain storage by name",
+    "gwt": {
+      "given": "an IServiceCollection and provider name \"catalog\"",
+      "when": "the caller invokes AddArgentSeaShardOrleansGrainStorage(\"catalog\", configure)",
+      "then": "the same IServiceCollection is returned and it registers grain storage named \"catalog\" with the shard-set factory after applying configure to the named shard persistence options"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-424b9c87d4814d67874b812d2bb81e61",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "45-53",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-424b9c87d4814d67874b812d2bb81e61",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

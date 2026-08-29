@@ -1,0 +1,53 @@
+{
+  "id": "blk-8718d41557c2497892dc9fdec2ef2f74",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaShardPersistenceOptionsValidator<TShardOptions> validation interface",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ArgentSeaShardPersistenceOptionsValidator<TShardOptions> accepts Orleans shard-persistence options, the resolved Shard set, and its provider name. Its ValidateConfiguration operation admits the configuration only when the provider name and options shard-set key agree, query definitions are present, the resolved Shard set is nonempty, and every shard provides both members of its Read/write connection pair; otherwise the operation fails validation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-persistence-options-validator'. Grounded in ArgentSeaShardPersistenceOptionsValidator.cs:16-75 and falsifiable interface block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardPersistenceOptionsValidator.cs",
+        "lines": "16-75",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-persistence-options-validator",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

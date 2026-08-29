@@ -1,0 +1,75 @@
+{
+  "id": "blk-6b6d98d2520e465b9c2615e5e0961fbb",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgParameters",
+    "where": "a Query contract uses PgParameters to materialize an input value",
+    "trigger": "a typed input helper receives a nullable value with no value",
+    "response": "append an Input Npgsql parameter whose Value is System.DBNull.Value",
+    "postcondition": "the supplied DbParameterCollection contains the database-null input parameter"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "63-67",
+        "label": "query mapping invokes parameter helpers",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "164-184",
+        "label": "nullable Bigint input materialization",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "477-505",
+        "label": "nullable Numeric input materialization",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ParameterExtensionsTests.cs",
+        "lines": "145-186",
+        "label": "null string input test coverage",
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "invariants",
+      "blockId": "blk-eb323bd17a0147c8ace901a523adf0b2",
+      "blobHash": null,
+      "label": "nullable input materialization invariant",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

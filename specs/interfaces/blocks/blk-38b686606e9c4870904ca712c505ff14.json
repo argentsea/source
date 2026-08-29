@@ -1,0 +1,53 @@
+{
+  "id": "blk-38b686606e9c4870904ca712c505ff14",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaOrleansMembershipTable membership-table library surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSeaOrleansMembershipTable provides one cluster-scoped membership-table surface. It can optionally establish that cluster's initial version record; remove defunct entries before a supplied UTC cutoff; remove all entries for an explicitly supplied cluster; insert a complete silo membership record while presenting a table version; read either all records or one addressed record together with the table version; update only a record's liveness time; and replace a record while presenting both its record ETag and table version. Insert and replacement report successful completion with true; callers receive the membership data reconstructed from the table's version, member, and suspect result sets."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "43-56,62-69,81-89,113-141,152-224,241-298,301-313,344-400",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-orleans-membership-table",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "orleans-sql-orleans-membership-table",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

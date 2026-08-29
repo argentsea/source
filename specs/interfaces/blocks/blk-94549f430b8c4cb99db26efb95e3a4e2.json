@@ -1,0 +1,44 @@
+{
+  "id": "blk-94549f430b8c4cb99db26efb95e3a4e2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SequenceLengthening",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "A public enum that lets a caller select one retry-backoff lengthening mode: Linear, Fibonacci, HalfSquare, or Squaring. The selected value is consumed by retry-delay resolution; it is not an open-ended numeric option."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "15-21",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-sequence-lengthening",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

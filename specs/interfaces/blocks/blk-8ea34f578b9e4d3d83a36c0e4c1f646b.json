@@ -1,0 +1,53 @@
+{
+  "id": "blk-8ea34f578b9e4d3d83a36c0e4c1f646b",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardBatch<TResult> fluent step-registration API",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ShardBatch<TResult> Add(BatchStep<TResult> step)\nShardBatch<TResult> Add(Query query)\nShardBatch<TResult> Add(Query query, DbParameterCollection parameters)\n\nEach overload appends one executable step to this ShardBatch<TResult> and returns that same batch so calls can be chained. The BatchStep<TResult> overload preserves the supplied step. The Query overloads append a non-result query step: the single-argument form has no supplied parameters, while the two-argument form uses the supplied parameter collection."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by corpus-skeptic: Missing mandatory sectionId: 'shared-shard-batch'. The block content is grounded in ShardBatch.cs:38-65 and falsifiable, but sectionId must be equal to component ID 'shared-shard-batch'.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardBatch.cs",
+        "lines": "38-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

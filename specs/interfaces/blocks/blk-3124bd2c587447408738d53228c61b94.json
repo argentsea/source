@@ -1,0 +1,53 @@
+{
+  "id": "blk-3124bd2c587447408738d53228c61b94",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardKeys.GhostShardKey serialized virtual compound key adapter",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Accepts retained serialized virtual compound-key bytes when the original generic key type is unknown. It exposes reconstruction of the matching one- through four-part key shape, textual rendering of that result, and recovery of its shard identifier."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "11-134",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-keys-ghost-shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

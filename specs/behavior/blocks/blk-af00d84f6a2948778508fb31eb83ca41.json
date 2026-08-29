@@ -1,0 +1,53 @@
+{
+  "id": "blk-af00d84f6a2948778508fb31eb83ca41",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "BatchExtensions",
+    "trigger": "an Add overload is invoked on a Batch with a Query contract",
+    "response": "add one result operation selected by the receiver and result-shape overload and return the original Batch instance",
+    "postcondition": "the caller can continue composing that same Batch instance"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "18-233",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-batch-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

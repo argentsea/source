@@ -1,0 +1,69 @@
+{
+  "id": "blk-3555b4b0a3554ed5adf46f6d27002c5c",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A Shard set accepted by ArgentSeaShardPersistenceOptionsValidator<TShardOptions> must have a provider-name-matching nonempty ShardSetKey, at least one query definition, at least one shard, and nonempty read and write connection strings for every shard.",
+    "scope": "Validation performed by ArgentSeaShardPersistenceOptionsValidator<TShardOptions> for Orleans shard persistence."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-persistence-options-validator'. Grounded in ArgentSeaShardPersistenceOptionsValidator.cs:36-72 and falsifiable invariant block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardPersistenceOptionsValidator.cs",
+        "lines": "36-72",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-persistence-options-validator",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-728fba5bc7654f129c75436bb7c21949",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

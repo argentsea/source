@@ -1,0 +1,45 @@
+{
+  "id": "blk-aa4ff4d93c1b4ef69214505cf5a08bca",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ExpressionHelpers",
+    "condition": "a property is mapped as a nonempty virtual compound key",
+    "trigger": "its mapping expressions are built",
+    "response": "append parameter expressions for the configured shard identifier and each configured record or subordinate identity whose mapping attribute name matches the virtual compound key element",
+    "postcondition": "an empty or nullable absent virtual compound key supplies null for each configured element"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "680-846",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

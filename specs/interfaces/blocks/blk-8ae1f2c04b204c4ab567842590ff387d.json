@@ -1,0 +1,44 @@
+{
+  "id": "blk-8ae1f2c04b204c4ab567842590ff387d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapToSql*Attribute mapping contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "MapToSql*Attribute is a family of property-mapping attributes. Each variant fixes one SQL Server target type and accepts a logical parameter-or-column name. Its constructor dimensions are the target type plus isRequired; string and binary variants additionally retain length, non-Unicode text variants retain localeId, and Decimal additionally retains precision and scale. A variant exposes its accepted CLR type predicate and contributes the configured value to input parameters, output parameters, output-value reads, and data-reader reads under normalized parameter and column names. It also contributes table-valued-parameter rows except MapToSqlJsonAttribute, whose table-valued-parameter operation is unsupported."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "55-1325",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-map-to-sql-attribute-family",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "sql-parameter-map-attribute",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-4dfb8fa847e245408aa4654aaaa087d0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "MapToSql*Attribute",
+    "trigger": "IsValidType evaluates a candidate CLR property type",
+    "response": "return true only when the candidate is in the selected SQL target variant's CLR-type set for the query contract",
+    "postcondition": "the mapping builder can distinguish supported from unsupported property types"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "55-1325",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-map-to-sql-attribute-family",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

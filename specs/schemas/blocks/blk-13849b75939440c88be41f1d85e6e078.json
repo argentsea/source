@@ -1,0 +1,74 @@
+{
+  "id": "blk-13849b75939440c88be41f1d85e6e078",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "IDatabaseConnectionConfiguration",
+    "description": "C# configuration shape exposed by IDatabaseConnectionConfiguration; physical storage and nullability are not declared by the cited interface.",
+    "members": [
+      {
+        "name": "DatabaseKey",
+        "type": "string",
+        "description": "Mutable string-valued database key.",
+        "notes": "C# declaration: string; no physical persistence representation or length limit is declared."
+      },
+      {
+        "name": "ReadConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "description": "Read-side IDataConnection value exposed by a getter only.",
+        "notes": "C# declaration: IDataConnection get;"
+      },
+      {
+        "name": "WriteConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "description": "Write-side IDataConnection value exposed by a getter only.",
+        "notes": "C# declaration: IDataConnection get;"
+      }
+    ],
+    "representations": {
+      "C#": "string DatabaseKey { get; set; }; IDataConnection ReadConnectionInternal { get; }; IDataConnection WriteConnectionInternal { get; };"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-database-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-a1acbcd61af44beca41e4daf9694977e",
+      "blobHash": null,
+      "label": "IDatabaseConnectionConfiguration library contract",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": "Read/write connection pair",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,54 @@
+{
+  "id": "blk-34f279aa20204edca7179e8656bb9ec4",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a PgConnectionPropertiesBase-derived configuration has Host \"db.example.test\" and an observer is subscribed to its property-change notification",
+      "when": "Host is assigned \"db.example.test\" again",
+      "then": "Host remains \"db.example.test\" and the observer receives no notification"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-6b1d2e8ff89840dca3ea01f1d99b52bf",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionPropertiesBase.cs",
+        "lines": "306-320",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-connection-properties-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-6b1d2e8ff89840dca3ea01f1d99b52bf",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

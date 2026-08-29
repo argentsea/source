@@ -1,0 +1,44 @@
+{
+  "id": "blk-0d4ca4935e0a4dc2ac95690d5a9e64f8",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Queries",
+    "trigger": "a consumer retrieves a public default query member",
+    "response": "return that member's fixed query contract, including its declared procedure identifier and ordered parameter names",
+    "postcondition": "the consumer can invoke the selected cluster-membership or reminder operation with the contract's declared inputs"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "11-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-queries",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

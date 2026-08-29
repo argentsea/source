@@ -1,0 +1,76 @@
+{
+  "id": "blk-0c881ae8341e4adda228a41ee4619c75",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardsValues targeted-value collection",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ShardsValues is a mutable collection of targeted values keyed by a 16-bit shard identifier. It can be constructed empty, from an existing shard-to-values dictionary, or from a list of shard identifiers; list-created and newly added shards begin with no named values. Add(shardId) preserves an existing shard and otherwise adds an empty shard; Add(shardId, parameterName, parameterValue) adds the named value for that shard and returns the same collection. Count and enumeration treat each empty or null shard mapping as one placeholder entry and each nonempty mapping as one entry per name/value pair. Remove(shardId) removes an existing shard and has no effect for an absent shard. Merge(IList<short>) adds only shard identifiers that are absent. ShardListForeign is a static overload family over lists of virtual compound keys or keyed models at one through five identity levels; every overload excludes the supplied shard identifier and returns each remaining identifier at most once."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "12-59",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "61-125",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "147-414",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-d8e4769f3b6e41b7aa31dfb359cc5015",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

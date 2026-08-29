@@ -1,0 +1,53 @@
+{
+  "id": "blk-5350ccdc36094fbfacba5706d75b81ad",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameter for a query-contract output has Value = new Dictionary<string, string> { [\"region\"] = \"west\" }.",
+      "when": "PgParameterExtensions.GetHStore() is invoked.",
+      "then": "The result exposes the key \"region\" with the value \"west\" through IDictionary<string, string>."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-092f20eb7d5a42d9b22f541afe81baf0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterExtensions.cs",
+        "lines": "17-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameter-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-092f20eb7d5a42d9b22f541afe81baf0",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

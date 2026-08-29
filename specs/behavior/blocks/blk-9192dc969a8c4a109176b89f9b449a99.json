@@ -1,0 +1,43 @@
+{
+  "id": "blk-9192dc969a8c4a109176b89f9b449a99",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardDataConnection<TConfiguration> has MockResults['GetCount'] = 7 and a Query contract named 'GetCount'.",
+      "when": "ReturnValueAsync<int> is invoked for 'GetCount'.",
+      "then": "The returned value is 7 without invoking the database-return path."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-259c49a3bbb94a6196ae8522a440c288"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "101-108",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

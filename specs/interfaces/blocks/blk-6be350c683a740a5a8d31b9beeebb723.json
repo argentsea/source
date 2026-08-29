@@ -1,0 +1,53 @@
+{
+  "id": "blk-6be350c683a740a5a8d31b9beeebb723",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DatabaseBatch<TResult> Add family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "DatabaseBatch<TResult> builds a Batch by accepting additions through one Add family. The family varies by input: an existing BatchStep<TResult>; a Query contract with no caller-supplied parameter collection; or a Query contract paired with a DbParameterCollection. Each variation appends one executable operation and returns the same DatabaseBatch<TResult> instance, so additions can be chained. Query-based additions execute without producing a TResult value."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "14-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-database-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

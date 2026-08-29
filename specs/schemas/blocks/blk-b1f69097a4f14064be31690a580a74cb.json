@@ -1,0 +1,120 @@
+{
+  "id": "blk-b1f69097a4f14064be31690a580a74cb",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlShardConnectionOptions.SqlShardConnectionsConfiguration",
+    "description": "SqlShardConnectionOptions.SqlShardConnectionsConfiguration is the SQL Server shard-set configuration shape: it identifies a shard set and its default shard, exposes the configured shard collection, and exposes read and write configuration views of the same SQL-specific configuration family.",
+    "members": [
+      {
+        "name": "ShardSetName",
+        "type": "nvarchar(max)",
+        "description": "Configured name of the shard set."
+      },
+      {
+        "name": "DefaultShardId",
+        "type": "smallint",
+        "description": "Configured identifier of the default shard for the shard set."
+      },
+      {
+        "name": "ShardsConfigInternal",
+        "type": "array<ref<IShardConnectionConfiguration>>",
+        "description": "Interface-typed view of the configured shard connection entries.",
+        "notes": "C# projection: IShardConnectionConfiguration[]; getter returns Shards."
+      },
+      {
+        "name": "Shards",
+        "type": "array<ref<SqlShardConnectionOptions.SqlShardConnectionConfiguration>>",
+        "description": "SQL-specific shard connection configuration entries.",
+        "notes": "C# projection: SqlShardConnectionConfiguration[]; this is the concrete backing collection exposed through ShardsConfigInternal."
+      },
+      {
+        "name": "ReadConfigInternal",
+        "type": "ref<IShardConnectionConfiguration>",
+        "description": "Interface-typed view of the read configuration.",
+        "notes": "C# projection: IShardConnectionConfiguration; getter returns Read."
+      },
+      {
+        "name": "WriteConfigInternal",
+        "type": "ref<IShardConnectionConfiguration>",
+        "description": "Interface-typed view of the write configuration.",
+        "notes": "C# projection: IShardConnectionConfiguration; getter returns Write."
+      },
+      {
+        "name": "Read",
+        "type": "ref<SqlShardConnectionOptions.SqlShardConnectionConfiguration>",
+        "description": "SQL-specific read configuration.",
+        "notes": "C# projection: SqlShardConnectionConfiguration."
+      },
+      {
+        "name": "Write",
+        "type": "ref<SqlShardConnectionOptions.SqlShardConnectionConfiguration>",
+        "description": "SQL-specific write configuration.",
+        "notes": "C# projection: SqlShardConnectionConfiguration."
+      }
+    ],
+    "representations": {
+      "CSharp": "Public nested class SqlShardConnectionOptions.SqlShardConnectionsConfiguration; the interface-typed ShardsConfigInternal, ReadConfigInternal, and WriteConfigInternal views are derived from the concrete Shards, Read, and Write properties."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardConnectionOptions.cs",
+        "lines": "18-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-shard-connection-options-sql-shard-connections-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-fe859b22ef8b4f1aa31d78df1d45860a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

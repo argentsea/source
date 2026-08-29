@@ -1,0 +1,65 @@
+{
+  "id": "blk-3e1bd826f9a248159335f08bcdebd3bf",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IDataProviderServiceFactory provider execution family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "IDataProviderServiceFactory is the provider-neutral execution boundary for a Query contract. An implementation shall: classify a supplied Exception as transient or non-transient; create a provider DbConnection from a supplied connection string; create a provider DbCommand carrying supplied command text and associated with a supplied provider connection; and populate a supplied DbCommand from a DbParameterCollection, optionally selecting parameters by a supplied name list and accepting a supplied name-to-value map. The concrete connection, command, parameter, and transient-error rules are provider-specific while callers consume DbConnection, DbCommand, and DbParameterCollection base types."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-i-data-provider-service-factory'. Interface family proposal blk-3e1bd826f9a248159335f08bcdebd3bf is grounded in ArgentSea.Shared/src/IDataProviderServiceFactory.cs:15-25 and falsifiable, but lacks the mandatory sectionId field matching component ID 'shared-i-data-provider-service-factory', leaving read_component returning an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "16-202",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "18-102",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "273-281",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

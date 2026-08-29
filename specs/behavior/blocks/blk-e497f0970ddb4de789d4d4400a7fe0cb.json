@@ -1,0 +1,78 @@
+{
+  "id": "blk-e497f0970ddb4de789d4d4400a7fe0cb",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "MapPgShardKeyAttribute is needed for a virtual compound key whose shard identifier is named \"ShardId\" and whose record and child identities are named \"RecordId\" and \"ChildId\".",
+      "when": "new MapPgShardKeyAttribute(\"ShardId\", \"RecordId\", \"ChildId\", false) is constructed.",
+      "then": "MapPgShardKeyAttribute exposes \"ShardId\", \"RecordId\", and \"ChildId\" as its shard, record, and child selectors; its shard parameter is a PostgreSQL smallint mapping; and its record-identifier selector is false."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ce93a50ad48f489283fd61c7e607e4e2"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "78-99",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "36-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-map-pg-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ce93a50ad48f489283fd61c7e607e4e2",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-9653b178c7b848449e47d323657276c1",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ParameterCollection ordered database-parameter collection",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ParameterCollection supplies the parameter sequence of a Query contract. It exposes Count, collection synchronization, enumeration, and CopyTo for the current ordered sequence. DbParameter values may be appended, range-appended in input order, inserted at a position, replaced at a position or matching name, removed by value, position, or matching name, or all cleared. Positional lookup returns the item at that position. Name-based Contains and IndexOf scan the sequence from the beginning; a matching name resolves to its first occurrence, and name-based parameter retrieval returns null when no name matches. Add returns the collection count after append."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ParameterCollection.cs",
+        "lines": "15-204",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-parameter-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

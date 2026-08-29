@@ -1,0 +1,34 @@
+{
+  "id": "blk-1ab91b07ae9345fdacb59b2cdfc12aab",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "TvpExpressionHelpers table-valued record assignment compiler",
+    "kind": "Library",
+    "language": "text",
+    "contract": "TvpExpressionHelpers compiles table-valued-record write plans. For each previously unseen normalized column name, a plan contains compatible column metadata and one assignment that is performed only when that column is selected. The family varies by source value: strings (including enums as names) preserve a declared length; integer-like values and enums use the destination base type; DateOnly values become midnight DateTime values; GUID, floating-point, and binary values use their corresponding setters. Null reference values and nullable values without a value become database nulls; Guid.Empty, NaN, and an empty non-array binary value also become database nulls. A duplicate normalized name adds no second metadata entry or assignment."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-expression-helpers'. Grounded in ArgentSea.Sql/src/TvpExpressionHelpers.cs:19-298, but without sectionId equal to component ID 'sql-tvp-expression-helpers', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "19-298",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-tvp-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

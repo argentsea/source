@@ -1,0 +1,67 @@
+{
+  "id": "blk-27a909e7831d4b22b4cec527fedb2534",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "MapSqlShardKeyAttribute",
+    "trigger": "constructed with shardIdName, recordIdName, and isRecordIdentifier",
+    "response": "shall expose a virtual compound-key configuration whose shard identifier uses a SQL SmallInt mapping with isRequired=false and whose record member name equals recordIdName",
+    "postcondition": "its record-identifier flag equals isRecordIdentifier"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'sql-map-sql-shard-key-attribute'. Grounded in MapSqlShardKeyAttribute.cs:74-78 and falsifiable, citing committed Terms, but lacks mandatory sectionId.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "74-78",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "36-65",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "398-421",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-map-sql-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

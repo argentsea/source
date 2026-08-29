@@ -1,0 +1,34 @@
+{
+  "id": "blk-3e1d5489bad6432893426d0e3407fdb8",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> ListAsync family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "For a Query contract that yields rows, ListAsync returns a list of selected scalar values or virtual compound keys. Variants select the result column names, one or two key identity components, whether a key's shard identifier comes from query output or the endpoint's current shard, and whether a named parameter receives that current shard identifier."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "302-541",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,62 @@
+{
+  "id": "blk-eef589a1bd1d4383be32c801507ef3b3",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A SqlShardConnectionOptions instance has SqlShardSets set to an array containing one SqlShardConnectionOptions.SqlShardConnectionsConfiguration entry.",
+      "when": "ShardSetsConfigInternal is read.",
+      "then": "The returned IShardSetConnectionsConfiguration[] view contains one entry: the configured SQL shard-set connection entry."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e6191e65523646849af2a6c3f4c78d6b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-shard-connection-options'. Grounded scenario block, but without sectionId equal to component ID 'sql-shard-connection-options', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardConnectionOptions.cs",
+        "lines": "13-17",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-shard-connection-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-e6191e65523646849af2a6c3f4c78d6b",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

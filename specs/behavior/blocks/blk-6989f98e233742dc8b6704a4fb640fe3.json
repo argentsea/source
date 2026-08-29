@@ -1,0 +1,72 @@
+{
+  "id": "blk-6989f98e233742dc8b6704a4fb640fe3",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgShardConnectionOptions.PgShardConnectionsConfiguration",
+    "condition": "the shard collection or a read/write configuration has been assigned",
+    "trigger": "a consumer reads ShardsConfigInternal, ReadConfigInternal, or WriteConfigInternal",
+    "response": "expose Shards, Read, or Write respectively through the corresponding IShardSetConnectionsConfiguration view without substituting or copying the configured object or collection",
+    "postcondition": "the returned view has the same object identity as the corresponding concrete configuration value"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "20-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options-pg-shard-connections-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-78027f6b8bfc4ef18f919a327340dca7",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

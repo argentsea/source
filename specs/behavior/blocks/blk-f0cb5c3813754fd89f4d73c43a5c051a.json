@@ -1,0 +1,51 @@
+{
+  "id": "blk-f0cb5c3813754fd89f4d73c43a5c051a",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "provider command-parameter materialization",
+    "condition": "a Query contract requests a parameter name absent from the supplied source collection",
+    "trigger": "the provider materializes requested command parameters",
+    "response": "throw ParameterNotFoundException naming the absent parameter"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-i-data-provider-service-factory' and subject string 'provider command-parameter materialization' drifted from component name 'IDataProviderServiceFactory'. Grounded in DataProviderServiceFactory.cs (Pg:88-91, Sql:196-199) and falsifiable.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "64-91",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "155-200",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-parameter-not-found-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,53 @@
+{
+  "id": "blk-6f28a0ef4ab3401a88e8304df6c914e2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DatabasesBase<TConfiguration>.DataConnection data-access operations",
+    "kind": "Library",
+    "language": "text",
+    "contract": "DatabasesBase<TConfiguration>.DataConnection accepts a Query contract and its parameter collection, executes asynchronously with caller cancellation, and exposes these result families: scalar return values; typed lists; model mapping from output parameters and/or zero through eight reader result sets; caller-supplied result handling; non-result command execution; and Batch execution. Generic mapping may create a model or populate a caller-supplied model. A Batch executes its commands as one transaction and returns its optional final result. Callers can inspect the resolved connection string and provide named mock results for these operations."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "109-1012",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-databases-base-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

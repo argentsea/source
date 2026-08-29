@@ -1,0 +1,34 @@
+{
+  "id": "blk-b7271cc351ac475c827504fe69e69094",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SiloBuilderReminderExtensions reminder-service registration extension family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "SiloBuilderReminderExtensions exposes fluent registration extensions for two receivers. Calling the ISiloBuilder form installs the same reminder-service registration into that builder's service configuration and returns the identical ISiloBuilder so additional silo setup can be chained. Calling the IServiceCollection form registers Orleans reminders, one IReminderTable implementation (ArgentSeaOrleansReminderTable), and one IConfigurationValidator implementation (ArgentSeaReminderOptionsValidator), then returns the identical IServiceCollection. Both forms accept a ReminderOptions configurator; the service-collection form applies it to the registered options."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/SiloBuilderReminderExtensions.cs",
+        "lines": "6-47",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-silo-builder-reminder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

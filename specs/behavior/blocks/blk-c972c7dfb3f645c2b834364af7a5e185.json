@@ -1,0 +1,53 @@
+{
+  "id": "blk-c972c7dfb3f645c2b834364af7a5e185",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "ReminderOptions.MinimumReminderPeriod is -00:00:01.",
+      "when": "ArgentSeaReminderOptionsValidator.ValidateConfiguration is called.",
+      "then": "The call throws OrleansConfigurationException."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "invariants",
+        "blockId": "blk-691a21722e7945909232c2031ee93d2d"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-reminder-options-validator'. Grounded in ArgentSeaReminderOptionsValidator.cs:31-36 and falsifiable scenario, but without sectionId set to component ID 'orleans-reminder-options-validator', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ArgentSeaReminderOptionsValidator.cs",
+        "lines": "31-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-options-validator",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "orleans-reminder-options-validator",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

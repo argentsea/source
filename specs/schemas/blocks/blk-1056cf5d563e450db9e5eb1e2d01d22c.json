@@ -1,0 +1,110 @@
+{
+  "id": "blk-1056cf5d563e450db9e5eb1e2d01d22c",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "PgParameters materialized Npgsql parameter",
+    "description": "The parameter record PgParameters appends to a DbParameterCollection. Its direction and PostgreSQL type determine whether it carries an input value or reserves an output value; Size, Precision, Scale, and element type are supplied only by applicable type families.",
+    "members": [
+      {
+        "name": "name",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The caller-supplied parameter name after PgParameters normalization."
+      },
+      {
+        "name": "direction",
+        "type": "enum<input|output>",
+        "required": true,
+        "description": "Input for value-bearing helpers and output for retrieval helpers."
+      },
+      {
+        "name": "postgresType",
+        "type": "nvarchar(64)",
+        "required": true,
+        "description": "The Npgsql PostgreSQL type selected by the helper family."
+      },
+      {
+        "name": "value",
+        "type": "json",
+        "required": false,
+        "description": "The supplied typed input value, or System.DBNull.Value for an absent nullable input; output parameters do not receive an input value."
+      },
+      {
+        "name": "size",
+        "type": "int",
+        "required": false,
+        "description": "The declared length for applicable Varchar, Char, and Bytea variants."
+      },
+      {
+        "name": "precision",
+        "type": "tinyint",
+        "required": false,
+        "description": "The declared decimal precision for Numeric variants."
+      },
+      {
+        "name": "scale",
+        "type": "tinyint",
+        "required": false,
+        "description": "The declared decimal scale for Numeric variants."
+      },
+      {
+        "name": "elementPostgresType",
+        "type": "nvarchar(64)",
+        "required": false,
+        "description": "The array element PostgreSQL type for Array variants."
+      }
+    ],
+    "representations": {
+      "C#": "NpgsqlParameter or NpgsqlParameter<T> appended to DbParameterCollection; Direction maps to ParameterDirection.Input or ParameterDirection.Output.",
+      "PostgreSQL": "postgresType is selected from the helper family; Array combines NpgsqlDbType.Array with its element type."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "43-1352",
+        "label": "materialized parameter construction",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ParameterExtensionsTests.cs",
+        "lines": "145-205",
+        "label": "string and binary materialization tests",
+        "relation": "validates"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ParameterExtensionsTests.cs",
+        "lines": "322-360",
+        "label": "numeric and UUID materialization tests",
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-74ecb3a1d19b4c219c04ada1f2b352ff",
+      "blobHash": null,
+      "label": "PgParameters typed PostgreSQL parameter materialization",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,157 @@
+{
+  "id": "blk-0d79efbbc48647019bb1089e43551823",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "MapToPg*Attribute supported-type matrix",
+    "description": "The valid MapToPg*Attribute selections and compatible CLR model-property types. Each member names the target PostgreSQL type selected by that variant; nullable forms listed in the description are explicitly accepted.",
+    "members": [
+      {
+        "name": "Varchar",
+        "type": "varchar(n)",
+        "description": "MapToPgVarcharAttribute accepts string, enum, or nullable enum; length is required."
+      },
+      {
+        "name": "Char",
+        "type": "char(n)",
+        "description": "MapToPgCharAttribute accepts string, enum, or nullable enum; length is required."
+      },
+      {
+        "name": "Text",
+        "type": "text",
+        "description": "MapToPgTextAttribute accepts string."
+      },
+      {
+        "name": "Bigint",
+        "type": "bigint",
+        "description": "MapToPgBigintAttribute accepts long, enum, or nullable long."
+      },
+      {
+        "name": "Integer",
+        "type": "int",
+        "description": "MapToPgIntegerAttribute accepts int, enum, nullable int, or nullable enum."
+      },
+      {
+        "name": "Smallint",
+        "type": "smallint",
+        "description": "MapToPgSmallintAttribute accepts short, enum, nullable short, or nullable enum."
+      },
+      {
+        "name": "InternalChar",
+        "type": "tinyint",
+        "description": "MapToPgInternalCharAttribute accepts byte, enum, nullable byte, or nullable enum."
+      },
+      {
+        "name": "Boolean",
+        "type": "bit",
+        "description": "MapToPgBooleanAttribute accepts bool or nullable bool."
+      },
+      {
+        "name": "Numeric",
+        "type": "decimal(p,s)",
+        "description": "MapToPgNumericAttribute accepts decimal or nullable decimal; precision and scale are required."
+      },
+      {
+        "name": "Money",
+        "type": "money",
+        "description": "MapToPgMoneyAttribute accepts decimal or nullable decimal."
+      },
+      {
+        "name": "Double",
+        "type": "float",
+        "description": "MapToPgDoubleAttribute accepts double or nullable double."
+      },
+      {
+        "name": "Real",
+        "type": "real",
+        "description": "MapToPgRealAttribute accepts float or nullable float."
+      },
+      {
+        "name": "Timestamp",
+        "type": "datetime2",
+        "description": "MapToPgTimestampAttribute accepts DateTime, DateTimeOffset, nullable DateTime, or nullable DateTimeOffset."
+      },
+      {
+        "name": "TimestampTz",
+        "type": "datetimeoffset",
+        "description": "MapToPgTimestampTzAttribute accepts DateTimeOffset or nullable DateTimeOffset."
+      },
+      {
+        "name": "Date",
+        "type": "date",
+        "description": "MapToPgDateAttribute accepts DateTime or nullable DateTime."
+      },
+      {
+        "name": "Time",
+        "type": "time",
+        "description": "MapToPgTimeAttribute accepts TimeSpan or nullable TimeSpan."
+      },
+      {
+        "name": "Interval",
+        "type": "time",
+        "description": "MapToPgIntervalAttribute accepts TimeSpan or nullable TimeSpan."
+      },
+      {
+        "name": "TimeTz",
+        "type": "time",
+        "description": "MapToPgTimeTzAttribute accepts TimeSpan, DateTimeOffset, nullable TimeSpan, or nullable DateTimeOffset."
+      },
+      {
+        "name": "Array",
+        "type": "array<T>",
+        "description": "MapToPgArrayAttribute accepts an array; its constructor requires the PostgreSQL element type."
+      },
+      {
+        "name": "Bytea",
+        "type": "varbinary(n)",
+        "description": "MapToPgByteaAttribute accepts byte[]; length is required."
+      },
+      {
+        "name": "Hstore",
+        "type": "object<Hstore>",
+        "description": "MapToPgHstoreAttribute accepts IDictionary<string, string>."
+      },
+      {
+        "name": "Uuid",
+        "type": "uniqueidentifier",
+        "description": "MapToPgUuidAttribute accepts Guid or nullable Guid."
+      }
+    ],
+    "representations": {
+      "CSharp": "Compatibility is enforced by each public MapToPg*Attribute variant's IsValidType(Type) override; constructors select the corresponding NpgsqlDbType."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "41-1034",
+        "label": "MapToPg attribute type selections and IsValidType predicates",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-map-to-pg-attribute-family",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-3a76cb28a8fd4dfbb5569d15d2733a19",
+      "blobHash": null,
+      "label": "MapToPg attribute family interface proposal",
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

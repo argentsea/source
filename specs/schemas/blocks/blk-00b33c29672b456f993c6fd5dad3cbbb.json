@@ -1,0 +1,80 @@
+{
+  "id": "blk-00b33c29672b456f993c6fd5dad3cbbb",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ClusterClientDbOptions",
+    "description": "ClusterClientDbOptions is the declared four-member configuration record for a cluster client; the record declaration establishes its members, mutability, requiredness, nullability, and initial values, but not downstream resolution behavior.",
+    "members": [
+      {
+        "name": "DatabaseKey",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "Mutable required string initialized to \"Common\"."
+      },
+      {
+        "name": "ConnectionString",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Mutable nullable string initialized to null."
+      },
+      {
+        "name": "GatewayListQuery",
+        "type": "object<Query>",
+        "required": true,
+        "description": "Mutable required Query initialized to QueryProcedure(\"rdr.OrleansClusterGatewayListV1\", [\"@ClusterId\"])."
+      },
+      {
+        "name": "MaxRefreshInterval",
+        "type": "time",
+        "required": true,
+        "description": "Mutable TimeSpan initialized to 60 seconds."
+      }
+    ],
+    "representations": {
+      "C#": "public sealed record with public get/set properties; DatabaseKey and GatewayListQuery are required, ConnectionString is nullable, and MaxRefreshInterval is a non-nullable TimeSpan."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-cluster-client-db-options'. Grounded and falsifiable schema.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/OrleansClusteringClientOptions.cs",
+        "lines": "6-28",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-client-db-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-566c476d46b8403da27b52d87ef4263e",
+      "blobHash": null,
+      "label": "ClusterClientDbOptions library contract",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

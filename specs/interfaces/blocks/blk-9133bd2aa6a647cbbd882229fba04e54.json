@@ -1,0 +1,34 @@
+{
+  "id": "blk-9133bd2aa6a647cbbd882229fba04e54",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> QueryAsync family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "For a Query contract, QueryAsync returns a result model assembled from the query's output and reader results. Variants choose the model and reader-result types and optionally bind a named parameter to the endpoint's current shard identifier."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "570-614",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-data-connection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,60 @@
+{
+  "id": "blk-c09c3160f9124722811f0ce04343c268",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a non-reference Orleans field for a ShardKey<int> with shard identifier 42 and record identity 123456",
+      "when": "ShardKeyOrleansSerializer<...> writes it and a LengthPrefixed reader reads the emitted field",
+      "then": "the reader consumes one length byte and that many following key bytes, constructs a ShardKey<int>, records it in the reader session, and returns a key equal to the input"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-67158cfafab944f28c38b6bafc5ae730"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-key-orleans-serializer'. Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable scenario block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "23-49",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/ShardKeyRobustTests.cs",
+        "lines": "100-108",
+        "label": null,
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-shard-key-orleans-serializer",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-304e56fc40d845c0b5317d4916301c29",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapAttributeMissingException.ShardElement",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "MapAttributeMissingException.ShardElement exposes one finite element-category selection. A caller may select exactly ShardId, RecordId, ChildId, GrandChildId, or GreatGrandChildId; no other named category is part of this public type."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "9-15",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-map-attribute-missing-exception-shard-element",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

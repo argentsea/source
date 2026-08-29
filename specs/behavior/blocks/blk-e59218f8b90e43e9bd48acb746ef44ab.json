@@ -1,0 +1,53 @@
+{
+  "id": "blk-e59218f8b90e43e9bd48acb746ef44ab",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SqlServiceBuilderExtensions",
+    "trigger": "an application invokes AddSqlServices with an IServiceCollection and IConfiguration",
+    "response": "configure the configuration hierarchy for SQL global, database-connection, and shard-connection options, and register singleton SQL database and shard-set services",
+    "postcondition": "the invocation returns the supplied IServiceCollection"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-service-builder-extensions'. Grounded in ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs:17-39, but without sectionId equal to component ID 'sql-service-builder-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs",
+        "lines": "17-39",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-service-builder-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

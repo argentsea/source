@@ -1,0 +1,53 @@
+{
+  "id": "blk-b4ac513b6a1b46ca9bf2b0970974124f",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "QueryResultModelHandler<TArg, TModel> model-mapping callback",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "A caller supplies this callback to map one executed query result for a shard into a TModel value. The callback receives the model instance, the short shard identifier, stored-procedure name, optional TArg argument, DbDataReader, DbParameterCollection, connection description, and logger; it returns the resulting TModel."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
+        "lines": "10-23",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-result-model-handler",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

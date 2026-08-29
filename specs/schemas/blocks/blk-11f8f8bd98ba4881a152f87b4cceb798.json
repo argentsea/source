@@ -1,0 +1,67 @@
+{
+  "id": "blk-11f8f8bd98ba4881a152f87b4cceb798",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SharedQueryTypes query contract",
+    "description": "The values a SharedQueryTypes implementation exposes to identify and classify a query.",
+    "members": [
+      {
+        "name": "Sql",
+        "type": "nvarchar(max)",
+        "description": "SQL text supplied when the implementation is initialized."
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(max)",
+        "description": "Logical query name supplied when the implementation is initialized."
+      },
+      {
+        "name": "ParameterNames",
+        "type": "array<nvarchar(max)>",
+        "description": "The supplied sequence of parameter names."
+      },
+      {
+        "name": "Type",
+        "type": "enum<CommandType>",
+        "description": "The command classification supplied by the concrete implementation."
+      }
+    ],
+    "representations": {
+      "CSharp": "Exposed as string Sql, string Name, string[] ParameterNames, and System.Data.CommandType Type."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "4-26",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-types",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,60 @@
+{
+  "id": "blk-556af7f42b8748c39a471194218a7b49",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapPgShardKeyAttribute",
+    "kind": "Library",
+    "language": "text",
+    "contract": "A property-targeted library attribute that configures a PostgreSQL mapping for a virtual compound key. Construction requires a record identity name and may include a shard identifier name plus zero through four subordinate identity names. When a shard identifier name is supplied, the attribute configures it as a PostgreSQL smallint mapping; otherwise it supplies no shard mapping. Each supplied identity name is retained in its corresponding selector, and the record-identifier flag is true unless the selected overload supplies an explicit value."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "8-214",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "36-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-map-pg-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

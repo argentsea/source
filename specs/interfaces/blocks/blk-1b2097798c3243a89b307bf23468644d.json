@@ -1,0 +1,44 @@
+{
+  "id": "blk-1b2097798c3243a89b307bf23468644d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlParameterMapAttribute SQL parameter mapping contract",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SqlParameterMapAttribute defines the abstract SQL-specific attribute contract for mapping a model property to a database parameter or column. A concrete mapping attribute is initialized with the target name and SQL database type, and may additionally declare that a database-null value makes the containing model unavailable. Each concrete mapping attribute must supply the table-valued-parameter mapping operation for its property, contributing its property mapping, SQL metadata, and ordinal position to the caller-supplied mapping collections."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "23-49",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-map-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-parameter-map-attribute-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

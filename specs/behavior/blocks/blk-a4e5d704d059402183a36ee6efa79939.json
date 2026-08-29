@@ -1,0 +1,44 @@
+{
+  "id": "blk-a4e5d704d059402183a36ee6efa79939",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ExpressionHelpers",
+    "trigger": "a parameter or reader field is resolved by name",
+    "response": "attempt exact ordinal name matching, then invariant-culture case-insensitive matching, then case-insensitive matching that also ignores Kana type and width",
+    "postcondition": "no parameter match yields null and no reader-field match yields -1"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "523-579",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

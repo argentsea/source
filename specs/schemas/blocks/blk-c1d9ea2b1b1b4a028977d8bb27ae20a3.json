@@ -1,0 +1,77 @@
+{
+  "id": "blk-c1d9ea2b1b1b4a028977d8bb27ae20a3",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "SqlDbConnectionOptions.SqlDbConnectionConfiguration",
+    "description": "SqlDbConnectionOptions.SqlDbConnectionConfiguration is the public shape for one identified database and its read/write connection pair.",
+    "members": [
+      {
+        "name": "DatabaseKey",
+        "type": "string",
+        "required": false,
+        "description": "The database identifier exposed by the configuration."
+      },
+      {
+        "name": "ReadConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "required": false,
+        "description": "The read endpoint as the IDatabaseConnectionConfiguration interface view."
+      },
+      {
+        "name": "WriteConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "required": false,
+        "description": "The write endpoint as the IDatabaseConnectionConfiguration interface view."
+      },
+      {
+        "name": "ReadConnection",
+        "type": "ref<SqlConnectionConfiguration>",
+        "required": false,
+        "description": "The concrete read endpoint; a new instance initializes it with a SqlConnectionConfiguration."
+      },
+      {
+        "name": "WriteConnection",
+        "type": "ref<SqlConnectionConfiguration>",
+        "required": false,
+        "description": "The concrete write endpoint; a new instance initializes it with a SqlConnectionConfiguration."
+      }
+    ],
+    "representations": {
+      "CSharp": "public SqlDbConnectionConfiguration class deriving SqlConnectionPropertiesBase and implementing IDatabaseConnectionConfiguration; DatabaseKey is string, the concrete endpoints are SqlConnectionConfiguration, and interface views are IDataConnection."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "37-45",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-db-connection-options-sql-db-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

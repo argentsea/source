@@ -1,0 +1,52 @@
+{
+  "id": "blk-fbdf64e03c074d3897c44271174d5f91",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "TvpMapper",
+    "trigger": "a mapped virtual compound key property is converted to a table-valued-parameter record",
+    "response": "shall emit mapped key-component columns, including the shard identifier when the mapping requests it, and shall emit null for every emitted component when the virtual compound key is null or Empty."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-mapper'. Grounded in ArgentSea.Sql/src/TvpMapper.cs:72-235, but without sectionId equal to component ID 'sql-tvp-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "72-235",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-tvp-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

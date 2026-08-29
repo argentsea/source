@@ -1,0 +1,44 @@
+{
+  "id": "blk-42921ec4b5cf43ab8eefc1878a564092",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "CopyMapper",
+    "condition": "a Batch executes a registered binary COPY operation",
+    "trigger": "the operation constructs its destination-table and COPY commands",
+    "response": "emit the generated destination-table definition and COPY definition before command execution"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'pg-copy-mapper'. Grounded in ArgentSea.Pg/src/CopyMapper.cs:149-172 and falsifiable, but without sectionId equal to component ID 'pg-copy-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "149-172,205-227,263-285,325-347,408-413",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-copy-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

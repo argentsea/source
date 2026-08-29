@@ -1,0 +1,62 @@
+{
+  "id": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DataConnectionAndQuery.LoggingExtensions.EventIdentifier",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "Consumers can select one of thirteen event categories by its fixed integer: ConnectionStringBuilt=0, ExpressionTreeCreation=1, MapperSqlParameterNotFound=2, MapperSqlColumnNotFound=3, MapperCacheStatus=4, MapperProcessTrace=5, UnexpectedDbNull=6, MapperResultsReaderInvalid=7, CmdExecuted=8, ConnectRetry=9, CommandRetry=10, CircuitBreaker=11, or BatchStep=12. Each selection identifies that category rather than another category."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "18-33",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-logging-extensions-event-identifier",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-82df34ff3b7e4f3288908b82a80a5ba6",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

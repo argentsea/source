@@ -1,0 +1,62 @@
+{
+  "id": "blk-e01e74190009483f90b1ef64b92e45db",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgConnectionConfiguration connection resolution",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "PgConnectionConfiguration exposes a PostgreSQL IDataConnection implementation. SetAmbientConfiguration accepts global, shard-set, read/write, and shard property sources; only PgConnectionPropertiesBase inputs participate. GetConnectionString returns one connection string whose non-null properties are applied in order global, shard set, read/write, shard, then local, so a later non-null property overrides an earlier one. ConnectionDescription returns the resolved identity in the form \"database {Database} on server {Host}\" using the same precedence for database and host."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "16-367",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "pg-connection-properties-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-data-connection",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

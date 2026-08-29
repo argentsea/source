@@ -1,0 +1,44 @@
+{
+  "id": "blk-d98cf5e3fcc14737a4d0a71904efa009",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardSetsBase<TConfiguration> shard-set collection",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ShardSetsBase<TConfiguration> is an abstract ICollection of named ShardSet instances. Its string indexer returns the ShardSet associated with the supplied key; Count reports the number of stored shard sets. IsSynchronized always reports true, and SyncRoot returns a stable per-instance synchronization object. CopyTo copies the stored ShardSet values into a ShardSet[] supplied as Array beginning at the requested index. GetEnumerator exposes the collection's string-to-ShardSet entries."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetsBase.cs",
+        "lines": "26-84",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

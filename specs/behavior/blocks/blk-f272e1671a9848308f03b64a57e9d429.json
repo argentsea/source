@@ -1,0 +1,60 @@
+{
+  "id": "blk-f272e1671a9848308f03b64a57e9d429",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "PgSharding",
+    "trigger": "a consumer reads the shared shard-set configuration collection",
+    "response": "return the PgShardSets collection as IShardSetConnectionsConfiguration entries without replacing, filtering, or reordering its elements",
+    "postcondition": "the shared sharding consumer observes the same shard-set configurations configured for PostgreSQL"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "8-16",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "13-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-sharding",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-d527344991cf4b07adc892ff766a405f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

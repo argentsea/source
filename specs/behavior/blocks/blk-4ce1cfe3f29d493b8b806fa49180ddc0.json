@@ -1,0 +1,53 @@
+{
+  "id": "blk-4ce1cfe3f29d493b8b806fa49180ddc0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "File sample.sql contains SELECT 1 and parameter names are p.",
+      "when": "A caller evaluates Value from QueryStatement.Create for sample using sample.sql.",
+      "then": "QueryStatement exposes name sample, text SELECT 1, parameter name p, and CommandType.Text."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-34428aab586f4669a3d08c672d7c7868"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "29-43,67-72",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-statement",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-34428aab586f4669a3d08c672d7c7868",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

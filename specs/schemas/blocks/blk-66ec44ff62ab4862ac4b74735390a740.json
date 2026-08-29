@@ -1,0 +1,134 @@
+{
+  "id": "blk-66ec44ff62ab4862ac4b74735390a740",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "Queries default query catalogue",
+    "description": "The fixed public query-contract members supplied by Queries for Orleans cluster membership and reminder storage.",
+    "members": [
+      {
+        "name": "OrleansClusterDelete",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansClusterDeleteV1 with parameter @ClusterId."
+      },
+      {
+        "name": "OrleansClusterGatewayQueryKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure rdr.OrleansClusterGatewayQueryKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterInsertMemberKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansClusterInsertMemberKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterInsertMemberVersionKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansClusterInsertMemberVersionKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterMemberReadAllKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure rdr.OrleansClusterMemberReadAllKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterMemberReadRowKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure rdr.OrleansClusterMemberReadRowKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterUpdateIAmAliveTimeKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansClusterUpdateIAmAliveTimeKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterUpdateMemberKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansClusterUpdateMemberKeyV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansClusterDeleteDefunctMembers",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansClusterDeleteDefunctMembersV1 with no declared parameters."
+      },
+      {
+        "name": "OrleansReminderReadRowKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure rdr.OrleansReminderReadRowKeyV1 with parameters @GrainKey, @GrainType, @ReminderName."
+      },
+      {
+        "name": "OrleansReminderReadRowsKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure rdr.OrleansReminderReadRowsKeyV1 with parameters @GrainKey, @GrainType."
+      },
+      {
+        "name": "OrleansReminderReadRangeRows1Key",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure rdr.OrleansReminderReadRangeRows1KeyV1 with parameters @BeginHash, @EndHash."
+      },
+      {
+        "name": "OrleansReminderDeleteRowKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansReminderDeleteRowKeyV1 with parameters @GrainKey, @GrainType, @ReminderName, @Version, @IsFound."
+      },
+      {
+        "name": "OrleansReminderUpsertRowKey",
+        "type": "object<QueryProcedure>",
+        "required": true,
+        "description": "Procedure wtr.OrleansReminderUpsertRowKeyV1 with parameters @GrainKey, @GrainType, @ReminderName, @StartTime, @Period, @GrainHash, @OldVersion, @NewVersion."
+      },
+      {
+        "name": "orleansDbQueryDefinitions",
+        "type": "object<OrleansDbQueryDefinitions>",
+        "required": true,
+        "description": "A reminder default definition composed from OrleansReminderReadRowKey, OrleansReminderUpsertRowKey, and OrleansReminderDeleteRowKey with ResultSet result format."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "11-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-queries",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

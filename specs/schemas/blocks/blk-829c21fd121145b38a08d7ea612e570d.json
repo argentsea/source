@@ -1,0 +1,52 @@
+{
+  "id": "blk-829c21fd121145b38a08d7ea612e570d",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "MapAttributeMissingException.ShardElement",
+    "description": "MapAttributeMissingException.ShardElement is a finite categorical value shape for the missing element designation.",
+    "members": [
+      {
+        "name": "value",
+        "type": "enum<ShardId|RecordId|ChildId|GrandChildId|GreatGrandChildId>",
+        "description": "The selected element designation."
+      }
+    ],
+    "representations": {
+      "CSharp": "public enum MapAttributeMissingException.ShardElement with the five listed named literals"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "9-15",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-map-attribute-missing-exception-shard-element",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

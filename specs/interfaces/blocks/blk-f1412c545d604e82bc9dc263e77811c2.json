@@ -1,0 +1,71 @@
+{
+  "id": "blk-f1412c545d604e82bc9dc263e77811c2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardSetsBase<TConfiguration>.ShardSetWrite fan-out write surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ShardSetsBase<TConfiguration>.ShardSetWrite accepts a query contract or batch plus parameters and a cancellation token, and executes on the write connection of every shard by default or only the ShardsValues selection. The query families may inject each shard identifier into a named parameter. RunAsync executes query contracts or batches without returning rows; QueryAsync transforms each shard result through a caller-supplied handler and returns the non-null transformed models; MapReaderAsync and MapOutputAsync construct models from mapping attributes using respectively one to eight reader result sets or output-parameter results; ListAsync combines selected-column values or virtual compound keys from the participating shards. All returned collections are List<T>."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetWrite.cs",
+        "lines": "24-1916",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-sets-base-shard-set-write",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

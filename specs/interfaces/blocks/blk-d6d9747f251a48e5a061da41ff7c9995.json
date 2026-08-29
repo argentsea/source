@@ -1,0 +1,44 @@
+{
+  "id": "blk-d6d9747f251a48e5a061da41ff7c9995",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ParameterMapAttributeBase property mapping attribute",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ParameterMapAttributeBase is an abstract property attribute that may be inherited and repeated on one property. Each instance supplies one property-to-database mapping: an implementation must decide whether a candidate CLR type is supported and must contribute the expressions needed for input parameters, output-parameter setup, output-value reading, and data-reader value reading. The base surface exposes the mapping names, provider-specific type code and optional record-identifier role to those operations."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ParameterMapAttributeBase.cs",
+        "lines": "13-70",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-parameter-map-attribute-base",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-parameter-map-attribute-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

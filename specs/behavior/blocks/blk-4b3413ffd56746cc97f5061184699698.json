@@ -1,0 +1,53 @@
+{
+  "id": "blk-4b3413ffd56746cc97f5061184699698",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "source parameters named \"@account_id\" with value 7 and \"@enabled\" with value true, and a query contract whose requested parameter-name list is [\"@enabled\"]",
+      "when": "PostgreSqlProvider.DataProviderServiceFactory materializes the command parameters",
+      "then": "the command has one independent PostgreSQL parameter named \"@enabled\" with value true"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-2a2a41ac73944646b18322571471bb18"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "64-101",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-data-provider-service-factory",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-2a2a41ac73944646b18322571471bb18",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

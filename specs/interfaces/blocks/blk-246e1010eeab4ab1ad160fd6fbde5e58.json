@@ -1,0 +1,53 @@
+{
+  "id": "blk-246e1010eeab4ab1ad160fd6fbde5e58",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardSetBatch fluent step-addition family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ShardSetBatch builds a no-result Batch by accepting exactly one of three step forms: an existing BatchStep<object>; a Query with no explicit parameter collection; or a Query paired with its DbParameterCollection. Each Add call returns the same ShardSetBatch instance so callers can chain additions; the accepted steps remain in their addition order for the batch's later shard execution."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/ShardSetBatch.cs",
+        "lines": "14-63",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-set-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

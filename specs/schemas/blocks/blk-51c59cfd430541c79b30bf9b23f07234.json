@@ -1,0 +1,77 @@
+{
+  "id": "blk-51c59cfd430541c79b30bf9b23f07234",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "OrleansDbQueryDefinitions public query definition",
+    "description": "The public values exposed by OrleansDbQueryDefinitions for one grain's database persistence queries.",
+    "members": [
+      {
+        "name": "ReadQuery",
+        "type": "object<Query>",
+        "required": true,
+        "description": "The resolved query contract for reading persisted grain state."
+      },
+      {
+        "name": "WriteQuery",
+        "type": "object<Query>",
+        "required": true,
+        "description": "The resolved query contract for writing persisted grain state."
+      },
+      {
+        "name": "ClearQuery",
+        "type": "object<Query>",
+        "required": true,
+        "description": "The resolved query contract for clearing persisted grain state."
+      },
+      {
+        "name": "GrainType",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "The caller-supplied identifier for the grain whose query definition this is."
+      },
+      {
+        "name": "ResultFormat",
+        "type": "enum<OutputArgs|ResultSet>",
+        "required": true,
+        "description": "The result format selected when the definition is constructed."
+      }
+    ],
+    "representations": {
+      "CSharp": "public struct OrleansDbQueryDefinitions exposes Query ReadQuery, Query WriteQuery, Query ClearQuery, string GrainType, and QueryResultFormat ResultFormat."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-query-definitions'. Grounded and falsifiable schema.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "26-156",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

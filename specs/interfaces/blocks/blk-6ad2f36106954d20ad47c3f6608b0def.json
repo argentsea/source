@@ -1,0 +1,44 @@
+{
+  "id": "blk-6ad2f36106954d20ad47c3f6608b0def",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaDbPersistenceOptionsValidator<TDatabaseOptions> validation surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "A caller constructs ArgentSeaDbPersistenceOptionsValidator<TDatabaseOptions> with a persistence registration name, OrleansDbPersistenceOptions, and a database service entry. ValidateConfiguration returns only when the options exist, DatabaseKey is nonempty and equals the registration name, Queries is non-null and nonempty, and the database entry has nonempty read and write connection strings; otherwise it throws OrleansConfigurationException."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-persistence-options-validator'. Grounded and falsifiable interface block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbPersistenceOptionsValidator.cs",
+        "lines": "16-68",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-db-persistence-options-validator",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

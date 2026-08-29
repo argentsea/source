@@ -1,0 +1,68 @@
+{
+  "id": "blk-1c40b7b31fc0430a85e1d5dc6386dfe2",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardParameterValue",
+    "description": "A mutable carrier pairing a shard identifier with a caller-supplied parameter name and payload.",
+    "members": [
+      {
+        "name": "ShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "The 16-bit shard identifier; parameterless construction sets it to 0.",
+        "notes": "C# representation: short."
+      },
+      {
+        "name": "ParameterName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "The caller-supplied parameter name; parameterless construction sets it to null.",
+        "notes": "C# representation: string; the source declares no length constraint."
+      },
+      {
+        "name": "ParameterValue",
+        "type": "object<runtime-value>",
+        "required": false,
+        "description": "The caller-supplied payload; parameterless construction sets it to null.",
+        "notes": "C# representation: object; the source does not specify a persisted or serialized representation."
+      }
+    ],
+    "representations": {
+      "CSharp": "public mutable properties: short ShardId, string ParameterName, object ParameterValue."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardParameterValue.cs",
+        "lines": "14-34",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shard-parameter-value",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

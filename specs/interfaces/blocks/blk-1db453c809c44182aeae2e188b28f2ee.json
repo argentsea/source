@@ -1,0 +1,53 @@
+{
+  "id": "blk-1db453c809c44182aeae2e188b28f2ee",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgShardConnectionOptions.PgShardConnectionConfiguration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "Consumers can associate a shard identifier with independently replaceable PostgreSQL read and write connection endpoints. Through IShardConnectionConfiguration, the read and write endpoint accessors expose the same endpoint instances supplied through the typed properties; a new instance supplies distinct typed endpoint objects for both roles."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "31-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-shard-connection-options-pg-shard-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "pg-connection-properties-base",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "shared-i-shard-connection-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

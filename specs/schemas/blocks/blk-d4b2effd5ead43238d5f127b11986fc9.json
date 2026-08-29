@@ -1,0 +1,95 @@
+{
+  "id": "blk-d4b2effd5ead43238d5f127b11986fc9",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "MapShardKeyAttribute mapping metadata",
+    "description": "The publicly observable metadata retained by MapShardKeyAttribute for a property mapped to a Virtual compound key.",
+    "members": [
+      {
+        "name": "ShardIdName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Column name exposed from the optional shard parameter."
+      },
+      {
+        "name": "RecordIdName",
+        "type": "nvarchar(max)",
+        "required": true,
+        "description": "Configured primary record-key column name."
+      },
+      {
+        "name": "ChildIdName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Configured optional second compound-key column name."
+      },
+      {
+        "name": "GrandChildIdName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Configured optional third compound-key column name."
+      },
+      {
+        "name": "GreatGrandChildIdName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Configured optional fourth compound-key column name."
+      },
+      {
+        "name": "IsRecordIdentifier",
+        "type": "bit",
+        "required": true,
+        "description": "Flag retained from construction to identify the property as a record identifier."
+      },
+      {
+        "name": "ShardParameter",
+        "type": "object<ParameterMapAttributeBase>",
+        "required": false,
+        "description": "The optional parameter metadata used to expose ShardIdName."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "14-66",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-map-shard-key-attribute",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

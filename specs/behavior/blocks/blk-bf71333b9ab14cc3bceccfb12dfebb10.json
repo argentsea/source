@@ -1,0 +1,53 @@
+{
+  "id": "blk-bf71333b9ab14cc3bceccfb12dfebb10",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a ShardBatch<string>, tableName \"work.copy_keys\", PgParameterMapAttribute definitions for shard, record, and child identities, and keys [ShardKey<int,int>(shardId: 3, recordId: 42, childId: 9)]",
+      "when": "CopyMapper.Add is called with the key list and the batch later executes",
+      "then": "the returned object is that ShardBatch<string>, a persistent work.copy_keys table is created, and binary COPY receives one row in shardId, recordId, childId order before the importer completes"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-33784e6261c14c6dbcbf461f47ecd8e6"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "56-62,204-240",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-copy-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-33784e6261c14c6dbcbf461f47ecd8e6",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,71 @@
+{
+  "id": "blk-26f0c8879c4f4171a5fe113e4a7731ff",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "IShardSetsConfigurationOptions shard-set connection collection",
+    "description": "The read-only options-provider shape for the collection of shard-set connection configurations exposed by IShardSetsConfigurationOptions.",
+    "members": [
+      {
+        "name": "ShardSetsConfigInternal",
+        "type": "array<ref<IShardSetConnectionsConfiguration>>",
+        "required": true,
+        "description": "The shard-set connection configuration entries made available by IShardSetsConfigurationOptions."
+      }
+    ],
+    "representations": {
+      "CSharp": "IShardSetConnectionsConfiguration[] exposed by a get-only property on IShardSetsConfigurationOptions."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-shard-sets-configuration-options",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-3dea74e8f57942d39ed5c3f7debc53d7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "shared-i-shard-set-connections-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

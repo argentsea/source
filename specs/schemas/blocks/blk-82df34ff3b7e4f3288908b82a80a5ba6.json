@@ -1,0 +1,134 @@
+{
+  "id": "blk-82df34ff3b7e4f3288908b82a80a5ba6",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "DataConnectionAndQuery.LoggingExtensions.EventIdentifier",
+    "description": "The numeric event-category enumeration exposed by DataConnectionAndQuery.LoggingExtensions. Each named member selects the indicated integer category.",
+    "members": [
+      {
+        "name": "ConnectionStringBuilt",
+        "type": "int",
+        "required": true,
+        "description": "Event category 0."
+      },
+      {
+        "name": "ExpressionTreeCreation",
+        "type": "int",
+        "required": true,
+        "description": "Event category 1."
+      },
+      {
+        "name": "MapperSqlParameterNotFound",
+        "type": "int",
+        "required": true,
+        "description": "Event category 2."
+      },
+      {
+        "name": "MapperSqlColumnNotFound",
+        "type": "int",
+        "required": true,
+        "description": "Event category 3."
+      },
+      {
+        "name": "MapperCacheStatus",
+        "type": "int",
+        "required": true,
+        "description": "Event category 4."
+      },
+      {
+        "name": "MapperProcessTrace",
+        "type": "int",
+        "required": true,
+        "description": "Event category 5."
+      },
+      {
+        "name": "UnexpectedDbNull",
+        "type": "int",
+        "required": true,
+        "description": "Event category 6."
+      },
+      {
+        "name": "MapperResultsReaderInvalid",
+        "type": "int",
+        "required": true,
+        "description": "Event category 7."
+      },
+      {
+        "name": "CmdExecuted",
+        "type": "int",
+        "required": true,
+        "description": "Event category 8."
+      },
+      {
+        "name": "ConnectRetry",
+        "type": "int",
+        "required": true,
+        "description": "Event category 9."
+      },
+      {
+        "name": "CommandRetry",
+        "type": "int",
+        "required": true,
+        "description": "Event category 10."
+      },
+      {
+        "name": "CircuitBreaker",
+        "type": "int",
+        "required": true,
+        "description": "Event category 11."
+      },
+      {
+        "name": "BatchStep",
+        "type": "int",
+        "required": true,
+        "description": "Event category 12."
+      }
+    ],
+    "representations": {
+      "CSharp": "A public nested enum with the named members assigned the integers 0 through 12 in the order listed."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "18-33",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-logging-extensions-event-identifier",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

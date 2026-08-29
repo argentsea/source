@@ -1,0 +1,44 @@
+{
+  "id": "blk-a1acbcd61af44beca41e4daf9694977e",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IDatabaseConnectionConfiguration",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "IDatabaseConnectionConfiguration requires a mutable DatabaseKey and exposes a read/write connection pair: ReadConnectionInternal and WriteConnectionInternal are IDataConnection values available for retrieval only. A conforming implementation must permit consumers to assign DatabaseKey, retrieve both connection values, and must not expose setters for either connection value."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-database-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": "Read/write connection pair",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

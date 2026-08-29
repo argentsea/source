@@ -1,0 +1,71 @@
+{
+  "id": "blk-3283695957f94e069b461c6e262b3bed",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "Query descriptor",
+    "description": "Query carries the SQL text, logical name, parameter-name sequence, and command type that define its provider-neutral query representation.",
+    "members": [
+      {
+        "name": "Sql",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "SQL text supplied when the Query is constructed."
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "Logical name supplied when the Query is constructed."
+      },
+      {
+        "name": "ParameterNames",
+        "type": "array<nvarchar(max)>",
+        "required": false,
+        "description": "Parameter-name sequence supplied when the Query is constructed."
+      },
+      {
+        "name": "Type",
+        "type": "enum<CommandType>",
+        "required": true,
+        "description": "System.Data command kind supplied by a derived Query type."
+      }
+    ],
+    "representations": {
+      "CSharp": "abstract Query exposes string Sql, string Name, string[] ParameterNames, and abstract System.Data.CommandType Type."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "8-27",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

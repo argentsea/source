@@ -1,0 +1,74 @@
+{
+  "id": "blk-a0b018fdab264091a08ee9ac4b949739",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "IShardConnectionConfiguration",
+    "description": "The three-member connection-configuration shape exposed for one shard.",
+    "members": [
+      {
+        "name": "ShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "Writable signed 16-bit shard identifier."
+      },
+      {
+        "name": "ReadConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "required": true,
+        "description": "Read-only reference to the read IDataConnection."
+      },
+      {
+        "name": "WriteConnectionInternal",
+        "type": "ref<IDataConnection>",
+        "required": true,
+        "description": "Read-only reference to the write IDataConnection."
+      }
+    ],
+    "representations": {
+      "CSharp": "ShardId is short with get/set; ReadConnectionInternal and WriteConnectionInternal are IDataConnection with get only."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-shard-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

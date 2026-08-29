@@ -1,0 +1,53 @@
+{
+  "id": "blk-95c703c8194c42a493e3c2691211ecc1",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "IShardConnectionConfiguration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "IShardConnectionConfiguration is a provider-specific shard connection-configuration contract. An implementation exposes a writable 16-bit signed shard identifier and exposes its read and write IDataConnection values as read-only members; a caller using this interface may change the shard identifier but cannot replace either connection."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-i-shard-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

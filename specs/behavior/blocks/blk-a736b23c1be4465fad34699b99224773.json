@@ -1,0 +1,53 @@
+{
+  "id": "blk-a736b23c1be4465fad34699b99224773",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "LoggingExtensions",
+    "condition": "a database execution emits a retry or circuit-breaker resilience strategy transition",
+    "trigger": "the logging extension is invoked for that transition",
+    "response": "emit a structured diagnostic containing the connection name and, for a retry, its attempt number; report retry at Warning, circuit opening at Critical, and circuit testing or restoration at Information"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-logging-extensions'. Grounded in ArgentSea.Shared/src/LoggerExtensions.cs:102-109 and falsifiable, but without sectionId equal to component ID 'shared-logging-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "102-109,259-299",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-logging-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

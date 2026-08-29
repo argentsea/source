@@ -1,0 +1,44 @@
+{
+  "id": "blk-34428aab586f4669a3d08c672d7c7868",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "QueryStatement",
+    "trigger": "a caller requests Value from a Lazy<QueryStatement> returned by Create",
+    "response": "read the selected statement file and materialize a Text query contract using the supplied statement name and parameter-name list; the selection family shall use the current Folder and Extension defaults, caller-provided folder and extension, or a caller-provided full file path according to the chosen Create overload",
+    "postcondition": "the query's command text equals the file contents"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "40-108",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-query-statement",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

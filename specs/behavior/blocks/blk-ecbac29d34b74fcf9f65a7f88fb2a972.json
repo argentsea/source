@@ -1,0 +1,54 @@
+{
+  "id": "blk-ecbac29d34b74fcf9f65a7f88fb2a972",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "SequenceLengthening retry backoff uses a 250 ms interval and attempt number 3.",
+      "when": "retry-delay resolution selects each declared SequenceLengthening value.",
+      "then": "Linear yields 750 ms; HalfSquare yields 1000 ms; Squaring yields 1000 ms; and Fibonacci yields 1250 ms."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-72ccc2fd25164b36b613de540315a781",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "120-148",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-sequence-lengthening",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

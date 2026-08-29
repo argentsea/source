@@ -1,0 +1,53 @@
+{
+  "id": "blk-7cee1125d4324f8cb4978303e9a3e1f9",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "CopyMapper.Add PostgreSQL COPY batch-registration family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "CopyMapper exposes Add extension methods that register a PostgreSQL binary-copy operation on, and return, the supplied DatabaseBatch<TResult>, ShardBatch<TResult>, or ShardSetBatch. The operation family accepts either a model collection or virtual compound keys. Model collections require a reference type with a public parameterless constructor. Key collections support record identity alone or record identity with child, grandchild, or great-grandchild identity; each identity type is comparable and each level is paired with its PgParameterMapAttribute column definition. List<T> overloads are equivalent convenience forms of the corresponding IList<T> operation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "23-129",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-copy-mapper",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

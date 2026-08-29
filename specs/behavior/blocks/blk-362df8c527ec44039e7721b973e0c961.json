@@ -1,0 +1,53 @@
+{
+  "id": "blk-362df8c527ec44039e7721b973e0c961",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DatabaseBatch<TResult>",
+    "trigger": "a caller invokes any Add-family variation with a BatchStep<TResult>, a Query contract, or a Query contract and DbParameterCollection",
+    "response": "append exactly one operation to its Batch and return the same DatabaseBatch<TResult> instance",
+    "postcondition": "query-based additions execute their query without producing a TResult value"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "38-91",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-database-batch",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

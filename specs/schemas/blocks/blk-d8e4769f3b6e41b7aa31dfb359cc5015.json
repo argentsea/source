@@ -1,0 +1,74 @@
+{
+  "id": "blk-d8e4769f3b6e41b7aa31dfb359cc5015",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardsValues enumeration entry",
+    "description": "The public entry shape produced when ShardsValues is enumerated: a shard without named values is represented by one placeholder entry, while a shard with named values produces one entry per mapping.",
+    "members": [
+      {
+        "name": "ShardId",
+        "type": "smallint",
+        "required": true,
+        "description": "The shard identifier represented by the entry."
+      },
+      {
+        "name": "ParameterName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "description": "The mapping name; absent for a placeholder entry representing a shard without values."
+      },
+      {
+        "name": "ParameterValue",
+        "type": "object",
+        "required": false,
+        "description": "The mapped value; absent for a placeholder entry representing a shard without values."
+      }
+    ],
+    "representations": {
+      "CSharp": "ShardParameterValue yielded by ShardsValues' IEnumerable<ShardParameterValue> implementation; Shards is IDictionary<short, IDictionary<string, object>>."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "61-114",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,45 @@
+{
+  "id": "blk-1ad7e1657ba540d0b0c4f26504453189",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ExpressionHelpers",
+    "condition": "a parameter name is not yet present in the caller's parameter-name set",
+    "trigger": "an input or output query-contract parameter expression is requested",
+    "response": "append one provider parameter-add expression with the supplied optional metadata only when the ignore-parameter set exists and does not contain that parameter name",
+    "postcondition": "the generated expression list contains at most one add operation for that parameter name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "23-163",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-expression-helpers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

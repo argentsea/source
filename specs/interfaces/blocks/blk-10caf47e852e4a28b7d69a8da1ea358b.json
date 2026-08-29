@@ -1,0 +1,44 @@
+{
+  "id": "blk-10caf47e852e4a28b7d69a8da1ea358b",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "SqlConnectionConfiguration connection-resolution library surface",
+    "kind": "Library",
+    "language": "text",
+    "contract": "SqlConnectionConfiguration accepts up to four ambient SQL Server property layers (global, shard-set, read/write, and shard) and local properties. It exposes an operation that returns the resolved SQL Server connection string and a property that returns the resolved endpoint description. Later applicable layers take precedence over earlier layers; its local properties take final precedence. Ambient property changes cause the next connection-string request to resolve again."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "146-253",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-connection-configuration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

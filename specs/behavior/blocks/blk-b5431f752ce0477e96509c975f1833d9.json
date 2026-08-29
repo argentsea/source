@@ -1,0 +1,44 @@
+{
+  "id": "blk-b5431f752ce0477e96509c975f1833d9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DbParameterExtensions",
+    "condition": "a caller extracts a non-nullable scalar from a Query contract parameter whose value is DBNull",
+    "trigger": "the caller invokes the typed scalar getter",
+    "response": "throw UnexpectedNullException with the requested CLR type and parameter name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-db-parameter-extensions'. Grounded in ArgentSea.Shared/src/DbParameterExtensions.cs:37-276 and falsifiable, but without sectionId equal to component ID 'shared-db-parameter-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "37-42,52-57,67-72,82-87,97-102,112-117,210-216,225-231,240-246,255-261,270-276",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-unexpected-null-exception",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

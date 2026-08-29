@@ -1,0 +1,54 @@
+{
+  "id": "blk-eff1cfce177c4fa9a3f8a4e955eef8b1",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a ShardsValues collection whose Shards dictionary has key 3 mapped to an empty dictionary and key 8 mapped to {\"limit\": 25}",
+      "when": "Count is read or the collection is enumerated",
+      "then": "Count is 2 and the entries are (3, null, null) and (8, \"limit\", 25)"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-fc9cd525b2644a1daf53f6a2f8a8b495",
+        "relation": "validates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "61-114",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "shared-shards-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-fc9cd525b2644a1daf53f6a2f8a8b495",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

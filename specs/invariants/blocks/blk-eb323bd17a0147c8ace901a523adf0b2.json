@@ -1,0 +1,63 @@
+{
+  "id": "blk-eb323bd17a0147c8ace901a523adf0b2",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "PgParameters must never materialize a missing nullable input value as a .NET null; it materializes System.DBNull.Value and marks the appended parameter as Input.",
+    "scope": "All PgParameters nullable input helper overloads that branch on the presence of a nullable value."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "164-184",
+        "label": "nullable Bigint input enforcement",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "477-505",
+        "label": "nullable Numeric input enforcement",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "1317-1337",
+        "label": "nullable UUID input enforcement",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ParameterExtensionsTests.cs",
+        "lines": "145-186",
+        "label": "null string input tests",
+        "relation": "validates"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": "pg-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-1056cf5d563e450db9e5eb1e2d01d22c",
+      "blobHash": null,
+      "label": "PgParameters materialized Npgsql parameter",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
