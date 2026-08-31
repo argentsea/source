@@ -1,0 +1,53 @@
+{
+  "id": "blk-e5558069e914469786d25a11953c738f",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard key type metadata",
+    "definition": "An encoded marker of the record-key generic type(s) embedded in every ShardKey and its serialized forms. Deserialization validates it against the expected generic types, preventing a key of one record type from being mistaken for another. It replaces the DataOrigin char that identified key domains in earlier versions and older documentation.",
+    "synonyms": [
+      "type metadata",
+      "DataOrigin (obsolete)"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "27-80",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": null,
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": "Virtual compound key",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
