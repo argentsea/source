@@ -1,0 +1,46 @@
+{
+  "id": "blk-e920962bb5ed4bb48ca7e0c3f0c54a0f",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Mock results",
+    "definition": "A per-connection (or per-shard-set) dictionary, keyed by query contract name, that short-circuits query execution: when a key matches the invoked query, the stored object is returned as the result and no database call occurs. Enables unit tests to exercise the real ArgentSea call path without a live database.",
+    "synonyms": [
+      "MockResults",
+      "canned results"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "120-135",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-e36445f2f54641b095bf3b5e511c120d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
