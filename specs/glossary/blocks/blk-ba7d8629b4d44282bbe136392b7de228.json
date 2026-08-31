@@ -1,0 +1,46 @@
+{
+  "id": "blk-ba7d8629b4d44282bbe136392b7de228",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Mapping attribute",
+    "definition": "A provider-specific attribute placed on a model property (e.g. MapToSqlNVarChar, MapToPgVarchar) that declares the parameter or column the property binds to. The Mapper compiles these declarations into cached expression trees that set parameters and read results at near hand-coded ADO.NET speed.",
+    "synonyms": [
+      "MapTo attribute",
+      "property mapping attribute"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ParameterMapAttributeBase.cs",
+        "lines": null,
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": "operator",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "attribute-mapping",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
