@@ -1,0 +1,25 @@
+<Solution>
+  <Project Path="ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj">
+    <BuildDependency Project="ArgentSea.Orleans/src/ArgentSea.Orleans.csproj" />
+    <BuildDependency Project="ArgentSea.Sql/src/ArgentSea.Sql.csproj" />
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ArgentSea.Orleans/src/ArgentSea.Orleans.csproj">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ArgentSea.Orleans/test/ArgentSea.Orleans.Test/ArgentSea.Orleans.Test.csproj" />
+  <Project Path="ArgentSea.Pg/src/ArgentSea.Pg.csproj">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ArgentSea.Pg/tests/ArgentSea.Pg.Test.csproj" />
+  <Project Path="ArgentSea.Shared/src/ArgentSea.csproj">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ArgentSea.Shared/tests/ArgentSea.Test.csproj">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ArgentSea.Sql/src/ArgentSea.Sql.csproj">
+    <BuildType Project="Release" />
+  </Project>
+  <Project Path="ArgentSea.Sql/test/ArgentSea.Sql.Test.csproj" />
+</Solution>
