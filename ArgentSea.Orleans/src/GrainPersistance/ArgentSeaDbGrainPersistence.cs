@@ -81,7 +81,14 @@ namespace ArgentSea.Orleans
 
             if (queries.ResultFormat == QueryResultFormat.ResultSet)
             {
-                await this.database.Read.MapReaderAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                if (Mapper.HasCollectionMapProperties(typeof(TModel)))
+                {
+                    grainState.State = await this.database.Read.MapReaderWithCollectionsAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                }
+                else
+                {
+                    await this.database.Read.MapReaderAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                }
             }
             else
             {

@@ -107,7 +107,14 @@ namespace ArgentSea.Orleans
 
             if (queries.ResultFormat == QueryResultFormat.ResultSet)
             {
-                await this.shards[shardId].Read.MapReaderAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                if (Mapper.HasCollectionMapProperties(typeof(TModel)))
+                {
+                    grainState.State = await this.shards[shardId].Read.MapReaderWithCollectionsAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                }
+                else
+                {
+                    await this.shards[shardId].Read.MapReaderAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                }
             }
             else
             {
