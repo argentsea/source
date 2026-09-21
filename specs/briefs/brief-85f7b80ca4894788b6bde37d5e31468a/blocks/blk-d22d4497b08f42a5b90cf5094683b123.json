@@ -54,6 +54,16 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-e9484f8413cb447c97967ca5c88b6d86",
+      "blobHash": null,
+      "label": "adoptedAs",
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }
