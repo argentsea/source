@@ -36,7 +36,15 @@
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
-    "sources": [],
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1130-1381",
+        "label": "all ten AddSqlTableValuedParameter overloads",
+        "relation": "grounds"
+      }
+    ],
     "owner": "agent",
     "orderKey": "mmmmmm",
     "sectionId": "sql-parameter-collection-extensions",
