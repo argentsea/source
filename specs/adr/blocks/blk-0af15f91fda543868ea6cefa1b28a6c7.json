@@ -5,8 +5,8 @@
   "fields": {
     "title": "Represent a zero-row table-valued parameter as a null reference",
     "status": "Accepted",
-    "context": "Microsoft.Data.SqlClient validates SqlDbType.Structured parameter values on the client at execution time. Verified with driver 7.0.3 against SQL Server 15.0 on 2026-09-21: DBNull.Value throws NotSupportedException; an IEnumerable<SqlDataRecord> with zero elements throws ArgumentException because no record exists to supply the TDS column metadata; a null reference executes and the server observes an empty table, for both stored-procedure and text commands. SqlParameterCollectionExtensions previously used DBNull in one overload and an empty list in the other nine, so every empty collection written as a TVP failed client-side. The attribute-driven path (SqlMapAttributes.AppendCollectionInParameterExpressions) assigns TypeName to prms[prms.Count - 1] after the call, so the parameter must always be appended.",
-    "decision": "Every AddSqlTableValuedParameter overload appends the Structured Input parameter unconditionally and assigns Value = null when the materialized row list is empty or the supplied collection is null (implemented as one private helper, ToTvpValue, used by all ten list-building overloads). The raw IEnumerable<SqlDataRecord> overload passes null through and normalizes a cheaply-detectable empty collection (ICollection<SqlDataRecord> / IReadOnlyCollection<SqlDataRecord> with Count == 0) to null without enumerating a lazy sequence; a lazily-produced empty sequence is therefore still rejected by the driver, and the XML docs say so. Non-empty behavior is unchanged.",
+    "context": "Microsoft.Data.SqlClient validates SqlDbType.Structured parameter values on the client at execution time. Verified with driver 7.0.3 against SQL Server 15.0 on 2026-09-21: DBNull.Value throws NotSupportedException; an IEnumerable<SqlDataRecord> with zero elements throws ArgumentException because no record exists to supply the TDS column metadata; a null reference executes and the server observes an empty table, for both stored-procedure and text commands. SqlParameterCollectionExtensions previously used DBNull in one overload and an empty list in the other nine, so every empty collection written as a TVP failed client-side. The attribute-driven path (SqlMapAttributes.AppendCollectionInParameterExpressions) assigns TypeName to prms[prms.Count - 1] after the call, so the parameter must always be appended. The raw IEnumerable<SqlDataRecord> overload is the library's streaming path: the driver enumerates it once at execution time and writes rows to the wire as they arrive.",
+    "decision": "Every AddSqlTableValuedParameter overload appends the Structured Input parameter unconditionally and assigns Value = null when the materialized row list is empty or the supplied collection is null (implemented as one private helper, ToTvpValue, used by all ten list-building overloads). The raw IEnumerable<SqlDataRecord> overload passes null through and normalizes a cheaply-detectable empty collection (ICollection<SqlDataRecord> / IReadOnlyCollection<SqlDataRecord> with Count == 0) to null without enumerating; any other sequence is passed through untouched and is first enumerated by the driver at execution time, so a lazily produced empty sequence is still rejected by the driver, and the XML docs say so. Non-empty behavior is unchanged.",
     "alternatives": [
       {
         "option": "Keep DBNull.Value for the empty case (the previous model overload).",
@@ -27,9 +27,17 @@
       {
         "option": "Send a single SqlDataRecord with no rows or a metadata-only record.",
         "whyRejected": "SqlDataRecord is a row; there is no metadata-only record in the SqlClient API. Any record sent is a row the server would insert."
+      },
+      {
+        "option": "Materialize lazy sequences in the raw overload into a List<SqlDataRecord> like the other nine overloads.",
+        "whyRejected": "Defeats streaming for large inputs and silently corrupts data for the common idiom of a yield iterator that reuses one mutable SqlDataRecord: a list of N references to the same record sends the last row N times."
+      },
+      {
+        "option": "Peek one element of a lazy sequence at parameter-add time (implemented as PeekedSqlDataRecordSequence in commits 1fd5fd2 and f7676b9, then reverted).",
+        "whyRejected": "It removed the execute-time rejection of a lazily produced empty sequence but moved the surprise rather than eliminating it: the first element was produced, and the source enumerator opened and held, when the parameter was added rather than when the command executed, with release depending on the command actually running. The added ownership rules (primed-enumerator handoff, disposal before first MoveNext, re-enumeration on retry) were judged more complexity than the case warranted. Reverted by operator decision on 2026-09-21."
       }
     ],
-    "consequences": "Empty and null collections execute and produce an empty table server-side. Callers that worked around the failure by skipping the parameter or pre-checking Count can remove the workaround (the Orleans membership table already used the null-reference form). Tests that asserted DBNull now assert a null reference; an environment-gated integration test executes the empty and populated cases against SQL Server. Behavior blk-48f70a8f347b4bb8aa4490079567c4c9 and schema blk-0539e7af93cc455ba620a90d60dd1467 are amended to state the rule."
+    "consequences": "Empty and null collections execute and produce an empty table server-side. Callers that worked around the failure by skipping the parameter or pre-checking Count can remove the workaround (the Orleans membership table already used the null-reference form). A lazily produced IEnumerable<SqlDataRecord> that yields no rows is still rejected by the driver at execution time; callers streaming lazy sequences must ensure at least one row or pass null. Tests that asserted DBNull now assert a null reference; an environment-gated integration test executes the empty and populated cases against SQL Server. Behavior blk-48f70a8f347b4bb8aa4490079567c4c9 and schema blk-0539e7af93cc455ba620a90d60dd1467 are amended to state the rule."
   },
   "metadata": {
     "status": "Approved",
@@ -53,6 +61,15 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+      "blockId": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+      "blobHash": null,
+      "label": "origin note"
+    }
+  ],
   "evidenceLinks": []
 }
