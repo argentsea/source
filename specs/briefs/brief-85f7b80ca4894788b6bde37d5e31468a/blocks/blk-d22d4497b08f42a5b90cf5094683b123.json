@@ -22,7 +22,15 @@
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
-    "sources": [],
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1148-1162",
+        "label": "model overload assigning DBNull for zero rows",
+        "relation": "grounds"
+      }
+    ],
     "owner": "agent",
     "orderKey": "mmmmmm",
     "sectionId": "sql-parameter-collection-extensions",
