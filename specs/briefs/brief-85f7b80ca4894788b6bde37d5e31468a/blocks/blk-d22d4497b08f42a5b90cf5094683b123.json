@@ -36,6 +36,15 @@
         "lines": "1360-1400",
         "label": "attribute path: overload resolution, ImmutableArray normalization, TypeName on last parameter",
         "relation": "grounds"
+      },
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+        "blockId": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+        "blobHash": null,
+        "label": "verification record with driver repro output",
+        "relation": "grounds"
       }
     ],
     "owner": "agent",
