@@ -1,0 +1,44 @@
+{
+  "id": "blk-e9484f8413cb447c97967ca5c88b6d86",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameterCollection has no parameters, and a mapped model type carries a collection property annotated [MapToSqlTableValuedParameter(\"@Children\", \"ChildTableType\")] whose value is an empty List<T> (equivalently: null, ImmutableArray<T>.Empty, or default(ImmutableArray<T>)).",
+      "when": "The caller invokes Mapper.CreateInputParameters for that model, which calls SqlParameterCollectionExtensions.AddSqlTableValuedParameter<TModel>(prms, \"@Children\", collection, logger), and then executes the command against SQL Server through Microsoft.Data.SqlClient.",
+      "then": "The collection contains exactly one Input parameter named @Children with SqlDbType.Structured and TypeName ChildTableType whose Value is a null reference (not System.DBNull.Value and not an empty IEnumerable<SqlDataRecord>, both of which Microsoft.Data.SqlClient rejects client-side before any SQL runs); the command executes without a client-side exception, and the server-side table variable bound to @Children contains zero rows. The same rule holds for every AddSqlTableValuedParameter overload: column-list, keyed-model, ShardKey, and the raw SqlDataRecord overload, which normalizes only a null reference or a collection whose Count is observably zero and passes any other sequence through without enumerating it."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-48f70a8f347b4bb8aa4490079567c4c9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+        "blockId": "blk-d22d4497b08f42a5b90cf5094683b123",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "Drew Trafton",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
