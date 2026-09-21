@@ -47,6 +47,21 @@ namespace ArgentSea.Sql.Test
         public ShardKey<int> Key { get; set; }
     }
 
+    internal class CollectionWriteKeyedChild2 : IKeyedModel<int, int>
+    {
+        public ShardKey<int, int> Key { get; set; }
+    }
+
+    internal class CollectionWriteKeyedChild3 : IKeyedModel<int, int, int>
+    {
+        public ShardKey<int, int, int> Key { get; set; }
+    }
+
+    internal class CollectionWriteKeyedChild4 : IKeyedModel<int, int, int, int>
+    {
+        public ShardKey<int, int, int, int> Key { get; set; }
+    }
+
     /// <summary>
     /// A lazy <see cref="IEnumerable{SqlDataRecord}"/> that records whether it was ever enumerated, used to prove
     /// that the raw AddSqlTableValuedParameter overload passes a lazy sequence through without consuming it.
@@ -308,6 +323,68 @@ namespace ArgentSea.Sql.Test
             prm.SqlDbType.Should().Be(SqlDbType.Structured);
             prm.ParameterName.Should().Be("@Children");
             prm.Value.Should().BeNull("an empty ShardKey sequence must be sent as a null reference, not DbNull or an empty enumeration");
+        }
+
+        public static TheoryData<string, Action<ParameterCollection>> KeyedAndShardKeyOverloadsEmptySequenceTestData => new TheoryData<string, Action<ParameterCollection>>
+        {
+            {
+                "AddSqlTableValuedParameter<TModel, TRecord> (keyed model, 1 key dimension)",
+                prms => prms.AddSqlTableValuedParameter<CollectionWriteKeyedChild, int>(
+                    "Children", new List<CollectionWriteKeyedChild>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TModel, TRecord, TChild>",
+                prms => prms.AddSqlTableValuedParameter<CollectionWriteKeyedChild2, int, int>(
+                    "Children", new List<CollectionWriteKeyedChild2>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int, "ChildId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild>",
+                prms => prms.AddSqlTableValuedParameter<CollectionWriteKeyedChild3, int, int, int>(
+                    "Children", new List<CollectionWriteKeyedChild3>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int, "ChildId", SqlDbType.Int, "GrandChildId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild, TGreatGrandChild>",
+                prms => prms.AddSqlTableValuedParameter<CollectionWriteKeyedChild4, int, int, int, int>(
+                    "Children", new List<CollectionWriteKeyedChild4>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int, "ChildId", SqlDbType.Int, "GrandChildId", SqlDbType.Int, "GreatGrandChildId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TRecord>(IEnumerable<ShardKey<TRecord>> ...)",
+                prms => prms.AddSqlTableValuedParameter<int>(
+                    "Children", new List<ShardKey<int>>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TRecord, TChild>(IEnumerable<ShardKey<TRecord, TChild>> ...)",
+                prms => prms.AddSqlTableValuedParameter<int, int>(
+                    "Children", new List<ShardKey<int, int>>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int, "ChildId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TRecord, TChild, TGrandChild>(IEnumerable<ShardKey<TRecord, TChild, TGrandChild>> ...)",
+                prms => prms.AddSqlTableValuedParameter<int, int, int>(
+                    "Children", new List<ShardKey<int, int, int>>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int, "ChildId", SqlDbType.Int, "GrandChildId", SqlDbType.Int)
+            },
+            {
+                "AddSqlTableValuedParameter<TRecord, TChild, TGrandChild, TGreatGrandChild>(IEnumerable<ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>> ...)",
+                prms => prms.AddSqlTableValuedParameter<int, int, int, int>(
+                    "Children", new List<ShardKey<int, int, int, int>>(), "ShardId", SqlDbType.Int, "RecordId", SqlDbType.Int, "ChildId", SqlDbType.Int, "GrandChildId", SqlDbType.Int, "GreatGrandChildId", SqlDbType.Int)
+            },
+        };
+
+        [Theory]
+        [MemberData(nameof(KeyedAndShardKeyOverloadsEmptySequenceTestData))]
+        public void AddSqlTableValuedParameter_KeyedAndShardKeyOverloads_EmptySequence_SendsNullTvpValue(string caseName, Action<ParameterCollection> act)
+        {
+            // Arrange
+            var prms = new ParameterCollection();
+
+            // Act
+            act(prms);
+
+            // Assert
+            prms.Count.Should().Be(1, $"{caseName} must append exactly one parameter for the empty sequence");
+            var prm = (SqlParameter)prms["@Children"];
+            prm.ParameterName.Should().Be("@Children", $"{caseName} must normalize the unprefixed parameter name");
+            prm.SqlDbType.Should().Be(SqlDbType.Structured, $"{caseName} must produce a Structured parameter");
+            prm.Value.Should().BeNull($"{caseName} must send a null reference for an empty sequence, not DbNull or an empty enumeration");
         }
 
         [Fact]

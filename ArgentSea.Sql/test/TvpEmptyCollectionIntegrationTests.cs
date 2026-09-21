@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Xunit;
@@ -56,6 +57,42 @@ namespace ArgentSea.Sql.Test
             twoElementCount.Should().Be(2, "a populated collection must still round-trip its rows through the driver");
         }
 
+        [Fact]
+        public void EmptyImmutableArrayTvp_RoundTripsThroughSqlServer_AsZeroRows()
+        {
+            if (string.IsNullOrEmpty(ConnectionString))
+            {
+                _output.WriteLine(SkipReason);
+                return;
+            }
+
+            using var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            EnsureTestTypeAndProcedureExist(connection);
+
+            var emptyCount = ExecuteChildCountProc(connection, ImmutableArray<CollectionWriteChild>.Empty);
+            emptyCount.Should().Be(0, "an ImmutableArray<T>.Empty collection must be sent as a zero-row table-valued parameter and accepted by the driver, not rejected client-side");
+        }
+
+        [Fact]
+        public void DefaultImmutableArrayTvp_RoundTripsThroughSqlServer_AsZeroRows()
+        {
+            if (string.IsNullOrEmpty(ConnectionString))
+            {
+                _output.WriteLine(SkipReason);
+                return;
+            }
+
+            using var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            EnsureTestTypeAndProcedureExist(connection);
+
+            var defaultCount = ExecuteChildCountProc(connection, default(ImmutableArray<CollectionWriteChild>));
+            defaultCount.Should().Be(0, "a default (uninitialized) ImmutableArray<T> must be sent as a zero-row table-valued parameter and accepted by the driver, not rejected client-side or thrown from enumeration");
+        }
+
         private static void EnsureTestTypeAndProcedureExist(SqlConnection connection)
         {
             using (var checkTypeCmd = new SqlCommand(
@@ -97,6 +134,40 @@ namespace ArgentSea.Sql.Test
                 Children = children
             };
             prms.CreateInputParameters<CollectionWriteParent>(model, dbLogger);
+
+            var sourcePrm = (SqlParameter)prms["@Children"];
+
+            using var cmd = new SqlCommand("dbo.ArgentSeaTvpTestProc", connection)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            var destPrm = new SqlParameter(sourcePrm.ParameterName, sourcePrm.SqlDbType)
+            {
+                TypeName = "dbo.ArgentSeaTvpTestType",
+                Value = sourcePrm.Value
+            };
+            cmd.Parameters.Add(destPrm);
+
+            return (int)cmd.ExecuteScalar();
+        }
+
+        /// <summary>
+        /// Same as <see cref="ExecuteChildCountProc(SqlConnection, List{CollectionWriteChild})"/>, but drives the
+        /// <see cref="CollectionWriteParentImmutableArray"/> model so the round trip exercises
+        /// <c>CreateInputParameters</c> for an <see cref="ImmutableArray{T}"/> collection property (including the
+        /// uninitialized <c>default(ImmutableArray&lt;T&gt;)</c> case) rather than a <see cref="List{T}"/>.
+        /// </summary>
+        private static int ExecuteChildCountProc(SqlConnection connection, ImmutableArray<CollectionWriteChild> children)
+        {
+            var dbLogger = new DebugLogger();
+            var prms = new ParameterCollection();
+            var model = new CollectionWriteParentImmutableArray
+            {
+                Id = 1,
+                Name = "Parent",
+                Children = children
+            };
+            prms.CreateInputParameters<CollectionWriteParentImmutableArray>(model, dbLogger);
 
             var sourcePrm = (SqlParameter)prms["@Children"];
 
