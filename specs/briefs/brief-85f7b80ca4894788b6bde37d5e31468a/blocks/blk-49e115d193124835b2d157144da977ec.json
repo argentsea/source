@@ -4,16 +4,16 @@
   "type": "ADR",
   "fields": {
     "title": "Represent a zero-row table-valued parameter as a null reference",
-    "status": "Proposed",
-    "context": "Microsoft.Data.SqlClient validates SqlDbType.Structured parameter values on the client at execution time. Verified with driver 7.0.3 against SQL Server 15.0 on 2026-09-21: DBNull.Value throws NotSupportedException; an IEnumerable<SqlDataRecord> with zero elements throws ArgumentException because no record exists to supply the TDS column metadata; a null reference executes and the server observes an empty table, for both stored-procedure and text commands. SqlParameterCollectionExtensions currently uses DBNull in one overload and an empty list in the other nine, so every empty collection written as a TVP fails client-side. The attribute-driven path (SqlMapAttributes.AppendCollectionInParameterExpressions) assigns TypeName to prms[prms.Count - 1] after the call, so the parameter must always be appended.",
-    "decision": "Every AddSqlTableValuedParameter overload appends the Structured Input parameter unconditionally and assigns Value = null when the materialized row list is empty or the supplied collection is null. The raw IEnumerable<SqlDataRecord> overload passes null through and normalizes a cheaply-detectable empty collection (ICollection / IReadOnlyCollection with Count == 0) to null without enumerating a lazy sequence. Non-empty behavior is unchanged.",
+    "status": "Accepted",
+    "context": "Microsoft.Data.SqlClient validates SqlDbType.Structured parameter values on the client at execution time. Verified with driver 7.0.3 against SQL Server 15.0 on 2026-09-21: DBNull.Value throws NotSupportedException; an IEnumerable<SqlDataRecord> with zero elements throws ArgumentException because no record exists to supply the TDS column metadata; a null reference executes and the server observes an empty table, for both stored-procedure and text commands. SqlParameterCollectionExtensions previously used DBNull in one overload and an empty list in the other nine, so every empty collection written as a TVP failed client-side. The attribute-driven path (SqlMapAttributes.AppendCollectionInParameterExpressions) assigns TypeName to prms[prms.Count - 1] after the call, so the parameter must always be appended.",
+    "decision": "Every AddSqlTableValuedParameter overload appends the Structured Input parameter unconditionally and assigns Value = null when the materialized row list is empty or the supplied collection is null (implemented as one private helper, ToTvpValue, used by all ten list-building overloads). The raw IEnumerable<SqlDataRecord> overload passes null through and normalizes a cheaply-detectable empty collection (ICollection<SqlDataRecord> / IReadOnlyCollection<SqlDataRecord> with Count == 0) to null without enumerating a lazy sequence; a lazily-produced empty sequence is therefore still rejected by the driver, and the XML docs say so. Non-empty behavior is unchanged.",
     "alternatives": [
       {
-        "option": "Keep DBNull.Value for the empty case (current model overload).",
+        "option": "Keep DBNull.Value for the empty case (the previous model overload).",
         "whyRejected": "The driver rejects it with NotSupportedException before any SQL runs; the comment claiming SQL Server treats a DbNull TVP as an empty table describes server-side DEFAULT semantics the client never reaches. Verified empirically."
       },
       {
-        "option": "Pass the empty List<SqlDataRecord> through (current nine overloads).",
+        "option": "Pass the empty List<SqlDataRecord> through (the previous nine overloads).",
         "whyRejected": "The driver rejects it with ArgumentException: zero records cannot supply TDS row metadata. The driver's own error text prescribes a null reference instead. Verified empirically."
       },
       {
@@ -29,7 +29,7 @@
         "whyRejected": "SqlDataRecord is a row; there is no metadata-only record in the SqlClient API. Any record sent is a row the server would insert."
       }
     ],
-    "consequences": "Empty and null collections execute and produce an empty table server-side. Callers that worked around the failure by skipping the parameter or pre-checking Count can remove the workaround. Tests that asserted DBNull must assert a null reference. The spec corpus must state the rule: behavior blk-48f70a8f347b4bb8aa4490079567c4c9 and schema blk-0539e7af93cc455ba620a90d60dd1467 currently describe only the non-empty shape."
+    "consequences": "Empty and null collections execute and produce an empty table server-side. Callers that worked around the failure by skipping the parameter or pre-checking Count can remove the workaround (the Orleans membership table already used the null-reference form). Tests that asserted DBNull now assert a null reference; an environment-gated integration test executes the empty and populated cases against SQL Server. Behavior blk-48f70a8f347b4bb8aa4490079567c4c9 and schema blk-0539e7af93cc455ba620a90d60dd1467 are amended to state the rule."
   },
   "metadata": {
     "status": "Draft",
