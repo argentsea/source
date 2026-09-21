@@ -5,8 +5,8 @@
   "fields": {
     "subject": "SqlParameterCollectionExtensions",
     "trigger": "a caller invokes a table-valued helper with SqlDataRecord rows, models, keyed models, or virtual compound keys containing a shard identifier",
-    "response": "append one Structured input parameter whose row values follow the supplied sequence and whose keyed overloads place the shard identifier before record and successive child identifiers",
-    "postcondition": "the parameter name is @-prefixed and the supplied collection is returned"
+    "response": "append one Structured input parameter whose row values follow the supplied sequence and whose keyed overloads place the shard identifier before record and successive child identifiers; when the supplied collection is null or yields zero rows, still append the parameter and set its Value to a null reference (never System.DBNull.Value and never an empty SqlDataRecord enumeration, both of which Microsoft.Data.SqlClient rejects client-side), which SQL Server receives as a table with no rows; the raw SqlDataRecord overload normalizes only a null reference or a collection whose Count is observably zero and passes any other sequence through without enumerating it",
+    "postcondition": "the parameter name is @-prefixed and the supplied collection is returned; an empty or null source never throws and never omits the parameter"
   },
   "metadata": {
     "status": "Draft",
@@ -47,6 +47,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+      "blockId": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
