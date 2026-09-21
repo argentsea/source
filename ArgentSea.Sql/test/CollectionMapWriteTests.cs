@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Data;
 using Xunit;
-using ArgentSea;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.SqlClient.Server;
 using FluentAssertions;
@@ -46,6 +45,23 @@ namespace ArgentSea.Sql.Test
     internal class CollectionWriteKeyedChild : IKeyedModel<int>
     {
         public ShardKey<int> Key { get; set; }
+    }
+
+    /// <summary>
+    /// A lazy <see cref="IEnumerable{SqlDataRecord}"/> that records whether it was ever enumerated, used to prove
+    /// that the raw AddSqlTableValuedParameter overload passes a lazy sequence through without consuming it.
+    /// </summary>
+    internal class FlaggingSqlDataRecordSequence : IEnumerable<SqlDataRecord>
+    {
+        public bool WasEnumerated { get; private set; }
+
+        public IEnumerator<SqlDataRecord> GetEnumerator()
+        {
+            WasEnumerated = true;
+            return System.Linq.Enumerable.Empty<SqlDataRecord>().GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
     public class CollectionMapWriteTests
@@ -268,7 +284,7 @@ namespace ArgentSea.Sql.Test
             var values = new List<CollectionWriteKeyedChild>();
 
             // Act
-            prms.AddSqlTableValuedParameter<CollectionWriteKeyedChild, int>("@Children", values, "ShardId", SqlDbType.SmallInt, "RecordId", SqlDbType.Int);
+            prms.AddSqlTableValuedParameter<CollectionWriteKeyedChild, int>("Children", values, "ShardId", SqlDbType.SmallInt, "RecordId", SqlDbType.Int);
 
             // Assert
             var prm = (SqlParameter)prms["@Children"];
@@ -285,7 +301,7 @@ namespace ArgentSea.Sql.Test
             var values = new List<ShardKey<int>>();
 
             // Act
-            prms.AddSqlTableValuedParameter<int>("@Children", values, "ShardId", SqlDbType.SmallInt, "RecordId", SqlDbType.Int);
+            prms.AddSqlTableValuedParameter<int>("Children", values, "ShardId", SqlDbType.SmallInt, "RecordId", SqlDbType.Int);
 
             // Assert
             var prm = (SqlParameter)prms["@Children"];
@@ -326,6 +342,22 @@ namespace ArgentSea.Sql.Test
             // Assert
             var prm = (SqlParameter)prms["@Children"];
             prm.Value.Should().BeSameAs(records, "a non-empty collection is passed through to the driver unchanged");
+        }
+
+        [Fact]
+        public void AddSqlTableValuedParameter_RawOverload_LazySequence_PassesThroughWithoutEnumerating()
+        {
+            // Arrange
+            var prms = new ParameterCollection();
+            var lazySequence = new FlaggingSqlDataRecordSequence();
+
+            // Act
+            prms.AddSqlTableValuedParameter("@Children", lazySequence);
+
+            // Assert
+            var prm = (SqlParameter)prms["@Children"];
+            prm.Value.Should().BeSameAs(lazySequence, "a lazy sequence that is not an ICollection<SqlDataRecord>/IReadOnlyCollection<SqlDataRecord> must be passed through as-is");
+            lazySequence.WasEnumerated.Should().BeFalse("the raw overload must not enumerate a lazy sequence to determine whether it is empty");
         }
 
         [Fact]

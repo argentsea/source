@@ -1135,7 +1135,8 @@ namespace ArgentSea.Sql
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
         /// <param name="value">A sequence of SqlDataRecord objects containing the table contents. A null reference, or an
         /// empty collection whose count can be determined without enumerating it, is sent as a table-valued parameter
-        /// with no rows (a null parameter value).</param>
+        /// with no rows (a null parameter value). A lazy sequence is passed through as-is and is never enumerated to
+        /// determine its length; a lazily-produced empty sequence is therefore still rejected by the driver.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
         public static DbParameterCollection AddSqlTableValuedParameter(this DbParameterCollection prms, string parameterName, IEnumerable<SqlDataRecord> value)
         {

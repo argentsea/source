@@ -59,7 +59,7 @@ namespace ArgentSea.Sql.Test
         private static void EnsureTestTypeAndProcedureExist(SqlConnection connection)
         {
             using (var checkTypeCmd = new SqlCommand(
-                "SELECT COUNT(*) FROM sys.types WHERE is_table_type = 1 AND name = 'ArgentSeaTvpTestType'", connection))
+                "SELECT COUNT(*) FROM sys.types WHERE is_table_type = 1 AND name = 'ArgentSeaTvpTestType' AND schema_id = SCHEMA_ID('dbo')", connection))
             {
                 var typeExists = (int)checkTypeCmd.ExecuteScalar() > 0;
                 if (!typeExists)
