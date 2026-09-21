@@ -61,6 +61,17 @@
       },
       "recordedAt": "2026-09-21T17:51:42.5528826+00:00",
       "isVerificationBasis": true
+    },
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/TvpEmptyCollectionIntegrationTests.cs",
+        "lines": "35-117",
+        "label": "driver-backed round trip: empty collection -> 0 rows, two-element collection -> 2 rows (gated on ARGENTSEA_SQL_TEST_CONNECTION)"
+      },
+      "note": "Executed against LocalDB (SQL Server 15.0) with Microsoft.Data.SqlClient 7.0.3 on 2026-09-21; passed. Runs only when ARGENTSEA_SQL_TEST_CONNECTION is set, otherwise the test returns early and reports as passed.",
+      "evidenceId": "evi-c8996e61615040048424cfdd72f081b7"
     }
   ]
 }
