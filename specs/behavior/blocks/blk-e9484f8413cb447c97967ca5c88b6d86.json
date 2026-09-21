@@ -35,10 +35,32 @@
     "owner": "Drew Trafton",
     "orderKey": "mmmmmm",
     "sectionId": "sql-parameter-collection-extensions",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
   "references": [],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/CollectionMapWriteTests.cs",
+        "lines": "92-378",
+        "label": "unit tests asserting null-reference Value for every empty/null case",
+        "relation": "verifies"
+      },
+      "note": "15/15 CollectionMapWriteTests pass at ce1ba27 (empty, null, default ImmutableArray, keyed-model, ShardKey, raw-overload empty and lazy pass-through all yield a null-reference Structured Value); full ArgentSea.Sql.Test 124/124.",
+      "evidenceId": "evi-a6de450aa28b4b828db12ffdb4cb8798",
+      "verifiedContentHash": "fields-sha256-v1:ca3e033260cd5cc79a7b97797887194613ebd2ff1f1cc96d2942c172fc37aeb6",
+      "subject": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1125-1420",
+        "label": "AddSqlTableValuedParameter overloads after fix (commit ce1ba27)"
+      },
+      "recordedAt": "2026-09-21T17:51:42.5528826+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
