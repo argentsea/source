@@ -31,8 +31,8 @@
       },
       {
         "name": "D4 Release note",
-        "description": "Package note for the next ArgentSea.Sql release: 'Empty collections written as table-valued parameters no longer fail client-side; zero rows are sent as an empty table.' Call out that callers who worked around this by skipping the parameter or pre-checking Count can remove the workaround.",
-        "format": "docs"
+        "description": "Dropped by operator decision on 2026-09-21: no PackageReleaseNotes entry ships with this change.",
+        "format": "none"
       }
     ],
     "displayName": "Empty TVP must be a null reference, not DBNull",
