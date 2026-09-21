@@ -1119,19 +1119,38 @@ namespace ArgentSea.Sql
         }
 
         //TVP
+
+        /// <summary>
+        /// Converts a materialized list of table-valued parameter rows into the value that should be assigned to a
+        /// <see cref="SqlParameter"/>. Microsoft.Data.SqlClient rejects both DBNull and a zero-record enumeration
+        /// for a Structured parameter; a null reference is the driver-defined representation of a table-valued
+        /// parameter with no rows.
+        /// </summary>
+        private static object ToTvpValue(List<SqlDataRecord> rows) => rows.Count > 0 ? rows : null;
+
         /// <summary>
         /// Creates a parameter for providing a user-defined table to a stored procedure.
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
-        /// <param name="value">A list of SqlDataRecord objects containing the table contents.</param>
-        /// <param name="length">The fixed number of bytes in the database column.</param>
+        /// <param name="value">A sequence of SqlDataRecord objects containing the table contents. A null reference, or an
+        /// empty collection whose count can be determined without enumerating it, is sent as a table-valued parameter
+        /// with no rows (a null parameter value).</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
         public static DbParameterCollection AddSqlTableValuedParameter(this DbParameterCollection prms, string parameterName, IEnumerable<SqlDataRecord> value)
         {
+            // Microsoft.Data.SqlClient rejects both DBNull and a zero-record enumeration for a Structured parameter;
+            // a null reference is the driver-defined representation of a table-valued parameter with no rows.
+            object tvpValue = value switch
+            {
+                null => null,
+                ICollection<SqlDataRecord> collection when collection.Count == 0 => null,
+                IReadOnlyCollection<SqlDataRecord> readOnlyCollection when readOnlyCollection.Count == 0 => null,
+                _ => value
+            };
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = value,
+                Value = tvpValue,
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
@@ -1142,48 +1161,64 @@ namespace ArgentSea.Sql
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
-        /// <param name="value">A list of SqlDataRecord objects containing the table contents.</param>
-        /// <param name="length">The fixed number of bytes in the database column.</param>
+        /// <param name="values">A sequence of model objects to be converted into table rows. A null reference is treated
+        /// as an empty sequence, and an empty or null sequence is sent as a table-valued parameter with no rows
+        /// (a null parameter value).</param>
+        /// <param name="logger">The logger instance used to record mapping diagnostics.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
         public static DbParameterCollection AddSqlTableValuedParameter<TModel>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, ILogger logger) where TModel: new()
         {
             var tvp = new List<SqlDataRecord>();
-            foreach (var val in values)
+            if (values is not null)
             {
-                tvp.Add(TvpMapper.ToTvpRecord<TModel>(val, null, logger));
+                foreach (var val in values)
+                {
+                    tvp.Add(TvpMapper.ToTvpRecord<TModel>(val, null, logger));
+                }
             }
-            // An IEnumerable<SqlDataRecord> with zero elements cannot supply TDS metadata and is rejected by the driver;
-            // SQL Server treats a DbNull table-valued parameter as an empty table, so that is how zero rows are represented.
+            // Microsoft.Data.SqlClient rejects both DBNull and a zero-record enumeration for a Structured parameter;
+            // a null reference is the driver-defined representation of a table-valued parameter with no rows.
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp.Count > 0 ? (object)tvp : System.DBNull.Value,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
 
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType) 
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
+        /// sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType)
             where TModel : IKeyedModel<TRecord>
             where TRecord : IComparable
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.Key.ShardId);
-                rec.SetValue(1, val.Key.RecordId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.Key.ShardId);
+                    rec.SetValue(1, val.Key.RecordId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
+        /// sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType)
             where TModel : IKeyedModel<TRecord, TChild>
             where TRecord : IComparable
@@ -1191,22 +1226,29 @@ namespace ArgentSea.Sql
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType), new SqlMetaData(childIdName, childIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.Key.ShardId);
-                rec.SetValue(1, val.Key.RecordId);
-                rec.SetValue(2, val.Key.ChildId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.Key.ShardId);
+                    rec.SetValue(1, val.Key.RecordId);
+                    rec.SetValue(2, val.Key.ChildId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
+        /// sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType)
             where TModel : IKeyedModel<TRecord, TChild, TGrandChild>
             where TRecord : IComparable
@@ -1215,24 +1257,31 @@ namespace ArgentSea.Sql
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType), new SqlMetaData(childIdName, childIdType), new SqlMetaData(grandChildIdName, grandChildIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.Key.ShardId);
-                rec.SetValue(1, val.Key.RecordId);
-                rec.SetValue(2, val.Key.ChildId);
-                rec.SetValue(3, val.Key.GrandChildId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.Key.ShardId);
+                    rec.SetValue(1, val.Key.RecordId);
+                    rec.SetValue(2, val.Key.ChildId);
+                    rec.SetValue(3, val.Key.GrandChildId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
 
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
+        /// sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild, TGreatGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType, string greatGrandChildIdName, SqlDbType greatGrandChildIdType)
             where TModel : IKeyedModel<TRecord, TChild, TGrandChild, TGreatGrandChild>
             where TRecord : IComparable
@@ -1242,68 +1291,89 @@ namespace ArgentSea.Sql
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType), new SqlMetaData(childIdName, childIdType), new SqlMetaData(grandChildIdName, grandChildIdType), new SqlMetaData(greatGrandChildIdName, greatGrandChildIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.Key.ShardId);
-                rec.SetValue(1, val.Key.RecordId);
-                rec.SetValue(2, val.Key.ChildId);
-                rec.SetValue(3, val.Key.GrandChildId);
-                rec.SetValue(4, val.Key.GreatGrandChildId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.Key.ShardId);
+                    rec.SetValue(1, val.Key.RecordId);
+                    rec.SetValue(2, val.Key.ChildId);
+                    rec.SetValue(3, val.Key.GrandChildId);
+                    rec.SetValue(4, val.Key.GreatGrandChildId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
 
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of <see cref="ShardKey{TRecord}"/> values. An empty or
+        /// null collection is sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType)
             where TRecord : IComparable
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.ShardId);
-                rec.SetValue(1, val.RecordId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.ShardId);
+                    rec.SetValue(1, val.RecordId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of <see cref="ShardKey{TRecord, TChild}"/> values. An
+        /// empty or null collection is sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType)
             where TRecord : IComparable
             where TChild : IComparable
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType), new SqlMetaData(childIdName, childIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.ShardId);
-                rec.SetValue(1, val.RecordId);
-                rec.SetValue(2, val.ChildId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.ShardId);
+                    rec.SetValue(1, val.RecordId);
+                    rec.SetValue(2, val.ChildId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
 
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of <see cref="ShardKey{TRecord, TChild, TGrandChild}"/>
+        /// values. An empty or null collection is sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild, TGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild, TGrandChild>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType)
             where TRecord : IComparable
             where TChild : IComparable
@@ -1311,23 +1381,31 @@ namespace ArgentSea.Sql
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType), new SqlMetaData(childIdName, childIdType), new SqlMetaData(grandChildIdName, grandChildIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.ShardId);
-                rec.SetValue(1, val.RecordId);
-                rec.SetValue(2, val.ChildId);
-                rec.SetValue(3, val.GrandChildId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.ShardId);
+                    rec.SetValue(1, val.RecordId);
+                    rec.SetValue(2, val.ChildId);
+                    rec.SetValue(3, val.GrandChildId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
             return prms;
         }
+        /// <summary>
+        /// Creates a table-valued parameter from a sequence of
+        /// <see cref="ShardKey{TRecord, TChild, TGrandChild, TGreatGrandChild}"/> values. An empty or null collection
+        /// is sent as a table-valued parameter with no rows (a null parameter value).
+        /// </summary>
         public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild, TGrandChild, TGreatGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType, string greatGrandChildIdName, SqlDbType greatGrandChildIdType)
             where TRecord : IComparable
             where TChild : IComparable
@@ -1336,19 +1414,22 @@ namespace ArgentSea.Sql
         {
             var tvp = new List<SqlDataRecord>();
             var metaData = new SqlMetaData[] { new SqlMetaData(shardIdName, shardIdType), new SqlMetaData(recordIdName, recordIdType), new SqlMetaData(childIdName, childIdType), new SqlMetaData(grandChildIdName, grandChildIdType), new SqlMetaData(greatGrandChildIdName, greatGrandChildIdType) };
-            foreach (var val in values)
+            if (values is not null)
             {
-                var rec = new SqlDataRecord(metaData);
-                rec.SetValue(0, val.ShardId);
-                rec.SetValue(1, val.RecordId);
-                rec.SetValue(2, val.ChildId);
-                rec.SetValue(3, val.GrandChildId);
-                rec.SetValue(4, val.GreatGrandChildId);
-                tvp.Add(rec);
+                foreach (var val in values)
+                {
+                    var rec = new SqlDataRecord(metaData);
+                    rec.SetValue(0, val.ShardId);
+                    rec.SetValue(1, val.RecordId);
+                    rec.SetValue(2, val.ChildId);
+                    rec.SetValue(3, val.GrandChildId);
+                    rec.SetValue(4, val.GreatGrandChildId);
+                    tvp.Add(rec);
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
@@ -1356,23 +1437,30 @@ namespace ArgentSea.Sql
         }
 
         /// <summary>
-        /// Creates a parameter for providing a user-defined table to a stored procedure.
+        /// Creates a parameter for providing a user-defined table to a stored procedure, mapping only the columns
+        /// named in <paramref name="columnList"/>.
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
-        /// <param name="value">A list of SqlDataRecord objects containing the table contents.</param>
-        /// <param name="length">The fixed number of bytes in the database column.</param>
+        /// <param name="values">A sequence of model objects to be converted into table rows. A null reference is treated
+        /// as an empty sequence, and an empty or null sequence is sent as a table-valued parameter with no rows
+        /// (a null parameter value).</param>
+        /// <param name="columnList">The subset of mapped columns to include in each row.</param>
+        /// <param name="logger">The logger instance used to record mapping diagnostics.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
         public static DbParameterCollection AddSqlTableValuedParameter<TModel>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, IList<string> columnList, ILogger logger) where TModel : new()
         {
             var tvp = new List<SqlDataRecord>();
-            foreach (var val in values)
+            if (values is not null)
             {
-                tvp.Add(TvpMapper.ToTvpRecord<TModel>(val, columnList, logger));
+                foreach (var val in values)
+                {
+                    tvp.Add(TvpMapper.ToTvpRecord<TModel>(val, columnList, logger));
+                }
             }
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Structured)
             {
-                Value = tvp,
+                Value = ToTvpValue(tvp),
                 Direction = ParameterDirection.Input
             };
             prms.Add(prm);
