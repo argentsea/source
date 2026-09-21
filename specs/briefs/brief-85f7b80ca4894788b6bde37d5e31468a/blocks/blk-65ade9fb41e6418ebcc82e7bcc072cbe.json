@@ -1,0 +1,24 @@
+{
+  "id": "blk-65ade9fb41e6418ebcc82e7bcc072cbe",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC3: All existing non-empty tests in CollectionMapWriteTests still pass with unchanged assertions, and the full ArgentSea.Sql.Test project is green (the currently-red AddSqlTableValuedParameter_WithColumnList_EmptyCollection_ProducesDbNull is replaced by a null-reference assertion).",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0002",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

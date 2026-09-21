@@ -1,0 +1,24 @@
+{
+  "id": "blk-50820b54703446c18054128ff4b73677",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC4: grep of ArgentSea.Sql/src for 'DBNull' or 'DbNull' near the table-valued overloads returns no comment or code path that assigns DBNull to a Structured parameter; the XML docs on the overloads state the zero-row rule.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0003",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
