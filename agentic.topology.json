@@ -3,7 +3,10 @@
   "projects": [
     {
       "id": "argentsea",
-      "workingDirectory": "."
+      "displayName": "ArgentSea",
+      "workingDirectory": ".",
+      "specsRoot": "specs",
+      "defaultWritePolicy": "writable"
     }
   ],
   "dependencies": []
