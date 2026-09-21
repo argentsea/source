@@ -18,6 +18,7 @@
 	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	<PackageIcon>argentsea-logo.png</PackageIcon>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageReleaseNotes>Empty collections written as table-valued parameters no longer fail client-side; zero rows are sent as an empty table. Callers who skipped the parameter or pre-checked Count as a workaround can remove it.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
