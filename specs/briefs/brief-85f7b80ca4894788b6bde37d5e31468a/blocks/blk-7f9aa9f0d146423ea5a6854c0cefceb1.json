@@ -15,10 +15,36 @@
     "owner": "agent",
     "orderKey": "m0004",
     "sectionId": null,
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "brief"
   },
   "references": [],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-e9484f8413cb447c97967ca5c88b6d86",
+        "blobHash": null,
+        "label": "adopted Scenario",
+        "relation": "verifies"
+      },
+      "note": "AC5: Scenario adopted as behavior/blk-e9484f8413cb447c97967ca5c88b6d86 and ADR adopted as adr/blk-0af15f91fda543868ea6cefa1b28a6c7; amendments proposed for behavior blk-48f70a8f347b4bb8aa4490079567c4c9 (6889fc8f304d44e1a954688c8bdd7685) and schema blk-0539e7af93cc455ba620a90d60dd1467 (9ddcac1a97b0468292577887376437f2), pending operator acceptance.",
+      "evidenceId": "evi-2657c54cb5864e3ca55924a7a1252cb7",
+      "verifiedContentHash": "fields-sha256-v1:ebc3b5a9bb3adb24552896e548e2d1e8014cb1f92fe79e0d836e2303b574f172",
+      "subject": {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "adr",
+        "blockId": "blk-0af15f91fda543868ea6cefa1b28a6c7",
+        "blobHash": null,
+        "label": "adopted ADR"
+      },
+      "recordedAt": "2026-09-21T19:41:24.3839407+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
