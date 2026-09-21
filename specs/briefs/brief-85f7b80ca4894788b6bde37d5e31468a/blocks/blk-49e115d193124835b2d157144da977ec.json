@@ -61,6 +61,16 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-0af15f91fda543868ea6cefa1b28a6c7",
+      "blobHash": null,
+      "label": "adoptedAs",
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }
