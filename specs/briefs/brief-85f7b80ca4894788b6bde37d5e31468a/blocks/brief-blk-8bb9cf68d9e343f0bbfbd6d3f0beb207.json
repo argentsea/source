@@ -60,7 +60,7 @@
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal",
-    "briefStatus": "Active",
+    "briefStatus": "Integrating",
     "statusTrigger": "operator:agent"
   },
   "references": [],
