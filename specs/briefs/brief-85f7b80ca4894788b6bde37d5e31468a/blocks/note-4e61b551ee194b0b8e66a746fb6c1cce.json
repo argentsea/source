@@ -1,0 +1,23 @@
+{
+  "id": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Note",
+  "fields": {
+    "body": "Verification record, 2026-09-21 (Claude Code session on branch fix/tvp-empty-collection-null-reference; operator dtrafton). Everything below was read from source or executed in this session.\n\nREPORTED: System.NotSupportedException: DBNull value for parameter '@Grants' is not supported. Table-valued parameters cannot be DBNull. Raised for a model whose empty collection property carries [MapToSqlTableValuedParameter].\n\nSOURCE — ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs, ten AddSqlTableValuedParameter overloads at lines 1130, 1148, 1166, 1187, 1210, 1236, 1264, 1284, 1307, 1331, 1366 region (1130-1381):\n  line ~1157 (the <TModel>(prms, name, values, logger) overload):\n    // An IEnumerable<SqlDataRecord> with zero elements cannot supply TDS metadata and is rejected by the driver;\n    // SQL Server treats a DbNull table-valued parameter as an empty table, so that is how zero rows are represented.\n    Value = tvp.Count > 0 ? (object)tvp : System.DBNull.Value,\n  All other nine overloads: Value = tvp (the List<SqlDataRecord>, empty or not) or Value = value (raw IEnumerable passthrough).\n  None guards a null 'values' argument before 'foreach (var val in values)'.\n\nATTRIBUTE PATH — ArgentSea.Sql/src/SqlMapAttributes.cs:1360-1400: resolves the 4-parameter generic overload by reflection (GetParameters().Length == 4), normalizes only default(ImmutableArray<T>) to ImmutableArray<T>.Empty, then sets TypeName on prms[prms.Count - 1]. A null List<T> property is not normalized.\n\nWORKING EXAMPLE — ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs:387:\n    .AddSqlTableValuedParameter(\"@SuspectTimes\", usualSuspects.Count > 0 ? usualSuspects.Values : null)\n\nBASELINE TESTS (main, before any change) — dotnet test ArgentSea.Sql/test/ArgentSea.Sql.Test.csproj --filter FullyQualifiedName~CollectionMapWriteTests:\n  Failed: 1, Passed: 7, Total: 8.\n  FAIL: AddSqlTableValuedParameter_WithColumnList_EmptyCollection_ProducesDbNull — \"Expected prm.Value to be <DBNull> ... but found {empty}.\" The column-list overload never applied the DBNull rule; the test encodes the wrong expectation and was already red.\n  Five tests assert prm.Value == DBNull.Value and will need to assert a null reference instead.\n\nDRIVER REPRO — scratch console TvpRepro, Microsoft.Data.SqlClient 7.0.3 (matches ArgentSea.Sql.csproj:32), net10.0, LocalDB MSSQLLocalDB, server version 15.00.4382. CREATE TYPE dbo.TvpReproType AS TABLE (Id int, Name nvarchar(50)); proc dbo.TvpReproProc @Grants dbo.TvpReproType READONLY AS SELECT COUNT(*) FROM @Grants. Output verbatim:\n  Connected: 15.00.4382\n  [proc / one record] OK -> server saw 1 row(s)\n  [proc / DBNull.Value] NotSupportedException: DBNull value for parameter '@Grants' is not supported. Table-valued parameters cannot be DBNull.\n  [proc / empty List<SqlDataRecord>] ArgumentException: There are no records in the SqlDataRecord enumeration. To send a table-valued parameter with no rows, use a null reference for the value instead.\n  [proc / null reference] OK -> server saw 0 row(s)\n  [text / null reference] OK -> server saw 0 row(s)\n  [text / DBNull.Value] NotSupportedException: DBNull value for parameter '@Grants' is not supported. Table-valued parameters cannot be DBNull.\n\nCONCLUSION: a null reference is the only value of the three that the driver accepts for zero rows, and it yields an empty table on the server for both command types. Not executed (reasoned from source only): the NullReferenceException for a null 'values' argument."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": null,
+    "packId": null
+  },
+  "references": [],
+  "evidenceLinks": []
+}
