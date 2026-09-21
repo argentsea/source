@@ -15,10 +15,26 @@
     "owner": "agent",
     "orderKey": "m0003",
     "sectionId": null,
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "brief"
   },
   "references": [],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1125-1420",
+        "label": "overloads, comments and XML docs after fix",
+        "relation": "verifies"
+      },
+      "note": "AC4: grep of ArgentSea.Sql/src for DBNull/DbNull in the table-valued overloads finds only negations (\"rejects both DBNull\"); no code path assigns DBNull to a Structured parameter; XML docs on all overloads state that an empty or null collection is sent as a null parameter value. Confirmed by the Opus review of commits 70b6496..ce1ba27.",
+      "evidenceId": "evi-abd84bb9c4ec4f489d6be209d006e863",
+      "verifiedContentHash": "fields-sha256-v1:58a3c5c6e6cb6492f8f5ed832d07e0a94cd41f2479312b2acf9594a4d9e6b09b",
+      "recordedAt": "2026-09-21T19:41:15.1051738+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
