@@ -39,7 +39,7 @@
     "integrationBranch": "main"
   },
   "metadata": {
-    "status": "Pending",
+    "status": "Approved",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -60,7 +60,7 @@
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal",
-    "briefStatus": "Proposed",
+    "briefStatus": "Active",
     "statusTrigger": "operator:agent"
   },
   "references": [],
