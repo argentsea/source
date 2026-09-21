@@ -29,6 +29,13 @@
         "lines": "1148-1162",
         "label": "model overload assigning DBNull for zero rows",
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1360-1400",
+        "label": "attribute path: overload resolution, ImmutableArray normalization, TypeName on last parameter",
+        "relation": "grounds"
       }
     ],
     "owner": "agent",
