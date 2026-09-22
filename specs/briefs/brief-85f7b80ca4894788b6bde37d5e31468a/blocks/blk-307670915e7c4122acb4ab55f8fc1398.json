@@ -1,0 +1,46 @@
+{
+  "id": "blk-307670915e7c4122acb4ab55f8fc1398",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC2: A model with an empty collection property carrying [MapToSqlTableValuedParameter] passes through Mapper.CreateInputParameters and executes against a real SQL Server with Microsoft.Data.SqlClient 7.0.3, and the server observes zero rows; the same for ImmutableArray<T>.Empty and default(ImmutableArray<T>).",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0001",
+    "sectionId": null,
+    "verificationStatus": "Verified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/TvpEmptyCollectionIntegrationTests.cs",
+        "lines": null,
+        "label": "driver-backed round trips",
+        "relation": "verifies"
+      },
+      "note": "AC2: TvpEmptyCollectionIntegrationTests executed against LocalDB (SQL Server 15.0, Microsoft.Data.SqlClient 7.0.3) on 2026-09-21 with ARGENTSEA_SQL_TEST_CONNECTION set: empty List<T>, ImmutableArray<T>.Empty and default(ImmutableArray<T>) through CreateInputParameters each yield 0 rows server-side; two-element list yields 2. Gated on the env var; reports passed when unset.",
+      "evidenceId": "evi-a2c14cf5f2f440ff899da5ac27d59939",
+      "verifiedContentHash": "fields-sha256-v1:608019767b544463a84397401b9e0ec5a2041524ea6d8b0e004a76455312908c",
+      "subject": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1360-1400",
+        "label": "attribute-driven collection write path"
+      },
+      "recordedAt": "2026-09-21T19:40:57.4745716+00:00",
+      "isVerificationBasis": true
+    }
+  ]
+}

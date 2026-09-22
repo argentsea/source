@@ -1,0 +1,40 @@
+{
+  "id": "blk-65ade9fb41e6418ebcc82e7bcc072cbe",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC3: All existing non-empty tests in CollectionMapWriteTests still pass with unchanged assertions, and the full ArgentSea.Sql.Test project is green (the currently-red AddSqlTableValuedParameter_WithColumnList_EmptyCollection_ProducesDbNull is replaced by a null-reference assertion).",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0002",
+    "sectionId": null,
+    "verificationStatus": "Verified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/CollectionMapWriteTests.cs",
+        "lines": null,
+        "label": "full SQL test project green",
+        "relation": "verifies"
+      },
+      "note": "AC3: dotnet test ArgentSea.Sql/test/ArgentSea.Sql.Test.csproj at 535ae09: Passed 134, Failed 0, Skipped 0. Non-empty assertions unchanged; the formerly red AddSqlTableValuedParameter_WithColumnList_EmptyCollection_ProducesDbNull replaced by AddSqlTableValuedParameter_WithColumnList_EmptyCollection_SendsNullTvpValue.",
+      "evidenceId": "evi-a0c9f77541b04a37b446002f9ea2e85b",
+      "verifiedContentHash": "fields-sha256-v1:a0e38cad120ca9f834b444be0e1f891c0293493a93282ff9b64628d1a952244b",
+      "recordedAt": "2026-09-21T19:41:05.5754812+00:00",
+      "isVerificationBasis": true
+    }
+  ]
+}

@@ -27,8 +27,8 @@
       {
         "name": "rows",
         "type": "array<object<SqlDataRecord>>",
-        "required": true,
-        "description": "Rows supplied directly or materialized from models, keyed models, or virtual compound keys."
+        "required": false,
+        "description": "Rows supplied directly or materialized from models, keyed models, or virtual compound keys. Absent (a null parameter Value) when the source collection is null or yields zero rows; never System.DBNull.Value and never an empty enumeration, which the driver rejects."
       },
       {
         "name": "columns",
@@ -38,7 +38,7 @@
       }
     ],
     "representations": {
-      "csharp": "SqlParameter(SqlDbType.Structured) whose Value is supplied SqlDataRecord rows or a list constructed in the source iteration order."
+      "csharp": "SqlParameter(SqlDbType.Structured) whose Value is the supplied SqlDataRecord rows or a list constructed in the source iteration order, or a null reference when there are no rows."
     }
   },
   "metadata": {
@@ -80,6 +80,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+      "blockId": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []

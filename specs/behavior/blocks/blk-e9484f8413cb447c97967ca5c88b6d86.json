@@ -1,0 +1,77 @@
+{
+  "id": "blk-e9484f8413cb447c97967ca5c88b6d86",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameterCollection has no parameters, and a mapped model type carries a collection property annotated [MapToSqlTableValuedParameter(\"@Children\", \"ChildTableType\")] whose value is an empty List<T> (equivalently: null, ImmutableArray<T>.Empty, or default(ImmutableArray<T>)).",
+      "when": "The caller invokes Mapper.CreateInputParameters for that model, which calls SqlParameterCollectionExtensions.AddSqlTableValuedParameter<TModel>(prms, \"@Children\", collection, logger), and then executes the command against SQL Server through Microsoft.Data.SqlClient.",
+      "then": "The collection contains exactly one Input parameter named @Children with SqlDbType.Structured and TypeName ChildTableType whose Value is a null reference (not System.DBNull.Value and not an empty IEnumerable<SqlDataRecord>, both of which Microsoft.Data.SqlClient rejects client-side before any SQL runs); the command executes without a client-side exception, and the server-side table variable bound to @Children contains zero rows. The same rule holds for every AddSqlTableValuedParameter overload: column-list, keyed-model, ShardKey, and the raw SqlDataRecord overload, which normalizes only a null reference or a collection whose Count is observably zero and passes any other sequence through without enumerating it."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-48f70a8f347b4bb8aa4490079567c4c9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+        "blockId": "blk-d22d4497b08f42a5b90cf5094683b123",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "Drew Trafton",
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-parameter-collection-extensions",
+    "verificationStatus": "Verified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/CollectionMapWriteTests.cs",
+        "lines": "92-378",
+        "label": "unit tests asserting null-reference Value for every empty/null case",
+        "relation": "verifies"
+      },
+      "note": "15/15 CollectionMapWriteTests pass at ce1ba27 (empty, null, default ImmutableArray, keyed-model, ShardKey, raw-overload empty and lazy pass-through all yield a null-reference Structured Value); full ArgentSea.Sql.Test 124/124.",
+      "evidenceId": "evi-a6de450aa28b4b828db12ffdb4cb8798",
+      "verifiedContentHash": "fields-sha256-v1:ca3e033260cd5cc79a7b97797887194613ebd2ff1f1cc96d2942c172fc37aeb6",
+      "subject": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1125-1420",
+        "label": "AddSqlTableValuedParameter overloads after fix (commit ce1ba27)"
+      },
+      "recordedAt": "2026-09-21T17:51:42.5528826+00:00",
+      "isVerificationBasis": true
+    },
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/TvpEmptyCollectionIntegrationTests.cs",
+        "lines": "35-117",
+        "label": "driver-backed round trip: empty collection -> 0 rows, two-element collection -> 2 rows (gated on ARGENTSEA_SQL_TEST_CONNECTION)"
+      },
+      "note": "Executed against LocalDB (SQL Server 15.0) with Microsoft.Data.SqlClient 7.0.3 on 2026-09-21; passed. Runs only when ARGENTSEA_SQL_TEST_CONNECTION is set, otherwise the test returns early and reports as passed.",
+      "evidenceId": "evi-c8996e61615040048424cfdd72f081b7"
+    }
+  ]
+}

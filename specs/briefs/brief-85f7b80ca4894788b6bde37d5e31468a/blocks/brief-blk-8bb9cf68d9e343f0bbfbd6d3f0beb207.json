@@ -1,0 +1,68 @@
+{
+  "id": "brief-blk-8bb9cf68d9e343f0bbfbd6d3f0beb207",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Brief",
+  "fields": {
+    "goal": "Make every SqlParameterCollectionExtensions.AddSqlTableValuedParameter overload represent a zero-row (or null) collection as a Structured input parameter whose Value is a null reference, so that writing an empty collection through [MapToSqlTableValuedParameter] or any direct overload executes instead of being rejected client-side by Microsoft.Data.SqlClient.",
+    "context": "## Reported failure (2026-09-21)\n\nCallers writing a model whose collection property carries `[MapToSqlTableValuedParameter]` get this before any SQL runs whenever the collection is empty:\n\n```\nSystem.NotSupportedException: DBNull value for parameter '@Grants' is not supported. Table-valued parameters cannot be DBNull.\n```\n\n## Root cause (verified in source and against the driver)\n\n`ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs` has ten `AddSqlTableValuedParameter` overloads (lines 1130-1381). They fall into three groups, and **all three mis-handle zero rows**:\n\n1. **`<TModel>(prms, name, values, logger)` (line 1148)** — the overload the attribute path calls from `SqlMapAttributes.cs:1360-1391`. Assigns `Value = tvp.Count > 0 ? tvp : System.DBNull.Value`. The comment above it (\"SQL Server treats a DbNull table-valued parameter as an empty table\") describes server-side DEFAULT semantics; the driver never lets DBNull reach the server and throws `NotSupportedException`.\n2. **`<TModel>(prms, name, values, columnList, logger)` (line 1366)** — passes the `List<SqlDataRecord>` straight through. With zero rows the driver throws `ArgumentException: There are no records in the SqlDataRecord enumeration. To send a table-valued parameter with no rows, use a null reference for the value instead.` The existing test `AddSqlTableValuedParameter_WithColumnList_EmptyCollection_ProducesDbNull` expects DBNull here and is **already red on main** (baseline run: 1 failed / 7 passed in CollectionMapWriteTests).\n3. **The eight keyed-model and ShardKey overloads (lines 1166-1354)** — same pass-through as group 2; every one throws the `ArgumentException` on an empty sequence.\n\nSeparately, none of the ten overloads guards a null `values` argument: `foreach (var val in values)` throws `NullReferenceException`. The attribute path only normalizes a default `ImmutableArray<T>` (SqlMapAttributes.cs:1367-1377); a null `List<T>` property reaches the `foreach` unguarded. (Reasoned from source; not separately executed.)\n\nThe scalar rule in behavior `blk-ddff8ceba2ae42999cbc87880bd1a92c` (\"null reference or nullable values ... are represented as database null\") was evidently generalized to the Structured type, where the driver forbids it.\n\n## Driver evidence\n\nScratch harness `TvpRepro` (Microsoft.Data.SqlClient 7.0.3, the version pinned in `ArgentSea.Sql.csproj:32`; LocalDB, SQL Server 15.00.4382; table type `dbo.TvpReproType`, proc with a READONLY TVP parameter):\n\n| Value assigned to the Structured parameter | Stored procedure | Text command |\n|---|---|---|\n| one `SqlDataRecord` | OK, server saw 1 row | — |\n| `DBNull.Value` | `NotSupportedException` (DBNull not supported) | `NotSupportedException` |\n| empty `List<SqlDataRecord>` | `ArgumentException` (no records; use a null reference) | — |\n| `null` reference | **OK, server saw 0 rows** | **OK, server saw 0 rows** |\n\n## Working example already in the repo\n\n`ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs:387` already does the right thing for the raw overload: `usualSuspects.Count > 0 ? usualSuspects.Values : null`.\n\n## Why \"omit the parameter\" is not an option\n\nThe attribute path assigns `TypeName` to `prms[prms.Count - 1]` immediately after the call (SqlMapAttributes.cs:1393-1400). Skipping the parameter on empty would stamp the table type name onto whatever parameter happened to be last. The parameter must always be appended.\n\n## Spec impact\n\nComponent `sql-parameter-collection-extensions`. Behavioral `blk-48f70a8f347b4bb8aa4490079567c4c9` and Schema `blk-0539e7af93cc455ba620a90d60dd1467` describe the non-empty shape only (`rows` is `required: true`); neither states the zero-row rule. Once this brief lands, the corpus should say it.",
+    "constraints": [
+      "Contained defect fix: touch the ten AddSqlTableValuedParameter overloads, their comments and XML docs, and the tests. No refactor of TvpMapper or the attribute expression builder beyond what the null-collection guard needs.",
+      "An empty or null collection is a legitimate value, not an error: never throw for it, and always append the Structured parameter so TypeName assignment in SqlMapAttributes.cs stays anchored to the right parameter.",
+      "The raw IEnumerable<SqlDataRecord> overload (line 1130) must not enumerate a lazy sequence more than once or materialize it just to count it; normalize to null only when emptiness is cheaply observable (e.g. ICollection/IReadOnlyCollection with Count == 0, or the reference is already null) and document that a non-empty-looking lazy sequence is passed through.",
+      "Non-empty behavior is unchanged: row order, column order, and the @-prefix normalization stay exactly as specified in behavior blk-48f70a8f347b4bb8aa4490079567c4c9.",
+      "No comment, XML doc, or test may claim that DBNull is a valid representation of an empty table-valued parameter.",
+      "Verify against the real driver, not only the parameter object: the client-side rejection happens at execution time, so unit assertions on prm.Value must be backed by at least one execution against SQL Server (the TvpRepro pattern, or an integration test if the suite gains one)."
+    ],
+    "deliverables": [
+      {
+        "name": "D1 Null-reference empty rule across all ten overloads",
+        "description": "In ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs (lines 1130-1381): after materializing the List<SqlDataRecord>, assign Value = tvp.Count > 0 ? tvp : null in the two model overloads and the eight keyed-model/ShardKey overloads; guard a null 'values' argument so it is treated as empty rather than reaching the foreach. For the raw IEnumerable<SqlDataRecord> overload, pass null through and normalize a cheaply-detectable empty collection to null without double-enumerating. Replace the incorrect DBNull comment with the driver-accurate rule and add the rule to the XML <summary>/<param> docs. A private helper that turns a List<SqlDataRecord> into the parameter value is acceptable to avoid ten copies of the ternary.",
+        "format": "code fix"
+      },
+      {
+        "name": "D2 Tests: empty and null per overload group, driver-backed",
+        "description": "In ArgentSea.Sql/test/CollectionMapWriteTests.cs: change the five tests that assert prm.Value == DBNull.Value to assert a null reference (AddSqlTableValuedParameter_EmptyCollection_..., ..._WithColumnList_EmptyCollection_..., CreateInputParameters_EmptyCollectionProperty_..., CreateInputParameters_EmptyImmutableArrayCollectionProperty_..., CreateInputParameters_DefaultImmutableArrayCollectionProperty_...) and rename them so 'DbNull' no longer appears in the test name. Add: a null List<T> collection property through CreateInputParameters; an empty sequence through one keyed-model overload and one ShardKey overload (or a Theory across all eight); and an empty ICollection through the raw SqlDataRecord overload. Add a driver-backed check per AC2 — reuse the TvpRepro harness pattern (LocalDB, CREATE TYPE + proc, ExecuteScalar COUNT(*)) as an integration test gated on a connection string, or record the manual run in the brief's Realization if the suite has no integration tier.",
+        "format": "code fix + test"
+      },
+      {
+        "name": "D3 Spec statement of the zero-row rule",
+        "description": "Author (in this brief, change-local, sectionId sql-parameter-collection-extensions) a Scenario for 'empty model collection -> Structured parameter with null Value -> server sees zero rows' illustrating behavior blk-48f70a8f347b4bb8aa4490079567c4c9, and an ADR recording why a null reference was chosen over DBNull, an empty enumeration, throwing, or omitting the parameter. On landing, adopt them or propose an amendment so the Schema's 'rows' member is no longer 'required: true' without qualification.",
+        "format": "spec blocks"
+      },
+      {
+        "name": "D4 Release note",
+        "description": "Dropped by operator decision on 2026-09-21: no PackageReleaseNotes entry ships with this change.",
+        "format": "none"
+      }
+    ],
+    "displayName": "Empty TVP must be a null reference, not DBNull",
+    "integrationBranch": "main"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "HumanConfirmed",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+        "blockId": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+        "blobHash": null,
+        "label": "verification record with driver repro output",
+        "relation": "grounds"
+      }
+    ],
+    "owner": "agent",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal",
+    "briefStatus": "Integrating",
+    "statusTrigger": "operator:agent"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

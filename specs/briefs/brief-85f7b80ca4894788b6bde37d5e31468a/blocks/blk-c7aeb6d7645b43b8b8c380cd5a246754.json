@@ -1,0 +1,46 @@
+{
+  "id": "blk-c7aeb6d7645b43b8b8c380cd5a246754",
+  "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+  "type": "Criterion",
+  "fields": {
+    "condition": "AC1: For every AddSqlTableValuedParameter overload, an empty collection and a null collection each append exactly one Input parameter with SqlDbType.Structured whose Value is a null reference (prm.Value == null), and a unit test per overload group (model, model+columnList, keyed-model x4, ShardKey x4, raw SqlDataRecord) proves it.",
+    "checkMethod": "test"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "HumanAuthored",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": "agent",
+    "orderKey": "m0000",
+    "sectionId": null,
+    "verificationStatus": "Verified",
+    "schemaVersion": "1",
+    "packId": "brief"
+  },
+  "references": [],
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/CollectionMapWriteTests.cs",
+        "lines": null,
+        "label": "CollectionMapWriteTests incl. AddSqlTableValuedParameter_KeyedAndShardKeyOverloads_EmptySequence_SendsNullTvpValue",
+        "relation": "verifies"
+      },
+      "note": "AC1: unit tests at 535ae09 cover model, model+columnList, raw SqlDataRecord, all four keyed-model arities and all four ShardKey arities (Theory, 8 cases) with empty and null collections; each appends one Structured Input parameter with a null Value. 134/134 pass.",
+      "evidenceId": "evi-72e5896365174d3385b215269d05fc61",
+      "verifiedContentHash": "fields-sha256-v1:43c3121ff2838595c00a81c65c593adff765f0b8cd28aa3a76be7484a7d5aace",
+      "subject": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1125-1420",
+        "label": "AddSqlTableValuedParameter overloads"
+      },
+      "recordedAt": "2026-09-21T19:40:49.0513284+00:00",
+      "isVerificationBasis": true
+    }
+  ]
+}
