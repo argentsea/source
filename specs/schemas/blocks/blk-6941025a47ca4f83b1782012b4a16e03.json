@@ -1,0 +1,101 @@
+{
+  "id": "blk-6941025a47ca4f83b1782012b4a16e03",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "Table-valued-parameter row column projection",
+    "description": "The per-column shape the table-valued-parameter fragment builders (TvpExpressionHelpers' builders and MapToSqlDecimalAttribute's TVP path) assemble for one table-valued-parameter row: a SqlMetaData entry (name, SQL type, and length or precision/scale where the type needs one) paired with one conditional SqlDataRecord assignment, keyed by a normalized, de-duplicated column name. The projection has two column-ordering modes. In full-mapping mode (ToTvpRecord called with no column list) both the SqlMetaData array and each SqlDataRecord assignment follow the model's properties in increasing metadata-token iteration order. In subset mode (ToTvpRecord called with a caller-supplied column list), TvpMapper.GetDataRecordFields reassembles the final SqlMetaData array into the requested-list order before the SqlDataRecord is constructed, and every column builder — including the binary (byte[]) builder and the decimal path — builds its SqlDataRecord Set*/SetDBNull calls against that column's position within the requested list (TvpExpressionHelpers.GetOrdinal), so each listed column's value is written at the same position as its SqlMetaData entry. Inclusion (TvpExpressionHelpers.IncludeThisColumn) and position (GetOrdinal) are both matched on the normalized column name (no leading '@'), the same name GetDataRecordFields matches against the SqlMetaData entries.",
+    "members": [
+      {
+        "name": "columnName",
+        "type": "nvarchar(128)",
+        "required": true,
+        "description": "The mapped parameter/column name after SqlParameterCollectionExtensions.NormalizeSqlColumnName (leading '@' removed); de-duplicated so only the first occurrence contributes a column. This is the name a caller's column list must contain, and the name used for inclusion, position and metadata matching in subset mode."
+      },
+      {
+        "name": "sqlType",
+        "type": "SqlDbType",
+        "required": true,
+        "description": "The SqlDbType passed to the SqlMetaData constructor for this column, fixed per column by which builder variant handles the property's data shape (string, int/enum, simple value, date, time (TimeOnly), guid/floating-point, decimal, or binary)."
+      },
+      {
+        "name": "ordinal",
+        "type": "int",
+        "required": true,
+        "description": "This column's zero-based position used for the SqlDataRecord Set*/SetDBNull call. TvpMapper.IterateTvpProperties owns the ordinal counter and increments it once per completed property (or per shard-key sub-element) as properties are iterated in metadata-token order; a column's builder only reads the counter via TvpExpressionHelpers.GetOrdinal, it never advances it. In full-mapping mode (no requested column list), GetOrdinal returns that counter value directly, so the Set* ordinal equals metadata-token iteration order for every column type. In subset mode (a caller-supplied column list), GetOrdinal returns columnList.IndexOf(columnName), and every builder, binary and decimal included, passes that computed value into its SqlDataRecord Set*/SetDBNull call, so the Set* ordinal equals the column's position in the requested list, matching the requested-list order TvpMapper.GetDataRecordFields gives the reassembled SqlMetaData array.",
+        "notes": "Increment ownership: TvpMapper.IterateTvpProperties, TvpMapper.cs:237-267 (per property), and its shard-key branch, TvpMapper.cs:94-218 (per shard-key sub-element). Ordinal resolution and mode switch: TvpExpressionHelpers.GetOrdinal, TvpExpressionHelpers.cs:343-349. Metadata reordering for subset mode: TvpMapper.GetDataRecordFields, TvpMapper.cs:305-330. Binary builder writes with the GetOrdinal value: TvpExpressionHelpers.cs:310-326. Covered by ArgentSea.Sql.Test MappingTests.ValidateTvpColumnSubsetOrdinals."
+      },
+      {
+        "name": "length",
+        "type": "bigint",
+        "required": false,
+        "description": "The declared column length passed to SqlMetaData for string and binary columns; omitted by builder variants whose SqlDbType needs no length (int/enum, simple value, date, time, guid/floating-point, decimal)."
+      },
+      {
+        "name": "value",
+        "type": "json",
+        "required": false,
+        "description": "The row's value for this column: the mapped property's value when present, or SQL Server NULL when the property is null, a nullable property has no value, or the value is Guid.Empty or NaN. A TimeOnly value is written as its TimeSpan equivalent and a DateOnly value as a DateTime at midnight."
+      }
+    ],
+    "representations": {
+      "SQL Server": "The reference representation: one SqlMetaData entry plus one conditional SqlDataRecord Set* (or SetDBNull) call per column, assembled into the SqlDataRecord array that becomes the table-valued parameter's rows. Table-valued parameters are a SQL Server-specific construct; there is no cross-provider or SQLite representation of this shape."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "19-326",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "62-267",
+        "label": "IterateTvpProperties: ordinal increment ownership and MapToModel recursion"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "305-330",
+        "label": "GetDataRecordFields: subset-mode SqlMetaData reordering"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "343-349",
+        "label": "GetOrdinal: full-mapping vs subset-mode ordinal resolution"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "295-327",
+        "label": "TvpBinaryExpressionBuilder: byte[] only; writes with the GetOrdinal value"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

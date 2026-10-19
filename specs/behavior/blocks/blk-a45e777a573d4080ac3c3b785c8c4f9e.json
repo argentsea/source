@@ -1,0 +1,99 @@
+{
+  "id": "blk-a45e777a573d4080ac3c3b785c8c4f9e",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Model Mapping",
+    "trigger": "a mapping attribute's declared database type cannot accept the CLR type of the property or variable it maps, and the mapping layer raises InvalidMapTypeException",
+    "response": "raise it with the property (or, for a nested-model or shard-key variable that is not itself a model property, the variable's name and type), the provider's numeric database-type value, and — from the shared Mapper, the SQL Server TVP mapper and the Orleans grain mappers — the attribute's database type name, so the message reads \"Sql type mismatch: Class {class} cannot map property “{property}” of type “{type}” to database type {name} ({number}).\" (or, for a variable, \"Sql type mismatch: {variable} cannot be mapped because type {type} does not map to database type {name} ({number}).\")",
+    "postcondition": "the PostgreSQL COPY mapper is the exception: it raises the property-and-number form without the type name, so its message reports only \"database type enumeration with numeric value of {number}\" and the caller must translate the NpgsqlDbType number itself. In the property forms the property name and the property type are each enclosed in a matched pair of curly quotes. In every form the exception's VariableName, VariableType and SqlType properties carry the same values as the message"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidMapTypeException.cs",
+        "lines": "49-93",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1037,1066,1502,1525",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "572-620,664",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "117-198",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "178,389,485",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-24b13dadb4864807854d811fe54b0fe5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

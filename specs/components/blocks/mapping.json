@@ -1,0 +1,25 @@
+{
+  "id": "mapping",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Mapping",
+    "parent": "argent-sea-core",
+    "responsibility": "Holds how a model's mapping attributes become compiled, cached delegates that move values between model properties and a command's parameters or a reader's columns, the per-data-shape expression fragments those delegates are built from, and the readable rendering of a generated delegate for tracing. These belong together because they are one translation pipeline from declared attributes to executable mapping code; it mirrors the Mapping section of the documentation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

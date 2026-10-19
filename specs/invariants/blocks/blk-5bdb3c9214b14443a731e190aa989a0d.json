@@ -1,0 +1,31 @@
+{
+  "id": "blk-5bdb3c9214b14443a731e190aa989a0d",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "DatabasesBase<TConfiguration>.DataConnection.MockResults is never replaced by assignment; it is a get-only property backed by a Dictionary<string, object> field that starts null and is constructed on first access, so a caller registers a mock result only by mutating the dictionary the getter returns, never by assigning the property. First-access construction is thread-safe (LazyInitializer.EnsureInitialized): even when multiple threads access the property for the first time concurrently, exactly one Dictionary instance is published to the field, and every access, including every concurrent first access, returns that same instance, which is the instance the query methods (e.g. ReturnValueAsync, ListAsync) read. A mock registered through any returned dictionary is therefore never silently discarded.",
+    "scope": "DatabasesBase<TConfiguration>.DataConnection.MockResults"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "112,126-135",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "databases-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

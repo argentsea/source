@@ -1,0 +1,66 @@
+{
+  "id": "blk-51ae255c144c4e64ab5a98767536236a",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Connection Settings",
+    "where": "the host has registered PostgreSQL services, binding the PgGlobalSettings configuration section to PgGlobalPropertiesOptions",
+    "trigger": "the PgDatabases or PgShardSets collection is constructed",
+    "response": "supply the bound PgGlobalPropertiesOptions value (a PgConnectionPropertiesBase that adds no members of its own) as the global level of the Configuration hierarchy for every database and shard-set endpoint in that collection",
+    "postcondition": "an Npgsql setting given once under PgGlobalSettings applies to every PostgreSQL connection unless a database, shard-set, read/write, shard or endpoint level overrides it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgGlobalPropertiesOptions.cs",
+        "lines": "8-14",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "33-34",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDatabases.cs",
+        "lines": "14-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardSets.cs",
+        "lines": "16-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,50 @@
+{
+  "id": "blk-bc999773c50445918d9eca47243c6538",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A Query's Sql and Name values, and the ParameterNames array reference itself, are fixed by the constructor and never reassigned afterward. The constructor stores the exact parameterNames array instance it is given, and ParameterNames returns that same instance without copying it; the array's element contents therefore remain externally mutable by any code that holds a reference to it, even though the Query never replaces the reference.",
+    "scope": "Every Query instance (QueryProcedure, QueryStatement, and any other Query subclass)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "10-24",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-f09e5e3da06d471dacb922688dbd3e04",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

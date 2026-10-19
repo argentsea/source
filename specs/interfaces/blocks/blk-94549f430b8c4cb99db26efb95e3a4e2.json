@@ -6,7 +6,7 @@
     "name": "SequenceLengthening",
     "kind": "Library",
     "language": "csharp",
-    "contract": "A public enum that lets a caller select one retry-backoff lengthening mode: Linear, Fibonacci, HalfSquare, or Squaring. The selected value is consumed by retry-delay resolution; it is not an open-ended numeric option."
+    "contract": "A public enum that lets a caller select one retry-backoff lengthening mode: Linear (0), Lengthening (1, the default odd-number progression 1, 3, 5, 7… × interval), HalfSquare (2), or Squaring (3). Fibonacci is an [Obsolete] alias declared as Fibonacci = Lengthening, retained so existing code and configuration values of \"Fibonacci\" still compile and bind (configuration binding parses enum names case-insensitively, so \"Fibonacci\" binds to the Lengthening value); because the two names share one value, ToString() of that value may return either name. The selected value is consumed by retry-delay resolution; it is not an open-ended numeric option."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
-        "lines": "15-21",
+        "lines": "15-46",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-sequence-lengthening",
+    "sectionId": "connection-configuration-hierarchy",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

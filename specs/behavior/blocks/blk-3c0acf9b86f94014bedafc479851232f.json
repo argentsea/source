@@ -1,0 +1,52 @@
+{
+  "id": "blk-3c0acf9b86f94014bedafc479851232f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "data is a 16-byte span of all-zero bytes with position already advanced to 1 (so only 15 bytes remain ahead of the cursor), and valueType = typeof(decimal)",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(decimal), out result) is called",
+      "then": "the data.Length >= 16 check passes against the full 16-byte span rather than the 15 bytes remaining from position 1, so the read is attempted; the first three BitConverter.ToInt32 reads (at offsets 1, 5 and 9) each still have at least 4 bytes ahead and succeed, but the fourth read at offset 13 has only 3 bytes remaining in the span and BitConverter.ToInt32 throws ArgumentOutOfRangeException -- TryConvertFromBytes does not return false and position is never advanced"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-39a425343a964aec833e2152fd208691"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "449-464",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-39a425343a964aec833e2152fd208691",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

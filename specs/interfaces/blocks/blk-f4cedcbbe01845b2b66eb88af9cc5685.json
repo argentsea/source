@@ -1,0 +1,52 @@
+{
+  "id": "blk-f4cedcbbe01845b2b66eb88af9cc5685",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "CollectionMapAttributeBase property mapping attribute",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "CollectionMapAttributeBase is an abstract Attribute with no public constructor: its sole constructor is protected and takes the structured parameter's name, so only a derived collection-mapping attribute (never this base type itself) can be applied to a property. The name supplied at construction is exposed afterward through the read-only ParameterName property and does not change once set. A derived attribute must implement the sole abstract operation, AppendCollectionInParameterExpressions, to append expression-tree nodes that add the decorated collection property as a structured parameter for a given element type; the base type declares no corresponding read-direction operation, so producing a collection property's value from query results is not part of this attribute's contract."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/CollectionMapAttributeBase.cs",
+        "lines": "18-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

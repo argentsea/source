@@ -1,0 +1,184 @@
+{
+  "id": "blk-3ae75246ea2e459fb01a9eb3fe57a9bf",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ShardKeySerialization.KeyDataType",
+    "description": "Internal 6-bit-range, byte-backed code identifying the .NET type of one shard-key record-key column, produced by GetKeyDataType and packed by TryEncodeTypeMetadata/Combiner into the leading bytes of a shard key's binary metadata. GhostShardKey.GetInstance reads that packed code directly from a raw binary serialization; when the serialization's leading byte's high bit is clear, it first decodes the serialization via StringExtensions.Decode (the same decode used for both the UTF-8 and URL-safe textual encodings) before reading the same packed bits, so the code survives intact whether GhostShardKey is handed the raw binary form or either textual encoded form.",
+    "members": [
+      {
+        "name": "Undefined",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 0. The fallback code for a .NET type GetKeyDataType does not recognize; GetArgType maps it back to null."
+      },
+      {
+        "name": "Guid",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 1. A System.Guid-typed key column."
+      },
+      {
+        "name": "Blob",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 2. A byte[]-typed key column. GetArgType maps this code back to typeof(Array), not typeof(byte[])."
+      },
+      {
+        "name": "Int32",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 3. An int-typed key column."
+      },
+      {
+        "name": "Byte",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 4. A byte-typed key column."
+      },
+      {
+        "name": "Int16",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 5. A short-typed key column."
+      },
+      {
+        "name": "Int64",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 6. A long-typed key column."
+      },
+      {
+        "name": "Char",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 7. A char-typed key column."
+      },
+      {
+        "name": "Decimal",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 8. A decimal-typed key column."
+      },
+      {
+        "name": "Double",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 9. A double-typed key column."
+      },
+      {
+        "name": "Float",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 10. A float-typed key column."
+      },
+      {
+        "name": "DateTime",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 11. A DateTime-typed key column."
+      },
+      {
+        "name": "DateOnly",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 12. A DateOnly-typed key column."
+      },
+      {
+        "name": "String",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 13. A string-typed key column."
+      },
+      {
+        "name": "TimeOnly",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 14. Nominally a TimeOnly-typed key column, but GetKeyDataType has no case producing this code and GetArgType has no case consuming it, so it can never occur in metadata encoded or decoded by GetKeyDataType/GetArgType; only TryConvertFromBytes retains a read case for typeof(TimeOnly)."
+      },
+      {
+        "name": "TimeSpan",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 15. A TimeSpan-typed key column."
+      },
+      {
+        "name": "Int32Enum",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 16. An enum-typed key column whose underlying type is int. GetArgType maps this code back to typeof(int), not the original enum type."
+      },
+      {
+        "name": "ByteEnum",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 17. An enum-typed key column whose underlying type is byte. GetArgType maps this code back to typeof(byte), not the original enum type."
+      },
+      {
+        "name": "Int16Enum",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 18. An enum-typed key column whose underlying type is short. GetArgType maps this code back to typeof(short), not the original enum type."
+      },
+      {
+        "name": "Int64Enum",
+        "type": "tinyint",
+        "required": true,
+        "description": "Value 19. An enum-typed key column whose underlying type is long. GetArgType maps this code back to typeof(long), not the original enum type."
+      }
+    ],
+    "representations": {
+      "CSharp": "internal enum KeyDataType : byte, values 0-19 as listed; the enum itself is internal (not public API). GetKeyDataType, TryEncodeTypeMetadata and Combiner (cited here for key arities 1-4) produce the packed byte sequence carrying these codes; GhostShardKey.GetInstance is the cited consumer, reading the packed code directly from the leading bytes of a shard key serialization (the raw binary form, or either the UTF-8 or URL-safe textual form after StringExtensions.Decode) to recover an identity's column types when they are not known to the caller. The cited sources establish this production path and this one consumer, not that every ShardKey<> instance's own serialization -- defined outside this component -- embeds the codes."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "10-33",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "37-116",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "349-392",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "29-65",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

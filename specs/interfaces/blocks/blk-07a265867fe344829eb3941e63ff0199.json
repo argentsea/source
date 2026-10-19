@@ -6,7 +6,7 @@
     "name": "MapShardKeyAttribute property-mapping contract",
     "kind": "Library",
     "language": "csharp",
-    "contract": "MapShardKeyAttribute is an abstract attribute applicable to one property only. Its construction retains a shard parameter, record, child, grandchild, and great-grandchild column names, plus the record-identifier flag, as metadata for mapping a Virtual compound key. ShardIdName exposes the associated Shard identifier parameter's ColumnName when a shard parameter is present; otherwise it exposes null. The attribute exposes the retained shard parameter without mutation."
+    "contract": "MapShardKeyAttribute is an abstract attribute whose construction retains a shard parameter, record, child, grandchild, and great-grandchild column names, plus the record-identifier flag, as metadata for mapping a Virtual compound key. ShardIdName exposes the associated Shard identifier parameter's ColumnName when a shard parameter is present; otherwise it exposes null. The attribute exposes the retained shard parameter without mutation."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-map-shard-key-attribute",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

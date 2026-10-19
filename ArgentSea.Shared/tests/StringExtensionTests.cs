@@ -32,6 +32,8 @@ namespace ArgentSea.Test
 			test1.CleanInput().Should().Be("This is a test");
 		}
 		[Fact]
+		[Trait("Spec", "blk-5de0a2c37b224b0eadea31da517f7a45")]
+		[Trait("Spec", "blk-0a8e1d90116c4c82b28e563f8717e7e2")]
 		public void TestNornalEmojiStringCleaning()
 		{
 			var test1 = @"  This is a test" + StringExtensionTests.Emoji;
@@ -67,6 +69,7 @@ Another test "  + StringExtensionTests.Emoji;
 		[InlineData("testin")]
         [InlineData("testing")]
         [InlineData("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!!©°´±")]
+		[Trait("Spec", "blk-e7038e46d4814c59a9818e5d5e87b1c0")]
 		public void TestEncodeDecode(string validateThis)
 		{
             var testBytes = Encoding.UTF8.GetBytes(validateThis);

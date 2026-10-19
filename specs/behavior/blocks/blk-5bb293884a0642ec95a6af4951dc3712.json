@@ -1,0 +1,69 @@
+{
+  "id": "blk-5bb293884a0642ec95a6af4951dc3712",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls SqlParameterNotFound, SqlFieldNotFound, or RequiredPropertyIsDbNull on the logger",
+    "response": "log the mismatch at Debug via SqlParameterNotFound, SqlFieldNotFound, or RequiredPropertyIsDbNull respectively, naming the missing parameter or column together with the property type or model name involved"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "91-92,112,134-144,231-232",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-67d09a13d68f412aa1af5d696140ed43",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-805df5b3d8854fca85f8eac3741f9b6a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

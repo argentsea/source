@@ -6,7 +6,7 @@
     "name": "BatchStep<TResult> batch-step extension contract",
     "kind": "Library",
     "language": "text",
-    "contract": "BatchStep<TResult> is an abstract batch-item extension boundary. A derived batch item must provide the protected-internal asynchronous execution operation, accepting the supplied shard identifier, database connection, transaction, connection name, provider services, logger, and cancellation token, and resolving a Task<TResult> for that execution context. The operation is unavailable as a public API."
+    "contract": "BatchStep<TResult> is an abstract batch-item extension boundary. A derived batch item must provide the protected-internal asynchronous execution operation, accepting the supplied shard identifier, database connection, transaction, connection name, provider services, logger, and cancellation token, and resolving a Task<TResult> for that execution context. The operation is unavailable as a public API. Beyond the signature, the obligation is semantic: the implementation must perform its database work using the supplied connection and the supplied transaction rather than acquiring or opening its own, so that its work commits or rolls back as part of the same transaction every other step in the batch shares; and it must check the supplied cancellation token before beginning that work. An implementation that reads and maps the data reader itself must resolve to the TResult value appropriate to that implementation's own result shape, or to a defined empty/default sentinel when its own row-mapping logic finds no matching row, rather than throwing merely because no row was found. That no-row-sentinel obligation binds only implementations which interpret the reader themselves; an implementation that instead delegates result production to caller-supplied code, as the model step does by invoking its caller-supplied QueryResultModelHandler, has no built-in no-row handling of its own — it invokes that handler exactly once regardless of how many rows the reader produced and returns exactly what the handler returns, so the no-row outcome for that implementation is whatever the caller-supplied handler decides, not a sentinel this contract defines."
   },
   "metadata": {
     "status": "Draft",
@@ -20,11 +20,29 @@
         "lines": "14-17",
         "label": "BatchStep<TResult> declaration and abstract execution member",
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "82-93",
+        "label": "DatabaseBatchQuery.ExecuteAsync uses the supplied connection and transaction directly and checks cancellation before executing"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "254-284",
+        "label": "KeyStep.ExecuteAsync uses the supplied connection and transaction, checks cancellation, and resolves ShardKey<TRecord>.Empty rather than throwing when no row matches"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "337-399",
+        "label": "ModelStep.ExecuteAsync has no row-count branch of its own: it invokes the caller-supplied QueryResultModelHandler exactly once and returns its result unchanged, regardless of how many rows the reader produced"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-batch-step",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

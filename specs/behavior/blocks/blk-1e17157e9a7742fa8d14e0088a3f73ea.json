@@ -1,0 +1,74 @@
+{
+  "id": "blk-1e17157e9a7742fa8d14e0088a3f73ea",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model class maps TimeOnly WakeTime = 06:30:15 and TimeOnly? SnoozeTime = null with [MapToSqlTime(\"WakeTime\")] and [MapToSqlTime(\"SnoozeTime\")]",
+      "when": "the model is mapped to input parameters, to a table-valued-parameter row, and back from Time output parameters whose values the provider returns as TimeSpan",
+      "then": "@WakeTime is a Time input parameter whose value is the TimeSpan 06:30:15 and @SnoozeTime carries DBNull; the table-valued-parameter row holds TimeSpan 06:30:15 (written with SetTimeSpan) and a database null; reading output values TimeSpan 06:30:15 and DBNull yields WakeTime = TimeOnly 06:30:15 and SnoozeTime = null"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-4dfb8fa847e245408aa4654aaaa087d0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1015-1074",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "907-924",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "207-245",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/TypeMappingCoverageTests.cs",
+        "lines": "54-123",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-4dfb8fa847e245408aa4654aaaa087d0",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -63,6 +63,8 @@ namespace ArgentSea.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-e69384c75de041938f2a12571f415bda")]
+        [Trait("Spec", "blk-dc5f9f9bd788438d93c4147818aff3c1")]
         public void Empty_String_Defaults()
         {
             var k1 = ShardKey<string>.Empty;
@@ -72,6 +74,46 @@ namespace ArgentSea.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-dc5f9f9bd788438d93c4147818aff3c1")]
+        public void Empty_String_Defaults_AllArities()
+        {
+            var k2 = ShardKey<string, int>.Empty;
+            k2.IsEmpty.Should().BeTrue();
+            k2.RecordId.Should().Be(string.Empty);
+
+            var k3 = ShardKey<int, string, int>.Empty;
+            k3.IsEmpty.Should().BeTrue();
+            k3.ChildId.Should().Be(string.Empty);
+
+            var k4 = ShardKey<int, int, int, string>.Empty;
+            k4.IsEmpty.Should().BeTrue();
+            k4.GreatGrandChildId.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-7176e67845364a74927338a5196acaa5")]
+        [Trait("Spec", "blk-dc5f9f9bd788438d93c4147818aff3c1")]
+        public void IsEmpty_AgreesAcrossArities_ForEmptyStringKeys()
+        {
+            new ShardKey<string>(0, "").IsEmpty.Should().BeTrue();
+            new ShardKey<string, int>(0, "", 0).IsEmpty.Should().BeTrue();
+            new ShardKey<string, int, int>(0, "", 0, 0).IsEmpty.Should().BeTrue();
+            new ShardKey<string, int, int, int>(0, "", 0, 0, 0).IsEmpty.Should().BeTrue();
+            new ShardKey<string, int>(0, "a", 0).IsEmpty.Should().BeFalse();
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-dc5f9f9bd788438d93c4147818aff3c1")]
+        public void IsEmpty_UninitializedStringKey_IsEmptyAndDoesNotThrow()
+        {
+            default(ShardKey<string>).IsEmpty.Should().BeTrue();
+            default(ShardKey<string, string>).IsEmpty.Should().BeTrue();
+            default(ShardKey<string, string, string>).IsEmpty.Should().BeTrue();
+            default(ShardKey<string, string, string, string>).IsEmpty.Should().BeTrue();
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-fb0058f97f11478aac677e63099f32df")]
         public void Equality_And_Inequality_Work()
         {
             var a = new ShardKey<int>(2, 100);
@@ -88,6 +130,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-fb0058f97f11478aac677e63099f32df")]
         public void HashCode_Stable_For_SameValues()
         {
             var a1 = new ShardKey<long>(7, 9999999999);
@@ -100,6 +143,8 @@ namespace ArgentSea.Test
         [InlineData(0, 1)]
         [InlineData(short.MaxValue, int.MaxValue)]
         [InlineData(42, 123456)]
+        [Trait("Spec", "blk-1382dcb681fa4794b25642d74579d558")]
+        [Trait("Spec", "blk-48ec5c393ad342319928a62dff09ab47")]
         public void ShardKey_Serialize_RoundTrip(short shard, int record)
         {
             var sk = new ShardKey<int>(shard, record);
@@ -145,6 +190,7 @@ namespace ArgentSea.Test
 
         // ---------- Tamper / Corruption Detection ----------
         [Fact]
+        [Trait("Spec", "blk-47c1a251f6944b8399d1a25a4ea9695f")]
         public void FromExternalString_CorruptedChecksum_Throws()
         {
             var sk = new ShardKey<int>(1, 42);
@@ -156,6 +202,8 @@ namespace ArgentSea.Test
 
         // ---------- TryParse Tests (Documenting Current Defects) ----------
         [Fact]
+        [Trait("Spec", "blk-73983907932349c19a5928e3110a1a12")]
+        [Trait("Spec", "blk-832af49464594a2891b06b587cdebdb7")]
         public void TryParse_ChildKey_Succeeds_AfterFix()
         {
             var key = new ShardKey<int, short>(4, 400, 5);
@@ -196,6 +244,8 @@ namespace ArgentSea.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-8731259a6be747e4af8d57b5ccf8681f")]
+        [Trait("Spec", "blk-832af49464594a2891b06b587cdebdb7")]
         public void TryParse_ShortData_Fails()
         {
             var tiny = new byte[] { 0x81 }; // header only (metaLen=1 + no payload)
@@ -205,6 +255,8 @@ namespace ArgentSea.Test
 
         // ---------- ForeignShards ----------
         [Fact]
+        [Trait("Spec", "blk-94135859029f48cfaffef2a34471bcf1")]
+        [Trait("Spec", "blk-a3a6682f824f456485e0a7053a75170f")]
         public void ForeignShards_ExcludesCurrentShard()
         {
             var baseKey = new ShardKey<int>(5, 10);
@@ -224,10 +276,11 @@ namespace ArgentSea.Test
         private class Model1 : IKeyedModel<int>
         {
             public ShardKey<int> Key { get; set; }
-            public string Value { get; set; }
+            public string? Value { get; set; }
         }
 
         [Fact]
+        [Trait("Spec", "blk-42e2af8988e8467085b0ff9c6223fb4a")]
         public void Merge_Replaces_Matching_Records()
         {
             var original = new List<Model1>
@@ -245,6 +298,8 @@ namespace ArgentSea.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-42e2af8988e8467085b0ff9c6223fb4a")]
+        [Trait("Spec", "blk-f0dd107e67494f76a84692ef686cbeb9")]
         public void Merge_Appends_Unmatched_Replacements_When_Requested()
         {
             var original = new List<Model1>

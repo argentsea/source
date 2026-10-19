@@ -6,7 +6,7 @@
     "name": "SqlDatabases",
     "kind": "Library",
     "language": "csharp",
-    "contract": "SqlDatabases is the library facade for configured, non-sharded SQL database connections. Its construction boundary accepts SqlDbConnectionOptions and SQL global-properties options so the facade is created for that connection configuration."
+    "contract": "SqlDatabases is the library facade for configured, non-sharded SQL database connections. Its construction boundary accepts SqlDbConnectionOptions and SQL global-properties options so the facade is created for that connection configuration, and it hard-wires a new SqlClient DataProviderServiceFactory as its data-provider services directly in the constructor rather than accepting one as a constructor parameter or resolving it from the dependency-injection container — every SqlDatabases instance is bound to the SqlClient provider regardless of what else is registered."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-databases",
+    "sectionId": "sql-server-service-registration",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

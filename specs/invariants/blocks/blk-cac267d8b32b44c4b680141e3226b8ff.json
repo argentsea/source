@@ -1,0 +1,31 @@
+{
+  "id": "blk-cac267d8b32b44c4b680141e3226b8ff",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj packs argentsea-logo.png into the NuGet package root via a None item with Pack=true and PackagePath=\"\\\"; this project file declares no readme.md (or any other readme) item, so this file configures no packaged readme for the NuGet package.",
+    "scope": "ArgentSea.Orleans.Sql.csproj packaging ItemGroup: the icon item and the absence of a readme item declared in this file."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-37",
+        "label": "Full file: the cited ItemGroup (21-26) establishes the icon packaging item, and the whole-file read establishes no readme item is declared anywhere in the file"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

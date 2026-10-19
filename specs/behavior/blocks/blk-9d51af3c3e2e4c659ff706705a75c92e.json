@@ -1,0 +1,61 @@
+{
+  "id": "blk-9d51af3c3e2e4c659ff706705a75c92e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a logger with Information enabled, and an uninitialized ShardKey<string, int> (default, so RecordId is null) mapped for property \"ChildKey\"; and separately a ShardKey<int, int>(0, 5, 0) whose identities are value-typed",
+      "when": "NullShardChildArguments(logger, \"ChildKey\", shardChild) is called with each key",
+      "then": "the uninitialized string-keyed ShardKey produces one Information-level UnexpectedDbNull (event id 6) event named NullShardChildArguments, carrying \"ChildKey\" and the key's string form without throwing; the value-typed ShardKey<int, int> produces no event"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-6c3a5dabb90943cfb4d1d234eac1033c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "181-187",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-fde5bc17103f4097a05f6df357f04705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "invariants",
+      "blockId": "blk-37977366bbdb485ebad77635ea3f17fd",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

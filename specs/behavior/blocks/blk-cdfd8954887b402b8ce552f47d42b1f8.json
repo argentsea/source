@@ -1,0 +1,60 @@
+{
+  "id": "blk-cdfd8954887b402b8ce552f47d42b1f8",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Connection Configuration Hierarchy",
+    "trigger": "a provider's ShardSets collection is constructed from its bound options type, which implements IShardSetsConfigurationOptions",
+    "response": "take the configured shard sets solely from ShardSetsConfigInternal: when that view (or the options value) is null, log a warning that the shard configuration section may be missing and produce an empty collection; when any entry is null, throw; otherwise build one shard set per entry keyed by its ShardSetName, carrying the global configuration down to the shard set's endpoints",
+    "postcondition": "every provider presents its shard-set configuration to the provider-neutral core through one read-only interface"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "12-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetsBase.cs",
+        "lines": "34-64",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

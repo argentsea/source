@@ -1,0 +1,67 @@
+{
+  "id": "blk-48b5d1a5f3ea4a94a1531ea0a58547f0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Grain Persistence",
+    "trigger": "a read, write or clear operation looks up the compiled key-handling delegate for a grain type in its process-lifetime cache",
+    "response": "report a cache hit at Trace or a cache miss at Debug under event id MapperCacheStatus (4), naming the grain type: the database-backed provider reports OrleansDbCacheHit/Miss, and the shard provider reports OrleansShardCacheHit/Miss for every delegate it looks up, including the set-shard delegate its read path uses when it activates a default state whose shard key must be set from the grain id",
+    "postcondition": "the hit/miss decision is taken from whether the cached Lazy already had its value created before it is forced, so concurrent first callers for the same grain type can each report a miss although only one compiles the delegate"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/LoggingExtensions.cs",
+        "lines": "28-31,48-51,70-80",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "69-76,155-162",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "69-76,104-112,144-151,176-183",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-d0cc6db246764e9eb27c2cf3f1941f24",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

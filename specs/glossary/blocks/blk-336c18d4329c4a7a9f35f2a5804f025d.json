@@ -1,0 +1,51 @@
+{
+  "id": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Table-valued parameter",
+    "definition": "A SQL Server parameter that carries a set of rows, used to save many records in one round trip. ArgentSea builds one from a list of models, with each model converted to a `SqlDataRecord` by the compiled TVP mapper, or from a collection property marked with a collection mapping attribute. An empty or null row set is sent as a null parameter value.",
+    "synonyms": [
+      "TVP",
+      "TvpMapper"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/multirecord.md",
+        "lines": "1-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/CollectionMapAttributeBase.cs",
+        "lines": "7-37",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-0af15f91fda543868ea6cefa1b28a6c7",
+      "blobHash": null,
+      "label": "Empty TVP as null ADR",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

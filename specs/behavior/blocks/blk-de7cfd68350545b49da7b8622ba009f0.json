@@ -1,0 +1,61 @@
+{
+  "id": "blk-de7cfd68350545b49da7b8622ba009f0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a service provider with the SqlDatabases collection registered as a singleton and OrleansDbPersistenceOptions registered for provider name \"orders-db\"",
+      "when": "ArgentSeaGrainStorageFactory.CreateDb is called with that service provider and \"orders-db\"",
+      "then": "the returned IGrainStorage is constructed from the SqlDatabases singleton and the OrleansDbPersistenceOptions resolved by name for \"orders-db\" — SqlDatabases itself is resolved as the singleton collection, not looked up by provider name"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-f69201d58edd41aca5c0efa05e72c24e"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "12-19",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-hosting",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0d3796e06a3b4bf4ab550723c361902c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-f69201d58edd41aca5c0efa05e72c24e",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

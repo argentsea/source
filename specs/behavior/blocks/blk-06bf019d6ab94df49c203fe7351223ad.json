@@ -1,0 +1,42 @@
+{
+  "id": "blk-06bf019d6ab94df49c203fe7351223ad",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a property is annotated with MapPgShardKeyAttribute(\"RecordId\")",
+      "when": "the attribute is constructed",
+      "then": "no PostgreSQL shard-id mapping is configured, the record selector is \"RecordId\", and the record-identifier selector is true"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-bca09c289fcd4925854e84e90ced036f"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "24-25",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

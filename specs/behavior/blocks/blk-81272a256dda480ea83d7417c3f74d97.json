@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ExpressionHelpers",
+    "subject": "Mapping Expression Builders",
     "condition": "a mapped reader column is found and the target property is nullable",
-    "trigger": "the reader reports DBNull for that column",
+    "trigger": "ExpressionHelpers: in any of the reader builders (string, enum, simple value, or nullable value type), the reader reports DBNull for that column",
     "response": "assign null to the target property instead of reading or converting the database value"
   },
   "metadata": {
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
-        "lines": "301-506",
+        "lines": "294-499",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-expression-helpers",
+    "sectionId": "mapping-expression-builders",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

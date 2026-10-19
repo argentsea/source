@@ -1,0 +1,52 @@
+{
+  "id": "blk-4ca639c0abd54427979c9552f5d35f39",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameter pId with Value set to DBNull.Value.",
+      "when": "GetGuid(pId) is invoked.",
+      "then": "GetGuid(pId) returns Guid.Empty and does not throw."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-0eb07a4f476d4b2b8ed9b1c814c31d6b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "193-203",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-0eb07a4f476d4b2b8ed9b1c814c31d6b",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -4,8 +4,10 @@
   "type": "Term",
   "fields": {
     "name": "Circuit breaker",
-    "definition": "A fail-fast resilience mechanism that, after its configured sequential failures, rejects subsequent connections immediately and periodically permits a recovery test.",
-    "synonyms": []
+    "definition": "The fail-fast stage of the resilience strategy. After `CircuitBreakerFailureCount` consecutive failures on a data connection, further calls on that connection fail immediately instead of queuing behind a database that is unlikely to answer. After `CircuitBreakerTestInterval` milliseconds a single trial call is allowed through; if it succeeds, normal traffic resumes. Each read or write endpoint has its own breaker. Configuring a failure count below 1 disables it.",
+    "synonyms": [
+      "circuit breaking"
+    ]
   },
   "metadata": {
     "status": "Draft",
@@ -16,7 +18,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
-        "lines": "74-78",
+        "lines": "75-79",
         "label": null,
         "relation": "grounds"
       }

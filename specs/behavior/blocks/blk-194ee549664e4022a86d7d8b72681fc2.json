@@ -1,0 +1,60 @@
+{
+  "id": "blk-194ee549664e4022a86d7d8b72681fc2",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a DatabaseBatch<string> registers a CopyMapper.Add model-collection operation for model type Widget, and no writer has ever been compiled for Widget in this process",
+      "when": "the batch executes",
+      "then": "the destination-table text, COPY command text, and row-writer for Widget are built by compiling a new expression tree, the triple is cached keyed by typeof(Widget), and the execution reports a cache miss for Widget"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-2bbcd753b33c4d8da21d676bc67ba9c8"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "378-391",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgLoggingExtensions.cs",
+        "lines": "25,33-36",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "393-405",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "477-506",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "copy-load",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

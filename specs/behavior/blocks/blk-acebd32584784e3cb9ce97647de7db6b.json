@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "QueryProcedure",
+    "subject": "Query Definitions",
     "where": "a consumer uses the query contract",
-    "trigger": "the consumer reads Type",
+    "trigger": "QueryProcedure: the consumer reads Type",
     "response": "return System.Data.CommandType.StoredProcedure"
   },
   "metadata": {
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-procedure",
+    "sectionId": "query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -35,6 +35,15 @@
       "project": "argentsea",
       "specId": "glossary",
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-91a18ce8ce0745cfb7e6c610133406d2",
       "blobHash": null,
       "label": null,
       "relation": "references"

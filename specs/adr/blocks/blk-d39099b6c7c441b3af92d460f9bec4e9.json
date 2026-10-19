@@ -1,0 +1,84 @@
+{
+  "id": "blk-d39099b6c7c441b3af92d460f9bec4e9",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Put the logic in a provider-neutral core; providers implement a narrow seam",
+    "status": "Accepted",
+    "decision": "Nearly all behavior lives in the shared ArgentSea core: configuration inheritance, the Databases and ShardSets collections, fan-out, resilience, batches, shard keys, Mapper compilation and logging. The core is written against `System.Data.Common` abstractions and generic base classes parameterized by the provider's configuration types (`DatabasesBase<TConfiguration>`, `ShardSetsBase<TConfiguration>`). Each provider package (SQL Server, PostgreSQL) supplies only platform specifics. These are its configuration and Options classes, its mapping attributes (which contribute their own expression fragments to the Mapper), typed parameter extension methods, its service registration, platform extras (TVP or COPY), and the data provider services seam (`IDataProviderServiceFactory`: create connection, create command, copy parameters, classify transient errors).",
+    "context": "SQL Server and PostgreSQL differ in parameter types, naming conventions, bulk-load mechanisms, procedure semantics and transient error codes. The sharding, mapping, configuration and resilience logic is identical, and duplicating it per provider would multiply defects.",
+    "alternatives": [
+      {
+        "option": "Independent full implementations per provider.",
+        "whyRejected": "Duplicates the complex logic of fan-out, Mapper compilation and resilience, so the providers would drift."
+      },
+      {
+        "option": "A runtime provider abstraction with provider-neutral types throughout.",
+        "whyRejected": "Loses exact database-type declarations and provider-specific features (TVP, COPY, arrays, hstore) that the design exposes deliberately."
+      }
+    ],
+    "consequences": "Adding a provider is relatively small, and a fix in the core benefits every provider. Consuming code sees provider-named types (`SqlDatabases`, `PgShardSets`) that are thin subclasses of the generic bases. The core cannot assume provider features, so anything platform-specific must go through the seam or the attributes. Provider behaviors such as transient-error lists and parameter copying can differ, so they need provider-specific specification."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/readme.md",
+        "lines": "14-24",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetsBase.cs",
+        "lines": "19-33",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": "Data provider services",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": "Database provider",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p7-shared-core-providers",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "blk-5770536dd9e9496c88277e1173e41a82",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "SerializeToExternalString is called with the single-byte sequence [0x00]",
+      "when": "the returned string \"AAt1\" is passed to SerializeFromExternalString",
+      "then": "it returns the original single-byte sequence [0x00] without throwing, because the recomputed checksum (0) matches the leading checksum characters \"AA\" (origCheckSum 0)"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-47c1a251f6944b8399d1a25a4ea9695f"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "95-224",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

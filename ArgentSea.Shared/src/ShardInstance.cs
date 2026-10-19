@@ -24,15 +24,12 @@ namespace ArgentSea
         public ShardInstance(ShardSetsBase<TConfiguration> parent, short shardId, IShardConnectionConfiguration shardConnection)
         {
             this.ShardId = shardId;
-            var readConnection = shardConnection.ReadConnectionInternal;
-            var writeConnection = shardConnection.WriteConnectionInternal;
-            if (shardConnection.ReadConnectionInternal is null && !(shardConnection.WriteConnectionInternal is null))
+            // When only one connection is configured, use it for both reads and writes.
+            var readConnection = shardConnection.ReadConnectionInternal ?? shardConnection.WriteConnectionInternal;
+            var writeConnection = shardConnection.WriteConnectionInternal ?? shardConnection.ReadConnectionInternal;
+            if (readConnection is null || writeConnection is null)
             {
-                readConnection = writeConnection;
-            }
-            else if (writeConnection is null && !(readConnection is null))
-            {
-                writeConnection = readConnection;
+                throw new InvalidOperationException($"Shard {shardId} has neither a read nor a write connection configured.");
             }
             this.Read = new ShardDataConnection<TConfiguration>(parent, shardId, readConnection);
             this.Write = new ShardDataConnection<TConfiguration>(parent, shardId, writeConnection);

@@ -4,49 +4,49 @@
   "type": "Schema",
   "fields": {
     "name": "MapShardKeyAttribute mapping metadata",
-    "description": "The publicly observable metadata retained by MapShardKeyAttribute for a property mapped to a Virtual compound key.",
+    "description": "The publicly observable metadata retained by MapShardKeyAttribute for a property mapped to a Virtual compound key. The six name/flag members below (ShardIdName, RecordIdName, ChildIdName, GrandChildIdName, GreatGrandChildIdName, IsRecordIdentifier) are each declared virtual, so a derived MapShardKeyAttribute subclass may override their exposed value; ShardParameter is not virtual.",
     "members": [
       {
         "name": "ShardIdName",
         "type": "nvarchar(max)",
         "required": false,
-        "description": "Column name exposed from the optional shard parameter."
+        "description": "Virtual (overridable). Column name exposed from the optional shard parameter."
       },
       {
         "name": "RecordIdName",
         "type": "nvarchar(max)",
         "required": true,
-        "description": "Configured primary record-key column name."
+        "description": "Virtual (overridable). Configured primary record-key column name."
       },
       {
         "name": "ChildIdName",
         "type": "nvarchar(max)",
         "required": false,
-        "description": "Configured optional second compound-key column name."
+        "description": "Virtual (overridable). Configured optional second compound-key column name."
       },
       {
         "name": "GrandChildIdName",
         "type": "nvarchar(max)",
         "required": false,
-        "description": "Configured optional third compound-key column name."
+        "description": "Virtual (overridable). Configured optional third compound-key column name."
       },
       {
         "name": "GreatGrandChildIdName",
         "type": "nvarchar(max)",
         "required": false,
-        "description": "Configured optional fourth compound-key column name."
+        "description": "Virtual (overridable). Configured optional fourth compound-key column name."
       },
       {
         "name": "IsRecordIdentifier",
         "type": "bit",
         "required": true,
-        "description": "Flag retained from construction to identify the property as a record identifier."
+        "description": "Virtual (overridable). Flag retained from construction to identify the property as a record identifier."
       },
       {
         "name": "ShardParameter",
         "type": "object<ParameterMapAttributeBase>",
         "required": false,
-        "description": "The optional parameter metadata used to expose ShardIdName."
+        "description": "Not virtual. The optional parameter metadata used to expose ShardIdName."
       }
     ]
   },
@@ -66,7 +66,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-map-shard-key-attribute",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -27,6 +27,8 @@ namespace Microsoft.Extensions.DependencyInjection
 			IConfiguration config
 			)
 		{
+            // Retained for single-provider PostgreSQL hosts that use QueryStatement.Create(name). Hosts that also register
+            // SQL Server services should use SqlQueryStatement / PgQueryStatement, which do not depend on this shared default.
             QueryStatement.Extension = "psql";
             var global = config.GetSection("PgGlobalSettings");
             services.Configure<PgGlobalPropertiesOptions>(global);

@@ -1,0 +1,47 @@
+{
+  "id": "blk-8dc82c304f2f4369920bc58b7d1c98a3",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "QueryStatement.Extension holds one shared process-wide value at a time; it is never scoped to an individual data provider. Each time AddPgServices runs, it unconditionally sets this shared property to \"psql\" (retained for single-provider PostgreSQL hosts that use QueryStatement.Create(name)), overwriting whatever value it held immediately before, independent of the PgDatabases and PgShardSets registrations AddPgServices performs in the same call. Hosts that register both SQL Server and PostgreSQL services avoid the shared default by creating statements through the provider-specific factories SqlQueryStatement and PgQueryStatement, each of which has its own Extension and never reads QueryStatement.Extension.",
+    "scope": "AddPgServices (ArgentSea.Pg/src/PgServiceBuilderExtensions.cs:32), for its effect on the shared QueryStatement.Extension property; SqlQueryStatement / PgQueryStatement as the provider-scoped alternative."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "45",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "25-40",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-service-registration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

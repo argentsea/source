@@ -1,0 +1,52 @@
+{
+  "id": "blk-a4c189813bcb423c9e740403b853ff08",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A shard set contains shard ids 7 and 11; shard 7's read task completes first by throwing a SqlException, while shard 11's task later returns non-null model B.",
+      "when": "ShardSetsBase<TConfiguration>.ShardSetReadFirst.QueryAsync is called for Q without shard-specific values.",
+      "then": "shard 7's SqlException is recorded but not surfaced, the wait continues, and the call completes with model B from shard 11."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e122ba8da15748819f880d902c63aeba"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "106-131",
+        "label": "FirstNonNullAsync records a shard failure and keeps waiting for a non-null result"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-e122ba8da15748819f880d902c63aeba",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

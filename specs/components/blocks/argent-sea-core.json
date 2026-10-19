@@ -1,0 +1,32 @@
+{
+  "id": "argent-sea-core",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSea Core",
+    "responsibility": "Holds the platform-neutral half of ArgentSea: everything that can be expressed without naming SqlClient or Npgsql — how a connection is configured and made resilient, how a query and its parameters are described, how a model is mapped, how a record is identified across shards, and how work is fanned out or batched. These belong together because each is defined purely against the provider seam, and a provider package supplies only the platform-specific end of each.",
+    "parent": "argent-sea"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ArgentSea.csproj",
+        "lines": "1-56",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

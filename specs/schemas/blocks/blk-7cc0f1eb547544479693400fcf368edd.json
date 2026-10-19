@@ -40,7 +40,8 @@
         "name": "IsRecordIdentifier",
         "type": "bit",
         "required": true,
-        "description": "Whether a null mapped value represents an absent record."
+        "description": "Whether a null mapped value represents an absent record.",
+        "notes": "Defaults to false when a derived attribute uses the two-argument base constructor (name, sqlType); only the three-argument constructor (name, sqlType, isRecordIdentifier) can set it true."
       }
     ],
     "representations": {
@@ -56,14 +57,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ParameterMapAttributeBase.cs",
-        "lines": "13-70",
+        "lines": "14-70",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-parameter-map-attribute-base",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -71,9 +72,9 @@
   "references": [
     {
       "kind": "spec",
-      "project": "ArgentSea",
+      "project": "argentsea",
       "specId": "components",
-      "blockId": "shared-parameter-map-attribute-base",
+      "blockId": "model-mapping",
       "blobHash": null,
       "label": null,
       "relation": "references"

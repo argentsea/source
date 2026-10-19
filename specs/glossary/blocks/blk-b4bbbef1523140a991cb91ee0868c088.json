@@ -1,0 +1,41 @@
+{
+  "id": "blk-b4bbbef1523140a991cb91ee0868c088",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "QueryStatement",
+    "definition": "A Query whose parameterized SQL text lives in a file deployed beside the application rather than compiled into it. The default location is the `SQL` folder with extension `.sql`, or `.psql` once PostgreSQL services are registered (the default extension is one process-wide value). A host that registers both SQL Server and PostgreSQL services creates statements through `SqlQueryStatement` and `PgQueryStatement`, which each use their own extension (`.sql` and `.psql`) regardless of the shared default. The file is loaded lazily on first use and cached, and the query executes with command type Text. It is the preferred form for PostgreSQL and for databases the team cannot add procedures to. A missing file surfaces only at first use.",
+    "synonyms": [
+      "SQL statement file",
+      "statement query"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": null,
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sql.md",
+        "lines": "53-123",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

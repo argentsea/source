@@ -7,7 +7,7 @@
     "responsibility": "Own the solution-level composition of the shared ADO.NET data-access core, provider bindings, sharding facilities, and Orleans integration."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,

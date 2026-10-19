@@ -1,0 +1,42 @@
+{
+  "id": "blk-f5019f8a6fc84909a6151d0797f755a0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Count of type Nullable<int> is mapped to an output simple-value parameter, with getMethodName GetInt32 and nullableGetMethodName GetNullableInt32",
+      "when": "ExpressionHelpers builds the output parameter read expression for Count",
+      "then": "the generated expression calls GetNullableInt32 to retrieve the value, not GetInt32"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e1839043f5bd41bfb4b9f11cad4bfdcc"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "242-257",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -9,7 +9,7 @@
     "contract": "SqlConfiguration exposes one SQL Server connection-property family for choosing application identity and workload, endpoint and catalog, transport and certificate handling, pooling and capacity, execution options, and client identity. Every member is optional: an unset member is not applied when a SQL Server connection string is constructed. Within the Configuration hierarchy, construction applies supplied values from global, shard-set, read/write, shard, and connection-local levels in that order; a later supplied value replaces an earlier one for the same property."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -31,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-configuration",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -44,6 +44,15 @@
       "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-bcf40cddec984e70be95a1fe48b962e0",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

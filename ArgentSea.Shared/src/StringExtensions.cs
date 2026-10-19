@@ -2,6 +2,7 @@
 // See the LICENSE file in the repository root for more information.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
@@ -43,7 +44,8 @@ namespace ArgentSea
 		/// <param name="value"></param>
 		/// <param name="flags"></param>
 		/// <returns></returns>
-		public static string CleanInput(this string value, InputCleaningOptions flags)
+		[return: NotNullIfNotNull(nameof(value))]
+		public static string? CleanInput(this string? value, InputCleaningOptions flags)
 		{
 			if (value is null)
 			{

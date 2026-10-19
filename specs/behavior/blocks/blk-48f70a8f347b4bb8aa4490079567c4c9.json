@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlParameterCollectionExtensions",
+    "subject": "SQL Server Type Mapping",
     "trigger": "a caller invokes a table-valued helper with SqlDataRecord rows, models, keyed models, or virtual compound keys containing a shard identifier",
-    "response": "append one Structured input parameter whose row values follow the supplied sequence and whose keyed overloads place the shard identifier before record and successive child identifiers; when the supplied collection is null or yields zero rows, still append the parameter and set its Value to a null reference (never System.DBNull.Value and never an empty SqlDataRecord enumeration, both of which Microsoft.Data.SqlClient rejects client-side), which SQL Server receives as a table with no rows; the raw SqlDataRecord overload normalizes only a null reference or a collection whose Count is observably zero and passes any other sequence through without enumerating it",
-    "postcondition": "the parameter name is @-prefixed and the supplied collection is returned; an empty or null source never throws and never omits the parameter"
+    "response": "append one Structured input parameter whose row values follow the supplied sequence and whose keyed overloads place the shard identifier before record and successive child identifiers; the model-based, keyed-model, and virtual-compound-key overloads materialize every row into a List<SqlDataRecord> before assignment, so a null or empty source always yields a null parameter Value (never System.DBNull.Value and never an empty SqlDataRecord enumeration, both of which Microsoft.Data.SqlClient rejects client-side); the raw SqlDataRecord overload instead normalizes to a null Value only when the supplied sequence is null or is an ICollection<SqlDataRecord>/IReadOnlyCollection<SqlDataRecord> whose Count is zero, and passes any other sequence through without enumerating it",
+    "postcondition": "the parameter name is @-prefixed and the supplied collection is returned; for the model-based, keyed-model, and virtual-compound-key overloads an empty or null source never throws and never omits the parameter, but the raw SqlDataRecord overload can still throw when passed an uncounted lazy sequence that turns out to be empty at enumeration time, since that sequence is passed to the driver unexamined"
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,22 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "1130-1381",
+        "lines": "1160-1411",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-85f7b80ca4894788b6bde37d5e31468a",
+        "blockId": "note-4e61b551ee194b0b8e66a746fb6c1cce",
+        "blobHash": null,
+        "label": "origin note - SqlClient 7.0.3 repro and SQL Server 15.0 verification"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

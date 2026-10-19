@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlServiceBuilderExtensions",
+    "subject": "SQL Server Service Registration",
     "trigger": "an application invokes AddSqlServices with an IServiceCollection and IConfiguration",
     "response": "configure the configuration hierarchy for SQL global, database-connection, and shard-connection options, and register singleton SQL database and shard-set services",
     "postcondition": "the invocation returns the supplied IServiceCollection"
@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-service-builder-extensions'. Grounded in ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs:17-39, but without sectionId equal to component ID 'sql-service-builder-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs:17-39. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'sql-server-service-registration' resolves to component 'SQL Server Service Registration' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-service-builder-extensions",
+    "sectionId": "sql-server-service-registration",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

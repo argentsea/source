@@ -4,7 +4,7 @@
   "type": "Term",
   "fields": {
     "name": "Shard key type metadata",
-    "definition": "An encoded marker of the record-key generic type(s) embedded in every ShardKey and its serialized forms. Deserialization validates it against the expected generic types, preventing a key of one record type from being mistaken for another. It replaces the DataOrigin char that identified key domains in earlier versions and older documentation.",
+    "definition": "A compact code for the .NET types of a shard key's record-key columns, embedded in every serialized shard key: binary, UTF-8 and the external key. Deserializing checks it against the expected generic types, so bytes produced for one key shape cannot be read as another. It also lets a ghost shard key reconstruct a key whose types are unknown at compile time. It identifies key *types*, not tables: keys of the same types from different tables are indistinguishable. In older documentation it replaces the per-table DataOrigin character.",
     "synonyms": [
       "type metadata",
       "DataOrigin (obsolete)"

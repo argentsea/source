@@ -1,0 +1,47 @@
+{
+  "id": "blk-5cc65e21736d4dd687100b985b631fe3",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Every CollectionMapAttributeBase-decorated property on a model type read through ModelFromReaderWithCollectionsHandler must be satisfied by a corresponding trailing data-reader result set, consumed in the order Mapper.GetCollectionMapProperties returns them for that model type — ascending PropertyInfo.MetadataToken order among the model's own collection properties, which GetCollectionMapProperties computes by explicitly sorting on MetadataToken rather than relying on Type.GetProperties() reflection order — starting immediately after the model's own result set. When the reader reports no further result set for a declared collection property, the compiled hydration delegate throws UnexpectedSqlResultException naming the model and the property, rather than assigning that property an empty collection.",
+    "scope": "Mapper.ModelFromReaderWithCollectionsHandler, its compiled per-model-type collection-hydration delegate, and Mapper.GetCollectionMapProperties, which establishes the ordering (ArgentSea.Shared/src/Mapping/Mapper.cs)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2620-2667",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "500-530",
+        "label": "GetCollectionMapProperties sorts by MetadataToken"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

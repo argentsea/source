@@ -1,0 +1,59 @@
+{
+  "id": "blk-332046760fae41769f34d787c1cde3e5",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a PostgreSQL connection whose connection string is \"Host=db;Database=app;Multiplexing = true\" (whitespace around '=' that Npgsql accepts)",
+      "when": "the Postgres DataProviderServiceFactory.SetParameters applies parameters to a command on that connection",
+      "then": "the command is NOT prepared — NpgsqlCommand.Prepare() is not called — because NpgsqlConnectionStringBuilder parses the connection string with Multiplexing = true"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b196c063278a4942b872c563c3803816"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "92-95, 98-109",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ProviderServicesTests.cs",
+        "lines": "86-97",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b196c063278a4942b872c563c3803816",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

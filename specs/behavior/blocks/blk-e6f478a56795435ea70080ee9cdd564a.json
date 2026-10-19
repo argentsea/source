@@ -1,0 +1,41 @@
+{
+  "id": "blk-e6f478a56795435ea70080ee9cdd564a",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "the string value \"AB\" (2 UTF-8 bytes: 0x41, 0x42)",
+      "when": "GetValueBytes(\"AB\") is invoked",
+      "then": "it returns the 3-byte array [0x05, 0x41, 0x42], since the length-prefix byte equals (2 << 1) + 1 = 5"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-39a425343a964aec833e2152fd208691"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "619-634",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

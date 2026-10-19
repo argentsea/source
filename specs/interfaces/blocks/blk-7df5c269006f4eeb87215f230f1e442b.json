@@ -1,0 +1,76 @@
+{
+  "id": "blk-7df5c269006f4eeb87215f230f1e442b",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ParameterNotFoundException",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea;\npublic sealed class ParameterNotFoundException : ApplicationException {\n  ParameterNotFoundException();                        // \"A parameter name is defined in the statement or procedure’s parameter names set, but a corresponding parameter was not provided.\"\n  ParameterNotFoundException(string parameterName);    // \"Expected parameter “{parameterName}”, but it was not found in the parameter list.\"\n  ParameterNotFoundException(string message, Exception innerException);\n}\n// Unlike most exception types, the single-string constructor takes the missing PARAMETER NAME, not a free-form message; a custom message is only possible together with an inner exception. The name is interpolated into the message only -- there is no ParameterName property.\n// Raised by a provider's data provider services while copying the caller's parameter collection onto a command: when the query contract lists a parameter name (its query parameter names) for which the supplied collection has no parameter of that name. Both the SQL Server and PostgreSQL providers raise it with the (normalized) missing name, before the command executes. It is a mismatch between the query contract and the caller's parameters, not a transient fault: callers should add the missing parameter (or remove the name from the contract) rather than retry."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/ParameterNotFoundException.cs",
+        "lines": "10-38",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "199-202",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "86-89",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "data-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-cd30b9a1bb9c4534bd24c03b51474535",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-d6d842a80eb74675aee857400672b927",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

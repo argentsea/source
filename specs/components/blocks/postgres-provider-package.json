@@ -1,0 +1,32 @@
+{
+  "id": "postgres-provider-package",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Postgres Provider Package",
+    "responsibility": "Holds the PostgreSQL end of every core abstraction: the Npgsql connection settings, the provider services the core calls through, the host registration that stands the services up, the per-PostgreSQL-type mapping surface, and bulk loading over the binary COPY protocol. They belong together because each is the Npgsql-specific completion of a seam the core leaves open.",
+    "parent": "argent-sea"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/ArgentSea.Pg.csproj",
+        "lines": "1-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

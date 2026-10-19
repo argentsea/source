@@ -22,10 +22,7 @@ namespace ArgentSea
 
         public override int Add(object value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
             if (value is DbParameter)
             {
                 var prm = (DbParameter)value;
@@ -37,10 +34,7 @@ namespace ArgentSea
 
         public override void AddRange(Array values)
         {
-            if (values is null)
-            {
-                throw new ArgumentNullException(nameof(values));
-            }
+            ArgumentNullException.ThrowIfNull(values);
             foreach (var value in values)
             {
                 this.Add(value);
@@ -51,10 +45,7 @@ namespace ArgentSea
 
         public override bool Contains(object value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
             if (value is DbParameter)
             {
                 var prm = (DbParameter)value;
@@ -121,22 +112,18 @@ namespace ArgentSea
 
         public override void Insert(int index, object value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
             if (value is DbParameter)
             {
                 this._lst.Insert(index, (DbParameter)value);
+                return;
             }
+            throw new ArgumentException(nameof(value));
         }
 
         public override void Remove(object value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
             if (value is DbParameter)
             {
                 this._lst.Remove((DbParameter)value);
@@ -166,15 +153,13 @@ namespace ArgentSea
 			{
 				return this._lst[index];
 			}
-			return null;
+			// DbParameterCollection declares a non-null result, but this collection has always returned null for an unknown name; preserved.
+			return null!;
         }
 
         protected override void SetParameter(int index, DbParameter value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
             if (value is DbParameter)
             { 
                 this._lst[index] = value;
@@ -187,10 +172,7 @@ namespace ArgentSea
 
         protected override void SetParameter(string parameterName, DbParameter value)
         {
-            if (value is null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
             if (value is DbParameter)
             {
                 var index = this.IndexOf(parameterName);

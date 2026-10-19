@@ -3,11 +3,11 @@
   "specId": "behavior",
   "type": "Scenario",
   "fields": {
-    "title": "OrleansSqlPersistence registers shard-set grain storage by name",
+    "title": "ArgentSeaSiloBuilderExtensions registers shard-set grain storage by name",
     "gwt": {
       "given": "an IServiceCollection and provider name \"catalog\"",
-      "when": "the caller invokes AddArgentSeaShardOrleansGrainStorage(\"catalog\", configure)",
-      "then": "the same IServiceCollection is returned and it registers grain storage named \"catalog\" with the shard-set factory after applying configure to the named shard persistence options"
+      "when": "the caller invokes ArgentSeaSiloBuilderExtensions.AddArgentSeaShardOrleansGrainStorage(\"catalog\", configure)",
+      "then": "the same IServiceCollection is returned and it registers grain storage named \"catalog\" with ArgentSeaGrainStorageFactory.CreateShards after applying configure to the named shard persistence options"
     },
     "illustrates": [
       {
@@ -35,7 +35,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-persistence",
+    "sectionId": "orleans-grain-storage-hosting",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

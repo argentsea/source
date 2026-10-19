@@ -41,11 +41,7 @@ namespace ArgentSea.Orleans
         /// This is not used but is required by the Orleans interface.
         /// </summary>
         IGrainStorageSerializer IStorageProviderSerializerOptions.GrainStorageSerializer { get; set; } =
-            new JsonGrainStorageSerializer(
-                new OrleansJsonSerializer(
-                    Options.Create(new OrleansJsonSerializerOptions())
-                )
-            );
+            new FakeGrainStorageSerializer();
 
         /// <summary>
         /// Stage of silo lifecycle where storage should be initialized.  Storage must be initialized prior to use.

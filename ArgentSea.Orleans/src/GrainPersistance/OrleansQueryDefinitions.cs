@@ -137,17 +137,17 @@ namespace ArgentSea.Orleans
 
         public Query ReadQuery
         {
-            get => (Query?)this.readQuery ?? (Query?)this.lazyReadQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType);
+            get => (Query?)this.readQuery ?? (Query?)this.lazyReadQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType, nameof(ReadQuery));
         }
 
         public Query WriteQuery
         {
-            get => (Query?)this.writeQuery ?? (Query?)this.lazyWriteQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType);
+            get => (Query?)this.writeQuery ?? (Query?)this.lazyWriteQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType, nameof(WriteQuery));
         }
 
         public Query ClearQuery
         {
-            get => (Query?)this.clearQuery ?? (Query?)this.lazyClearQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType);
+            get => (Query?)this.clearQuery ?? (Query?)this.lazyClearQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType, nameof(ClearQuery));
         }
 
         public string GrainType { get => this.grainType; }
@@ -272,17 +272,17 @@ namespace ArgentSea.Orleans
 
         public Query ReadQuery
         {
-            get => (Query?)this.readQuery ?? (Query?)this.lazyReadQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType);
+            get => (Query?)this.readQuery ?? (Query?)this.lazyReadQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType, nameof(ReadQuery));
         }
 
         public Query WriteQuery
         {
-            get => (Query?)this.writeQuery ?? (Query?)this.lazyWriteQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType);
+            get => (Query?)this.writeQuery ?? (Query?)this.lazyWriteQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType, nameof(WriteQuery));
         }
 
         public Query ClearQuery
         {
-            get => (Query?)this.clearQuery ?? (Query?)this.lazyClearQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType);
+            get => (Query?)this.clearQuery ?? (Query?)this.lazyClearQuery?.Value ?? throw new OrleansQueryNotProvidedException(this.grainType, nameof(ClearQuery));
         }
 
         public string GrainType { get => this.grainType; }

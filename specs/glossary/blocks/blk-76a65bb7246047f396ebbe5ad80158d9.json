@@ -1,0 +1,35 @@
+{
+  "id": "blk-76a65bb7246047f396ebbe5ad80158d9",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Data provider services",
+    "definition": "The provider seam, `IDataProviderServiceFactory`, through which the provider-neutral core does all platform-specific work: creating connections and commands, copying a parameter collection onto a command (applying query parameter names and per-shard overrides), and classifying transient errors. Each database provider implements it once.",
+    "synonyms": [
+      "IDataProviderServiceFactory",
+      "DataProviderServiceFactory"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

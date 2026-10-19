@@ -1,0 +1,31 @@
+{
+  "id": "blk-2f5ee7b325f948aba713f94841f68516",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "TvpMapper must never compile a table-valued-record projection for a model type that contributes zero mapped columns; it throws NoMappingAttributesFoundException instead.",
+    "scope": "TvpMapper.IterateTvpProperties, evaluated once per model type when BuildTableValuedParameterDelegate compiles that type's projection."
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "263-266",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

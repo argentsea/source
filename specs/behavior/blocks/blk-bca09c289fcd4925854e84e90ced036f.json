@@ -1,0 +1,61 @@
+{
+  "id": "blk-bca09c289fcd4925854e84e90ced036f",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Type Mapping",
+    "trigger": "a caller constructs MapPgShardKeyAttribute with only a record identity name, optionally followed by an explicit record-identifier flag",
+    "response": "configure no PostgreSQL shard-id mapping and retain the supplied name as the record selector of the virtual compound key",
+    "postcondition": "the record-identifier selector is true for the overload without the flag and equals the supplied flag for the overload with it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "24-25,59-60",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": "Virtual compound key",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": "Shard id",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-556af7f42b8748c39a471194218a7b49",
+      "blobHash": null,
+      "label": "MapPgShardKeyAttribute interface",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

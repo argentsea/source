@@ -1,0 +1,67 @@
+{
+  "id": "blk-ecbed0414fb34c2a8111968c67c8c4ea",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "OrleansQueryNotProvidedException",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea.Orleans;\npublic sealed class OrleansQueryNotProvidedException : Exception {   // derives from System.Exception\n  OrleansQueryNotProvidedException([CallerMemberName] string callerMethod = \"\");\n      // \"The current Orleans Grain does not have a query defined for its {callerMethod.Replace(\"StateAsync\", \"\")} method.\"\n  OrleansQueryNotProvidedException(string grainType, [CallerMemberName] string callerMethod = \"\");\n      // \"The Orleans Grain “{grainType}” does not have a query defined for its {callerMethod.Replace(\"StateAsync\", \"\")} method.\"\n  OrleansQueryNotProvidedException(string grainType, Exception innerException, [CallerMemberName] string callerMethod = \"\");\n}\n// There is no free-form message constructor: a single string argument is the GRAIN TYPE, and a second string is the operation name. When callerMethod is omitted the compiler supplies the calling member's name. The \"StateAsync\" suffix is stripped, so ReadStateAsync/WriteStateAsync/ClearStateAsync render as Read/Write/Clear, while a query-definition accessor name (ReadQuery, WriteQuery, ClearQuery) is kept as is.\n// Carries no properties beyond the message. Raised when a grain type has no query registered for the requested persistence operation, or a query-definition role was never supplied; it is a configuration defect, not a transient fault, and callers should fix the grain's query registration."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansQueryNotProvidedException.cs",
+        "lines": "11-40",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "140-150,275-285",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "64,130,150",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8719cd5fac1c4f36885a754d2ed2abb7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-ce21daa2abe448cdb9a3e9c4643b4d3c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

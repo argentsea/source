@@ -1,0 +1,43 @@
+{
+  "id": "blk-9ef967fd271f425a925725feb75e578c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Provider Package",
+    "trigger": "when ArgentSea.Sql.csproj is built or restored",
+    "response": "the project composes the Microsoft.Data.SqlClient-specific completion of the core database-provider seam by declaring, unconditionally and without any build-configuration or platform Condition, both a PackageReference on Microsoft.Data.SqlClient and a ProjectReference on ArgentSea.Shared (the core ArgentSea abstractions)",
+    "postcondition": "every build and restore of ArgentSea.Sql.csproj requires both Microsoft.Data.SqlClient and ArgentSea.Shared; the project file conditions neither reference on configuration or platform"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "31-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

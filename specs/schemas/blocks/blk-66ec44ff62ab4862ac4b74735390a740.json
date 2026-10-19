@@ -94,7 +94,7 @@
         "name": "orleansDbQueryDefinitions",
         "type": "object<OrleansDbQueryDefinitions>",
         "required": true,
-        "description": "A reminder default definition composed from OrleansReminderReadRowKey, OrleansReminderUpsertRowKey, and OrleansReminderDeleteRowKey with ResultSet result format."
+        "description": "A reminder default definition keyed by the empty string \"\" as its grain type, composed from OrleansReminderReadRowKey (read, ResultSet format), OrleansReminderUpsertRowKey (write), and OrleansReminderDeleteRowKey (clear)."
       }
     ]
   },
@@ -114,7 +114,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-queries",
+    "sectionId": "orleans-runtime-query-catalog",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

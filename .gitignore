@@ -18,6 +18,7 @@ bld/
 [Ll]og/
 [Ll]ogs/
 artifacts/
+TestResults/
 publish/
 out/
 
@@ -132,10 +133,12 @@ appsettings.*.json
 .agentic/models/
 
 # Local data (created at runtime, user-specific)
-.agentic/server/
-.agentic/*.db
-.agentic/*.db-wal
-.agentic/*.db-shm
+.agentic/
+.claude/
+.codex/
+.agents/
+.agentic-run-exports/
+.worktrees/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
@@ -149,3 +152,4 @@ BenchmarkDotNet.Artifacts/
 #plans/
 codex/
 .claude/
+.agentic/worktrees/

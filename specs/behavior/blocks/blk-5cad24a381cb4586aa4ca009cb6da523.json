@@ -1,0 +1,49 @@
+{
+  "id": "blk-5cad24a381cb4586aa4ca009cb6da523",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a candidate property type of Nullable<DayOfWeek> (a nullable enum)",
+      "when": "IsValidType is evaluated for that candidate type on a MapToSqlBigIntAttribute instance and, separately, on a MapToSqlIntAttribute instance",
+      "then": "MapToSqlBigIntAttribute.IsValidType returns false while MapToSqlIntAttribute.IsValidType returns true for the identical candidate type, because only the Int/SmallInt/TinyInt predicates accept a nullable-enum underlying type and the BigInt predicate does not"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-4dfb8fa847e245408aa4654aaaa087d0",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "309-312",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "367-370",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

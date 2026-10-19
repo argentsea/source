@@ -1,0 +1,43 @@
+{
+  "id": "blk-4c16c1882a834cd79a5b0690e2cd911d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Service Registration",
+    "trigger": "A host calls PgServiceBuilderExtensions.AddPgServices(services, config) to register PostgreSQL services",
+    "response": "the call unconditionally assigns QueryStatement.Extension — set through the QueryStatement type itself, not through either PgDatabases or PgShardSets — to \"psql\", regardless of what value the property held immediately before the call",
+    "postcondition": "QueryStatement.Extension holds \"psql\" at the point AddPgServices returns"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "25-40",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-service-registration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

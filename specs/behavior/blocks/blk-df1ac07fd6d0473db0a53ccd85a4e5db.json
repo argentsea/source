@@ -1,0 +1,42 @@
+{
+  "id": "blk-df1ac07fd6d0473db0a53ccd85a4e5db",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property OrderId is marked required and its mapped reader column is DBNull",
+      "when": "the compiled reader-mapping delegate reaches the required-value check for OrderId",
+      "then": "the delegate returns the model type's default value immediately, without evaluating the mapping expressions for any properties that follow OrderId"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-3d44c2d1a05c4aef91153f233526599d"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "601-614",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

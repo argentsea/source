@@ -4,8 +4,8 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "an empty DbParameterCollection and one ShardKey<int,int> whose ShardId is 7 and RecordId is 41, with SQL metadata columns `ShardId` and `RecordId`",
-      "when": "the caller invokes the two-dimension SqlParameters.AddSqlTableValuedParameter overload",
+      "given": "an empty DbParameterCollection and one ShardKey<int> whose ShardId is 7 and RecordId is 41, with SQL metadata columns `ShardId` and `RecordId`",
+      "when": "the caller invokes the two-dimension SqlParameterCollectionExtensions.AddSqlTableValuedParameter<TRecord>(IEnumerable<ShardKey<TRecord>>, shardIdName, shardIdType, recordIdName, recordIdType) overload",
       "then": "the returned collection contains one Input Structured parameter whose name is `@`-prefixed and whose only SQL data record has value 7 at column 0 and 41 at column 1."
     },
     "illustrates": [
@@ -13,7 +13,8 @@
         "kind": "spec",
         "project": "ArgentSea",
         "specId": "behavior",
-        "blockId": "blk-a98f921c92a64ff2a99849500bf99287"
+        "blockId": "blk-48f70a8f347b4bb8aa4490079567c4c9",
+        "relation": "illustrates"
       }
     ]
   },
@@ -21,26 +22,26 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-parameter-collection-extensions'. Grounded scenario block, but without sectionId equal to component ID 'sql-parameter-collection-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded scenario block. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'sql-server-type-mapping' resolves to component 'SQL Server Type Mapping' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "15-19",
+        "lines": "22-29",
         "label": null,
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "1262-1280",
+        "lines": "1351-1373",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameters",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -63,6 +64,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-48f70a8f347b4bb8aa4490079567c4c9",
+      "blobHash": null,
+      "label": null
     }
   ],
   "evidenceLinks": []

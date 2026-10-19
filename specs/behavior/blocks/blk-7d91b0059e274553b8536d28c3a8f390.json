@@ -1,0 +1,42 @@
+{
+  "id": "blk-7d91b0059e274553b8536d28c3a8f390",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model has a writable nested-model property Address whose current value is null",
+      "when": "ExpressionHelpers prepares Address's mapping expressions via TryInstantiateMapToModel",
+      "then": "the generated expression assigns a new default Address instance to the property"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-967fa79ea9d74f6e8faa5b9f2588f843"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "507-513",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -25,7 +25,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-string-extensions",
+    "sectionId": "shard-key-serialization",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
-        "lines": "23-163",
+        "lines": "23-157",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-expression-helpers",
+    "sectionId": "mapping-expression-builders",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

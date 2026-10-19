@@ -1,0 +1,43 @@
+{
+  "id": "blk-81682c1abddc4a46b87f0c35772d060c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "the resolved output DbParameter is present (not null)",
+    "trigger": "ExpressionHelpers builds a binary or array output-parameter read expression via ReadOutParameterBinaryExpressions or ReadOutParameterArrayExpressions",
+    "response": "assign the property from the parameter's get-method return value: the binary builder calls its single configured get-method directly, while the array builder invokes a get-method made generic over the property's array element type"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "264-291",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

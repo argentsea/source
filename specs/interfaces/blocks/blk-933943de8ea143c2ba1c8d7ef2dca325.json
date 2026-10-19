@@ -6,7 +6,7 @@
     "name": "ShardsValues CopyTo observable behavior",
     "kind": "Library",
     "language": "csharp",
-    "contract": "The ShardsValues CopyTo(Array, int) surface enumerates entries into a new temporary ShardParameterValue array but does not read or write the supplied array or its index; therefore the caller-supplied array is unchanged."
+    "contract": "ShardsValues.CopyTo(Array array, int index) implements ICollection.CopyTo. It writes the collection's entries, in enumeration order, into array starting at position index as ShardParameterValue elements: one placeholder entry for each shard without parameters and one entry per name/value pair otherwise, so exactly Count elements are written. Array positions outside the written range are left unchanged. It throws ArgumentNullException when array is null, ArgumentOutOfRangeException when index is negative, and ArgumentException when array.Length - index is less than Count."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "84-93",
+        "lines": "89-109",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

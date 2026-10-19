@@ -1,0 +1,31 @@
+{
+  "id": "blk-3e56dba4308e40bc8b106d545ceca7ff",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj declares a Version of 2.0.4 and declares no AssemblyVersion or FileVersion property anywhere in the file; the project file pins no assembly version or file version independently of Version 2.0.4.",
+    "scope": "ArgentSea.Orleans.Sql.csproj PropertyGroup: Version, AssemblyVersion, and FileVersion declarations."
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-19",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

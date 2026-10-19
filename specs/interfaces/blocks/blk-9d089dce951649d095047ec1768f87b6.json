@@ -1,0 +1,60 @@
+{
+  "id": "blk-9d089dce951649d095047ec1768f87b6",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardKeyNotFoundException",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea.Orleans;\npublic sealed class ShardKeyNotFoundException : Exception {   // derives from System.Exception, NOT ApplicationException like the ArgentSea core exceptions\n  ShardKeyNotFoundException();                                       // \"The Orleans Grain cannot be serialize/deserialzied because the ShardKey attribute could not be found. This attribute is needed to invoke the correct database.\"\n  ShardKeyNotFoundException(string grainType);                       // \"The Orleans Grain “{grainType}” cannot be serialize/deserialzied because a ShardKey attribute could not be found. ...\"\n  ShardKeyNotFoundException(string grainType, Exception innerException); // same grain-type message, wrapping innerException\n}\n// Unlike most exception types, the single-string constructor takes the GRAIN TYPE, not a free-form message, and there is no message-only constructor; carries no properties beyond the message.\n// Raised (always with the grain type) when the grain key marshaller compiles a key/shard delegate for a grain state model that has no shard-key mapping attribute to identify the shard and record columns. It is a configuration defect in the grain state model surfaced on first use of that grain type, not a transient fault."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/ShardKeyNotFoundException.cs",
+        "lines": "10-39",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "92,141,263,351",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-d7422e4dd22547fb9fc328522ea9d607",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,31 @@
+{
+  "id": "blk-d6d3d68dcb7e43fc98ee6052f1c330f8",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Sql.csproj declares exactly one InternalsVisibleTo entry, granting internal-member visibility to $(MSBuildProjectName).Test; the project file names no other assembly as an InternalsVisibleTo target.",
+    "scope": "The InternalsVisibleTo item declared in ArgentSea.Sql.csproj for the ArgentSea.Sql assembly."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "38-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

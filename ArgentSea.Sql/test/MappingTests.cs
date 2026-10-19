@@ -13,6 +13,7 @@ namespace ArgentSea.Sql.Test
     public class MappingTests
     {
 		[Fact]
+		[Trait("Spec", "blk-b2ce52e4e81d4f65ad5e17a09352c9f8")]
 		public void ValidateInParameterMapper()
 		{
 			var smv = new SqlMapModel()
@@ -321,6 +322,7 @@ namespace ArgentSea.Sql.Test
 
         }
         [Fact]
+		[Trait("Spec", "blk-aff821512eed4c75ad0be1544c190ebe")]
 		public void ValidateOutParameterCreator()
 		{
 			var smv = new SqlMapModel()
@@ -469,6 +471,7 @@ namespace ArgentSea.Sql.Test
             ((SqlParameter)prms["@ChildRecord2Id"]).Direction.Should().Be(System.Data.ParameterDirection.Output, "this should be an output parameter");
         }
         [Fact]
+		[Trait("Spec", "blk-0f9025f1403b49fbbaa53db9f1cd74b9")]
 		public void ValidateOutParameterReader()
 		{
 
@@ -527,7 +530,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger2 = new Microsoft.Extensions.Logging.LoggerFactory();
 			var dbLogger = dbLogger2.CreateLogger("");
 			var result = cmd.Parameters.ToModel<SqlMapModel>((short)5, dbLogger);
-			result.ArgentSeaTestDataId.Should().Be(10, "that was the output parameter value");
+			result!.ArgentSeaTestDataId.Should().Be(10, "that was the output parameter value");
 			result.Name.Should().Be("Test2", "that was the output parameter value");
 			result.LatinName.Should().Be("Test3", "that was the output parameter value");
 			result.Iso3166.Should().Be("US", "that was the output parameter value");
@@ -560,10 +563,10 @@ namespace ArgentSea.Sql.Test
 			result.EnvTarget.Should().Be(EnvironmentVariableTarget.Machine, "that was the output parameter value");
 			result.Color.Should().Be(ConsoleColor.Black, "that was the output parameter value");
 			result.Modifier.Should().Be(ConsoleModifiers.Control, "that was the output parameter value");
-			result.DayOfTheWeek.Value.Should().Be(DayOfWeek.Tuesday, "that was the output parameter value");
+			result.DayOfTheWeek.Should().Be(DayOfWeek.Tuesday, "that was the output parameter value");
 			result.GarbageCollectorNotificationStatus.Should().Be(GCNotificationStatus.Failed, "that was the output parameter value");
 
-            result.RecordKey.Value.ShardId.Should().Be(6, "that was the output parameter value");
+            result.RecordKey!.Value.ShardId.Should().Be(6, "that was the output parameter value");
             result.RecordKey.Value.RecordId.Should().Be(4, "that was the output parameter value");
 
             result.RecordChild.ShardId.Should().Be(15, "that was the output parameter value");
@@ -573,7 +576,7 @@ namespace ArgentSea.Sql.Test
             result.DataShard2.ShardId.Should().Be(5, "that is the value of the current shard");
             result.DataShard2.RecordId.Should().Be(long.MaxValue, "that is the record id");
 
-            result.ChildShard2.Value.ShardId.Should().Be(255, "that is the value of the current shard");
+            result.ChildShard2!.Value.ShardId.Should().Be(255, "that is the value of the current shard");
             result.ChildShard2.Value.RecordId.Should().Be(12345, "that is the record id");
             result.ChildShard2.Value.ChildId.Should().Be("Test123", "that is the child id");
 
@@ -637,7 +640,7 @@ namespace ArgentSea.Sql.Test
 
             var result = Mapper.ToModel<SqlMapModel>(prms, (short)16, dbLogger);
 
-			result.ArgentSeaTestDataId.Should().Be(11, "that was the output parameter value");
+			result!.ArgentSeaTestDataId.Should().Be(11, "that was the output parameter value");
 			result.Name.Should().BeNull("the output parameter was set to DbNull");
 			result.LatinName.Should().BeNull("the output parameter was set to DbNull");
 			result.Iso3166.Should().BeNull("the output parameter was set to DbNull");
@@ -880,6 +883,7 @@ namespace ArgentSea.Sql.Test
         }
 
 		[Fact]
+		[Trait("Spec", "blk-375164c33cfd4e02946b69e4aab98da3")]
 		public void ValidateSqlDataReader()
 		{
 			var modelValues = new SqlMapModel()
@@ -1078,7 +1082,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
             var resultList = Mapper.ToList<SqlMapModel>(rdr, 32, dbLogger);
 			var result = resultList[0];
-			result.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
+			result!.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
 			result.Name.Should().Be(modelValues.Name, "that is the source value");
 			result.LatinName.Should().Be(modelValues.LatinName, "that is the source value");
 			result.Iso3166.Should().Be(modelValues.Iso3166, "that is the source value");
@@ -1102,9 +1106,9 @@ namespace ArgentSea.Sql.Test
 			result.Temperature.Should().Be(modelValues.Temperature, "that is the source value");
 			result.LongStory.Should().Be(modelValues.LongStory, "that is the source value");
 			result.LatinStory.Should().Be(modelValues.LatinStory, "that is the source value");
-			result.TwoBits.Length.Should().Be(modelValues.TwoBits.Length, "that is the source value");
-			result.MissingBits.Length.Should().Be(modelValues.MissingBits.Length, "that is the source value");
-			result.Blob.Length.Should().Be(modelValues.Blob.Length, "that is the source value");
+			result.TwoBits!.Length.Should().Be(modelValues.TwoBits!.Length, "that is the source value");
+			result.MissingBits!.Length.Should().Be(modelValues.MissingBits!.Length, "that is the source value");
+			result.Blob!.Length.Should().Be(modelValues.Blob!.Length, "that is the source value");
 			result.Price.Should().Be(modelValues.Price, "that is the source value");
 			result.Cost.Should().Be(modelValues.Cost, "that is the source value");
 			result.EnvTarget.Should().Be(modelValues.EnvTarget, "that is the source value");
@@ -1113,7 +1117,7 @@ namespace ArgentSea.Sql.Test
 			result.DayOfTheWeek.Should().Be(modelValues.DayOfTheWeek, "that is the source value");
 			result.GarbageCollectorNotificationStatus.Should().Be(modelValues.GarbageCollectorNotificationStatus, "that is the source value");
             result.RecordKey.HasValue.Should().BeTrue("because the row has values");
-            result.RecordKey.Value.ShardId.Should().Be((short)2, "because that is the shardId data value");
+            result.RecordKey!.Value.ShardId.Should().Be((short)2, "because that is the shardId data value");
             result.RecordKey.Value.RecordId.Should().Be(1234, "because that is the recordId data value");
             result.RecordChild.ShardId.Should().Be((short)3, "because that is the shardId data value");
             result.RecordChild.RecordId.Should().Be(4567, "because that is the recordId data value");
@@ -1121,7 +1125,7 @@ namespace ArgentSea.Sql.Test
 
             result.DataShard2.ShardId.Should().Be((short)32, "because that is the shardId passed into the method call");
             result.DataShard2.RecordId.Should().Be(-1234, "because that is the recordId data value");
-            result.ChildShard2.Value.ShardId.Should().Be((short)3, "because that is the shardId data value");
+            result.ChildShard2!.Value.ShardId.Should().Be((short)3, "because that is the shardId data value");
             result.ChildShard2.Value.RecordId.Should().Be((short)-4567, "because that is the recordId data value");
             result.ChildShard2.Value.ChildId.Should().Be("testing...", "because that is the childId data value");
         }
@@ -1295,7 +1299,7 @@ namespace ArgentSea.Sql.Test
             var resultList = Mapper.ToList<SqlMapModel>(rdr, 200, dbLogger);
 
             var result = resultList[0];
-			result.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
+			result!.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
 			result.Name.Should().BeNull("the reader value is DbNull");
 			result.LatinName.Should().BeNull("the reader value is DbNull");
 			result.Iso3166.Should().BeNull("the reader value is DbNull");
@@ -1334,5 +1338,40 @@ namespace ArgentSea.Sql.Test
             result.DataShard2.Should().Be(ShardKey<long>.Empty, "the result should be empty");
             result.ChildShard2.Should().BeNull("the input values are null");
         }
+
+		[Fact]
+		[Trait("Spec", "blk-a66adaef2f1d429bb26b2e05e419f643")]
+		[Trait("Spec", "blk-6941025a47ca4f83b1782012b4a16e03")]
+		[Trait("Spec", "blk-c097ca91f3854f53b45b348090cbf3f0")]
+		public void ValidateTvpColumnSubsetOrdinals()
+		{
+			// A column list both narrows and reorders the record; every value — including binary and decimal
+			// columns — must land at its position in the column list, not its position in the full mapping.
+			var smv = new SqlMapModel()
+			{
+				Name = "subset",
+				Latitude = 13.13m,
+				TwoBits = new byte[] { 20, 21 },
+				Blob = new byte[] { 30, 31, 32 },
+				RecordChild = ShardKey<int, short>.Empty,
+				DataShard2 = ShardKey<long>.Empty
+			};
+			var dbLogger = new DebugLogger();
+			var columns = new List<string>() { "Blob", "Name", "Latitude", "TwoBits", "MissingBits" };
+
+			var result = TvpMapper.ToTvpRecord<SqlMapModel>(smv, columns, dbLogger);
+
+			result.FieldCount.Should().Be(columns.Count, "only the listed columns are included");
+			result.GetName(0).Should().Be("Blob");
+			var blob = new byte[smv.Blob.Length];
+			result.GetBytes(0, 0, blob, 0, blob.Length);
+			blob.Should().Equal(smv.Blob, "Blob is the first listed column");
+			result.GetString(1).Should().Be(smv.Name, "Name is the second listed column");
+			result.GetDecimal(2).Should().Be(smv.Latitude.Value, "Latitude is the third listed column");
+			var twoBits = new byte[smv.TwoBits.Length];
+			result.GetBytes(3, 0, twoBits, 0, twoBits.Length);
+			twoBits.Should().Equal(smv.TwoBits, "TwoBits is the fourth listed column");
+			result.IsDBNull(4).Should().BeTrue("a null MissingBits value is written as DbNull at its listed position");
+		}
 	}
 }

@@ -31,11 +31,21 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-string-extensions",
+    "sectionId": "shard-key-serialization",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }

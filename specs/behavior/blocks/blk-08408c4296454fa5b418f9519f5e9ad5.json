@@ -1,0 +1,73 @@
+{
+  "id": "blk-08408c4296454fa5b418f9519f5e9ad5",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Batch Execution",
+    "trigger": "a list-producing step's query executes",
+    "response": "read every row of the result set, in the data reader's row order, into one ordered list and return that list as the step's result, applying the same shard-identifier fallback and column reads its single-row counterpart applies to each row",
+    "postcondition": "the returned list has zero elements when the query matches no rows"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "402-448",
+        "label": "KeyListStep.ExecuteAsync row accumulation"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "450-501",
+        "label": "ChildListStep.ExecuteAsync row accumulation"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "539-573",
+        "label": "ListStep.ExecuteAsync row accumulation"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": "ShardKey",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": "Shard id",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": "Query",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,31 @@
+{
+  "id": "blk-642b4e9041b64a96a018c2c5e13b2f9b",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "The ArgentSea solution's project membership comprises exactly five product projects — ArgentSea.Shared (built as ArgentSea.csproj), ArgentSea.Sql, ArgentSea.Pg, ArgentSea.Orleans, and ArgentSea.Orleans.Sql — plus exactly one dedicated test project for each of them (ArgentSea.Test, ArgentSea.Sql.Test, ArgentSea.Pg.Test, ArgentSea.Orleans.Test, and ArgentSea.Orleans.Sql.Test).",
+    "scope": "Project composition declared in the ArgentSea.slnx solution file."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.slnx",
+        "lines": "1-26",
+        "label": "Solution file listing every project in the tree"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "argent-sea",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

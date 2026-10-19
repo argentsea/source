@@ -1,0 +1,47 @@
+{
+  "id": "blk-262dc457a4af413e89b3b8b0e2ddbf19",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Every Queries QueryProcedure member's procedure identifier is schema-qualified with the 'rdr.' prefix when the operation reads data and with the 'wtr.' prefix when the operation writes or deletes data, with no exception across the cluster-membership and reminder families.",
+    "scope": "The public QueryProcedure catalogue exposed by Queries (Orleans cluster-membership and reminder operations)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "16-32",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "40-60",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-runtime-query-catalog",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-3b00d26115794c439f2302c372fb816d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

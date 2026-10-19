@@ -5,7 +5,7 @@
   "fields": {
     "gwt": {
       "given": "a PostgreSQL connection with connection text \"Host=db;Database=app\" and a query contract procedure name \"get_account\"",
-      "when": "PostgreSqlProvider.DataProviderServiceFactory creates the command",
+      "when": "ArgentSea.Pg.DataProviderServiceFactory creates the command",
       "then": "the result is a PostgreSQL command with command text \"get_account\" and the same supplied connection"
     },
     "illustrates": [
@@ -33,7 +33,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-data-provider-service-factory",
+    "sectionId": "postgres-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

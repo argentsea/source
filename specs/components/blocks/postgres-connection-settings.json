@@ -1,0 +1,64 @@
+{
+  "id": "postgres-connection-settings",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Postgres Connection Settings",
+    "responsibility": "Declares every Npgsql connection attribute as a discrete setting that may be given globally, per database, per shard set or per shard, and resolves those levels into the connection string one PostgreSQL read or write endpoint opens — rebuilding the string when any level it inherited from changes. It is the PostgreSQL end of the configuration hierarchy.",
+    "parent": "postgres-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "connection-configuration-hierarchy"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionPropertiesBase.cs",
+        "lines": "8-884",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgGlobalPropertiesOptions.cs",
+        "lines": "10-13",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "15-403",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "33-48",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
+        "lines": "13-40",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

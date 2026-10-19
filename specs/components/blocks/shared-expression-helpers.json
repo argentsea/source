@@ -9,7 +9,7 @@
     "inherits": []
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -17,7 +17,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
-        "lines": "20-849",
+        "lines": "20-842",
         "label": null,
         "relation": "grounds"
       }
@@ -29,6 +29,16 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "mapping-expression-builders",
+      "blobHash": null,
+      "label": "successor",
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }

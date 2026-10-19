@@ -4,7 +4,7 @@
   "type": "Term",
   "fields": {
     "name": "Mapping attribute",
-    "definition": "A provider-specific attribute placed on a model property (e.g. MapToSqlNVarChar, MapToPgVarchar) that declares the parameter or column the property binds to. The Mapper compiles these declarations into cached expression trees that set parameters and read results at near hand-coded ADO.NET speed.",
+    "definition": "A provider-specific attribute on a model property, such as `MapToSqlNVarChar` or `MapToPgVarchar`. It declares the parameter or column name the property binds to, the database type, type options (length, precision, scale, locale) and the optional required flag. The property's .NET type must match the attribute's database type exactly; the Mapper never casts. Properties without a mapping attribute are ignored. The Mapper reads these attributes to build its compiled mapping delegates.",
     "synonyms": [
       "MapTo attribute",
       "property mapping attribute"

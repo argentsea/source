@@ -1,0 +1,58 @@
+{
+  "id": "blk-355413da27f54806a6fab98cc5dc02fc",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Provider Package",
+    "trigger": "ArgentSea.Sql.csproj is restored and built for its net10.0 target framework",
+    "response": "compile against Microsoft.Data.SqlClient 7.0.3, Microsoft.Extensions.Logging 10.0.12 and a project reference to the shared ArgentSea core (ArgentSea.Shared/src/ArgentSea.csproj), declared unconditionally for every configuration and platform",
+    "postcondition": "the SQL Server database provider is the SqlClient-specific completion of the provider-neutral core, and any consumer of the package takes both SqlClient and the core as transitive dependencies"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "4",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "31-33",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "38-39",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

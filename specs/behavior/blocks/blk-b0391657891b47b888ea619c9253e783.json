@@ -1,0 +1,43 @@
+{
+  "id": "blk-b0391657891b47b888ea619c9253e783",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DatabasesBase<TConfiguration>",
+    "trigger": "it is constructed from database connection configuration whose configured list contains a null database entry",
+    "response": "throws a System.Exception stating that a database connection configuration was not valid because the configuration provider returned null",
+    "postcondition": "the Databases collection is not created"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "50-55",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "databases-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0d3796e06a3b4bf4ab550723c361902c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

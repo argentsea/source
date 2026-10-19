@@ -1,0 +1,69 @@
+{
+  "id": "blk-b2890a643c89423c915c34524985b919",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Provider Services",
+    "condition": "the connection supplied to NewCommand is not an NpgsqlConnection",
+    "trigger": "a query contract requests a new command for a stored procedure name on that connection",
+    "response": "throw a System.ArgumentException whose ParamName is \"connection\" and whose message states that the connection must be an NpgsqlConnection, rather than creating a command",
+    "unwanted": false
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "28-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ProviderServicesTests.cs",
+        "lines": "99-108",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-f8c9932da7564a80b5bb0b8f02dcd526",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

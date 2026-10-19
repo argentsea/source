@@ -136,7 +136,7 @@ Here is catalog of the current attributes, along with their arguments and corres
 | [MapToPgDateAttribute](/api-pg/ArgentSea.Pg.MapToPgDateAttribute.html) | | DateTime, Nullable&lt;DateTime&gt; | Date |
 | [MapToPgTimeAttribute](/api-pg/ArgentSea.Pg.MapToPgTimeAttribute.html)  | | TimeSpan, Nullable&lt;TimeSpan&gt; | Time |
 | [MapToPgIntervalAttribute](/api-pg/ArgentSea.Pg..html) | | TimeSpan, Nullable&lt;TimeSpan&gt; | Interval |
-| [MapToPgTimeTzAttribute](/api-pg/ArgentSea.Pg.MapToPgTimeTzAttribute.html) | | TimeSpan, DateTimeOffset, Nullable&lt;TimeSpan&gt;, Nullable&lt;DateTimeOffset&gt; | TimeTz |
+| [MapToPgTimeTzAttribute](/api-pg/ArgentSea.Pg.MapToPgTimeTzAttribute.html) | | DateTimeOffset, Nullable&lt;DateTimeOffset&gt; | TimeTz |
 | [MapToPgArrayAttribute](/api-pg/ArgentSea.Pg.MapToPgArrayAttribute.html) | | Array | Array |
 | [MapToPgByteaAttribute](/api-pg/ArgentSea.Pg.MapToPgByteaAttribute.html) | length | byte[] | Bytea |
 | [MapToPgArrayAttribute](/api-pg/ArgentSea.Pg.MapToPgArrayAttribute.html) | NpgsqlType | T[]⁴ | Array |

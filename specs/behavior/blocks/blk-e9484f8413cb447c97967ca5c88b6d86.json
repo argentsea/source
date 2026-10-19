@@ -34,7 +34,7 @@
     ],
     "owner": "Drew Trafton",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": null,
     "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,58 @@
+{
+  "id": "postgres-type-mapping",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Postgres Type Mapping",
+    "responsibility": "Covers the PostgreSQL type system property by property: for each PostgreSQL data type it declares how a model property becomes an input or output parameter of that type, how a parameter or result column of that type is read back into the property, what the property's .NET type is allowed to be, and what column definition the type requires when a table is created for bulk loading. It also offers the same per-type parameter construction directly to callers building a parameter set by hand, including the array and hstore accessors that have no cross-platform equivalent.",
+    "parent": "postgres-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "model-mapping"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "23-1058",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/MapPgShardKeyAttribute.cs",
+        "lines": "8-215",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "19-1321",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterExtensions.cs",
+        "lines": "10-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "blk-555b5c8a9bac484d9c62012afcaae775",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a ConstantExpression whose Value is the int 5 and Type is int",
+      "when": "DebugViewWriter visits the node",
+      "then": "it renders the bare literal \"5\", with no type suffix and no `.Constant<T>(...)` wrapper"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-6ff6aaeeb0c945a8913394244859c2c9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "588-633",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

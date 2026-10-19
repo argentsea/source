@@ -1,0 +1,42 @@
+{
+  "id": "blk-4d2822c9aa40497786c9f80253374c2d",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property carries MapToPgArrayAttribute(\"Tags\", NpgsqlDbType.Varchar)",
+      "when": "a COPY load reads that variant's ColumnDefinition",
+      "then": "it returns \"\\\"Tags\\\" varchar[]\", the element type's PostgreSQL type name followed by []"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-41a9bebdf55c44f9a0932b450373d38b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "897-905,926-930",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

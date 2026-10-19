@@ -15,8 +15,8 @@ namespace ArgentSea.Pg
 	{
 		public PgShardSets(
 			IOptions<PgShardConnectionOptions> configOptions,
-            IOptions<PgGlobalPropertiesOptions> globalOptions,
-			ILogger<PgShardSets> logger
+            IOptions<PgGlobalPropertiesOptions>? globalOptions,
+			ILogger<PgShardSets>? logger
 			) : base(configOptions, new DataProviderServiceFactory(), globalOptions?.Value, logger)
 		{
 

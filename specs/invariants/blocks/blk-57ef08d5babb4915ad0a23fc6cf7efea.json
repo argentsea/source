@@ -1,0 +1,101 @@
+{
+  "id": "blk-57ef08d5babb4915ad0a23fc6cf7efea",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "When a fan-out call has not already returned through its mock short-circuit — for a query operation, a MockResults dictionary holding an entry for the query name; for BatchAllAsync, any MockResults dictionary the caller has obtained, even an empty one — and has not already thrown on an already-requested cancellation, then if ShardsValues.Shards is supplied but contains no entries, the call reaches no shard and returns its empty or default result immediately.",
+    "scope": "ShardSetsBase<TConfiguration>.ShardSet's ReadAll, ReadFirst, RunAsync, BatchAllAsync and Write fan-out operations when given a non-null, empty ShardsValues selection, downstream of each operation's own mock short-circuit (which tests the MockResults backing field, so the check never itself creates the lazily-created dictionary) and upfront cancellation check."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "127-130",
+        "label": "ReadQueryAllAsync empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "179-182",
+        "label": "ReadQueryFirstAsync empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "564-567",
+        "label": "RunAllAsync empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "601-604",
+        "label": "BatchAllAsync empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "642-645",
+        "label": "WriteQueryAllAsync empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "108-113",
+        "label": "ReadQueryAllAsync MockResults short-circuit and upfront cancellation check preceding the empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "160-165",
+        "label": "ReadQueryFirstAsync MockResults short-circuit and upfront cancellation check preceding the empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "545-550",
+        "label": "RunAllAsync MockResults short-circuit and upfront cancellation check preceding the empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "582-589",
+        "label": "BatchAllAsync mock short-circuit (any obtained MockResults dictionary, tested via the backing field) and upfront cancellation check preceding the empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "624-629",
+        "label": "WriteQueryAllAsync MockResults short-circuit and upfront cancellation check preceding the empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "57-73",
+        "label": "MockResults property: the dictionary is created lazily on first read"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-77530745cca642d982c6de223e74db46",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

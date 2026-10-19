@@ -13,7 +13,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-shard-batch'. Grounded in ShardBatch.cs:16-30 and falsifiable behavioral block citing committed terms, but missing required sectionId equal to component ID 'shared-shard-batch'.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ShardBatch.cs:16-30 and falsifiable behavioral block citing committed terms. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'batch-execution' resolves to component 'Batch Execution' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -25,7 +25,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-batch",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

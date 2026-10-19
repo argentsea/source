@@ -68,14 +68,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "51-1117",
+        "lines": "51-1147",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

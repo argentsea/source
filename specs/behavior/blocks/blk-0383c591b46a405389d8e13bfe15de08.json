@@ -5,7 +5,7 @@
   "fields": {
     "gwt": {
       "given": "a source collection contains SQL parameters @id with value 1 and @label with value \"old\", requested names are [\"@id\"], and replacement values map @id to 42",
-      "when": "SqlServerProvider.DataProviderServiceFactory.SetParameters prepares an empty destination command",
+      "when": "ArgentSea.Sql.DataProviderServiceFactory.SetParameters prepares an empty destination command",
       "then": "the destination command contains exactly one parameter named @id with value 42, and contains no @label parameter"
     },
     "illustrates": [
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
-        "lines": "119-202",
+        "lines": "120-205",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-data-provider-service-factory",
+    "sectionId": "sql-server-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

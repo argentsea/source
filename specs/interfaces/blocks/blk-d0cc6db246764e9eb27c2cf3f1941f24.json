@@ -1,0 +1,60 @@
+{
+  "id": "blk-d0cc6db246764e9eb27c2cf3f1941f24",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "Orleans grain persistence log events (ArgentSea.Orleans.LoggingExtensions)",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea.Orleans;\ninternal static class LoggingExtensions {   // internal: not callable by host code; hosts only observe the events\n  public enum EventIdentifier { ExpressionTreeCreation = 1, MapperCacheStatus = 4, MapperProcessTrace = 5, CmdExecuted = 8, PersistanceStart = 13, PersistanceStop = 14 }\n  // Ids 1,4,5,8 deliberately reuse the numeric ids of the same categories in ArgentSea.LoggingExtensions.EventIdentifier, so a host filter on e.g. CmdExecuted (8) sees core and grain events alike; 13 and 14 extend past the core enum's last value (BatchStep = 12).\n  // Ids are per category, not per event: events of one category share the id and are told apart by EventId.Name.\n  // Every event is a LoggerMessage.Define delegate compiled once in the static constructor; EventId.Name is the wrapper method name.\n\n  PersistanceLifecycleOnStart(ILogger, string name)   // Debug, id 13: \"Grain persistance {name} is initializing.\"\n  PersistanceLifecycleOnStop(ILogger, string name)    // Debug, id 14: \"Grain persistance {name} is terminating.\"\n  OrleansDbCacheMiss(ILogger, string grainType)       // Debug, id 4: \"No cached delegate for handling orleans database keys was initialized for type {grainType}; this is normal for the first execution.\"\n  OrleansDbCacheHit(ILogger, string grainType)        // Trace, id 4: \"The cached delegate for handling orleans database keys was already initialized for type {grainType}.\"\n  OrleansShardCacheMiss(ILogger, string grainType)    // Debug, id 4: \"... orleans sharded keys ...; this is normal for the first execution.\"\n  OrleansShardCacheHit(ILogger, string grainType)     // Trace, id 4: \"... orleans sharded keys was already initialized ...\"\n  TraceMapperGrainPersistance(ILogger, string propertyName) // Trace, id 5: \"Grain persistance mapper is now processing property {name}.\"\n  CreatedExpressionTreeForDatabaseKey(ILogger, string grainType, Expression codeBlock) // Debug, id 1: \"Compiled code to expression tree for grain {grainType} key mapping for database as:\\r\\n{code}.\"\n  CreatedExpressionTreeForShardKey(ILogger, string grainType, Expression codeBlock)    // Debug, id 1: \"... key mapping for shards as: ...\"\n  CreatedExpressionTreeForActivation(ILogger, string grainType, Expression codeBlock)  // Debug, id 1: \"Compiled code to expression tree for grain {grainType} activation, setting the new state's record identifiers from the grain key, as:\\r\\n{code}.\"\n  //   the three CreatedExpressionTreeFor* wrappers render codeBlock with a debug-view writer only when logger.IsEnabled(LogLevel.Debug), the level their delegates log at.\n  TraceDbReadCmdExecuted / TraceDbWriteCmdExecuted / TraceDbClearCmdExecuted(ILogger, string grainType, long milliseconds)\n      // Trace, id 8: \"Executed {read|write|clear} Db command on grainType {grainType} in {milliseconds} milliseconds.\"\n  TraceShardReadCmdExecuted / TraceShardWriteCmdExecuted / TraceShardClearCmdExecuted(ILogger, short shardId, string grainType, long milliseconds)\n      // Trace, id 8: \"Executed {read|write|clear} command on shard {shardId} for grainType {grainType} in {milliseconds} milliseconds.\"\n  //   all six timing wrappers check logger.IsEnabled(LogLevel.Trace) before invoking the delegate.\n}"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/LoggingExtensions.cs",
+        "lines": "13-161",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "18-33",
+        "label": null,
+        "relation": "references"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

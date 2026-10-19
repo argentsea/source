@@ -1,0 +1,72 @@
+{
+  "id": "blk-6ff6aaeeb0c945a8913394244859c2c9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Expression Debug View",
+    "condition": "the visited expression node is a parameter reference, a constant, a default-value node, a source debug-info node, or a lambda node, or the renderer must name an unnamed parameter, lambda, or label target",
+    "response": "render a parameter reference as `$` followed by its declared name or, when the parameter has no name, by a synthetic `varN` built from a per-tree sequential id; render a constant as a quoted string, a quoted char, a bare numeral or boolean literal, a numeral suffixed with its type marker (U, L, UL, D, F, or M) when one applies, `null` for a null value, or `.Constant<Type>(value)` otherwise; render a default-value node as `.Default(Type)`; render a debug-info node as `.DebugInfo(file: startLine, startColumn - endLine, endColumn)`; render a lambda node, at the point it is visited, as `.Lambda name<DelegateType>` and enqueue that lambda node for its own parameter-list-and-body definition exactly once, even when the same node is visited again later, preserving first-encounter order across the whole rendering; and assign any unnamed lambda or label target a synthetic `#LambdaN` or `#LabelN` name built the same per-tree sequential way, quoting a declared name that itself contains whitespace"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "506-523",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "588-661",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1136-1140",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1294-1325",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1347-1388",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "114-151",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

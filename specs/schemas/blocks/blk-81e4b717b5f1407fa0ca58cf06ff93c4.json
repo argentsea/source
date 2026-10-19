@@ -1,0 +1,42 @@
+{
+  "id": "blk-81e4b717b5f1407fa0ca58cf06ff93c4",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "CollectionMapAttributeBase mapping metadata",
+    "description": "The structured-parameter name a derived collection-mapping attribute declares for a model's collection property; supplied at construction and read-only thereafter.",
+    "members": [
+      {
+        "name": "ParameterName",
+        "type": "string",
+        "required": true,
+        "description": "The name supplied at construction by the derived attribute; exposed read-only thereafter via the public ParameterName property and does not change once set."
+      }
+    ],
+    "representations": {
+      "CSharp": "public string ParameterName { get; }, assigned once by the protected constructor CollectionMapAttributeBase(string parameterName)."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/CollectionMapAttributeBase.cs",
+        "lines": "18-25",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

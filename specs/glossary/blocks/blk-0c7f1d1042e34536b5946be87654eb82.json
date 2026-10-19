@@ -4,8 +4,11 @@
   "type": "Term",
   "fields": {
     "name": "Shard",
-    "definition": "A single data segment stored in one database within a shard set.",
-    "synonyms": []
+    "definition": "One database within a shard set that holds one segment of the set's data. It is identified by its shard id and exposed as a shard instance with its own read and write connections. A query addressed to a shard runs on that one database only.",
+    "synonyms": [
+      "shard instance",
+      "ShardInstance"
+    ]
   },
   "metadata": {
     "status": "Draft",

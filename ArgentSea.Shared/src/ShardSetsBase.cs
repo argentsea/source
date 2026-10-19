@@ -25,17 +25,17 @@ namespace ArgentSea
     /// <typeparam name="TConfiguration">A provider-specific implementation of IShardSetConfigurationOptions.</typeparam>
     public abstract partial class ShardSetsBase<TConfiguration> : ICollection where TConfiguration : class, IShardSetsConfigurationOptions, new()
     {
-        private readonly object syncRoot = new Lazy<object>();
+        private readonly object syncRoot = new object();
         internal readonly ImmutableDictionary<string, ShardSetsBase<TConfiguration>.ShardSet> dtn;
         internal readonly IDataProviderServiceFactory _dataProviderServices;
-        internal readonly DataConnectionConfigurationBase _globalConfiguration;
-        internal readonly ILogger _logger;
+        internal readonly DataConnectionConfigurationBase? _globalConfiguration;
+        internal readonly ILogger? _logger;
 
         public  ShardSetsBase(
-                IOptions<TConfiguration> configOptions,
+                IOptions<TConfiguration>? configOptions,
                 IDataProviderServiceFactory dataProviderServices, 
-                DataConnectionConfigurationBase globalConfiguration,
-                ILogger<ShardSetsBase<TConfiguration>> logger)
+                DataConnectionConfigurationBase? globalConfiguration,
+                ILogger<ShardSetsBase<TConfiguration>>? logger)
         {
             this._logger = logger;
             if (configOptions?.Value?.ShardSetsConfigInternal is null)
@@ -45,7 +45,7 @@ namespace ArgentSea
             this._dataProviderServices = dataProviderServices;
             this._globalConfiguration = globalConfiguration;
             var bdr = ImmutableDictionary.CreateBuilder<string, ShardSet>();
-            if (!(configOptions?.Value?.ShardSetsConfigInternal is null))
+            if (configOptions?.Value?.ShardSetsConfigInternal is not null)
             {
                 foreach (var set in configOptions.Value.ShardSetsConfigInternal)
                 {
@@ -53,7 +53,7 @@ namespace ArgentSea
                     {
                         throw new Exception($"A shard set configuration is not valid; the configuration provider returned null.");
                     }
-                    bdr.Add(set.ShardSetName, new ShardSet(this, set));
+                    bdr.Add(set.ShardSetName ?? throw new InvalidOperationException("A shard set configuration is missing its ShardSetName."), new ShardSet(this, set));
                 }
                 this.dtn = bdr.ToImmutable();
             }

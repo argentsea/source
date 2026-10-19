@@ -1,0 +1,54 @@
+{
+  "id": "blk-f114f292160a44c98ae561e2802ff50a",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property is decorated with a MapShardKeyAttribute-derived shard-key mapping attribute whose RecordIdName is 'OrderId', but no mapping attribute named 'OrderId' is declared on that property",
+      "when": "the Mapper compiles that model type's output-parameter delegate for the first time",
+      "then": "the Mapper throws MapAttributeMissingException with Element equal to ShardElement.RecordId and AttributeName equal to 'OrderId'"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-5c0b0a84efb9437bb74667b0237a39e0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "884-886",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "43-47",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "63-65",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

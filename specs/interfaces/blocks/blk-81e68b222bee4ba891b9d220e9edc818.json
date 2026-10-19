@@ -1,0 +1,60 @@
+{
+  "id": "blk-81e68b222bee4ba891b9d220e9edc818",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "UnexpectedNullException",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea;\npublic class UnexpectedNullException : ApplicationException {   // public, not sealed\n  UnexpectedNullException();\n  UnexpectedNullException(string message);\n  UnexpectedNullException(string message, Exception innerException);\n  UnexpectedNullException(Type expectedType, string columnName); // \"The database column {columnName} unexpectedly returned a “null” value and cannot be assigned to a {expectedType}.\"\n  Type ExpectedType { get; }   // the non-nullable CLR type requested; null for the message-only constructors\n  string ColumnName { get; }   // the parameter (or column) name; null for the message-only constructors\n}\n// Raised by the public typed DbParameter getters (GetLong, GetInteger, GetShort, GetByte, GetBoolean, GetDecimal, GetDateTime, GetDateTimeOffset, GetTimeSpan, GetDateOnly, GetTimeOnly) when the parameter value is DBNull; the parameter's ParameterName is passed as columnName.\n// Callers can catch it by name and read ExpectedType/ColumnName. Callers that expect a possible null should use the nullable getter variants instead of catching."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedNullException.cs",
+        "lines": "13-62",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "42,57,72,87,102,117,228,243,258,273,288",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-d6d842a80eb74675aee857400672b927",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-b5431f752ce0477e96509c975f1833d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

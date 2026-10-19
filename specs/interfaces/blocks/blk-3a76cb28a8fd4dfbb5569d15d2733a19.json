@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
-        "lines": "41-1034",
+        "lines": "74-1055",
         "label": "MapToPg attribute family definitions and compatibility predicates",
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-map-to-pg-attribute-family",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "pg-parameter-map-attribute",
+      "blockId": "postgres-type-mapping",
       "blobHash": null,
       "label": "PgParameterMapAttribute component",
       "relation": "dependsOn"

@@ -6,25 +6,46 @@
     "name": "IActivator<TModel>",
     "kind": "Library",
     "language": "csharp",
-    "contract": "IActivator<TModel> is a static activation contract for a TModel grain model. An implementing model type provides `Activatate<Tmodel>(string grainType, ReadOnlyMemory<byte> key)`, which receives the grain type and binary key and returns the activated TModel instance."
+    "contract": "IActivator<TModel> is a static activation contract for a TModel grain model. An implementing model type provides `Activatate<Tmodel>(string grainType, ReadOnlyMemory<byte> key)`, which returns the activated TModel instance. It receives the grain's binary key and, despite the parameter's name, the state name the storage provider was called with: Orleans' IGrainStorage stateName, which is the literal \"state\" for every Grain<TState> or the name given to [PersistentState], not the grain type. ArgentSea's grain persistence (ArgentSeaDbGrainPersistence and ArgentSeaShardGrainPersistence) calls this factory when a grain read returns no record and the grain state type implements IActivator<TModel>, and the instance it returns becomes the grain state (with RecordExists false); the call goes through an internal GrainStateActivator that caches one constrained-generic delegate per TModel. For a state type that does not implement the interface, the providers instead create a default instance with its public parameterless constructor and set its key values from the grain id. A type that implements IActivator<TModel> needs no public parameterless constructor under Orleans: Orleans' storage bridge supplies a non-null initial state from its own activator before calling the read, so the providers' parameterless-constructor fallback for a null supplied state is not reached."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-i-activator'. Grounded and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable interface contract. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/GrainPersistance/IActivator.cs",
-        "lines": "15-25",
+        "lines": "9-25",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "8-48",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "97-107",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "95-113",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-i-activator",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

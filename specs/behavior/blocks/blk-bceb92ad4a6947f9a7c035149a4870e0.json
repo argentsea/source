@@ -1,0 +1,60 @@
+{
+  "id": "blk-bceb92ad4a6947f9a7c035149a4870e0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a BinaryExpression with NodeType Add whose Left and Right are both ParameterExpressions named 'x' and 'y' (neither itself a BinaryExpression)",
+      "when": "DebugViewWriter visits the node",
+      "then": "it renders \"$x + $y\" with neither operand parenthesized, because a parameter's precedence (15) is not lower than Add's precedence (10)"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-1e46588e666949c4bf6be6d042bf06df"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "437",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "476-497",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "701-776",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "506-523",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

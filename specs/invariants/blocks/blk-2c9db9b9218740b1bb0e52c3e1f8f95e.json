@@ -1,0 +1,41 @@
+{
+  "id": "blk-2c9db9b9218740b1bb0e52c3e1f8f95e",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ShardKeyInMapProperties exists so that other ArgentSea library packages — such as ArgentSea.Orleans — can invoke its ShardKey-rendering logic directly; it is not part of the supported surface for application code that merely consumes this library, independently of whichever visibility modifier or attribute a given build uses to express that boundary.",
+    "scope": "ExpressionHelpers.ShardKeyInMapProperties consumer-audience boundary"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "669-673",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "blk-b4f5c3bbce8e4e22b64b9e02c9838431",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Service Registration",
+    "trigger": "a caller creates a statement with SqlQueryStatement.Create(name) or SqlQueryStatement.Create(name, parameterNames) and later evaluates Value on the returned Lazy<QueryStatement>",
+    "response": "load the statement text from the file named by name in QueryStatement.Folder with the extension held by SqlQueryStatement.Extension (default \"sql\"), reading both values when Value is first evaluated, and never consulting the shared QueryStatement.Extension",
+    "postcondition": "in a host that also registers PostgreSQL services (whose AddPgServices sets QueryStatement.Extension to \"psql\"), SQL Server statement files created through SqlQueryStatement still resolve against their own extension"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlQueryStatement.cs",
+        "lines": "17-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-service-registration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": "QueryStatement",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

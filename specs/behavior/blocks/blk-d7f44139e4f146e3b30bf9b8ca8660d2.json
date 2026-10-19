@@ -1,0 +1,42 @@
+{
+  "id": "blk-d7f44139e4f146e3b30bf9b8ca8660d2",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Level of enum type Priority (backed by byte) is mapped to an input integral parameter \"level\"",
+      "when": "ExpressionHelpers builds the input enum-backed-integral parameter expression for Level holding Priority.High",
+      "then": "the generated expression converts Priority.High to its byte value before calling the provider's add-parameter method"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b8ec66d09d614cf1be1cd9bf5aa02f4b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "116-143",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

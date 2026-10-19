@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ExpressionHelpers",
+    "subject": "Mapping Expression Builders",
     "condition": "a parameter name is not yet present in the caller's parameter-name set",
-    "trigger": "an input or output query-contract parameter expression is requested",
+    "trigger": "ExpressionHelpers: an input or output query-contract parameter expression is requested",
     "response": "append one provider parameter-add expression with the supplied optional metadata only when the ignore-parameter set exists and does not contain that parameter name",
     "postcondition": "the generated expression list contains at most one add operation for that parameter name"
   },
@@ -18,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
-        "lines": "23-163",
+        "lines": "23-157",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-expression-helpers",
+    "sectionId": "mapping-expression-builders",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

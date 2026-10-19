@@ -1,0 +1,60 @@
+{
+  "id": "blk-d460b8baf9dd4a8f91af5f429a768baa",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a data connection whose injected data provider services return true from GetIsErrorTransient for a deadlock DbException and false for a constraint-violation DbException, with a RetryCount of 3",
+      "when": "one command fails with the deadlock exception and a later command fails with the constraint-violation exception",
+      "then": "the resilience strategy retries the deadlocked command (waiting the configured retry backoff before each attempt) but does not retry the constraint-violation failure, which surfaces to the caller on its first occurrence"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-7cca6cc9400246fb9caf5f8f30758eb1"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "17",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "115-122",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "data-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

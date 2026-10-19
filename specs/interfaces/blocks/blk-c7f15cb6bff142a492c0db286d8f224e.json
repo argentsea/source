@@ -17,21 +17,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardSet.cs",
-        "lines": "24-93",
+        "lines": "24-94",
         "label": null,
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardSet.cs",
-        "lines": "723-725",
+        "lines": "665-667",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-sets-base-shard-set",
+    "sectionId": "shard-set-fan-out",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

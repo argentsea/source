@@ -1,0 +1,60 @@
+{
+  "id": "blk-011b4d48e7394849a03101a29b6c9d3c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Expression Debug View",
+    "condition": "the visited expression node is a dynamic call-site, a runtime-variables node, or an extension node",
+    "response": "render a dynamic node as `.Dynamic` followed by a binder description derived from the CallSiteBinder's concrete type (for example `Convert Type`, `GetMember Name`, `Call Name`, or `BinaryOperation Op`) and a parenthesized argument list; render a runtime-variables node as `.RuntimeVariables` followed by a parenthesized list of its variables; and render an extension node as `.Extension<RuntimeType>` followed, only when the node reports that it can reduce, by a braced rendering of its reduced expression"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "266-329",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "400-406",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "664-669",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1278-1292",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

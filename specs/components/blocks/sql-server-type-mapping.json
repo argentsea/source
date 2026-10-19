@@ -1,0 +1,52 @@
+{
+  "id": "sql-server-type-mapping",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SQL Server Type Mapping",
+    "responsibility": "Covers the SQL Server type system property by property: for each SQL Server data type it declares how a model property becomes an input or output parameter of that type, how a parameter or result column of that type is read back into the property, and what the property's .NET type is allowed to be. It also offers the same per-type parameter construction directly to callers who build a parameter set by hand rather than from a model, and assembles a record identity's columns into typed parameters.",
+    "parent": "sql-server-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "model-mapping"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "25-1347",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "8-217",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "20-1503",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

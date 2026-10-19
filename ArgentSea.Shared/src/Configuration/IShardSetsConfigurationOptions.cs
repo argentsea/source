@@ -14,6 +14,6 @@ namespace ArgentSea
     /// </summary>
     public interface IShardSetsConfigurationOptions
     {
-		IShardSetConnectionsConfiguration[] ShardSetsConfigInternal { get; }
+		IShardSetConnectionsConfiguration?[]? ShardSetsConfigInternal { get; }
     }
 }

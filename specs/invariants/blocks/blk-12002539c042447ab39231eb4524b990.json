@@ -1,0 +1,31 @@
+{
+  "id": "blk-12002539c042447ab39231eb4524b990",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Building ArgentSea Core with Configuration=Release and Platform=AnyCPU compiles with Optimize enabled (Optimize=true); building with Configuration=Debug and Platform=AnyCPU compiles with Optimize disabled (Optimize=false). No other configuration/platform combination is declared, so any other combination falls back to MSBuild's own default rather than a project-declared value. Every build of the project also produces a companion NuGet symbol package in snupkg format (IncludeSymbols=true, SymbolPackageFormat=snupkg); this symbol-packaging setting is declared twice, in two separate PropertyGroup elements with identical content, which is a literal redundancy in the project file rather than two distinct settings.",
+    "scope": "ArgentSea Core build configuration and symbol packaging (ArgentSea.Shared/src/ArgentSea.csproj PropertyGroups)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ArgentSea.csproj",
+        "lines": "25-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "argent-sea-core",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

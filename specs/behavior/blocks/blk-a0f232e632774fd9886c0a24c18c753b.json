@@ -1,0 +1,57 @@
+{
+  "id": "blk-a0f232e632774fd9886c0a24c18c753b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardsValues instance was constructed via ShardsValues(IList<short> list) with an empty list, so its Shards property is null.",
+      "when": "The caller calls Remove((short)4) on that instance.",
+      "then": "The call throws a System.NullReferenceException because Remove dereferences the null Shards dictionary at Shards.ContainsKey(shardId)."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "24-30",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "147-153",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

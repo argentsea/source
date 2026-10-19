@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "SqlServerProvider.DataProviderServiceFactory provider-neutral execution surface",
+    "name": "ArgentSea.Sql.DataProviderServiceFactory provider-neutral execution surface",
     "kind": "Library",
     "language": "text",
-    "contract": "Provides SQL Server-specific resources to provider-neutral execution callers. NewConnection returns a SQL Server database connection initialized from the supplied connection string. NewCommand returns a SQL Server command bound to the supplied SQL Server connection and named by the supplied stored-procedure string. SetParameters populates a destination command from SQL Server source parameters: it copies every source parameter when no query parameter names are supplied, or copies only requested names after SQL parameter-name normalization; supplied values replace copied values only for matching parameter names."
+    "contract": "Provides SQL Server-specific resources to provider-neutral execution callers. NewConnection returns a SQL Server database connection initialized from the supplied connection string. NewCommand returns a SQL Server command bound to the supplied SQL Server connection and named by the supplied stored-procedure string; when the supplied connection is not a SqlConnection it throws a System.ArgumentException with the message \"The connection must be a SqlConnection.\" and ParamName \"connection\". SetParameters populates a destination command from SQL Server source parameters: when no query parameter names are supplied, it copies every source parameter; otherwise, for each requested name it normalizes the name and copies the first source parameter whose name equals the normalized name (duplicates later in the source collection are ignored, so each requested name yields exactly one destination parameter). Each copy sets the destination parameter's CompareInfo, DbType, Direction, IsNullable, LocaleId, Offset, ParameterName, Precision, Scale, Size, SourceColumn, SourceColumnNullMapping, SqlDbType, SqlValue, TypeName and Value from the source parameter, then a supplied replacement value overwrites Value for that parameter name. When a requested name, after normalization, matches no source parameter, SetParameters throws a ParameterNotFoundException constructed with that normalized name. GetIsErrorTransient classifies an exception as transient only when it is a SqlException whose Number is one of a fixed set of SQL Server error codes spanning memory-optimized-table transaction and resource-limit conflicts, Azure SQL subscription busy/throttling and database-availability conditions, network or transport failures before or during login, and deadlock-victim selection (41301, 41302, 41305, 41325, 41823, 41839, 41840, 4221, 49918, 49919, 49920, 4060, 40613, 40197, 40501, 10928, 10929, 10053, 10054, 10060, 20, 64, 233, 1205); every other SqlException Number, and every exception that is not a SqlException, is classified as not transient. Error 20 is deliberately transient because Microsoft.Data.SqlClient's configurable-retry transient error list includes it."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,28 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
-        "lines": "105-202",
+        "lines": "106-205",
         "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "16-105",
+        "label": "GetIsErrorTransient classification",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "106-113",
+        "label": "NewCommand ArgumentException branch",
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-data-provider-service-factory",
+    "sectionId": "sql-server-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

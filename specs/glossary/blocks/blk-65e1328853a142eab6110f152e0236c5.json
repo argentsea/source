@@ -1,0 +1,48 @@
+{
+  "id": "blk-65e1328853a142eab6110f152e0236c5",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "ReadFirst",
+    "definition": "The fan-out form that runs a query on the read connection of every targeted shard and returns the first non-null result any shard produces. It then cancels the remaining shard queries and ignores their failures. When no shard produces a result it returns the default value, unless the caller cancelled (the call throws OperationCanceledException) or a shard failed (the failure is rethrown). It is intended for lookups by an attribute that should be unique across the set but is not the shard key (a user by login name). If the attribute is not actually unique, duplicates are silently discarded.",
+    "synonyms": [
+      "ShardSetReadFirst",
+      "read-first fan-out",
+      "TopOne"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "149-191",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "96-151",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "215-221",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

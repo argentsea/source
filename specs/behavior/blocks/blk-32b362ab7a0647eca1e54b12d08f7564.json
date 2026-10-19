@@ -1,0 +1,59 @@
+{
+  "id": "blk-32b362ab7a0647eca1e54b12d08f7564",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Grain Persistence",
+    "where": "WriteStateAsync or ClearStateAsync is invoked with a null State on the supplied grain-state envelope, on either the database-backed or Shard-backed provider",
+    "response": "throw NoNullAllowedException instead of executing any query"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "122-125",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "142-145",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "128-131",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "162-165",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

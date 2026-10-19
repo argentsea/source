@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
-        "lines": "40-108",
+        "lines": "47-115",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-statement",
+    "sectionId": "query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -35,6 +35,15 @@
       "project": "ArgentSea",
       "specId": "glossary",
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
       "blobHash": null,
       "label": null,
       "relation": "references"

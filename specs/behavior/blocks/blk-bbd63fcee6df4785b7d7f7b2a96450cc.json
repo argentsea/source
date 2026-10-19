@@ -1,0 +1,59 @@
+{
+  "id": "blk-bbd63fcee6df4785b7d7f7b2a96450cc",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "the update-member stored procedure (invoked via _db.Write.RunAsync) raises SqlException 51000 ('Cluster member not found or invalid eTag'), while a separate call fails with a connection timeout.",
+      "when": "UpdateRow(entry, etag, tableVersion) is invoked in each case.",
+      "then": "the conflict call logs a warning and returns false; the timeout call logs the error and the exception propagates to the caller instead of returning false."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-1a703d5db09d4821bebe4b7bc67dc013"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "382-398",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/common.sql",
+        "lines": "458",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-providers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-1a703d5db09d4821bebe4b7bc67dc013",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

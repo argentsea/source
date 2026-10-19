@@ -17,17 +17,17 @@ namespace ArgentSea.Sql.Test
     internal class MasterModel
     {
 
-        public IList<ModelTwo> PropertyTwo { get; set; }
-        public IList<ModelOne> PropertyOne { get; set; }
-        public IList<ModelFour> PropertyFour { get; set; }
-        public IList<ModelZero> PropertyZero { get; set; }
-        public IList<ModelSix> PropertySix { get; set; }
-        public IList<ModelSeven> PropertySeven { get; set; }
-        public IList<ModelFive> PropertyFive { get; set; }
-        public IList<ModelThree> PropertyThree { get; set; }
+        public IList<ModelTwo>? PropertyTwo { get; set; }
+        public IList<ModelOne>? PropertyOne { get; set; }
+        public IList<ModelFour>? PropertyFour { get; set; }
+        public IList<ModelZero>? PropertyZero { get; set; }
+        public IList<ModelSix>? PropertySix { get; set; }
+        public IList<ModelSeven>? PropertySeven { get; set; }
+        public IList<ModelFive>? PropertyFive { get; set; }
+        public IList<ModelThree>? PropertyThree { get; set; }
 
         [MapToSqlNVarChar("Description", 255)]
-        public string MasterDescription { get; set; }
+        public string? MasterDescription { get; set; }
     }
     internal class ModelZero
     {
@@ -35,7 +35,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlBigInt("Status")]
         public long Status { get; set; }
@@ -49,7 +49,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
     internal class ModelTwo
     {
@@ -57,7 +57,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlBigInt("Status")]
         public long State { get; set; }
@@ -78,7 +78,7 @@ namespace ArgentSea.Sql.Test
         public int FourID { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string FourDescription { get; set; }
+        public string? FourDescription { get; set; }
     }
     internal class ModelFive
     {
@@ -91,7 +91,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlBigInt("Status")]
         public long Count { get; set; }
@@ -102,7 +102,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlBigInt("Status")]
         public long Status { get; set; }
@@ -146,7 +146,7 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -185,8 +185,8 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -227,9 +227,9 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(3, "three rows were returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(3, "three rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -274,10 +274,10 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -325,11 +325,11 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(2, "three rows were returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(2, "three rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -380,12 +380,12 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(2, "three rows were returned by the recordset");
-            result.PropertyFive.Count.Should().Be(1, "one row was returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(2, "three rows were returned by the recordset");
+            result!.PropertyFive.Should().HaveCount(1, "one row was returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -438,13 +438,13 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(2, "three rows were returned by the recordset");
-            result.PropertyFive.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertySix.Count.Should().Be(1, "one row was returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(2, "three rows were returned by the recordset");
+            result!.PropertyFive.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertySix.Should().HaveCount(1, "one row was returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -499,14 +499,14 @@ namespace ArgentSea.Sql.Test
             prm.Value = "Root Model";
             prms.Add(prm);
             var result = Mapper.ModelFromOutResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix, ModelSeven>(0, "testSproc", null, rdr, prms, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(2, "three rows were returned by the recordset");
-            result.PropertyFive.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertySix.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertySeven.Count.Should().Be(2, "two rows were returned by the recordset");
+            result!.PropertyZero.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(2, "three rows were returned by the recordset");
+            result!.PropertyFive.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertySix.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertySeven.Should().HaveCount(2, "two rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -555,8 +555,8 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -595,9 +595,9 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(3, "three rows were returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(3, "three rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -639,10 +639,10 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(2, "two rows were returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(2, "two rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -688,11 +688,11 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -741,12 +741,12 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(1, "one row was returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(1, "one row was returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -797,13 +797,13 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyFive.Count.Should().Be(1, "one row was returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyFive.Should().HaveCount(1, "one row was returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");
@@ -856,14 +856,14 @@ namespace ArgentSea.Sql.Test
 
             //var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var dbLogger = new DebugLogger();
-            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null, "test connection", dbLogger);
-            result.PropertyZero.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyOne.Count.Should().Be(3, "three rows were returned by the recordset");
-            result.PropertyTwo.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyThree.Count.Should().Be(2, "two rows were returned by the recordset");
-            result.PropertyFour.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertyFive.Count.Should().Be(1, "one row was returned by the recordset");
-            result.PropertySix.Count.Should().Be(2, "two rows were returned by the recordset");
+            var result = Mapper.ModelFromReaderResultsHandler<MasterModel, ModelZero, ModelOne, ModelTwo, ModelThree, ModelFour, ModelFive, ModelSix>(0, "testSproc", null, rdr, null!, "test connection", dbLogger);
+            result!.PropertyZero.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyOne.Should().HaveCount(3, "three rows were returned by the recordset");
+            result!.PropertyTwo.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyThree.Should().HaveCount(2, "two rows were returned by the recordset");
+            result!.PropertyFour.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertyFive.Should().HaveCount(1, "one row was returned by the recordset");
+            result!.PropertySix.Should().HaveCount(2, "two rows were returned by the recordset");
             result.MasterDescription.Should().Be("Root Model", "that is the parameter value");
             result.PropertyZero[0].Id.Should().Be(4, "that is the recordset id value");
             result.PropertyZero[1].Id.Should().Be(1, "that is the recordset id value");

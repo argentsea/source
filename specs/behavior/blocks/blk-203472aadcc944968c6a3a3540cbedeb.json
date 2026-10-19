@@ -1,0 +1,42 @@
+{
+  "id": "blk-203472aadcc944968c6a3a3540cbedeb",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property carries [MapToPgBytea(\"payload\", 8000)], a MapToPgByteaAttribute constructed with parameterName \"payload\" and length 8000",
+      "when": "that property's internal ColumnDefinition property is evaluated",
+      "then": "the rendered definition is the string \"\\\"payload\\\" bytea\" — the constructor's length argument 8000 does not appear anywhere in it"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-41a9bebdf55c44f9a0932b450373d38b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "936-971",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

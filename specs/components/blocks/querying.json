@@ -1,0 +1,25 @@
+{
+  "id": "querying",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Querying",
+    "parent": "argent-sea-core",
+    "responsibility": "Holds how a data method runs against a non-sharded database: naming the SQL to execute and how to invoke it, building the parameter set for it, executing it through the single resilient execution path, running ordered steps atomically as a batch, and exposing configured databases as read and write endpoints. These belong together because they are the path every non-sharded call travels from caller to result; it mirrors the Querying section of the documentation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

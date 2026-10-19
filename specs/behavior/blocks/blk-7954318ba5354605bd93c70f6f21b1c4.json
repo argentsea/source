@@ -1,0 +1,43 @@
+{
+  "id": "blk-7954318ba5354605bd93c70f6f21b1c4",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Provider Services",
+    "condition": "the connection supplied to NewCommand is not a SqlConnection instance",
+    "response": "throw a System.ArgumentException constructed with the message \"The connection must be a SqlConnection.\" and the parameter name \"connection\", so the thrown exception's ParamName is \"connection\"",
+    "trigger": "NewCommand is called to create a provider command for a stored-procedure name on that connection"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "106-113",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": "Data provider services",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

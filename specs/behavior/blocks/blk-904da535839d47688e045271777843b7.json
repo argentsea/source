@@ -1,0 +1,58 @@
+{
+  "id": "blk-904da535839d47688e045271777843b7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A shard set contains shard ids 7 and 11; query Q's per-shard task on shard 11 throws a SqlException, while shard 7's task would otherwise return model A.",
+      "when": "ShardSetsBase<TConfiguration>.ShardSetReadAll.QueryAsync is called for Q without shard-specific values.",
+      "then": "The call faults with shard 11's SqlException instead of returning a list, regardless of whether shard 7's task had already completed."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-a9f3cfde102645e297e0416dbc5be64c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "97-147",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "17-60",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-a9f3cfde102645e297e0416dbc5be64c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

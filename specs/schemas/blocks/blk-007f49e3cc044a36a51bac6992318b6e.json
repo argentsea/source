@@ -47,7 +47,7 @@
         "type": "smallint",
         "required": true,
         "description": "Member status code.",
-        "notes": "ReadRow reconstructs this value through an int reader while the mutation path sends a smallint."
+        "notes": "Both the mutation path and the ReadRow/ReadAll reconstruction treat this value as smallint."
       },
       {
         "name": "ProxyPort",
@@ -83,7 +83,7 @@
         "name": "SuspectTimes",
         "type": "array<object<SuspectReport>>",
         "required": false,
-        "description": "Suspect reports sent as a table-valued parameter; each report has Address varbinary(150), Port int, Generation int, and Timestamp datetime2."
+        "description": "Suspect reports sent as a table-valued parameter, one row per distinct suspecting silo (Address, Port, Generation) carrying that suspector's latest report timestamp; each row has Address varbinary(150), Port int, Generation int, and Timestamp datetime2. Omitted (null) when there are no reports."
       }
     ],
     "representations": {
@@ -99,14 +99,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
-        "lines": "119-131,321-325,379-389",
+        "lines": "119-131,339-343,370-380,401-434",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-membership-table",
+    "sectionId": "orleans-cluster-providers",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -116,7 +116,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "orleans-sql-orleans-membership-table",
+      "blockId": "orleans-cluster-providers",
       "blobHash": null,
       "label": null,
       "relation": "references"

@@ -1,0 +1,66 @@
+{
+  "id": "blk-e6d1899dedbe40daa259a5ecf017092e",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Support unit testing by short-circuiting queries with mock results keyed by query name",
+    "status": "Proposed",
+    "decision": "Data connections, shards and shard sets carry a mock results dictionary keyed by Query name. When a data method is called with a Query whose name is in the dictionary, the stored object is returned and no connection is opened. Everything before that point runs as in production: parameter construction, method selection and the application's own logic.",
+    "context": "Application data classes depend on concrete ArgentSea collections, which are injected singletons built from configuration rather than interfaces. Without a seam, testing them would require a live database or a heavy mocking framework. This rationale is reconstructed from the code; the tutorials do not document the feature.",
+    "alternatives": [
+      {
+        "option": "Interfaces over every collection and connection for mocking frameworks.",
+        "whyRejected": "Not documented. It would widen the public surface considerably and complicate the nested generic object model."
+      },
+      {
+        "option": "Require integration tests against real databases.",
+        "whyRejected": "Slow, and needs infrastructure in every test environment."
+      }
+    ],
+    "consequences": "Application code can be unit-tested through the real call path with canned results. The returned object must already be the method's exact result type, for example a `List<TModel>` for a ReadAll call, since mocks bypass the Mapper and result handlers entirely. The mapping and SQL themselves are therefore not exercised. Confirm this as intended design and whether it should be documented."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "57-73",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "108-111",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "175-178",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e920962bb5ed4bb48ca7e0c3f0c54a0f",
+      "blobHash": null,
+      "label": "Mock results",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

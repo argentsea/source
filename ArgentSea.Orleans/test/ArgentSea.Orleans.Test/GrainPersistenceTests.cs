@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -104,6 +104,8 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-c2ef4184d570486badfa64db4d7fb152")]
+        [Trait("Spec", "blk-eb6de7f5b11048178738883cd96debaf")]
         public void TestDbGetParamsLambda()
         {
             var lmbaGetGrainId = OrleansExpressionHelper.BuildGrainIdFromDbModel<TestDbModel>(new DebugLogger());
@@ -116,14 +118,15 @@ namespace ArgentSea.Orleans.Test
             lmbaRead(span.Value, prms, new DebugLogger());
 
             prms.Count.Should().Be(4);
-            model1.Id1.Should().Be((Guid)prms["@ArgentSeaTestDataId1"].Value);
-            model1.Id2.Should().Be((long)prms["@ArgentSeaTestDataId2"].Value);
-            model1.Name1.Should().Be((string)prms["@ArgentSeaTestDataName1"].Value);
-            model1.Name2.Should().Be((string)prms["@ArgentSeaTestDataName2"].Value);
+            model1.Id1.Should().Be((Guid)prms["@ArgentSeaTestDataId1"].Value!);
+            model1.Id2.Should().Be((long)prms["@ArgentSeaTestDataId2"].Value!);
+            model1.Name1.Should().Be((string?)prms["@ArgentSeaTestDataName1"].Value);
+            model1.Name2.Should().Be((string?)prms["@ArgentSeaTestDataName2"].Value);
 
         }
 
         [Fact]
+        [Trait("Spec", "blk-c2ef4184d570486badfa64db4d7fb152")]
         public void TestDbCreateParamsLambda()
         {
             var lmbaGetGrainId = OrleansExpressionHelper.BuildGrainIdFromDbModel<TestDbModel>(new DebugLogger());
@@ -149,6 +152,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
         public void TestSetShardKeyLambda()
         {
             var shd = new ShardKey<int, short>(3, 123, 4321); // new ShardKey<int, short>('y', 1, 5678, 9876);
@@ -160,6 +164,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
         public void TestShardReadLambda()
         {
             var lmbaRead = OrleansExpressionHelper.BuildShardReadLambda<TestShardModel>("test", new DebugLogger());
@@ -175,7 +180,25 @@ namespace ArgentSea.Orleans.Test
             prms["@ChildRecordId"].Value.Should().Be(9876);
         }
 
+        // ArgentSeaShardGrainPersistence accepts a null logger, but the generated shard read lambda traced each property
+        // through LoggingExtensions.TraceMapperGrainPersistance, which dereferenced it, so shard grain reads crashed.
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
+        public void TestShardReadLambdaWithoutLogger()
+        {
+            var lmbaRead = OrleansExpressionHelper.BuildShardReadLambda<TestShardModel>("test-nologger", null);
+            var utf8Shard = new ShardKey<int, short>(1, 5678, 9876).ToUtf8();
+
+            var prms = new ParameterCollection();
+            var shardId = lmbaRead(utf8Shard, prms, null);
+
+            shardId.Should().Be(1);
+            prms["@ParentRecordId"].Value.Should().Be(5678);
+            prms["@ChildRecordId"].Value.Should().Be(9876);
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-db2db64747a04350a72d145f5014b3be")]
         public void TestShardWriteLambda()
         {
             var lmbaWrite = OrleansExpressionHelper.BuildShardWriteLambda<TestShardModel>("test", false);
@@ -190,6 +213,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-db2db64747a04350a72d145f5014b3be")]
         public void TestShardClearLambda()
         {
             var lmbaClear = OrleansExpressionHelper.BuildShardClearLambda<TestShardModel>("test", false, new DebugLogger());
@@ -219,6 +243,7 @@ namespace ArgentSea.Orleans.Test
 
 
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
         public void TestSetShardKeyLambdaNoRecordId()
         {
             var shd = new ShardKey<int, short>(3, 123, 4321); // new ShardKey<int, short>('y', 1, 5678, 9876);
@@ -230,6 +255,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
         public void TestShardReadLambdaNoRecordId()
         {
             var lmbaRead = OrleansExpressionHelper.BuildShardReadLambda<TestShardModel2>("test", new DebugLogger());
@@ -246,6 +272,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
         public void TestShardWriteLambdaNoRecordId()
         {
             var lmbaWrite = OrleansExpressionHelper.BuildShardWriteLambda<TestShardModel2>("test", false);
@@ -260,6 +287,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-2ea3cefb1d6848ceaca35a534a97ee20")]
         public void TestShardClearLambdaNoRecordId()
         {
             var lmbaClear = OrleansExpressionHelper.BuildShardClearLambda<TestShardModel2>("test", false, new DebugLogger());

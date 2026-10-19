@@ -1,0 +1,59 @@
+{
+  "id": "blk-9f5a07d6d9304446bd4e51fe2fd8f994",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Connection Settings",
+    "where": "an entry of the PgDbConnections configuration array declares PostgreSQL connection settings directly on the entry (alongside its DatabaseKey) rather than under ReadConnection or WriteConnection",
+    "trigger": "the configured databases resolve the connection strings of that entry's read and write endpoints",
+    "response": "apply the entry's own settings as the database level of the Configuration hierarchy for both endpoints, between the global settings and each endpoint's local settings",
+    "postcondition": "a database-level setting overrides the same global setting and is shared by the read and write endpoints unless an endpoint's local setting overrides it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "11-33",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "33-48",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "59-60",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

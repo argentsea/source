@@ -1,0 +1,42 @@
+{
+  "id": "blk-61f517296c924f84855ba218fba84336",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "data is the 2-byte span [0x07, 0x41] with position = 0 -- the length-and-flag byte 0x07 declares a 3-byte UTF-8 string (0x07 >> 1 == 3), but only 1 byte follows it instead of 3",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(string), out result) is called",
+      "then": "the method advances its internal cursor to 4 and reads the payload at offset 1 for length 3, which throws ArgumentOutOfRangeException because only 1 byte remains in the 2-byte span after the length-and-flag byte -- TryConvertFromBytes does not return false"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-39a425343a964aec833e2152fd208691"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "495-507",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

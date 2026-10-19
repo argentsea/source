@@ -1,0 +1,52 @@
+{
+  "id": "blk-bd54bc17c2364adab664d3cfcccf7373",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DataConnectionManager's connection has RetryCount 6 and no RetryLengthening or RetryInterval override, so GetRetryTimespan falls back to its default Lengthening progression (1, 3, 5, 7… × interval) with a 250 ms interval — the exact per-attempt durations this produces (250 ms for attempt 1, 750 ms for attempt 2) are established by the Connection Configuration Hierarchy's own GetRetryTimespan scenario — and the data provider classifies a particular DbException as transient.",
+      "when": "A command execution on that connection throws that DbException on its first two attempts and succeeds on the third.",
+      "then": "The manager retries twice, pausing 250 ms before the second attempt and 750 ms before the third, then returns the third attempt's result to the caller; the DbException never surfaces."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e6aa1648791e402f895375329e4173b0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "96-122",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-efd6ea6a5e1e47ae8bdbcd4e1ad96d09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

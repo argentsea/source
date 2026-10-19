@@ -9,7 +9,7 @@
     "inherits": []
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -85,6 +85,16 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "shard-set-fan-out",
+      "blobHash": null,
+      "label": "successor",
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }

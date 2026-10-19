@@ -1,0 +1,62 @@
+{
+  "id": "batch-execution",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Batch Execution",
+    "responsibility": "Runs an ordered list of steps on one connection inside one transaction the library manages, committing only once every step has succeeded and rolling the whole list back otherwise — so that work which must be atomic is not split across connections. It owns how a step is declared, how a step's result is carried forward to the next, and the three scopes a batch can run in: one database, one shard, or every shard of a set.",
+    "parent": "querying"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "19-47",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchStep.cs",
+        "lines": "14-17",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "14-576",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "14-96",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/ShardSetBatch.cs",
+        "lines": "14-94",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardBatch.cs",
+        "lines": "14-96",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

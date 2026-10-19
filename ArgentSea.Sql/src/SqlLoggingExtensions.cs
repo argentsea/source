@@ -17,10 +17,10 @@ namespace ArgentSea.Sql
 			MapperTvpTrace,
 		}
 
-		private static readonly Action<ILogger, Type, Exception> _sqlTvpCacheMiss;
-		private static readonly Action<ILogger, Type, Exception> _sqlTvpCacheHit;
-		private static readonly Action<ILogger, string, Exception> _sqlMapperTvpTrace;
-		private static readonly Func<ILogger, Type, IDisposable> _buildTvpExpressionsScope;
+		private static readonly Action<ILogger, Type, Exception?> _sqlTvpCacheMiss;
+		private static readonly Action<ILogger, Type, Exception?> _sqlTvpCacheHit;
+		private static readonly Action<ILogger, string, Exception?> _sqlMapperTvpTrace;
+		private static readonly Func<ILogger, Type, IDisposable?> _buildTvpExpressionsScope;
 
 		static SqlLoggingExtensions()
 		{
@@ -30,21 +30,30 @@ namespace ArgentSea.Sql
 			_buildTvpExpressionsScope = LoggerMessage.DefineScope<Type>("Building SqlMetadata convertion logic for model {type}");
 		}
 
-		public static void SqlTvpCacheMiss(this ILogger logger, Type modelT)
+		public static void SqlTvpCacheMiss(this ILogger? logger, Type modelT)
 		{
-			_sqlTvpCacheMiss(logger, modelT, null);
+			if (logger is not null)
+			{
+				_sqlTvpCacheMiss(logger, modelT, null);
+			}
 		}
-		public static void SqlTvpCacheHit(this ILogger logger, Type modelT)
+		public static void SqlTvpCacheHit(this ILogger? logger, Type modelT)
 		{
-			_sqlTvpCacheHit(logger, modelT, null);
+			if (logger is not null)
+			{
+				_sqlTvpCacheHit(logger, modelT, null);
+			}
 		}
-		public static void TraceTvpMapperProperty(this ILogger logger, string propertyName)
+		public static void TraceTvpMapperProperty(this ILogger? logger, string propertyName)
 		{
-			_sqlMapperTvpTrace(logger, propertyName, null);
+			if (logger is not null)
+			{
+				_sqlMapperTvpTrace(logger, propertyName, null);
+			}
 		}
-		public static IDisposable BuildTvpScope(this ILogger logger, Type model)
+		public static IDisposable? BuildTvpScope(this ILogger? logger, Type model)
 		{
-			return _buildTvpExpressionsScope(logger, model);
+			return logger is null ? null : _buildTvpExpressionsScope(logger, model);
 		}
 
 	}

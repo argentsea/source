@@ -1,0 +1,64 @@
+{
+  "id": "sql-server-service-registration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SQL Server Service Registration",
+    "responsibility": "Stands ArgentSea up in a host for SQL Server: binds the configuration sections to the SQL Server settings objects and registers, as injectable singletons, the collection of configured databases and the collection of configured shard sets — each already wired to the SqlClient provider services. These are the objects an application injects, and this is the single call that produces them.",
+    "parent": "sql-server-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "databases-collection"
+      },
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "shard-set-fan-out"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs",
+        "lines": "17-39",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDatabases.cs",
+        "lines": "12-22",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardSets.cs",
+        "lines": "14-24",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlQueryStatement.cs",
+        "lines": "17-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

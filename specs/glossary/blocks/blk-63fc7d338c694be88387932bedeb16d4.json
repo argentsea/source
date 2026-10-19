@@ -1,0 +1,42 @@
+{
+  "id": "blk-63fc7d338c694be88387932bedeb16d4",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "COPY load",
+    "definition": "PostgreSQL bulk loading in which ArgentSea streams a list of models into a table or temporary table with `COPY` through Npgsql's binary importer. The column definitions are derived from the models' mapping attributes. It runs as a batch step, so a following step can process the loaded rows in the same transaction.",
+    "synonyms": [
+      "CopyMapper",
+      "binary import",
+      "NpgsqlBinaryImporter"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/multirecord.md",
+        "lines": "26-44",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": null,
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

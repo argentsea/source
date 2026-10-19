@@ -1,0 +1,98 @@
+{
+  "id": "blk-48b74c836b7a45bca710fee937fe54c9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Model Mapping",
+    "where": "a model property of reference type carries the MapToModel attribute (which may be applied once, to properties only, and is not inherited by overriding properties) and no parameter mapping attribute",
+    "trigger": "the Mapper compiles that model type's input-parameter, output-parameter-declaration, output-parameter-read or data-reader delegate",
+    "response": "recurse into the nested model's own mapped properties and flatten them into the same parameter set or result row as the parent; and, for input-parameter creation, output-parameter reads and reader reads, assign a new instance of the property's type to the property when it is writable and currently null before accessing the nested properties",
+    "postcondition": "a nested model maps to the same parameters or columns as if its attributes were declared on the parent, to any depth; a MapToModel property whose type is a value type is skipped"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapToModel.cs",
+        "lines": "10-14",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "460-464",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "929-932",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1021-1026",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1486-1491",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "507-513",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7f7f704538bc4e6093dc1e4cf34c120a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-a5bc17a424e4439e948e48d92ce0d54f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

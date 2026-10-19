@@ -1,0 +1,52 @@
+{
+  "id": "blk-629607929c5841988c7876493d4971da",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A caller calls QueryStatement.Create(\"Foo\") while QueryStatement.Extension is \"sql\", then reassigns QueryStatement.Extension to \"psql\" before ever reading Value.",
+      "when": "The caller then evaluates Value on the returned Lazy<QueryStatement>.",
+      "then": "The statement text is read from the Foo.psql file, not Foo.sql, because Extension was read at Value-evaluation time."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-011fe139466b46c9827f96456d03994d"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "36-45,53-59",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

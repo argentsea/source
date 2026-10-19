@@ -5,8 +5,8 @@
   "fields": {
     "name": "PgShardSets construction surface",
     "kind": "Library",
-    "contract": "`PgShardSets` provides a constructible shard-set collection whose inherited collection operations are typed for `PgShardConnectionOptions` entries.",
-    "language": "text"
+    "language": "text",
+    "contract": "`PgShardSets` provides a constructible shard-set collection whose inherited collection operations are typed for `PgShardConnectionOptions` entries. In its constructor it supplies a new ArgentSea.Pg.DataProviderServiceFactory() together with the bound PgShardConnectionOptions and PgGlobalPropertiesOptions to the ShardSetsBase<PgShardConnectionOptions> base constructor. Like PgDatabases, it adds no members of its own beyond this constructor."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-sets",
+    "sectionId": "postgres-service-registration",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

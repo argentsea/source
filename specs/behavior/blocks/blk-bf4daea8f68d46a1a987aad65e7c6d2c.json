@@ -1,0 +1,42 @@
+{
+  "id": "blk-bf4daea8f68d46a1a987aad65e7c6d2c",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a caller constructs OrleansShardPersistenceOptions with its parameterless constructor and sets no properties",
+      "when": "the resulting instance's members are read",
+      "then": "ShardSetKey equals ProviderConstants.DEFAULT_STORAGE_PROVIDER_NAME, ValidateGrainKeys is true, Queries is an empty dictionary, and InitStage equals ServiceLifecycleStage.ApplicationServices"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-2e4e93bd74c445d8b24dcf451658f08b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "15-16,27,33,38,49",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

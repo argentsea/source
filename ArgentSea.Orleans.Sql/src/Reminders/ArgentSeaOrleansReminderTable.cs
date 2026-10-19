@@ -30,7 +30,7 @@ public class ArgentSeaOrleansReminderTable : IReminderTable
         this.logger = logger;
     }
 
-    public async Task<ReminderEntry> ReadRow(GrainId grainId, string reminderName)
+    public async Task<ReminderEntry?> ReadRow(GrainId grainId, string reminderName)
     {
         ArgumentNullException.ThrowIfNull(reminderName, nameof(reminderName));
 
@@ -52,11 +52,11 @@ public class ArgentSeaOrleansReminderTable : IReminderTable
         }
     }
 
-    private static ReminderEntry? ReadRowHandler(ReminderEntry? instance, short shardId, string sprocName, GrainId grainId, DbDataReader rdr, DbParameterCollection prms, string connectionDescription, ILogger logger)
+    private static ReminderEntry? ReadRowHandler(ReminderEntry? instance, short shardId, string sprocName, GrainId grainId, DbDataReader rdr, DbParameterCollection prms, string connectionDescription, ILogger? logger)
         => ReadRowHandlerObj(instance, shardId, sprocName, grainId, rdr, prms, connectionDescription, logger);
 
 
-    private static ReminderEntry? ReadRowHandlerObj(ReminderEntry? instance, short shardId, string sprocName, object? grainIdObj, DbDataReader rdr, DbParameterCollection prms, string connectionDescription, ILogger logger)
+    private static ReminderEntry? ReadRowHandlerObj(ReminderEntry? instance, short shardId, string sprocName, object? grainIdObj, DbDataReader rdr, DbParameterCollection prms, string connectionDescription, ILogger? logger)
     {
         if (grainIdObj is null)
         {
@@ -86,36 +86,40 @@ public class ArgentSeaOrleansReminderTable : IReminderTable
         };
     }
 
-    private static object ReadRowsHandler(object instance, short shardId, string sprocName, ConcurrentBag<ReminderEntry> bagEntries, DbDataReader rdr, DbParameterCollection prms, string connectionDescription, ILogger logger)
+    /// <summary>
+    /// Result handler for the multi-row reminder queries. The data connection invokes it once per query execution
+    /// (i.e. once per shard), so it must drain every row of the reader into the shared bag.
+    /// </summary>
+    internal static object ReadRowsHandler(object? instance, short shardId, string sprocName, ConcurrentBag<ReminderEntry> bagEntries, DbDataReader rdr, DbParameterCollection prms, string connectionDescription, ILogger? logger)
     {
-        if (bagEntries is null)
-        {
-            throw new ArgumentNullException(nameof(bagEntries));
-        }
+        ArgumentNullException.ThrowIfNull(bagEntries);
 
         if (!rdr.HasRows || rdr.IsClosed)
         {
             return null!;
         }
 
-        if (!rdr.Read() || rdr.IsDBNull(1))
+        while (rdr.Read())
         {
-            return null!;
+            if (rdr.IsDBNull(1))
+            {
+                continue;
+            }
+
+            var gType = new GrainType(UTF8Encoding.UTF8.GetBytes((string)rdr[1]));
+            var buffer = new byte[1023];
+            var bytesRead = rdr.GetBytes(0, 0L, buffer, 0, 1023);
+            var grainKey = new IdSpan(new ReadOnlySpan<byte>(buffer).Slice(0, (int)bytesRead).ToArray());
+
+            bagEntries.Add(new ReminderEntry()
+            {
+                GrainId = new GrainId(gType, grainKey),
+                ReminderName = rdr.GetString(2),
+                StartAt = rdr.GetDateTime(3),
+                Period = new TimeSpan(rdr.GetInt64(4)),
+                ETag = rdr.GetInt32(5).ToString(CultureInfo.InvariantCulture),
+            });
         }
-
-        var gType = new GrainType(UTF8Encoding.UTF8.GetBytes((string)rdr[1]));
-        var buffer = new byte[1023];
-        var bytesRead = rdr.GetBytes(0, 0L, buffer, 0, 1023);
-        var grainKey = new IdSpan(new ReadOnlySpan<byte>(buffer).Slice(0, (int)bytesRead).ToArray());
-
-        bagEntries.Add(new ReminderEntry()
-        {
-            GrainId = new GrainId(gType, grainKey),
-            ReminderName = rdr.GetString(2),
-            StartAt = rdr.GetDateTime(3),
-            Period = new TimeSpan(rdr.GetInt64(4)),
-            ETag = rdr.GetInt32(5).ToString(CultureInfo.InvariantCulture),
-        });
         return null!;
     }
 
@@ -164,7 +168,6 @@ public class ArgentSeaOrleansReminderTable : IReminderTable
     {
         ArgumentNullException.ThrowIfNull(reminderName, nameof(reminderName));
 
-        var aGrainId = StringExtensions.Decode(grainId.Key.Value.Span);
         var prms = new ParameterCollection()
             .AddSqlVarBinaryInputParameter("@GrainKey", grainId.Key.Value.ToArray(), 1023)
             .AddSqlNVarCharInputParameter("@GrainType", grainId.Type.ToString(), 1023)
@@ -190,14 +193,13 @@ public class ArgentSeaOrleansReminderTable : IReminderTable
         return Task.CompletedTask;
     }
 
-    public async Task<string> UpsertRow(ReminderEntry entry)
+    public async Task<string?> UpsertRow(ReminderEntry entry)
     {
         ArgumentNullException.ThrowIfNull(entry, nameof(entry));
 
         //var shd = ShardKey<Guid>.FromUtf8(entry.GrainId.Key.AsSpan());
         int? etag = entry.ETag is not null ? int.Parse(entry.ETag, CultureInfo.InvariantCulture) : null;
 
-        var aGrainId = StringExtensions.Decode(entry.GrainId.Key.Value.Span);
         var shardId = entry.GrainId.ShardId();
         var prms = new ParameterCollection()
             .AddSqlVarBinaryInputParameter("@GrainKey", entry.GrainId.Key.Value.ToArray(), 1023)

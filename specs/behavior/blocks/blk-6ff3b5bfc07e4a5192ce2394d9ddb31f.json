@@ -1,0 +1,52 @@
+{
+  "id": "blk-6ff3b5bfc07e4a5192ce2394d9ddb31f",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "a mapped virtual-compound-key element's declared CLR data type does not satisfy its parameter-map attribute's IsValidType check",
+    "trigger": "ExpressionHelpers builds that element's parameter expression inside ShardKeyInMapProperties",
+    "response": "throw InvalidMapTypeException naming the property, the attribute's configured SQL type and SQL type name, instead of emitting a parameter expression for that element"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "711-820",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

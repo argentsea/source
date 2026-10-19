@@ -19,7 +19,7 @@ namespace ArgentSea
             ParameterName = null;
             ParameterValue = null;
         }
-        public ShardParameterValue(short shardId, string parameterName, object parameterValue)
+        public ShardParameterValue(short shardId, string? parameterName, object? parameterValue)
         {
             ShardId = shardId;
             ParameterName = parameterName;
@@ -28,8 +28,8 @@ namespace ArgentSea
 
         public short ShardId { get; set; }
 
-        public string ParameterName { get; set; }
+        public string? ParameterName { get; set; }
 
-        public object ParameterValue { get; set; }
+        public object? ParameterValue { get; set; }
     }
 }

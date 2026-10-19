@@ -1,0 +1,33 @@
+{
+  "id": "blk-a8f95790014d4e30a5b095f38dc8cafb",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "LoggingExtensions.TraceMapperPropertyEvents",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The per-property mapping trace family: TraceInMapperProperty, TraceSetOutMapperProperty, TraceGetOutMapperProperty, TraceRdrMapperProperty, each taking (this ILogger logger, string propertyName) and logging at Trace level under event id MapperProcessTrace (5), naming the property the Mapper's compiled delegate is currently processing. The variation dimension is mapping direction: In (building an input parameter), SetOut (declaring an output parameter), GetOut (reading an output parameter back), Rdr (reading a data-reader field). This direction vocabulary (In/SetOut/GetOut/Rdr) does not match the ReadOut spelling used by the sibling MappingCacheEvents family for what is otherwise the same read-output-parameter direction — the two families name the same concept differently."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "93-96,169-179",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

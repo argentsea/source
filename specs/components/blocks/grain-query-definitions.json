@@ -1,0 +1,38 @@
+{
+  "id": "grain-query-definitions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Grain Query Definitions",
+    "responsibility": "Registers, per grain type, which query reads that grain's state, which writes it and which clears it, and whether each returns its result as output parameters or as a result set — accepting either a stored procedure or a lazily loaded statement file for any of the three independently. It refuses at the point of use, rather than silently doing nothing, when a grain type is persisted but one of its three queries was never supplied.",
+    "parent": "orleans-grain-storage-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "16-292",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansQueryNotProvidedException.cs",
+        "lines": "11-40",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

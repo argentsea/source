@@ -40,13 +40,13 @@ namespace ArgentSea
         {
         }
 
-        public MapAttributeMissingException(ShardElement element, string attributeName)
+        public MapAttributeMissingException(ShardElement element, string? attributeName)
             : base(MakeMessage(element, attributeName))
         {
             this.Element = element;
             this.AttributeName = attributeName;
         }
-        private static string MakeMessage(ShardElement element, string attributeName)
+        private static string MakeMessage(ShardElement element, string? attributeName)
         {
             switch (element)
             {
@@ -62,6 +62,6 @@ namespace ArgentSea
         }
         public ShardElement Element { get; }
 
-        public string AttributeName { get; }
+        public string? AttributeName { get; }
     }
 }

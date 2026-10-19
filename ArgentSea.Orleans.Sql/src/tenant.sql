@@ -46,7 +46,8 @@ BEGIN;
 		Version int NOT NULL,
 		CONSTRAINT PK_OrleansReminder PRIMARY KEY (ReminderId),
 		INDEX UIX_OrleansReminder_GrainKey_GrainType_ReminderName UNIQUE (GrainKey, GrainType, ReminderName) INCLUDE (StartTime, Period, Version),
-		INDEX UIX_OrleansReminder_GrainKey_GrainType_Version UNIQUE (GrainKey, GrainType, Version) INCLUDE (ReminderName, StartTime, Period),
+		-- Note: no unique index over (GrainKey, GrainType, Version). Version is a per-row concurrency counter and every new
+		-- reminder starts at 0, so such an index would allow only one reminder per grain.
 		INDEX IX_OrleansReminder_GrainHash NONCLUSTERED COLUMNSTORE (GrainHash)
 	);
 END;
@@ -182,7 +183,7 @@ CREATE OR ALTER PROCEDURE wtr.OrleansReminderUpsertRowKeyV1 (
 	@ReminderName nvarchar(150),
 	@StartTime datetime2,
 	@Period bigint, 
-	@GrainHash int,
+	@GrainHash bigint,
     @OldVersion int,
     @NewVersion int OUTPUT
 ) AS
@@ -200,7 +201,8 @@ BEGIN
     BEGIN;
         THROW 51000, 'Concurrenty error', 1
     END;
-    SET @NewVersion = @OldVersion + 1;
+    -- A new reminder (no stored row, so no old version) starts at version 0 and reports it.
+    SET @NewVersion = ISNULL(@OldVersion, -1) + 1;
 
 	UPDATE dbo.OrleansReminder
 	SET
@@ -230,7 +232,7 @@ BEGIN
 		@StartTime,
 		@Period,
 		@GrainHash,
-		0
+		@NewVersion
 	WHERE
 		@@ROWCOUNT=0;
 	COMMIT TRANSACTION;

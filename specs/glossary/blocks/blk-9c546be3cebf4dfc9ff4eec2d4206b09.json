@@ -4,8 +4,9 @@
   "type": "Term",
   "fields": {
     "name": "External key",
-    "definition": "A URL-safe, tamper-resistant serialized representation of a virtual compound key for use outside the application boundary.",
+    "definition": "The URL-safe string form of a shard key, produced by `ToExternalString()` and reversed by `FromExternalString()`. It is used to carry a sharded record identity as a single value across REST routes, JSON payloads and similar boundaries. The string is obfuscated and carries a short checksum, so accidental alteration or casual tampering is detected on parsing. It is not encryption or a signature and must not be relied on for authorization.",
     "synonyms": [
+      "external string",
       "external identifier"
     ]
   },

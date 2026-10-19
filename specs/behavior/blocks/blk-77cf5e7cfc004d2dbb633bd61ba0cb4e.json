@@ -1,0 +1,52 @@
+{
+  "id": "blk-77cf5e7cfc004d2dbb633bd61ba0cb4e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardsValues \"target\" has shard identifier 4 mapped to {\"region\": \"west\"}, and a second ShardsValues \"source\" has shard identifier 4 mapped to {\"limit\": 10}.",
+      "when": "target.Merge(source) is called.",
+      "then": "The call completes without throwing, and target.Shards[4] holds both \"region\": \"west\" and \"limit\": 10."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-fed86efc1a7f46bd89399fa68aff6d01"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "146-181",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-c5d7812becb44134bbe4b5066eca86f0",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -22,7 +22,7 @@ namespace ArgentSea.Sql
     {
         private static ConcurrentDictionary<Type, Lazy<Delegate>> _setTvpParamCache = new ConcurrentDictionary<Type, Lazy<Delegate>>();
 
-        private static Func<TModel, IList<string>, ILogger, SqlDataRecord> BuildTableValuedParameterDelegate<TModel>(ILogger logger)
+        private static Func<TModel, IList<string>?, ILogger?, SqlDataRecord> BuildTableValuedParameterDelegate<TModel>(ILogger? logger)
         {
             var tModel = typeof(TModel);
             var resultExpressions = new List<Expression>();
@@ -35,7 +35,7 @@ namespace ArgentSea.Sql
             ParameterExpression prmColumnList = Expression.Parameter(typeof(IList<string>), "columnList");
             var exprInPrms = new ParameterExpression[] { prmModel, prmColumnList, expLogger };
 
-            ConstructorInfo ctorSqlDataRecord = typeof(SqlDataRecord).GetConstructor(new[] { typeof(SqlMetaData[]) });
+            ConstructorInfo ctorSqlDataRecord = typeof(SqlDataRecord).GetConstructor(new[] { typeof(SqlMetaData[]) })!;
             var expRecord = Expression.Variable(typeof(SqlDataRecord), "result");
             var noDupPrmNameList = new HashSet<string>();
             var ordinal = 0;
@@ -45,7 +45,7 @@ namespace ArgentSea.Sql
             {
                 IterateTvpProperties(tModel, resultExpressions, setExpressions, sqlMetaTypeExpressions, variables, prmModel, expRecord, prmColumnList, expLogger, noDupPrmNameList, ref ordinal, logger);
                 var expNewMetaArray = Expression.NewArrayInit(typeof(SqlMetaData), sqlMetaTypeExpressions.ToArray());
-                var expGetDataRecordFields = Expression.Call(typeof(TvpMapper).GetMethod(nameof(TvpMapper.GetDataRecordFields), BindingFlags.NonPublic | BindingFlags.Static), expNewMetaArray, prmColumnList);
+                var expGetDataRecordFields = Expression.Call(typeof(TvpMapper).GetMethod(nameof(TvpMapper.GetDataRecordFields), BindingFlags.NonPublic | BindingFlags.Static)!, expNewMetaArray, prmColumnList);
                 var expNewSqlRecord = Expression.New(ctorSqlDataRecord, expGetDataRecordFields);
                 var expAssign = Expression.Assign(expRecord, expNewSqlRecord);
                 resultExpressions.Add(expAssign);
@@ -56,14 +56,14 @@ namespace ArgentSea.Sql
 			}
             var expBlock = Expression.Block(variables, resultExpressions);
             logger?.CreatedExpressionTreeForModel(tModel, "SqlDataRecord", expBlock);
-            var lambda = Expression.Lambda<Func<TModel, IList<string>, ILogger, SqlDataRecord>>(expBlock, exprInPrms);
+            var lambda = Expression.Lambda<Func<TModel, IList<string>?, ILogger?, SqlDataRecord>>(expBlock, exprInPrms);
             return lambda.Compile();
         }
-        private static void IterateTvpProperties(Type tModel, List<Expression> resultExpressions, List<Expression> setExpressions, List<NewExpression> sqlMetaTypeExpressions, List<ParameterExpression> variables, Expression prmModel, ParameterExpression expRecord, ParameterExpression prmColumnList, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, ref int ordinal, ILogger logger)
+        private static void IterateTvpProperties(Type tModel, List<Expression> resultExpressions, List<Expression> setExpressions, List<NewExpression> sqlMetaTypeExpressions, List<ParameterExpression> variables, Expression prmModel, ParameterExpression expRecord, ParameterExpression prmColumnList, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, ref int ordinal, ILogger? logger)
         {
             var unorderedProps = tModel.GetProperties();
             var props = unorderedProps.OrderBy(prop => prop.MetadataToken);
-            var miLogTrace = typeof(SqlLoggingExtensions).GetMethod(nameof(SqlLoggingExtensions.TraceTvpMapperProperty));
+            var miLogTrace = typeof(SqlLoggingExtensions).GetMethod(nameof(SqlLoggingExtensions.TraceTvpMapperProperty))!;
             foreach (var prop in props)
             {
                 MemberExpression expProperty = Expression.Property(prmModel, prop);
@@ -71,7 +71,7 @@ namespace ArgentSea.Sql
                 Type propType = prop.PropertyType;
                 var shdAttr = ExpressionHelpers.GetMapShardKeyAttribute(prop, propType, out var isNullable, out var isShardKey, out var isShardChild, out var isShardGrandChild, out var isShardGreatGrandChild);
 
-                if (!(shdAttr is null) && (isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+                if (shdAttr is not null && (isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
                 {
                     var foundRecordId = false;
                     var foundChildId = false;
@@ -82,18 +82,18 @@ namespace ArgentSea.Sql
                     Expression expDetectNullOrEmpty;
                     if (isNullable)
                     {
-                        expProperty = Expression.Property(expProperty, propType.GetProperty(nameof(Nullable<int>.Value)));
-                        propType = Nullable.GetUnderlyingType(propType);
-                        expDetectNullOrEmpty = Expression.Property(expOriginalProperty, prop.PropertyType.GetProperty(nameof(Nullable<int>.HasValue)));
+                        expProperty = Expression.Property(expProperty, propType.GetProperty(nameof(Nullable<int>.Value))!);
+                        propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
+                        expDetectNullOrEmpty = Expression.Property(expOriginalProperty, prop.PropertyType.GetProperty(nameof(Nullable<int>.HasValue))!);
                     }
                     else
                     {
-                        expDetectNullOrEmpty = Expression.NotEqual(expOriginalProperty, Expression.Property(null, propType.GetProperty(nameof(ShardKey<int>.Empty))));
+                        expDetectNullOrEmpty = Expression.NotEqual(expOriginalProperty, Expression.Property(null, propType.GetProperty(nameof(ShardKey<int>.Empty))!));
                     }
 
-                    if (!(shdAttr.ShardParameter is null))
+                    if (shdAttr.ShardParameter is not null)
                     {
-                        var expShardProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.ShardId)));
+                        var expShardProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.ShardId))!);
                         ParameterExpression expNullableShardId = Expression.Variable(typeof(Nullable<>).MakeGenericType(typeof(short)), prop.Name + "_NullableShardId");
                         variables.Add(expNullableShardId);
                         setExpressions.Add(Expression.IfThenElse(
@@ -101,7 +101,7 @@ namespace ArgentSea.Sql
                             Expression.Assign(expNullableShardId, Expression.Convert(expShardProperty, expNullableShardId.Type)),
                             Expression.Assign(expNullableShardId, Expression.Constant(null, expNullableShardId.Type))
                             ));
-                        var srtPrm = new MapToSqlSmallIntAttribute(shdAttr.ShardIdName);
+                        var srtPrm = new MapToSqlSmallIntAttribute(shdAttr.ShardIdName!); // ShardIdName is the ShardParameter column name, so it is set whenever ShardParameter is
                         srtPrm.AppendTvpExpressions(expRecord, expNullableShardId, setExpressions, sqlMetaTypeExpressions, noDupPrmNameList, ref ordinal, expNullableShardId.Type, prmColumnList, expLogger, logger);
                         ordinal++;
                     }
@@ -116,7 +116,7 @@ namespace ArgentSea.Sql
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType, attrPM.SqlTypeName);
                             }
-                            var expRecordProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.RecordId)));
+                            var expRecordProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.RecordId))!);
                             ParameterExpression expNullableRecordId;
                             if (tDataRecordId.IsValueType)
                             {
@@ -143,7 +143,7 @@ namespace ArgentSea.Sql
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType, attrPM.SqlTypeName);
                             }
-                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int>.ChildId)));
+                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int>.ChildId))!);
                             ParameterExpression expNullableChildId;
                             if (tDataId.IsValueType)
                             {
@@ -170,7 +170,7 @@ namespace ArgentSea.Sql
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType, attrPM.SqlTypeName);
                             }
-                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int, int>.GrandChildId)));
+                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int, int>.GrandChildId))!);
                             ParameterExpression expNullableChildId;
                             if (tDataId.IsValueType)
                             {
@@ -197,7 +197,7 @@ namespace ArgentSea.Sql
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType, attrPM.SqlTypeName);
                             }
-                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int, int>.GreatGrandChildId)));
+                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int, int>.GreatGrandChildId))!);
                             ParameterExpression expNullableChildId;
                             if (tDataId.IsValueType)
                             {
@@ -251,9 +251,14 @@ namespace ArgentSea.Sql
                         {
                             throw new ArgentSea.InvalidMapTypeException(prop, attrPM.SqlType, attrPM.SqlTypeName);
                         }
+                        var columnsBefore = sqlMetaTypeExpressions.Count;
                         attrPM.AppendTvpExpressions(expRecord, expProperty, setExpressions, sqlMetaTypeExpressions, noDupPrmNameList, ref ordinal, prop.PropertyType, prmColumnList, expLogger, logger);
+                        if (sqlMetaTypeExpressions.Count > columnsBefore)
+                        {
+                            // A duplicate normalized column name contributes no column, so the ordinal must not advance past the record's end.
+                            ordinal++;
+                        }
                     }
-                    ordinal++;
                 }
                 else if (prop.IsDefined(typeof(MapToModel)) && !prop.PropertyType.IsValueType)
                 {
@@ -274,7 +279,7 @@ namespace ArgentSea.Sql
         /// <param name="model">An object model instance. The property values are provided as table row values.</param>
         /// <param name="logger"></param>
         /// <returns>A SqlMetaData object. A list of these can be used as a Sql table-valued parameter.</returns>
-        public static SqlDataRecord ToTvpRecord<TModel>(TModel model, ILogger logger)
+        public static SqlDataRecord ToTvpRecord<TModel>(TModel model, ILogger? logger)
             => ToTvpRecord<TModel>(model, null, logger);
 
         /// <summary>
@@ -287,7 +292,7 @@ namespace ArgentSea.Sql
         /// <param name="logger"></param>
         /// <returns>A SqlMetaData object. A list of these can be used as a Sql table-valued parameter.</returns>
         /// <summary>
-        public static SqlDataRecord ToTvpRecord<TModel>(TModel model, IList<string> columnList, ILogger logger)
+        public static SqlDataRecord ToTvpRecord<TModel>(TModel model, IList<string>? columnList, ILogger? logger)
         {
             var tModel = typeof(TModel);
 
@@ -300,7 +305,7 @@ namespace ArgentSea.Sql
             {
                 SqlLoggingExtensions.SqlTvpCacheMiss(logger, tModel);
             }
-            return ((Func<TModel, IList<string>, ILogger, SqlDataRecord>)lazyTvpParameters.Value)(model, columnList, logger);
+            return ((Func<TModel, IList<string>?, ILogger?, SqlDataRecord>)lazyTvpParameters.Value)(model, columnList, logger);
         }
         private static SqlMetaData[] GetDataRecordFields(SqlMetaData[] metadataColumns, IList<string> columnList)
         {

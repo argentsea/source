@@ -1,0 +1,38 @@
+{
+  "id": "shard-targeting-values",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Shard Targeting Values",
+    "responsibility": "Names which shards of a set a fan-out query should reach and carries the parameter value each named shard contributes, so that one query can visit a deliberately chosen subset instead of the whole set. It also derives such a target list from a collection of record identities, which is how a caller asks only the shards that actually hold the records it cares about.",
+    "parent": "sharding"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "8-433",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardParameterValue.cs",
+        "lines": "14-34",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

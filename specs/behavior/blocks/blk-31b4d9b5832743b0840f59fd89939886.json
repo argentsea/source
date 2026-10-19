@@ -4,9 +4,9 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "A PgShardConnectionOptions instance has PgShardSets set to an array containing two PgShardConnectionsConfiguration entries.",
+      "given": "A PgShardConnectionOptions instance has PgShardSets set to an array containing two PgShardConnectionsConfiguration entries named \"Inherit\" and \"Explicit\", in that order.",
       "when": "A consumer reads ShardSetsConfigInternal through IShardSetsConfigurationOptions.",
-      "then": "The returned IShardSetConnectionsConfiguration[] view contains those two configured shard-set entries."
+      "then": "The returned IShardSetConnectionsConfiguration[] view is the PgShardSets array and contains the two configured entries, \"Inherit\" then \"Explicit\"."
     },
     "illustrates": [
       {
@@ -26,14 +26,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
-        "lines": "13-17",
+        "lines": "13-16",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/configurationsettings.json",
+        "lines": "24-46",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

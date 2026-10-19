@@ -1,0 +1,102 @@
+{
+  "id": "blk-5cddfb6eede14ab7a93540bca81a1393",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DataConnectionConfigurationBase instance's Password property currently holds the value \"OldP@ss1\".",
+      "when": "The caller assigns Password the different value \"NewP@ss2\".",
+      "then": "The setter's value-changed check passes, Password is updated, the instance raises PropertyChanged with PropertyChangedEventArgs.PropertyName equal to \"Password\", and a Data connection holding this configuration level recomputes its resolved connection settings rather than reusing the ones resolved before the change."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-d408f46971a040e292e8898732234253"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "82-93",
+        "label": null
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "glossary",
+        "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+        "blobHash": null,
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "27-38",
+        "label": "Postgres connection subscribes to its own PropertyChanged; the handler clears the cached connection string and description",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "298-347",
+        "label": "Postgres connection subscribes to the ambient layers' PropertyChanged",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "262-296",
+        "label": "Postgres connection string is rebuilt when the cache is empty",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "27-38",
+        "label": "SQL Server connection subscribes to its own PropertyChanged; the handler clears the cached connection string and description",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "187-236",
+        "label": "SQL Server connection subscribes to the ambient layers' PropertyChanged",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "150-185",
+        "label": "SQL Server connection string is rebuilt when the cache is empty",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-d408f46971a040e292e8898732234253",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -5,7 +5,7 @@
   "fields": {
     "gwt": {
       "given": "a selected connection endpoint with connection string \"Host=db;Database=app\"",
-      "when": "PostgreSqlProvider.DataProviderServiceFactory creates a connection",
+      "when": "ArgentSea.Pg.DataProviderServiceFactory creates a connection",
       "then": "the result is a new PostgreSQL connection whose connection string is \"Host=db;Database=app\""
     },
     "illustrates": [
@@ -33,7 +33,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-data-provider-service-factory",
+    "sectionId": "postgres-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

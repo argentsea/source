@@ -1,0 +1,42 @@
+{
+  "id": "blk-ecc0184f17d84298bb1f7d7359c0c6b0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property carries MapToPgNumericAttribute(\"Amount\", 18, 4)",
+      "when": "a COPY load reads that variant's ColumnDefinition",
+      "then": "it returns \"\\\"Amount\\\" numeric(18, 4)\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-41a9bebdf55c44f9a0932b450373d38b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "448-457,482-485",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

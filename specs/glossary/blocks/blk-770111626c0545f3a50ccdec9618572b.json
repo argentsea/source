@@ -1,0 +1,40 @@
+{
+  "id": "blk-770111626c0545f3a50ccdec9618572b",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard-set write",
+    "definition": "The fan-out form (`ShardSet.Write`) that runs a command or shard-set batch on the write connection of every targeted shard, for changes that must be applied across the set. Writes addressed to one record belong on that record's shard (or the default shard) instead.",
+    "synonyms": [
+      "ShardSetWrite"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "535-667",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "27-37",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

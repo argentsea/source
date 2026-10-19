@@ -1,0 +1,32 @@
+{
+  "id": "orleans-sql-server-package",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans SQL Server Package",
+    "responsibility": "Holds the SQL Server-backed implementations of the Orleans runtime's own storage contracts — cluster membership and gateway list, reminder rows, and grain-storage hosting — together with the stored procedures behind them. They belong together because each stores a piece of Orleans runtime state through an ArgentSea SQL Server databases collection or shard set, and each is published to a silo or client builder the same way.",
+    "parent": "argent-sea"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-37",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -6,7 +6,7 @@
     "gwt": {
       "given": "A DbParameterCollection has no parameters and a query contract needs a Float input named \"score\" with value NaN.",
       "when": "A caller invokes SqlParameterCollectionExtensions.AddSqlFloatInputParameter(collection, \"score\", double.NaN).",
-      "then": "The same collection contains one Input Float parameter named \"@score\" whose value is DBNull."
+      "then": "The same collection contains one Input Float parameter named \"@score\" whose value is DBNull. This is by design: for the non-nullable double overload NaN is the database-null sentinel, mirroring GetDouble returning NaN for a database null; a caller that must send NaN uses the double? overload."
     },
     "illustrates": [
       {
@@ -27,14 +27,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "20-27,407-415",
+        "lines": "22-29,411-420",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

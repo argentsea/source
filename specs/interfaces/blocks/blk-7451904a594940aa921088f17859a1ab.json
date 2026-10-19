@@ -6,10 +6,10 @@
     "name": "PgParameterCollectionExtensions typed PostgreSQL parameter library",
     "kind": "Library",
     "language": "csharp",
-    "contract": "PgParameterCollectionExtensions extends a DbParameterCollection with the AddPg*Parameter family. For a Query contract, every member appends exactly one parameter for its named PostgreSQL type and returns the same collection. The family varies by PostgreSQL type (Varchar, Char, Text; Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real; Timestamp, TimestampTz, Date, Time, Interval, TimeTz; Array, Bytea, Hstore, Uuid), direction (Input or Output), nullable/reference value support, and only where applicable size, precision, scale, or an Array element type."
+    "contract": "PgParameterCollectionExtensions extends a DbParameterCollection with the AddPg*Parameter family. For a Query contract, every member appends exactly one parameter for its named PostgreSQL type and returns the same collection. The family varies by PostgreSQL type (Varchar, Char, Text; Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real; Timestamp, TimestampTz, Date, Time, Interval, TimeTz; Array, Bytea, Hstore, Uuid), direction (Input or Output), nullable/reference value support, and only where applicable size, precision, scale, or an Array element type. Every one of the 22 types has exactly one Output overload (22 Output overloads total). Input overload count varies by type: Varchar, Char, Text, Array, and Hstore have exactly one Input overload each. Bytea has exactly two Input overloads, both accepting a non-nullable byte[] value — one with an explicit buffer length argument and one without — not a nullable/reference pair. The remaining fifteen types (Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real, Timestamp, TimestampTz, Date, Time, Interval, Uuid) have exactly two Input overloads each — a non-nullable value overload and a nullable/reference-accepting overload. TimeTz uniquely has four Input overloads, accepting TimeSpan, DateTimeOffset, TimeSpan?, and DateTimeOffset?. The family totals 63 overloads: 22 Output plus 41 Input."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "19-1356",
+        "lines": "19-1364",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameter-collection-extensions",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -37,6 +37,15 @@
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-74ecb3a1d19b4c219c04ada1f2b352ff",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

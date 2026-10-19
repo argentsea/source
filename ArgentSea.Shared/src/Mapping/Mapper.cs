@@ -24,11 +24,20 @@ namespace ArgentSea
     /// </summary>
 	public static class Mapper
 	{
+        // Reflection lookups of members named with nameof (and of known constructors) cannot return null, hence the ! on
+        // those GetMethod/GetProperty/GetConstructor results.
         private static readonly ConcurrentDictionary<Type, Lazy<Delegate>> _cacheInParamSet = new ConcurrentDictionary<Type, Lazy<Delegate>>();
-        private static readonly ConcurrentDictionary<Type, Lazy<Action<DbParameterCollection, HashSet<string>, ILogger>>> _cacheOutParamSet = new ConcurrentDictionary<Type, Lazy<Action<DbParameterCollection, HashSet<string>, ILogger>>>();
+        private static readonly ConcurrentDictionary<Type, Lazy<Action<DbParameterCollection, HashSet<string>, ILogger?>>> _cacheOutParamSet = new ConcurrentDictionary<Type, Lazy<Action<DbParameterCollection, HashSet<string>, ILogger?>>>();
         private static readonly ConcurrentDictionary<Type, Lazy<(Delegate RowData, Delegate Ordinals)>> _getRdrMapCache = new ConcurrentDictionary<Type, Lazy<(Delegate, Delegate)>>();
         private static readonly ConcurrentDictionary<Type, Lazy<Delegate>> _getOutParamReadCache = new ConcurrentDictionary<Type, Lazy<Delegate>>();
         private static readonly ConcurrentDictionary<string, Lazy<Delegate>> _getOutObjectCache = new ConcurrentDictionary<string, Lazy<Delegate>>();
+        /// <summary>
+        /// The cache key for a compiled result-set delegate: the model type, every reader-result type argument (so two arities
+        /// of the same model and query do not share a delegate of the wrong shape) and the query name.
+        /// </summary>
+        private static string ResultsCacheKey(string sprocName, params Type[] types)
+            => string.Join("|", types.Select(t => t.FullName)) + "|" + sprocName;
+
         private static readonly ConcurrentDictionary<string, Lazy<Delegate>> _getRstObjectCache = new ConcurrentDictionary<string, Lazy<Delegate>>();
         private static readonly ConcurrentDictionary<Type, (PropertyInfo Property, Type ElementType)[]> _collectionMapPropertiesCache = new ConcurrentDictionary<Type, (PropertyInfo, Type)[]>();
         private static readonly ConcurrentDictionary<Type, Lazy<Delegate>> _collectionHydrationCache = new ConcurrentDictionary<Type, Lazy<Delegate>>();
@@ -51,7 +60,7 @@ namespace ArgentSea
         /// <param name="model">An object model instance. The property values are use as parameter values.</param>
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static DbParameterCollection CreateInputParameters<TModel>(this DbParameterCollection parameters, TModel model, ILogger logger)
+        public static DbParameterCollection CreateInputParameters<TModel>(this DbParameterCollection parameters, TModel model, ILogger? logger)
             => CreateInputParameters<TModel>(parameters, model, null, logger);
 
         /// <summary>
@@ -63,7 +72,7 @@ namespace ArgentSea
         /// <param name="ignoreParameters">A lists of parameter names that should not be created. Each entry must exactly match the parameter name, including prefix and casing.</param>
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static DbParameterCollection CreateInputParameters<TModel>(this DbParameterCollection parameters, TModel model, HashSet<string> ignoreParameters, ILogger logger)
+        public static DbParameterCollection CreateInputParameters<TModel>(this DbParameterCollection parameters, TModel model, HashSet<string>? ignoreParameters, ILogger? logger)
         {
             if (ignoreParameters is null)
 			{
@@ -87,7 +96,7 @@ namespace ArgentSea
 					ignoreParameters.Add(prm.ParameterName);
 				}
 			}
-            ((Action<DbParameterCollection, HashSet<string>, ILogger, TModel>)lazySqlParameterDelegate.Value)(parameters, ignoreParameters, logger, model);
+            ((Action<DbParameterCollection, HashSet<string>, ILogger?, TModel>)lazySqlParameterDelegate.Value)(parameters, ignoreParameters, logger, model);
 			return parameters;
 		}
         #endregion
@@ -101,7 +110,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>The DbParameterCollection, enabling a fluent API.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static DbParameterCollection CreateOutputParameters<TModel>(this DbParameterCollection parameters, ILogger logger) 
+        public static DbParameterCollection CreateOutputParameters<TModel>(this DbParameterCollection parameters, ILogger? logger) 
             => CreateOutputParameters(parameters, typeof(TModel), null, logger);
 
         /// <summary>
@@ -111,7 +120,7 @@ namespace ArgentSea
         /// <param name="tModel">The type of the object. The "MapTo" attributes are used to create the Sql parameter types.</param>
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>The DbParameterCollection, enabling a fluent API.</returns>
-        public static DbParameterCollection CreateOutputParameters(this DbParameterCollection parameters, Type tModel, ILogger logger)
+        public static DbParameterCollection CreateOutputParameters(this DbParameterCollection parameters, Type tModel, ILogger? logger)
             => CreateOutputParameters(parameters, tModel, null, logger);
 
 
@@ -123,7 +132,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>The DbParameterCollection, enabling a fluent API.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static DbParameterCollection CreateOutputParameters<TModel>(this DbParameterCollection parameters, HashSet<string> ignoreParameters, ILogger logger)
+        public static DbParameterCollection CreateOutputParameters<TModel>(this DbParameterCollection parameters, HashSet<string>? ignoreParameters, ILogger? logger)
             => CreateOutputParameters(parameters, typeof(TModel), ignoreParameters, logger);
 
         /// <summary>
@@ -135,7 +144,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>The DbParameterCollection, enabling a fluent API.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static DbParameterCollection CreateOutputParameters(this DbParameterCollection parameters, Type tModel, HashSet<string> ignoreParameters, ILogger logger)
+        public static DbParameterCollection CreateOutputParameters(this DbParameterCollection parameters, Type tModel, HashSet<string>? ignoreParameters, ILogger? logger)
 		{
 			//For each parameter, Expression Tree does the following:
 			//ArgentSea.LoggingExtensions.TraceSetOutMapperProperty(logger, "ParameterName");
@@ -149,7 +158,7 @@ namespace ArgentSea
 				ignoreParameters = new HashSet<string>();
 			}
 
-            var lazySqlParameterDelegate = _cacheOutParamSet.GetOrAdd(tModel, new Lazy<Action<DbParameterCollection, HashSet<string>, ILogger>>(() => BuildOutSetDelegate(tModel, logger), LazyThreadSafetyMode.ExecutionAndPublication));
+            var lazySqlParameterDelegate = _cacheOutParamSet.GetOrAdd(tModel, new Lazy<Action<DbParameterCollection, HashSet<string>, ILogger?>>(() => BuildOutSetDelegate(tModel, logger), LazyThreadSafetyMode.ExecutionAndPublication));
             if (lazySqlParameterDelegate.IsValueCreated)
             {
                 LoggingExtensions.SqlSetOutParametersCacheHit(logger, tModel);
@@ -181,7 +190,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type, with properties set to parameter values.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ToModel<TModel>(this DbParameterCollection parameters, ILogger logger) 
+        public static TModel? ToModel<TModel>(this DbParameterCollection parameters, ILogger? logger) 
             where TModel : new()
 			=> SetModel<TModel>(parameters, new TModel(), 0, logger);
 
@@ -194,7 +203,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type, with properties set to parameter values.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ToModel<TModel>(this DbParameterCollection parameters, short shardId, ILogger logger) 
+        public static TModel? ToModel<TModel>(this DbParameterCollection parameters, short shardId, ILogger? logger) 
             where TModel : new() 
             => SetModel<TModel>(parameters, new TModel(), shardId, logger);
 
@@ -207,7 +216,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type, with properties set to parameter values.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel SetModel<TModel>(this DbParameterCollection parameters, TModel instance, ILogger logger)
+        public static TModel? SetModel<TModel>(this DbParameterCollection parameters, TModel instance, ILogger? logger)
             => SetModel<TModel>(parameters, instance, 0, logger);
 
         /// <summary>
@@ -220,13 +229,10 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type, with properties set to parameter values.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel SetModel<TModel>(this DbParameterCollection parameters, TModel instance, short shardId, ILogger logger)
+        public static TModel? SetModel<TModel>(this DbParameterCollection parameters, TModel instance, short shardId, ILogger? logger)
         {
             var tModel = typeof(TModel);
-            if (instance is null)
-            {
-                throw new ArgumentNullException(nameof(instance));
-            }
+            ArgumentNullException.ThrowIfNull(instance);
             var lazySqlOutDelegate = _getOutParamReadCache.GetOrAdd(tModel, new Lazy<Delegate>(() => BuildOutGetDelegate<TModel>(parameters, tModel, logger), LazyThreadSafetyMode.ExecutionAndPublication));
             if (lazySqlOutDelegate.IsValueCreated)
             {
@@ -237,7 +243,7 @@ namespace ArgentSea
                 LoggingExtensions.SqlReadOutParametersCacheMiss(logger, tModel);
             }
             var del = lazySqlOutDelegate.Value;
-            return ((Func<TModel, short, DbParameterCollection, ILogger, TModel>)del)(instance, shardId, parameters, logger);
+            return ((Func<TModel, short, DbParameterCollection, ILogger?, TModel>)del)(instance, shardId, parameters, logger);
         }
 
         #endregion
@@ -252,7 +258,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ToModel<TModel>(this DbDataReader rdr, ILogger logger)
+        public static TModel? ToModel<TModel>(this DbDataReader rdr, ILogger? logger)
             where TModel : new()
             => SetModel<TModel>(rdr, new TModel(), 0, logger);
 
@@ -264,7 +270,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ToModel<TModel>(this DbDataReader rdr, short shardId, ILogger logger)
+        public static TModel? ToModel<TModel>(this DbDataReader rdr, short shardId, ILogger? logger)
             where TModel : new()
             => SetModel<TModel>(rdr, new TModel(), shardId, logger);
 
@@ -277,7 +283,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel SetModel<TModel>(this DbDataReader rdr, TModel instance, ILogger logger)
+        public static TModel? SetModel<TModel>(this DbDataReader rdr, TModel instance, ILogger? logger)
             => SetModel<TModel>(rdr, instance, 0, logger);
 
         /// <summary>
@@ -290,13 +296,10 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>An object of the specified type.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel SetModel<TModel>(this DbDataReader rdr, TModel instance, short shardId, ILogger logger)
+        public static TModel? SetModel<TModel>(this DbDataReader rdr, TModel instance, short shardId, ILogger? logger)
         {
-            TModel result = default;
-            if (rdr is null)
-            {
-                throw new ArgumentNullException(nameof(rdr));
-            }
+            TModel? result = default;
+            ArgumentNullException.ThrowIfNull(rdr);
             if (rdr.IsClosed)
             {
                 throw new Exception("The data reader has been closed.");
@@ -317,10 +320,10 @@ namespace ArgentSea
                 LoggingExtensions.SqlReadOutParametersCacheMiss(logger, tModel);
             }
 
-            int[] ordinals = ((Func<DbDataReader, ILogger, int[]>)lazySqlRdrDelegate.Value.Ordinals)(rdr, logger);
+            int[] ordinals = ((Func<DbDataReader, ILogger?, int[]>)lazySqlRdrDelegate.Value.Ordinals)(rdr, logger);
             if (rdr.Read())
             {
-                result = ((Func<TModel, short, DbDataReader, int[], ILogger, TModel>)lazySqlRdrDelegate.Value.RowData)(instance, shardId, rdr, ordinals, logger);
+                result = ((Func<TModel, short, DbDataReader, int[], ILogger?, TModel>)lazySqlRdrDelegate.Value.RowData)(instance, shardId, rdr, ordinals, logger);
             }
             if (rdr.Read())
             {
@@ -340,7 +343,7 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>A list of objects of the specified type, one for each result.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static List<TModel> ToList<TModel>(this DbDataReader rdr, ILogger logger) 
+        public static List<TModel> ToList<TModel>(this DbDataReader rdr, ILogger? logger) 
             where TModel : new()
 			=> ToList<TModel>(rdr, 0, logger);
 
@@ -353,14 +356,11 @@ namespace ArgentSea
         /// <param name="logger">The logger instance to write any processing or debug information to.</param>
         /// <returns>A list of objects of the specified type, one for each result.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static List<TModel> ToList<TModel>(this DbDataReader rdr, short shardId, ILogger logger)
+        public static List<TModel> ToList<TModel>(this DbDataReader rdr, short shardId, ILogger? logger)
             where TModel : new() 
 		{
             var result = new List<TModel>();
-            if (rdr is null)
-			{
-				throw new ArgumentNullException(nameof(rdr));
-			}
+            ArgumentNullException.ThrowIfNull(rdr);
 			if (rdr.IsClosed)
 			{
 				throw new Exception("The data reader has been closed.");
@@ -380,11 +380,11 @@ namespace ArgentSea
                 LoggingExtensions.SqlReadOutParametersCacheMiss(logger, tModel);
             }
 
-            int[] ordinals = ((Func<DbDataReader, ILogger, int[]>)lazySqlRdrDelegate.Value.Ordinals)(rdr, logger);
+            int[] ordinals = ((Func<DbDataReader, ILogger?, int[]>)lazySqlRdrDelegate.Value.Ordinals)(rdr, logger);
             while (rdr.Read())
             {
-                var item = ((Func<TModel, short, DbDataReader, int[], ILogger, TModel>)lazySqlRdrDelegate.Value.RowData)(new TModel(), shardId, rdr, ordinals, logger);
-                if (!(item is null))
+                var item = ((Func<TModel, short, DbDataReader, int[], ILogger?, TModel>)lazySqlRdrDelegate.Value.RowData)(new TModel(), shardId, rdr, ordinals, logger);
+                if (item is not null)
                 {
                     result.Add(item);
                 }
@@ -396,7 +396,7 @@ namespace ArgentSea
         #endregion
 
         #region delegate builders
-        private static Action<DbParameterCollection, HashSet<string>, ILogger, TModel> BuildInMapDelegate<TModel>(Type tModel, ILogger logger)
+        private static Action<DbParameterCollection, HashSet<string>, ILogger?, TModel> BuildInMapDelegate<TModel>(Type tModel, ILogger? logger)
         {
 			var expressions = new List<Expression>();
 			//Create the two delegate parameters: in: sqlParametersCollection and model instance; out: sqlParametersCollection
@@ -416,14 +416,14 @@ namespace ArgentSea
                 throw new NoMappingAttributesFoundException();
             }
             var inBlock = Expression.Block(variables, expressions);
-			var lmbIn = Expression.Lambda<Action<DbParameterCollection, HashSet<string>, ILogger, TModel>>(inBlock, exprInPrms);
+			var lmbIn = Expression.Lambda<Action<DbParameterCollection, HashSet<string>, ILogger?, TModel>>(inBlock, exprInPrms);
 			logger?.CreatedExpressionTreeForSetInParameters(tModel, inBlock);
 			return lmbIn.Compile();
 		}
 
-        private static void IterateInMapProperties(Type tModel, List<Expression> expressions, List<ParameterExpression> variables, ParameterExpression prmSqlPrms, Expression expModel, ParameterExpression expIgnoreParameters, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, ref bool foundPrms, ILogger logger)
+        private static void IterateInMapProperties(Type tModel, List<Expression> expressions, List<ParameterExpression> variables, ParameterExpression prmSqlPrms, Expression expModel, ParameterExpression expIgnoreParameters, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, ref bool foundPrms, ILogger? logger)
 		{
-			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceInMapperProperty));
+			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceInMapperProperty))!;
 			foreach (var prop in tModel.GetProperties())
 			{
 				MemberExpression expProperty = Expression.Property(expModel, prop);
@@ -432,7 +432,7 @@ namespace ArgentSea
 
 
                 var shdAttr = ExpressionHelpers.GetMapShardKeyAttribute(prop, propType, out var isNullable, out var isShardKey, out var isShardChild, out var isShardGrandChild, out var isShardGreatGrandChild);
-                if (shdAttr is not null && (isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+                if (shdAttr is not null && (isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
                 {
                     ExpressionHelpers.ShardKeyInMapProperties(prop, propType, shdAttr, isNullable, isShardKey, isShardChild, isShardGrandChild, isShardGreatGrandChild, expProperty, expressions, variables, prmSqlPrms, expIgnoreParameters, expLogger, noDupPrmNameList, miLogTrace, ref foundPrms, logger);
                 }
@@ -481,7 +481,7 @@ namespace ArgentSea
         }
 
 
-        private static Type GetCollectionElementType(Type collectionType)
+        private static Type? GetCollectionElementType(Type collectionType)
         {
             // Handle ImmutableArray<T>
             if (collectionType.IsGenericType && collectionType.GetGenericTypeDefinition() == typeof(ImmutableArray<>))
@@ -538,7 +538,7 @@ namespace ArgentSea
         public static bool HasCollectionMapProperties(Type modelType)
             => GetCollectionMapProperties(modelType).Length > 0;
 
-        ////public static Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger, IShardKey> BuildShardKeyQueryDelegate(Type tModel, ILogger logger)
+        ////public static Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger?, IShardKey> BuildShardKeyQueryDelegate(Type tModel, ILogger? logger)
         ////{
 
         ////    var expressions = new List<Expression>();
@@ -560,7 +560,7 @@ namespace ArgentSea
         ////        Type propType = prop.PropertyType;
 
         ////        var shdAttr = ExpressionHelpers.GetMapShardKeyAttribute(prop, propType, out var isNullable, out var isShardKey, out var isShardChild, out var isShardGrandChild, out var isShardGreatGrandChild);
-        ////        if (shdAttr is not null && shdAttr.IsRecordIdentifier && !isNullable && (isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+        ////        if (shdAttr is not null && shdAttr.IsRecordIdentifier && !isNullable && (isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
         ////        {
         ////            var ctorInfo = prop.GetType().GetConstructor([typeof(ReadOnlySpan<byte>)])!;
         ////            var ctorPrm = ctorInfo.GetParameters()!.Single();
@@ -570,7 +570,7 @@ namespace ArgentSea
         ////                ExpressionHelpers.ShardKeyInMapProperties(prop, propType, shdAttr, isNullable, isShardKey, isShardChild, isShardGrandChild, isShardGreatGrandChild, expNewShardKey, expressions, variables, expSqlPrms, expIgnoreParameters, expLogger, noDupPrmNameList, miLogTrace, ref foundPrms, logger);
         ////                expressions.Add(expNewShardKey);
         ////                var newBlock = Expression.Block(typeof(IShardKey), exprInPrms, expressions);
-        ////                var lmbNew = Expression.Lambda<Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger, IShardKey>>(newBlock, [expReadOnlyMemory, expSqlPrms]);
+        ////                var lmbNew = Expression.Lambda<Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger?, IShardKey>>(newBlock, [expReadOnlyMemory, expSqlPrms]);
         ////                //logger?.CreatedExpressionTreeForSetInParameters(tModel, newBlock);
         ////                return lmbNew.Compile();
         ////            }
@@ -582,12 +582,12 @@ namespace ArgentSea
 
 
 
-        //private static bool ShardKeyInMapProperties(PropertyInfo prop, Type propType, MapShardKeyAttribute shdAttr, bool isNullable, bool isShardKey, bool isShardChild, bool isShardGrandChild, bool isShardGreatGrandChild, Expression expProperty, List<Expression> expressions, List<ParameterExpression> variables, ParameterExpression prmSqlPrms, ParameterExpression expIgnoreParameters, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, MethodInfo miLogTrace, ref bool foundPrms, ILogger logger)
+        //private static bool ShardKeyInMapProperties(PropertyInfo prop, Type propType, MapShardKeyAttribute shdAttr, bool isNullable, bool isShardKey, bool isShardChild, bool isShardGrandChild, bool isShardGreatGrandChild, Expression expProperty, List<Expression> expressions, List<ParameterExpression> variables, ParameterExpression prmSqlPrms, ParameterExpression expIgnoreParameters, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, MethodInfo miLogTrace, ref bool foundPrms, ILogger? logger)
         //{
         //    Expression expOriginalProperty = expProperty;
         //    //var shdAttr = ExpressionHelpers.GetMapShardKeyAttribute(prop, propType, out var isNullable, out var isShardKey, out var isShardChild, out var isShardGrandChild, out var isShardGreatGrandChild);
 
-        //    //if (shdAttr is null || !(isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+        //    //if (shdAttr is null || !(isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
         //    //{
         //    //    return false;
         //    //}
@@ -601,7 +601,7 @@ namespace ArgentSea
         //    if (isNullable)
         //    {
         //        expProperty = Expression.Property(expProperty, propType.GetProperty(nameof(Nullable<int>.Value)));
-        //        propType = Nullable.GetUnderlyingType(propType);
+        //        propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
         //        expDetectNullOrEmpty = Expression.Property(expOriginalProperty, prop.PropertyType.GetProperty(nameof(Nullable<int>.HasValue)));
         //    }
         //    else
@@ -757,7 +757,7 @@ namespace ArgentSea
         //}
 
 
-        private static Action<DbParameterCollection, HashSet<string>, ILogger> BuildOutSetDelegate(Type TModel, ILogger logger)
+        private static Action<DbParameterCollection, HashSet<string>, ILogger?> BuildOutSetDelegate(Type TModel, ILogger? logger)
 		{
 			var expressions = new List<Expression>();
 
@@ -777,22 +777,22 @@ namespace ArgentSea
             }
 
             var outBlock = Expression.Block(expressions);
-			var lmbOut = Expression.Lambda<Action<DbParameterCollection, HashSet<string>, ILogger>>(outBlock, exprOutPrms);
+			var lmbOut = Expression.Lambda<Action<DbParameterCollection, HashSet<string>, ILogger?>>(outBlock, exprOutPrms);
 			logger?.CreatedExpressionTreeForSetOutParameters(TModel, outBlock);
 			return lmbOut.Compile();
 		}
-		private static void IterateSetOutParameters(Type TModel, List<Expression> expressions, ParameterExpression prmSqlPrms, ParameterExpression expIgnoreParameters, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, ref bool foundPrms, ILogger logger)
+		private static void IterateSetOutParameters(Type TModel, List<Expression> expressions, ParameterExpression prmSqlPrms, ParameterExpression expIgnoreParameters, ParameterExpression expLogger, HashSet<string> noDupPrmNameList, ref bool foundPrms, ILogger? logger)
 		{
-			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceSetOutMapperProperty));
+			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceSetOutMapperProperty))!;
 
             //Loop through all object properties:
             foreach (var prop in TModel.GetProperties())
 			{
-                Type propType = prop.PropertyType;
+                Type? propType = prop.PropertyType;
                 var shdAttr = ExpressionHelpers.GetMapShardKeyAttribute(prop, propType, out var isNullable, out var isShardKey, out var isShardChild, out var isShardGrandChild, out var isShardGreatGrandChild);
                 propType = null;
 
-                if (!(shdAttr is null) && (isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+                if (shdAttr is not null && (isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
                 {
                     var foundRecordId = false;
                     var foundChildId = false;
@@ -800,7 +800,7 @@ namespace ArgentSea
                     var foundGreatGrandChildId = false;
                     expressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(prop.Name)));
 
-                    if (!(shdAttr.ShardParameter is null))
+                    if (shdAttr.ShardParameter is not null)
                     {
                         shdAttr.ShardParameter.AppendSetOutParameterExpressions(expressions, prmSqlPrms, expIgnoreParameters, noDupPrmNameList, expLogger, logger);
                     }
@@ -816,7 +816,7 @@ namespace ArgentSea
                                 propType = prop.PropertyType;
                                 if (isNullable)
                                     {
-                                    propType = Nullable.GetUnderlyingType(propType);
+                                    propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
                                 }
                             }
                             if (!attrPM.IsValidType(propType.GetGenericArguments()[0]))
@@ -834,7 +834,7 @@ namespace ArgentSea
                                 propType = prop.PropertyType;
                                 if (isNullable)
                                     {
-                                    propType = Nullable.GetUnderlyingType(propType);
+                                    propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
                                 }
                             }
                             if (!attrPM.IsValidType(propType.GetGenericArguments()[1]))
@@ -852,7 +852,7 @@ namespace ArgentSea
                                 propType = prop.PropertyType;
                                 if (propType.IsGenericType && propType.GetGenericTypeDefinition() == typeof(Nullable<>))
                                 {
-                                    propType = Nullable.GetUnderlyingType(propType);
+                                    propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
                                 }
                             }
                             if (!attrPM.IsValidType(propType.GetGenericArguments()[2]))
@@ -870,7 +870,7 @@ namespace ArgentSea
                                 propType = prop.PropertyType;
                                 if (isNullable)
                                 {
-                                    propType = Nullable.GetUnderlyingType(propType);
+                                    propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
                                 }
                             }
                             if (!attrPM.IsValidType(propType.GetGenericArguments()[3]))
@@ -915,7 +915,7 @@ namespace ArgentSea
                             propType = prop.PropertyType;
                             if (isNullable)
                                     {
-                                propType = Nullable.GetUnderlyingType(propType);
+                                propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
                             }
                         }
                         if (!attrPM.IsValidType(propType))
@@ -936,9 +936,9 @@ namespace ArgentSea
         private static void HandleSetOutPrm(PropertyInfo prop, string parameterName, ParameterExpression expSprocParameters, List<Expression> expressions,
             ParameterExpression expIgnoreParameters, HashSet<string> noDupPrmNameList,
             ParameterExpression expLogger, 
-            ILogger logger)
+            ILogger? logger)
         {
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceSetOutMapperProperty));
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceSetOutMapperProperty))!;
             bool alreadyFound = false;
             var attrPMs = prop.GetCustomAttributes<ParameterMapAttributeBase>(true);
             foreach (var attrPM in attrPMs)
@@ -957,7 +957,7 @@ namespace ArgentSea
             }
         }
 
-        private static Func<TModel, short, DbParameterCollection, ILogger, TModel> BuildOutGetDelegate<TModel>(DbParameterCollection parameters, Type tModel, ILogger logger) 
+        private static Func<TModel, short, DbParameterCollection, ILogger?, TModel> BuildOutGetDelegate<TModel>(DbParameterCollection parameters, Type tModel, ILogger? logger) 
 		{
             ParameterExpression expInstanceArgument = Expression.Variable(tModel, "instance");
             ParameterExpression expShardArgument = Expression.Variable(typeof(short), "shardId");
@@ -986,11 +986,11 @@ namespace ArgentSea
 			initialExpressions.AddRange(subsequentExpressions);
             initialExpressions.Add(Expression.Label(expExitLabel, Expression.Default(tModel))); // Expression.Constant(null, tModel)));
 			var expBlock = Expression.Block(variableExpressions, initialExpressions);
-			var lambda = Expression.Lambda<Func<TModel, short, DbParameterCollection, ILogger, TModel>>(expBlock, expressionPrms);
+			var lambda = Expression.Lambda<Func<TModel, short, DbParameterCollection, ILogger?, TModel>>(expBlock, expressionPrms);
 			logger?.CreatedExpressionTreeForReadOutParameters(tModel, expBlock);
 			return lambda.Compile();
 		}
-		private static void IterateGetOutParameters(Type tModel, ParameterExpression expShardArgument, ParameterExpression expSprocParameters, ParameterExpression expPrm, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, LabelTarget exitLabel, ref bool foundPrms, ILogger logger)
+		private static void IterateGetOutParameters(Type tModel, ParameterExpression expShardArgument, ParameterExpression expSprocParameters, ParameterExpression expPrm, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, LabelTarget exitLabel, ref bool foundPrms, ILogger? logger)
 		{
 
             foreach (var prop in tModel.GetProperties())
@@ -1027,9 +1027,9 @@ namespace ArgentSea
 			}
         }
 
-        private static void HandleOutProperty(ParameterMapAttributeBase attrPM, PropertyInfo prop, Type tModel, ParameterExpression expSprocParameters, ParameterExpression expPrm, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, LabelTarget exitLabel, ILogger logger)
+        private static void HandleOutProperty(ParameterMapAttributeBase attrPM, PropertyInfo prop, Type tModel, ParameterExpression expSprocParameters, ParameterExpression expPrm, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, LabelTarget exitLabel, ILogger? logger)
 		{
-			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceGetOutMapperProperty));
+			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceGetOutMapperProperty))!;
 			var expCallLog = Expression.Call(miLogTrace, expLogger, Expression.Constant(prop.Name));
 
 			if (!attrPM.IsValidType(prop.PropertyType))
@@ -1039,7 +1039,7 @@ namespace ArgentSea
 
 			MemberExpression expProperty = Expression.Property(expModel, prop);
 
-			var miGetParameter = typeof(ExpressionHelpers).GetMethod(nameof(ExpressionHelpers.GetParameter), BindingFlags.Static | BindingFlags.NonPublic);
+			var miGetParameter = typeof(ExpressionHelpers).GetMethod(nameof(ExpressionHelpers.GetParameter), BindingFlags.Static | BindingFlags.NonPublic)!;
 			var expAssign = Expression.Assign(expPrm, Expression.Call(miGetParameter, expSprocParameters, Expression.Constant(attrPM.ParameterName, typeof(string))));
 
 			if (attrPM.IsRecordIdentifier)
@@ -1058,15 +1058,15 @@ namespace ArgentSea
 			}
 
 		}
-		private static void HandleOutVariable(ParameterMapAttributeBase attrPM, ParameterExpression var, Type tModel, ParameterExpression expSprocParameters, ParameterExpression expPrm, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, ParameterExpression expLogger, LabelTarget exitLabel, ILogger logger)
+		private static void HandleOutVariable(ParameterMapAttributeBase attrPM, ParameterExpression var, Type tModel, ParameterExpression expSprocParameters, ParameterExpression expPrm, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, ParameterExpression expLogger, LabelTarget exitLabel, ILogger? logger)
 		{
-			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceGetOutMapperProperty));
+			var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceGetOutMapperProperty))!;
 			if (!attrPM.IsValidType(var.Type))
 			{
 				throw new InvalidMapTypeException(var.Name, var.Type, attrPM.SqlType, attrPM.SqlTypeName);
 			}
 
-			var miGetParameter = typeof(ExpressionHelpers).GetMethod(nameof(ExpressionHelpers.GetParameter), BindingFlags.Static | BindingFlags.NonPublic);
+			var miGetParameter = typeof(ExpressionHelpers).GetMethod(nameof(ExpressionHelpers.GetParameter), BindingFlags.Static | BindingFlags.NonPublic)!;
 			var expAssign = Expression.Assign(expPrm, Expression.Call(miGetParameter, expSprocParameters, Expression.Constant(attrPM.ParameterName, typeof(string))));
 			if (attrPM.IsRecordIdentifier)
 			{
@@ -1082,14 +1082,16 @@ namespace ArgentSea
 
 		}
 
+        // Out-parameter mapping (isOutPrms) supplies expSprocParameters and expPrm; reader mapping supplies expRdr, expOrdinals, expOrdinal and columnLookupExpressions.
+        // The other set is null, so the calls below that use a set are guarded by isOutPrms.
         private static void HandleShardKeyChild(bool isOutPrms, PropertyInfo prop, Type tModel, ParameterExpression expShardArgument,
-            ParameterExpression expSprocParameters, ParameterExpression expPrm,
-            ParameterExpression expRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, List<MethodCallExpression> columnLookupExpressions, ref int propIndex,
+            ParameterExpression? expSprocParameters, ParameterExpression? expPrm,
+            ParameterExpression? expRdr, ParameterExpression? expOrdinals, ParameterExpression? expOrdinal, List<MethodCallExpression>? columnLookupExpressions, ref int propIndex,
             List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions,
-            Expression expModel, ParameterExpression expLogger, LabelTarget exitLabel, ILogger logger)
+            Expression expModel, ParameterExpression expLogger, LabelTarget exitLabel, ILogger? logger)
         {
 
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceGetOutMapperProperty));
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceGetOutMapperProperty))!;
 
             MemberExpression expShardProperty = Expression.Property(expModel, prop);
             var propType = prop.PropertyType;
@@ -1097,37 +1099,38 @@ namespace ArgentSea
 
             if (isNullable)
             {
-                propType = Nullable.GetUnderlyingType(propType);
+                propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
             }
             var foundRecordId = false;
             var foundChildId = false;
             var foundGrandChildId = false;
             var foundGreatGrandChildId = false;
 
-            if (!(shdAttr is null) && (isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+            if (shdAttr is not null && (isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
             {
-                var tRecordId = propType.GetProperty(nameof(ShardKey<int>.RecordId)).PropertyType;
-                Type tChildId = null;
-                Type tGrandChildId = null;
-                Type tGreatGrandChildId = null;
+                var tRecordId = propType.GetProperty(nameof(ShardKey<int>.RecordId))!.PropertyType;
+                // The child-part locals below are non-null exactly when the key has that part (per the isShard* flags); every use is guarded by those flags.
+                Type? tChildId = null;
+                Type? tGrandChildId = null;
+                Type? tGreatGrandChildId = null;
                 if (isShardChild || isShardGrandChild || isShardGreatGrandChild)
 				{
-					tChildId = propType.GetProperty(nameof(ShardKey<int, int>.ChildId)).PropertyType;
+					tChildId = propType.GetProperty(nameof(ShardKey<int, int>.ChildId))!.PropertyType;
 				}
                 if (isShardGrandChild || isShardGreatGrandChild)
                 {
-                    tGrandChildId = propType.GetProperty(nameof(ShardKey<int, int, int>.GrandChildId)).PropertyType;
+                    tGrandChildId = propType.GetProperty(nameof(ShardKey<int, int, int>.GrandChildId))!.PropertyType;
                 }
                 if (isShardGreatGrandChild)
                 {
-                    tGreatGrandChildId = propType.GetProperty(nameof(ShardKey<int, int, int, int>.GreatGrandChildId)).PropertyType;
+                    tGreatGrandChildId = propType.GetProperty(nameof(ShardKey<int, int, int, int>.GreatGrandChildId))!.PropertyType;
                 }
 
                 ParameterExpression expDataShardId;
 				ParameterExpression expDataRecordId;
-				ParameterExpression expDataChildId = null;
-                ParameterExpression expDataGrandChildId = null;
-                ParameterExpression expDataGreatGrandChildId = null;
+				ParameterExpression? expDataChildId = null;
+                ParameterExpression? expDataGrandChildId = null;
+                ParameterExpression? expDataGreatGrandChildId = null;
 
                 expDataShardId = Expression.Variable(typeof(Nullable<>).MakeGenericType(typeof(short)), prop.Name + "_ShardId");
 				variableExpressions.Add(expDataShardId);
@@ -1144,7 +1147,7 @@ namespace ArgentSea
 
                 if (isShardChild || isShardGrandChild || isShardGreatGrandChild)
                 {
-                    if (tChildId.IsValueType)
+                    if (tChildId!.IsValueType)
                     {
                         expDataChildId = Expression.Variable(typeof(Nullable<>).MakeGenericType(tChildId), prop.Name + "_ChildId");
                     }
@@ -1156,7 +1159,7 @@ namespace ArgentSea
 				}
                 if (isShardGrandChild || isShardGreatGrandChild)
                 {
-                    if (tGrandChildId.IsValueType)
+                    if (tGrandChildId!.IsValueType)
                     {
                         expDataGrandChildId = Expression.Variable(typeof(Nullable<>).MakeGenericType(tGrandChildId), prop.Name + "_GrandChildId");
                     }
@@ -1168,7 +1171,7 @@ namespace ArgentSea
                 }
                 if (isShardGreatGrandChild)
                 {
-                    if (tGreatGrandChildId.IsValueType)
+                    if (tGreatGrandChildId!.IsValueType)
                     {
                         expDataGreatGrandChildId = Expression.Variable(typeof(Nullable<>).MakeGenericType(tGreatGrandChildId), prop.Name + "_GreatGrandChildId");
                     }
@@ -1179,16 +1182,16 @@ namespace ArgentSea
                     variableExpressions.Add(expDataGreatGrandChildId);
                 }
 
-                if (!(shdAttr.ShardParameter is null))
+                if (shdAttr.ShardParameter is not null)
                 {
                     nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataShardId.Name)));
                     if (isOutPrms)
                     {
-                        HandleOutVariable(shdAttr.ShardParameter, expDataShardId, tModel, expSprocParameters, expPrm, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
+                        HandleOutVariable(shdAttr.ShardParameter, expDataShardId, tModel, expSprocParameters!, expPrm!, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
                     }
                     else
                     {
-                        HandleRdrVariable(shdAttr.ShardParameter, expDataShardId, tModel, expRdr, expOrdinals, expOrdinal, columnLookupExpressions, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
+                        HandleRdrVariable(shdAttr.ShardParameter, expDataShardId, tModel, expRdr!, expOrdinals!, expOrdinal!, columnLookupExpressions!, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
                     }
 
                 }
@@ -1214,11 +1217,11 @@ namespace ArgentSea
 						}
                         if (isOutPrms)
                         {
-                            HandleOutVariable(attrPM, expDataRecordId, tModel, expSprocParameters, expPrm, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
+                            HandleOutVariable(attrPM, expDataRecordId, tModel, expSprocParameters!, expPrm!, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
                         }
                         else
                         {
-                            HandleRdrVariable(attrPM, expDataRecordId, tModel, expRdr, expOrdinals, expOrdinal, columnLookupExpressions, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
+                            HandleRdrVariable(attrPM, expDataRecordId, tModel, expRdr!, expOrdinals!, expOrdinal!, columnLookupExpressions!, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
                         }
 					}
                     if ((isShardChild || isShardGrandChild || isShardGreatGrandChild) && attrPM.Name == shdAttr.ChildIdName)
@@ -1226,19 +1229,19 @@ namespace ArgentSea
                         foundChildId = true;
                         if (attrPM.IsRecordIdentifier)
                         {
-                            requiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataChildId.Name)));
+                            requiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataChildId!.Name)));
                         }
                         else
                         {
-                            nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataChildId.Name)));
+                            nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataChildId!.Name)));
                         }
                         if (isOutPrms)
                         {
-                            HandleOutVariable(attrPM, expDataChildId, tModel, expSprocParameters, expPrm, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
+                            HandleOutVariable(attrPM, expDataChildId, tModel, expSprocParameters!, expPrm!, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
                         }
                         else
                         {
-                            HandleRdrVariable(attrPM, expDataChildId, tModel, expRdr, expOrdinals, expOrdinal, columnLookupExpressions, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
+                            HandleRdrVariable(attrPM, expDataChildId, tModel, expRdr!, expOrdinals!, expOrdinal!, columnLookupExpressions!, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
                         }
                     }
                     if ((isShardGrandChild || isShardGreatGrandChild) && attrPM.Name == shdAttr.GrandChildIdName)
@@ -1246,19 +1249,19 @@ namespace ArgentSea
                         foundGrandChildId = true;
                         if (attrPM.IsRecordIdentifier)
                         {
-                            requiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGrandChildId.Name)));
+                            requiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGrandChildId!.Name)));
                         }
                         else
                         {
-                            nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGrandChildId.Name)));
+                            nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGrandChildId!.Name)));
                         }
                         if (isOutPrms)
                         {
-                            HandleOutVariable(attrPM, expDataGrandChildId, tModel, expSprocParameters, expPrm, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
+                            HandleOutVariable(attrPM, expDataGrandChildId, tModel, expSprocParameters!, expPrm!, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
                         }
                         else
                         {
-                            HandleRdrVariable(attrPM, expDataGrandChildId, tModel, expRdr, expOrdinals, expOrdinal, columnLookupExpressions, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
+                            HandleRdrVariable(attrPM, expDataGrandChildId, tModel, expRdr!, expOrdinals!, expOrdinal!, columnLookupExpressions!, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
                         }
                     }
                     if (isShardGreatGrandChild && attrPM.Name == shdAttr.GreatGrandChildIdName)
@@ -1266,19 +1269,19 @@ namespace ArgentSea
                         foundGreatGrandChildId = true;
                         if (attrPM.IsRecordIdentifier)
                         {
-                            requiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGreatGrandChildId.Name)));
+                            requiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGreatGrandChildId!.Name)));
                         }
                         else
                         {
-                            nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGreatGrandChildId.Name)));
+                            nonrequiredExpressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(expDataGreatGrandChildId!.Name)));
                         }
                         if (isOutPrms)
                         {
-                            HandleOutVariable(attrPM, expDataGreatGrandChildId, tModel, expSprocParameters, expPrm, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
+                            HandleOutVariable(attrPM, expDataGreatGrandChildId, tModel, expSprocParameters!, expPrm!, requiredExpressions, nonrequiredExpressions, expLogger, exitLabel, logger);
                         }
                         else
                         {
-                            HandleRdrVariable(attrPM, expDataGreatGrandChildId, tModel, expRdr, expOrdinals, expOrdinal, columnLookupExpressions, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
+                            HandleRdrVariable(attrPM, expDataGreatGrandChildId, tModel, expRdr!, expOrdinals!, expOrdinal!, columnLookupExpressions!, variableExpressions, requiredExpressions, nonrequiredExpressions, expModel, expLogger, ref propIndex, exitLabel, logger);
                         }
                     }
                 }
@@ -1305,17 +1308,17 @@ namespace ArgentSea
                 if (isShardChild || isShardGrandChild || isShardGreatGrandChild)
                 {
                     expHasNoNulls = Expression.AndAlso(expHasNoNulls,
-						Expression.NotEqual(expDataChildId, Expression.Constant(null, expDataChildId.Type)));
+						Expression.NotEqual(expDataChildId!, Expression.Constant(null, expDataChildId!.Type)));
 				}
                 if (isShardGrandChild || isShardGreatGrandChild)
                 {
                     expHasNoNulls = Expression.AndAlso(expHasNoNulls,
-                        Expression.NotEqual(expDataGrandChildId, Expression.Constant(null, expDataGrandChildId.Type)));
+                        Expression.NotEqual(expDataGrandChildId!, Expression.Constant(null, expDataGrandChildId!.Type)));
                 }
                 if (isShardGreatGrandChild)
                 {
                     expHasNoNulls = Expression.AndAlso(expHasNoNulls,
-                        Expression.NotEqual(expDataGreatGrandChildId, Expression.Constant(null, expDataGreatGrandChildId.Type)));
+                        Expression.NotEqual(expDataGreatGrandChildId!, Expression.Constant(null, expDataGreatGrandChildId!.Type)));
                 }
 
                 Type[] constructorTypes;
@@ -1323,17 +1326,17 @@ namespace ArgentSea
                 //Type tShard;
                 if (isShardGreatGrandChild)
                 {
-                    constructorTypes = new[] { typeof(short), tRecordId, tChildId, tGrandChildId, tGreatGrandChildId };
+                    constructorTypes = new[] { typeof(short), tRecordId, tChildId!, tGrandChildId!, tGreatGrandChildId! };
                     constructorArgs = new Expression[5];
                 }
                 else if (isShardGrandChild)
                 {
-                    constructorTypes = new[] { typeof(short), tRecordId, tChildId, tGrandChildId };
+                    constructorTypes = new[] { typeof(short), tRecordId, tChildId!, tGrandChildId! };
                     constructorArgs = new Expression[4];
                 }
-                if (isShardChild)
+                else if (isShardChild)
                 {
-                    constructorTypes = new[] { typeof(short), tRecordId, tChildId };
+                    constructorTypes = new[] { typeof(short), tRecordId, tChildId! };
                     constructorArgs = new Expression[3];
                 }
                 else
@@ -1341,11 +1344,11 @@ namespace ArgentSea
                     constructorTypes = new[] { typeof(short), tRecordId };
                     constructorArgs = new Expression[2];
                 }
-				constructorArgs[0] = Expression.Property(expDataShardId, expDataShardId.Type.GetProperty(nameof(Nullable<int>.Value)));
+				constructorArgs[0] = Expression.Property(expDataShardId, expDataShardId.Type.GetProperty(nameof(Nullable<int>.Value))!);
 
                 if (tRecordId.IsValueType)
 				{
-					constructorArgs[1] = Expression.Property(expDataRecordId, expDataRecordId.Type.GetProperty(nameof(Nullable<int>.Value)));
+					constructorArgs[1] = Expression.Property(expDataRecordId, expDataRecordId.Type.GetProperty(nameof(Nullable<int>.Value))!);
 				}
 				else
 				{
@@ -1353,47 +1356,47 @@ namespace ArgentSea
 				}
                 if (isShardChild || isShardGrandChild || isShardGreatGrandChild)
                 {
-                    if (tChildId.IsValueType)
+                    if (tChildId!.IsValueType)
 					{
-						constructorArgs[2] = Expression.Property(expDataChildId, expDataChildId.Type.GetProperty(nameof(Nullable<int>.Value)));
+						constructorArgs[2] = Expression.Property(expDataChildId!, expDataChildId!.Type.GetProperty(nameof(Nullable<int>.Value))!);
 					}
 					else
 					{
-						constructorArgs[2] = expDataChildId;
+						constructorArgs[2] = expDataChildId!;
 					}
 				}
                 if (isShardGrandChild || isShardGreatGrandChild)
                 {
-                    if (tGrandChildId.IsValueType)
+                    if (tGrandChildId!.IsValueType)
                     {
-                        constructorArgs[3] = Expression.Property(expDataGrandChildId, expDataGrandChildId.Type.GetProperty(nameof(Nullable<int>.Value)));
+                        constructorArgs[3] = Expression.Property(expDataGrandChildId!, expDataGrandChildId!.Type.GetProperty(nameof(Nullable<int>.Value))!);
                     }
                     else
                     {
-                        constructorArgs[3] = expDataGrandChildId;
+                        constructorArgs[3] = expDataGrandChildId!;
                     }
                 }
                 if (isShardGreatGrandChild)
                 {
-                    if (tGreatGrandChildId.IsValueType)
+                    if (tGreatGrandChildId!.IsValueType)
                     {
-                        constructorArgs[4] = Expression.Property(expDataGreatGrandChildId, expDataGreatGrandChildId.Type.GetProperty(nameof(Nullable<int>.Value)));
+                        constructorArgs[4] = Expression.Property(expDataGreatGrandChildId!, expDataGreatGrandChildId!.Type.GetProperty(nameof(Nullable<int>.Value))!);
                     }
                     else
                     {
-                        constructorArgs[4] = expDataGreatGrandChildId;
+                        constructorArgs[4] = expDataGreatGrandChildId!;
                     }
                 }
-                var expNewShardInstance = Expression.New(propType.GetConstructor(constructorTypes), constructorArgs);
+                var expNewShardInstance = Expression.New(propType.GetConstructor(constructorTypes)!, constructorArgs);
 				Expression expActionIfNull;
 				if (isNullable)
 				{
 					expActionIfNull = Expression.Assign(expShardProperty, Expression.Constant(null, expShardProperty.Type));
-					expNewShardInstance = Expression.New(typeof(Nullable<>).MakeGenericType(propType).GetConstructor(new Type[] { propType }), new Expression[] { expNewShardInstance });
+					expNewShardInstance = Expression.New(typeof(Nullable<>).MakeGenericType(propType).GetConstructor(new Type[] { propType })!, new Expression[] { expNewShardInstance });
 				}
 				else
 				{
-					expActionIfNull = Expression.Assign(expShardProperty, Expression.Property(null, propType.GetProperty(nameof(ShardKey<int>.Empty))));
+					expActionIfNull = Expression.Assign(expShardProperty, Expression.Property(null, propType.GetProperty(nameof(ShardKey<int>.Empty))!));
 				}
 				nonrequiredExpressions.Add(Expression.IfThenElse(
 					expHasNoNulls,
@@ -1404,8 +1407,8 @@ namespace ArgentSea
 		}
 
 
-		//private static (Func<object, short, DbDataReader, int[], ILogger, TModel> DataRow, Func<DbDataReader, ILogger, int[]> Ordinals) BuildReaderMapDelegate<TModel>(ILogger logger)
-        private static (Delegate DataRow, Func<DbDataReader, ILogger, int[]> Ordinals) BuildReaderMapDelegate<TModel>(ILogger logger)
+		//private static (Func<object, short, DbDataReader, int[], ILogger?, TModel> DataRow, Func<DbDataReader, ILogger?, int[]> Ordinals) BuildReaderMapDelegate<TModel>(ILogger? logger)
+        private static (Delegate DataRow, Func<DbDataReader, ILogger?, int[]> Ordinals) BuildReaderMapDelegate<TModel>(ILogger? logger)
         {
             var tModel = typeof(TModel);
             ParameterExpression expInstanceArgument = Expression.Parameter(tModel, "instance");
@@ -1448,17 +1451,17 @@ namespace ArgentSea
             resultExpressions.Add(Expression.Label(expExitLabel, Expression.Default(tModel)));
 
             var expDataBlock = Expression.Block(tModel, variableExpressions, resultExpressions);
-            var lambdaDataRow = Expression.Lambda<Func<TModel, short, DbDataReader, int[], ILogger, TModel>>(expDataBlock, expressionPrms);
+            var lambdaDataRow = Expression.Lambda<Func<TModel, short, DbDataReader, int[], ILogger?, TModel>>(expDataBlock, expressionPrms);
 
             var expOrdinalArray = Expression.NewArrayInit(typeof(int), columnLookupExpressions.ToArray());
             //var lambdaOrdinals = Expression.Lambda<Func<DbDataReader, int[]>>(expOrdinalArray, new ParameterExpression[] { prmSqlRdr, expOrdinalsArg });
-            var lambdaOrdinals = Expression.Lambda<Func<DbDataReader, ILogger, int[]>>(expOrdinalArray, new ParameterExpression[] { prmSqlRdr, expLogger });
+            var lambdaOrdinals = Expression.Lambda<Func<DbDataReader, ILogger?, int[]>>(expOrdinalArray, new ParameterExpression[] { prmSqlRdr, expLogger });
             logger?.CreatedExpressionTreeForReaderOrdinals(tModel, expOrdinalArray);
             logger?.CreatedExpressionTreeForReaderRowData(tModel, expDataBlock);
 
             return (lambdaDataRow.Compile(), lambdaOrdinals.Compile());
 		}
-		private static void IterateRdrColumns(Type tModel, Expression expModel, ParameterExpression expShardArgument, List<MethodCallExpression> columnLookupExpressions, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, ParameterExpression expRdr, ParameterExpression expOrdinalsArg, ParameterExpression expOrdinal, ref int propIndex, ParameterExpression expLogger, LabelTarget exitLabel, ILogger logger)
+		private static void IterateRdrColumns(Type tModel, Expression expModel, ParameterExpression expShardArgument, List<MethodCallExpression> columnLookupExpressions, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, ParameterExpression expRdr, ParameterExpression expOrdinalsArg, ParameterExpression expOrdinal, ref int propIndex, ParameterExpression expLogger, LabelTarget exitLabel, ILogger? logger)
 		{
 			foreach (var prop in tModel.GetProperties())
 			{
@@ -1492,9 +1495,9 @@ namespace ArgentSea
 			}
 
 		}
-        private static void HandleRdrColumn(ParameterMapAttributeBase attrPM, PropertyInfo prop, Type tModel, ParameterExpression expRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, List<MethodCallExpression> columnLookupExpressions, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, ref int propIndex, LabelTarget exitLabel, ILogger logger)
+        private static void HandleRdrColumn(ParameterMapAttributeBase attrPM, PropertyInfo prop, Type tModel, ParameterExpression expRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, List<MethodCallExpression> columnLookupExpressions, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, ref int propIndex, LabelTarget exitLabel, ILogger? logger)
         {
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceRdrMapperProperty));
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceRdrMapperProperty))!;
             var expCallLog = Expression.Call(miLogTrace, expLogger, Expression.Constant(prop.Name));
 
             if (!attrPM.IsValidType(prop.PropertyType))
@@ -1507,6 +1510,9 @@ namespace ArgentSea
             if (attrPM.IsRecordIdentifier)
             {
                 requiredExpressions.Add(expCallLog);
+                // The attribute's reader builder assigns expOrdinal from ordinals[propIndex] itself, but only after the null check
+                // below would have run, so load this property's ordinal first; otherwise the check inspects the previous column.
+                requiredExpressions.Add(Expression.Assign(expOrdinal, Expression.ArrayAccess(expOrdinals, Expression.Constant(propIndex, typeof(int)))));
                 requiredExpressions.Add(ExpressionHelpers.ReturnNullIfColNull(expRdr, expOrdinal, tModel, exitLabel, expLogger));
                 attrPM.AppendReaderExpressions(expProperty, columnLookupExpressions, requiredExpressions, expRdr, expOrdinals, expOrdinal, ref propIndex, prop.PropertyType, expLogger, logger);
 
@@ -1517,15 +1523,17 @@ namespace ArgentSea
                 attrPM.AppendReaderExpressions(expProperty, columnLookupExpressions, nonrequiredExpressions, expRdr, expOrdinals, expOrdinal, ref propIndex, prop.PropertyType, expLogger, logger);
             }
         }
-        private static void HandleRdrVariable(ParameterMapAttributeBase attrPM, ParameterExpression var, Type tModel, ParameterExpression expRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, List<MethodCallExpression> columnLookupExpressions, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, ref int propIndex, LabelTarget exitLabel, ILogger logger)
+        private static void HandleRdrVariable(ParameterMapAttributeBase attrPM, ParameterExpression var, Type tModel, ParameterExpression expRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, List<MethodCallExpression> columnLookupExpressions, List<ParameterExpression> variableExpressions, List<Expression> requiredExpressions, List<Expression> nonrequiredExpressions, Expression expModel, ParameterExpression expLogger, ref int propIndex, LabelTarget exitLabel, ILogger? logger)
         {
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceRdrMapperProperty));
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceRdrMapperProperty))!;
             if (!attrPM.IsValidType(var.Type))
             {
                 throw new InvalidMapTypeException(var.Name, var.Type, attrPM.SqlType, attrPM.SqlTypeName);
             }
             if (attrPM.IsRecordIdentifier)
             {
+                // See HandleRdrColumn: load this variable's ordinal before the null check, which otherwise reads the previous column.
+                requiredExpressions.Add(Expression.Assign(expOrdinal, Expression.ArrayAccess(expOrdinals, Expression.Constant(propIndex, typeof(int)))));
                 requiredExpressions.Add(ExpressionHelpers.ReturnNullIfColNull(expRdr, expOrdinal, tModel, exitLabel, expLogger));
                 attrPM.AppendReaderExpressions(var, columnLookupExpressions, requiredExpressions, expRdr, expOrdinals, expOrdinal, ref propIndex, var.Type, expLogger, logger);
 
@@ -1555,15 +1563,15 @@ namespace ArgentSea
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             => Mapper.ToList<TModel>(rdr, shardId, logger);
 
-        private static void ValidateDataReader(string sprocName, DbDataReader rdr, string connectionDescription, ILogger logger)
+        private static void ValidateDataReader(string sprocName, DbDataReader rdr, string connectionDescription, ILogger? logger)
         {
             if (rdr is null)
             {
@@ -1591,15 +1599,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel>
+        public static TModel? ModelFromOutResultsHandler<TModel>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger) where TModel : new()
+            ILogger? logger) where TModel : new()
         {
             return ModelFromOutResultsHandler<TModel>(new TModel(), shardId, sprocName, notUsed, rdr, parameters, connectionDescription, logger);
         }
@@ -1618,17 +1626,18 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel>
+        public static TModel? ModelFromOutResultsHandler<TModel>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
         {
+            ArgumentNullException.ThrowIfNull(instance);
             MoveRdrToEnd(rdr);
             return parameters.SetModel<TModel>(instance, shardId, logger);
         }
@@ -1648,15 +1657,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new() where TReaderResult : new()
         {
             return ModelFromOutResultsHandler<TModel, TReaderResult>(new TModel(), shardId, sprocName, notUsed, rdr, parameters, connectionDescription, logger);
@@ -1677,18 +1686,19 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             var resultList = (List<TReaderResult>)Mapper.ToList<TReaderResult>(rdr, shardId, logger);
             MoveRdrToEnd(rdr);
@@ -1698,10 +1708,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 3, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList, logger);
         }
 
         /// <summary>
@@ -1719,15 +1729,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1752,19 +1762,20 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
 
@@ -1784,10 +1795,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 7, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, logger);
         }
 
         /// <summary>
@@ -1806,15 +1817,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1840,20 +1851,21 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -1882,10 +1894,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 15, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, resultList2, logger);
         }
 
         /// <summary>
@@ -1905,15 +1917,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1941,21 +1953,22 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -1993,10 +2006,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 31, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, logger);
         }
 
         /// <summary>
@@ -2017,15 +2030,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2055,22 +2068,23 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -2117,10 +2131,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 63, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, logger);
         }
 
         /// <summary>
@@ -2142,15 +2156,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2182,16 +2196,16 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
@@ -2199,6 +2213,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -2254,10 +2269,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4), typeof(TReaderResult5));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 127, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, logger);
         }
 
         /// <summary>
@@ -2280,15 +2295,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2322,16 +2337,16 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
@@ -2340,6 +2355,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -2404,10 +2420,10 @@ namespace ArgentSea
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4), typeof(TReaderResult5), typeof(TReaderResult6));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, Mapper.DummyType, TModel>(instance, shardId, sprocName, 255, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, TModel, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultList6, resultOutPrms, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultList6, logger);
         }
 
         /// <summary>
@@ -2431,15 +2447,15 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2476,16 +2492,16 @@ namespace ArgentSea
         /// <param name="logger">A logging instance.</param>
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
-        public static TModel ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public static TModel? ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
@@ -2495,6 +2511,7 @@ namespace ArgentSea
             where TReaderResult6 : new()
             where TReaderResult7 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -2562,16 +2579,16 @@ namespace ArgentSea
                 resultList7 = new List<TReaderResult7>();
             }
             MoveRdrToEnd(rdr);
-            parameters.SetModel<TModel>(instance, shardId, logger);
-            if (instance == null)
+            var resultOutPrms = parameters.SetModel<TModel>(instance, shardId, logger);
+            if (resultOutPrms is null)
             {
                 logger?.EmptyResult(sprocName);
                 return default(TModel);
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4), typeof(TReaderResult5), typeof(TReaderResult6), typeof(TReaderResult7));
             var lazySqlObjectDelegate = _getOutObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7, TModel>(instance, shardId, sprocName, 511, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger, TModel>)lazySqlObjectDelegate.Value;
-            return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultList6, resultList7, logger);
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
+            return (TModel)sqlObjectDelegate(resultOutPrms, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultList6, resultList7, logger);
         }
         #endregion
 
@@ -2595,24 +2612,25 @@ namespace ArgentSea
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
         /// <exception cref="ArgentSea.UnexpectedSqlResultException">Thrown when the query returns fewer result sets than the model has collection properties.</exception>
-        public static TModel ModelFromReaderWithCollectionsHandler<TModel>
+        public static TModel? ModelFromReaderWithCollectionsHandler<TModel>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             var result = rdr.SetModel(instance, shardId, logger);
             if (result is not null)
             {
                 var tModel = typeof(TModel);
                 var lazyHydrate = _collectionHydrationCache.GetOrAdd(tModel, key => new Lazy<Delegate>(() => BuildCollectionHydrationDelegate<TModel>(logger), LazyThreadSafetyMode.ExecutionAndPublication));
-                ((Action<TModel, DbDataReader, short, ILogger>)lazyHydrate.Value)(result, rdr, shardId, logger);
+                ((Action<TModel, DbDataReader, short, ILogger?>)lazyHydrate.Value)(result, rdr, shardId, logger);
             }
             return result;
         }
@@ -2627,7 +2645,7 @@ namespace ArgentSea
         /// for a grain-state consumer, would look like "this record has no children" and could destructively overwrite
         /// real child rows on the next save.
         /// </summary>
-        private static Action<TModel, DbDataReader, short, ILogger> BuildCollectionHydrationDelegate<TModel>(ILogger logger)
+        private static Action<TModel, DbDataReader, short, ILogger?> BuildCollectionHydrationDelegate<TModel>(ILogger? logger)
         {
             var tModel = typeof(TModel);
             var collectionProps = GetCollectionMapProperties(tModel);
@@ -2637,14 +2655,14 @@ namespace ArgentSea
             var expShardId = Expression.Parameter(typeof(short), "shardId");
             var expLogger = Expression.Parameter(typeof(ILogger), "logger");
 
-            var miNextResult = typeof(DbDataReader).GetMethod(nameof(DbDataReader.NextResult), Type.EmptyTypes);
+            var miNextResult = typeof(DbDataReader).GetMethod(nameof(DbDataReader.NextResult), Type.EmptyTypes)!;
             var miToList = typeof(Mapper).GetMethods(BindingFlags.Public | BindingFlags.Static)
                 .First(m => m.Name == nameof(Mapper.ToList)
                     && m.IsGenericMethodDefinition
                     && m.GetParameters().Length == 3
                     && m.GetParameters()[0].ParameterType == typeof(DbDataReader)
                     && m.GetParameters()[1].ParameterType == typeof(short));
-            var ciMissingResultSet = typeof(UnexpectedSqlResultException).GetConstructor(new[] { typeof(string) });
+            var ciMissingResultSet = typeof(UnexpectedSqlResultException).GetConstructor(new[] { typeof(string) })!;
 
             var blockExpressions = new List<Expression>();
             var resultSetPosition = 1; // result set 1 is the model's own scalar row; collections start at 2.
@@ -2673,7 +2691,7 @@ namespace ArgentSea
             }
 
             Expression body = blockExpressions.Count > 0 ? Expression.Block(blockExpressions) : Expression.Empty();
-            var lambda = Expression.Lambda<Action<TModel, DbDataReader, short, ILogger>>(body, expModel, expRdr, expShardId, expLogger);
+            var lambda = Expression.Lambda<Action<TModel, DbDataReader, short, ILogger?>>(body, expModel, expRdr, expShardId, expLogger);
             return lambda.Compile();
         }
 
@@ -2721,15 +2739,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel>
+        public static TModel? ModelFromReaderResultsHandler<TModel>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
         {
             return ModelFromReaderResultsHandler<TModel>(new TModel(), shardId, sprocName, notUsed, rdr, parameters, connectionDescription, logger);
@@ -2750,17 +2768,18 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel>
+        public static TModel? ModelFromReaderResultsHandler<TModel>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
             return rdr.SetModel<TModel>(instance, shardId, logger);
         }
@@ -2780,15 +2799,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult : new()
         {
@@ -2811,21 +2830,37 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
 
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+
+            {
+
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+
+                logger?.EmptyResult(sprocName);
+
+
+                return default(TModel);
+
+
+            }
             List<TReaderResult> resultList;
             if (rdr.NextResult())
             {
@@ -2835,9 +2870,9 @@ namespace ArgentSea
             {
                 resultList = new List<TReaderResult>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 2, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList, logger);
         }
 
@@ -2857,15 +2892,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2890,21 +2925,32 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             if (rdr.NextResult())
@@ -2923,9 +2969,9 @@ namespace ArgentSea
             {
                 resultList1 = new List<TReaderResult1>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 6, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, logger);
         }
 
@@ -2946,15 +2992,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2981,22 +3027,33 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -3024,9 +3081,9 @@ namespace ArgentSea
             {
                 resultList2 = new List<TReaderResult2>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 14, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, logger);
         }
 
@@ -3048,15 +3105,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -3085,23 +3142,34 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -3138,9 +3206,9 @@ namespace ArgentSea
             {
                 resultList3 = new List<TReaderResult3>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 30, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, logger);
         }
 
@@ -3163,15 +3231,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -3202,24 +3270,35 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -3265,9 +3344,9 @@ namespace ArgentSea
             {
                 resultList4 = new List<TReaderResult4>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, Mapper.DummyType, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 62, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, logger);
         }
 
@@ -3291,15 +3370,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -3332,16 +3411,16 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
@@ -3349,8 +3428,19 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -3405,9 +3495,9 @@ namespace ArgentSea
             {
                 resultList5 = new List<TReaderResult5>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4), typeof(TReaderResult5));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, Mapper.DummyType, Mapper.DummyType, TModel>(instance, shardId, sprocName, 126, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5> , ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5> , ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, logger);
         }
 
@@ -3432,15 +3522,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -3475,16 +3565,16 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
@@ -3493,8 +3583,19 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -3558,9 +3659,9 @@ namespace ArgentSea
             {
                 resultList6 = new List<TReaderResult6>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4), typeof(TReaderResult5), typeof(TReaderResult6));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, Mapper.DummyType, TModel>(instance, shardId, sprocName, 254, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultList6, logger);
         }
 
@@ -3586,15 +3687,15 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
     (
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -3631,16 +3732,16 @@ namespace ArgentSea
         /// <returns>An instance of TModel or default/null.</returns>
         /// <exception cref="ArgentSea.InvalidMapTypeException">Thrown when the property data type is not supported by the MapTo* atribute type.</exception>
         /// <exception cref="ArgentSea.UnexpectedMultiRowResultException">Thrown when the data reader root type has multiple rows.</exception>
-        public static TModel ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public static TModel? ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
     (
-            TModel instance,
+            TModel? instance,
             short shardId,
             string sprocName,
-            object notUsed,
+            object? notUsed,
             DbDataReader rdr,
             DbParameterCollection parameters,
             string connectionDescription,
-            ILogger logger)
+            ILogger? logger)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
@@ -3650,8 +3751,19 @@ namespace ArgentSea
             where TReaderResult6 : new()
             where TReaderResult7 : new()
         {
+            ArgumentNullException.ThrowIfNull(instance);
             ValidateDataReader(sprocName, rdr, connectionDescription, logger);
-            rdr.SetModel(instance, shardId, logger);
+            if (rdr.SetModel(instance, shardId, logger) is null)
+
+            {
+
+                // No row (or a null required column): the model does not exist, so the result is null rather than an empty instance.
+
+                logger?.EmptyResult(sprocName);
+
+                return default(TModel);
+
+            }
             List<TReaderResult0> resultList0;
             List<TReaderResult1> resultList1;
             List<TReaderResult2> resultList2;
@@ -3724,14 +3836,14 @@ namespace ArgentSea
             {
                 resultList7 = new List<TReaderResult7>();
             }
-            var queryKey = typeof(TModel).ToString() + sprocName;
+            var queryKey = ResultsCacheKey(sprocName, typeof(TModel), typeof(TReaderResult0), typeof(TReaderResult1), typeof(TReaderResult2), typeof(TReaderResult3), typeof(TReaderResult4), typeof(TReaderResult5), typeof(TReaderResult6), typeof(TReaderResult7));
             var lazySqlObjectDelegate = _getRstObjectCache.GetOrAdd(queryKey, new Lazy<Delegate>(() => BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7, TModel>(instance, shardId, sprocName, 510, logger), LazyThreadSafetyMode.ExecutionAndPublication));
-            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger, TModel>)lazySqlObjectDelegate.Value;
+            var sqlObjectDelegate = (Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger?, TModel>)lazySqlObjectDelegate.Value;
             return (TModel)sqlObjectDelegate(instance, shardId, sprocName, resultList0, resultList1, resultList2, resultList3, resultList4, resultList5, resultList6, resultList7, logger);
         }
         #endregion
 
-		//private static dynamic AssignRootToResult<TEval, TModel>(string procedureName, IList<TEval> resultList, ILogger logger) where TModel : new() where TEval : new()
+		//private static dynamic AssignRootToResult<TEval, TModel>(string procedureName, IList<TEval> resultList, ILogger? logger) where TModel : new() where TEval : new()
 		//{
 		//	if (resultList is null)
 		//	{
@@ -3757,7 +3869,7 @@ namespace ArgentSea
   //      }
 
         private static Delegate BuildModelFromResultsExpressions<TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7, TModel>
-			(TModel instance, short shardId, string procedureName, int recordSetFlags, ILogger logger)
+			(TModel instance, short shardId, string procedureName, int recordSetFlags, ILogger? logger)
 			where TReaderResult0 : new()
 			where TReaderResult1 : new()
 			where TReaderResult2 : new()
@@ -3798,11 +3910,11 @@ namespace ArgentSea
 			var isRdrResult6Used = false;
 			var isRdrResult7Used = false;
 			//var miLogInfo = typeof(ILogger).GetMethod(nameof(LoggerExtensions.LogInformation));
-			var miLogError = typeof(ILogger).GetMethod(nameof(Microsoft.Extensions.Logging.LoggerExtensions.LogError));
-			var miCount = typeof(IList<>).GetMethod(nameof(IList<int>.Count));
+			var miLogError = typeof(ILogger).GetMethod(nameof(Microsoft.Extensions.Logging.LoggerExtensions.LogError))!;
+			var miCount = typeof(IList<>).GetMethod(nameof(IList<int>.Count))!;
             //var miSetResultSetGeneric = typeof(Mapper).GetMethod(nameof(Mapper.AssignRootToResult), BindingFlags.Static | BindingFlags.NonPublic);
 
-            var miFormat = typeof(string).GetMethod(nameof(string.Concat), BindingFlags.Static);
+            var miFormat = typeof(string).GetMethod(nameof(string.Concat), BindingFlags.Static)!;
 			var modelType = typeof(TModel);
 
             // 1. Try to create an instance of our result class.
@@ -4057,112 +4169,112 @@ namespace ArgentSea
             if (recordSetFlags == 2)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TModel>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 3)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 6)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 7)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 14)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 15)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 30)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 31)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 62)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 63)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 126)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expResultSet5, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 127)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expResultSet5, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 254)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expResultSet5, expResultSet6, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 255)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expResultSet5, expResultSet6, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 510)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expResultSet5, expResultSet6, expResultSet7, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
             if (recordSetFlags == 511)
             {
                 var prms = new ParameterExpression[] { expInstance, expShardId, expProcName, expResultSet0, expResultSet1, expResultSet2, expResultSet3, expResultSet4, expResultSet5, expResultSet6, expResultSet7, expLogger };
-                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger, TModel>>(expBlock, prms);
+                var lambda = Expression.Lambda<Func<TModel, short, string, List<TReaderResult0>, List<TReaderResult1>, List<TReaderResult2>, List<TReaderResult3>, List<TReaderResult4>, List<TReaderResult5>, List<TReaderResult6>, List<TReaderResult7>, ILogger?, TModel>>(expBlock, prms);
                 logger?.CreatedExpressionTreeForModel(tModel, procedureName, expBlock);
                 return lambda.Compile();
             }
@@ -4170,7 +4282,7 @@ namespace ArgentSea
         }
         private static void MoveRdrToEnd(DbDataReader rdr)
         {
-            if (!(rdr is null) && !rdr.IsClosed)
+            if (rdr is not null && !rdr.IsClosed)
             {
                 while (rdr.NextResult())
                 {

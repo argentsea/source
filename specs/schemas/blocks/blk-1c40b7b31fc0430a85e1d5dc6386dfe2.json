@@ -4,7 +4,7 @@
   "type": "Schema",
   "fields": {
     "name": "ShardParameterValue",
-    "description": "A mutable carrier pairing a shard identifier with a caller-supplied parameter name and payload.",
+    "description": "A mutable carrier pairing a shard identifier with a caller-supplied parameter name and payload. It is also the entry shape ShardsValues yields when enumerated or copied: a shard without named values is represented by one placeholder entry whose ParameterName and ParameterValue are null, while a shard with named values produces one entry per name/value mapping.",
     "members": [
       {
         "name": "ShardId",
@@ -17,19 +17,19 @@
         "name": "ParameterName",
         "type": "nvarchar(max)",
         "required": false,
-        "description": "The caller-supplied parameter name; parameterless construction sets it to null.",
+        "description": "The caller-supplied parameter name; parameterless construction sets it to null, and a ShardsValues placeholder entry carries null.",
         "notes": "C# representation: string; the source declares no length constraint."
       },
       {
         "name": "ParameterValue",
         "type": "object<runtime-value>",
         "required": false,
-        "description": "The caller-supplied payload; parameterless construction sets it to null.",
+        "description": "The caller-supplied payload; parameterless construction sets it to null, and a ShardsValues placeholder entry carries null.",
         "notes": "C# representation: object; the source does not specify a persisted or serialized representation."
       }
     ],
     "representations": {
-      "CSharp": "public mutable properties: short ShardId, string ParameterName, object ParameterValue."
+      "CSharp": "public mutable properties: short ShardId, string ParameterName, object ParameterValue. Yielded by ShardsValues' IEnumerable<ShardParameterValue> implementation."
     }
   },
   "metadata": {
@@ -44,11 +44,18 @@
         "lines": "14-34",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "66-129",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-parameter-value",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

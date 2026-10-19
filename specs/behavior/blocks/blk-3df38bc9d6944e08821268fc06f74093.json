@@ -1,0 +1,49 @@
+{
+  "id": "blk-3df38bc9d6944e08821268fc06f74093",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" has a configured write query; provider instance A has ValidateGrainKeys = true and provider instance B, of the same closed ArgentSeaShardGrainPersistence<TShardOptions> type, has ValidateGrainKeys = false",
+      "when": "A calls WriteStateAsync for \"orders\", then B calls WriteStateAsync for \"orders\"",
+      "then": "A's write uses a delegate built by OrleansExpressionHelper.BuildShardWriteLambda with validateGrainKeys = true, cached under (\"orders\", true); B's write does not reuse it but uses its own delegate built with validateGrainKeys = false, cached under (\"orders\", false)"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-b05fcc9d29534254923682c2a9708a76"
+      },
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-2e4e93bd74c445d8b24dcf451658f08b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "26-28,125-157",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

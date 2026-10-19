@@ -4,6 +4,8 @@
     <BuildDependency Project="ArgentSea.Sql/src/ArgentSea.Sql.csproj" />
     <BuildType Project="Release" />
   </Project>
+  <Project Path="ArgentSea.Orleans.Sql/test/ArgentSea.Orleans.Sql.Test/ArgentSea.Orleans.Sql.Test.csproj" />
+  <Project Path="ArgentSea.Integration.Test/ArgentSea.Integration.Test.csproj" />
   <Project Path="ArgentSea.Orleans/src/ArgentSea.Orleans.csproj">
     <BuildType Project="Release" />
   </Project>
@@ -22,4 +24,5 @@
     <BuildType Project="Release" />
   </Project>
   <Project Path="ArgentSea.Sql/test/ArgentSea.Sql.Test.csproj" />
+  <Project Path="ArgentSea.TestKit/ArgentSea.TestKit.csproj" />
 </Solution>

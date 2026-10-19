@@ -1,0 +1,57 @@
+{
+  "id": "blk-471d4aa1976f4072886f2b589b9173fd",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameter pCount with ParameterName \"@RowCount\" and Value set to DBNull.Value.",
+      "when": "GetInteger(pCount) is invoked.",
+      "then": "GetInteger(pCount) throws UnexpectedNullException whose ExpectedType is typeof(int) and whose ColumnName is \"@RowCount\"."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-b5431f752ce0477e96509c975f1833d9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "57",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedNullException.cs",
+        "lines": "47-52",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-b5431f752ce0477e96509c975f1833d9",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

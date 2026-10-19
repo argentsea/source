@@ -1,0 +1,49 @@
+{
+  "id": "blk-9769efb608b4429aad2e706848541e2b",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard key mapping",
+    "definition": "The provider attribute (`MapSqlShardKey`, `MapPgShardKey`; base `MapShardKeyAttribute`) that assembles a ShardKey property from mapped columns or parameters. It names the record-key columns (and child columns for compound keys), each of which must also carry its own mapping attribute with exactly the same name, and optionally a shard id column. Without a shard id column, the shard id comes from the connection that produced the row. With one, it comes from the data, which is how references to a foreign shard are read.",
+    "synonyms": [
+      "MapShardKey",
+      "MapSqlShardKey",
+      "MapPgShardKey",
+      "MapShardKeyAttribute"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "14-67",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "8-90",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "74-160",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

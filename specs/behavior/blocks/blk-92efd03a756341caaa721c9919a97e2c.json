@@ -1,0 +1,60 @@
+{
+  "id": "blk-92efd03a756341caaa721c9919a97e2c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Connection Configuration Hierarchy",
+    "trigger": "a provider's Databases collection is constructed from its bound options type, which implements IDatabaseConfigurationOptions",
+    "response": "take the configured databases solely from DbConnectionsInternal: when that view (or the options value) is null, log a warning that the database configuration section may be missing and produce an empty collection; when any entry is null, throw; otherwise attach the global configuration and the entry itself (as the database level) to each entry's read and write endpoints and key the entry by its DatabaseKey",
+    "postcondition": "every provider presents its database configuration to the provider-neutral core through one read-only interface, and each endpoint of a configured database resolves its settings through the global and database levels of the hierarchy"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "12-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "32-68",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

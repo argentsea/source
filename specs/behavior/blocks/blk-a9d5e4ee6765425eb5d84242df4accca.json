@@ -1,0 +1,43 @@
+{
+  "id": "blk-a9d5e4ee6765425eb5d84242df4accca",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Service Registration",
+    "trigger": "a caller creates a statement with PgQueryStatement.Create(name) or PgQueryStatement.Create(name, parameterNames) and later evaluates Value on the returned Lazy<QueryStatement>",
+    "response": "load the statement text from the file named by name in QueryStatement.Folder with the extension held by PgQueryStatement.Extension (default \"psql\"), reading both values when Value is first evaluated, and never consulting the shared QueryStatement.Extension",
+    "postcondition": "PostgreSQL statement files created through PgQueryStatement resolve against their own extension regardless of registration order or of what any other provider or caller assigns to QueryStatement.Extension"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgQueryStatement.cs",
+        "lines": "17-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-service-registration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": "QueryStatement",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

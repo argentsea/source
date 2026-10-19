@@ -1,4 +1,5 @@
 ﻿using ArgentSea.Orleans;
+using Orleans.Messaging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Orleans.Configuration;
@@ -40,6 +41,10 @@ public static class ClusteringExtensions
         return services;
     }
 
+    /// <summary>
+    /// Configures ArgentSea as the clustering provider for a client, which locates the cluster's gateways through
+    /// <see cref="ArgentSeaGatewayListProvider"/>.
+    /// </summary>
     public static IClientBuilder UseArgentSeaClustering(this IClientBuilder builder, Action<IConfiguration> configuration)
     {
         return builder.ConfigureServices(services =>
@@ -50,6 +55,7 @@ public static class ClusteringExtensions
             }
 
             services.AddArgentSeaClustering();
+            services.AddSingleton<IGatewayListProvider, ArgentSeaGatewayListProvider>();
         });
     }
 }

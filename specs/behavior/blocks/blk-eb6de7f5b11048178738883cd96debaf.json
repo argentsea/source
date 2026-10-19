@@ -1,0 +1,52 @@
+{
+  "id": "blk-eb6de7f5b11048178738883cd96debaf",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "OrleansExpressionHelper",
+    "trigger": "the helper compiles the grain-id-from-model delegate for a model type",
+    "response": "compile a delegate that, for each of the model's record-identifier-marked properties in their declared order, appends the property's value into one byte buffer via SpanParser.Append and wraps the written bytes in an IdSpan",
+    "postcondition": "the returned IdSpan's length equals the sum of each appended value's encoded length plus one delimiter byte for every property after the first"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "355-450",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

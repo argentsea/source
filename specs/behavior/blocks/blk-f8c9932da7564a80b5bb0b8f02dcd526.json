@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PostgreSqlProvider.DataProviderServiceFactory",
+    "subject": "Postgres Provider Services",
     "trigger": "a query contract supplies a procedure name and a PostgreSQL connection",
     "response": "create a PostgreSQL command whose command text is that procedure name and whose connection is the supplied connection"
   },
@@ -16,14 +16,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
-        "lines": "28-40",
+        "lines": "28-35",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-data-provider-service-factory",
+    "sectionId": "postgres-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

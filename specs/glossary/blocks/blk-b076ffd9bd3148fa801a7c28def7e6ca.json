@@ -4,9 +4,10 @@
   "type": "Term",
   "fields": {
     "name": "Tenanting",
-    "definition": "Isolating each cloud customer's data in a distinct database.",
+    "definition": "A deployment pattern in which each tenant's (customer's) data lives in its own database. ArgentSea models the tenant databases as the shards of a shard set, so tenant routing uses the same shard id, shard key and fan-out machinery as data sharding.",
     "synonyms": [
-      "tenant isolation"
+      "tenant isolation",
+      "tenant database"
     ]
   },
   "metadata": {

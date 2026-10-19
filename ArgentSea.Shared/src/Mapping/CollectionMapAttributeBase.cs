@@ -34,6 +34,6 @@ namespace ArgentSea
             Expression expCollection,
             Type elementType,
             ParameterExpression expLogger,
-            ILogger logger);
+            ILogger? logger);
     }
 }

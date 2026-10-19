@@ -5,7 +5,7 @@
   "fields": {
     "subject": "ArgentSeaOrleansReminderTable",
     "trigger": "a caller reads reminders for either a grain's Shard identifier or a hash range",
-    "response": "return ReminderTableData containing every reminder row decoded from the selected Shard for the grain overload or from all read Shards for the range overload"
+    "response": "return ReminderTableData containing every reminder row decoded from the selected Shard for the grain overload or from all read Shards for the range overload, draining each Shard's result set completely so a Shard holding several matching reminders contributes all of them (rows whose grain type is NULL are skipped)"
   },
   "metadata": {
     "status": "Draft",
@@ -16,14 +16,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
-        "lines": "123-159,89-119",
+        "lines": "130-166,89-127",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-reminder-table",
+    "sectionId": "orleans-reminder-storage",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -3,8 +3,8 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgShardConnectionOptions.PgShardConnectionConfiguration",
-    "trigger": "a consumer reads the IShardConnectionConfiguration endpoint views",
+    "subject": "Postgres Connection Settings",
+    "trigger": "a consumer reads the IShardConnectionConfiguration endpoint views of a PgShardConnectionOptions.PgShardConnectionConfiguration",
     "response": "return the current typed read and write connection instances through ReadConnectionInternal and WriteConnectionInternal respectively",
     "postcondition": "the shard identifier remains the value carried by the same configuration"
   },
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options-pg-shard-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

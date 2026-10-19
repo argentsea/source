@@ -25,8 +25,8 @@ namespace ArgentSea.Orleans
             List<Expression> expressions = new();
             var exprInPrms = new ParameterExpression[] { expROMemory, expPrms, expLogger };
 
-            var miGetString = typeof(UTF8Encoding).GetMethod(nameof(UTF8Encoding.GetString), [typeof(ReadOnlySpan<byte>)]);
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceMapperGrainPersistance));
+            var miGetString = typeof(UTF8Encoding).GetMethod(nameof(UTF8Encoding.GetString), [typeof(ReadOnlySpan<byte>)])!;
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceMapperGrainPersistance))!;
             var miSpan = typeof(ReadOnlyMemory<byte>).GetProperty(nameof(ReadOnlyMemory<byte>.Span), BindingFlags.Public | BindingFlags.Instance)!.GetGetMethod()!;
 
             // Check for ShardKey marked IsRecordIdentifier, return first instance.
@@ -102,7 +102,7 @@ namespace ArgentSea.Orleans
             List<Expression> expressions = new();
             var exprInPrms = new ParameterExpression[] { expROMemory, expModel, expLogger };
 
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceMapperGrainPersistance));
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceMapperGrainPersistance))!;
             var miSpan = typeof(ReadOnlyMemory<byte>).GetProperty(nameof(ReadOnlyMemory<byte>.Span), BindingFlags.Public | BindingFlags.Instance)!.GetGetMethod()!;
 
             // Check for ShardKey marked IsRecordIdentifier, return first instance.
@@ -180,7 +180,7 @@ namespace ArgentSea.Orleans
                         //span = span.Extract(out var key);
                         var expValue = Expression.Variable(tProperty, $"v{prop.Name}");
                         variables.Add(expValue);
-                        var miCall = typeof(SpanParser).GetMethod(nameof(SpanParser.Extract), BindingFlags.Static | BindingFlags.Public, [ typeof(ReadOnlySpan<byte>), tProperty.MakeByRefType() ]);
+                        var miCall = typeof(SpanParser).GetMethod(nameof(SpanParser.Extract), BindingFlags.Static | BindingFlags.Public, [ typeof(ReadOnlySpan<byte>), tProperty.MakeByRefType() ])!;
                         if (miCall is null)
                         {
                             throw new InvalidKeyTypeException(grainType, prop.Name);
@@ -204,7 +204,7 @@ namespace ArgentSea.Orleans
             var tModel = typeof(TModel);
             ParameterExpression expROMemory = Expression.Parameter(typeof(ReadOnlyMemory<byte>), "rom");
             ParameterExpression expModel = Expression.Parameter(typeof(TModel), "model");
-            var miGetString = typeof(UTF8Encoding).GetMethod(nameof(UTF8Encoding.GetString), [typeof(ReadOnlySpan<byte>)]);
+            var miGetString = typeof(UTF8Encoding).GetMethod(nameof(UTF8Encoding.GetString), [typeof(ReadOnlySpan<byte>)])!;
             List<Expression> expressions = [];
             var miSpan = typeof(ReadOnlyMemory<byte>).GetProperty(nameof(ReadOnlyMemory<byte>.Span), BindingFlags.Public | BindingFlags.Instance)!.GetGetMethod()!;
 
@@ -277,8 +277,8 @@ namespace ArgentSea.Orleans
             List<Expression> expressions = new();
             var exprInPrms = new ParameterExpression[] { expROMemory, expModel, expPrms, expLogger };
 
-            var miGetString = typeof(UTF8Encoding).GetMethod(nameof(Encoding.UTF8.GetString), [typeof(ReadOnlySpan<byte>)]);
-            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceMapperGrainPersistance));
+            var miGetString = typeof(UTF8Encoding).GetMethod(nameof(Encoding.UTF8.GetString), [typeof(ReadOnlySpan<byte>)])!;
+            var miLogTrace = typeof(LoggingExtensions).GetMethod(nameof(LoggingExtensions.TraceMapperGrainPersistance))!;
             var miSpan = typeof(ReadOnlyMemory<byte>).GetProperty(nameof(ReadOnlyMemory<byte>.Span), BindingFlags.Public | BindingFlags.Instance)!.GetGetMethod()!;
 
             // Check for ShardKey marked IsRecordIdentifier, return first instance.
@@ -407,7 +407,7 @@ namespace ArgentSea.Orleans
                     else
                     {
                         // var position = SpanParser.Append(buffer, position, value);
-                        var miAppend = typeof(SpanParser).GetMethod(nameof(SpanParser.Append), BindingFlags.Static | BindingFlags.Public, [typeof(Span<byte>), typeof(int), tProperty]);
+                        var miAppend = typeof(SpanParser).GetMethod(nameof(SpanParser.Append), BindingFlags.Static | BindingFlags.Public, [typeof(Span<byte>), typeof(int), tProperty])!;
                         if (miAppend is null)
                         {
                             throw new InvalidKeyTypeException(tModel.Name, prop.Name);
@@ -485,7 +485,7 @@ namespace ArgentSea.Orleans
                             throw new InvalidMapTypeException(prop, attrPM.SqlType, attrPM.SqlTypeName);
                         }
                         // span = span.Extract(out model.prop);
-                        var miCall = typeof(ArgentSea.Orleans.SpanParser).GetMethod(nameof(SpanParser.Extract), BindingFlags.Static | BindingFlags.Public | BindingFlags.ExactBinding, [typeof(ReadOnlySpan<byte>), tProperty.MakeByRefType() ]);
+                        var miCall = typeof(ArgentSea.Orleans.SpanParser).GetMethod(nameof(SpanParser.Extract), BindingFlags.Static | BindingFlags.Public | BindingFlags.ExactBinding, [typeof(ReadOnlySpan<byte>), tProperty.MakeByRefType() ])!;
                         if (miCall is null)
                         {
                             throw new InvalidKeyTypeException(grainType, prop.Name);

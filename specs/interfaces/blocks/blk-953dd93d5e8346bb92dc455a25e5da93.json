@@ -17,14 +17,13 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "3981-3983",
-        "label": null,
-        "relation": "grounds"
+        "lines": "4186-4188",
+        "label": null
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-mapper-dummy-type",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +33,7 @@
       "kind": "spec",
       "project": "argentsea",
       "specId": "components",
-      "blockId": "shared-mapper-dummy-type",
+      "blockId": "model-mapping",
       "blobHash": null,
       "label": null,
       "relation": "references"

@@ -31,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-databases-base-data-connection",
+    "sectionId": "databases-collection",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -51,6 +51,15 @@
       "project": "ArgentSea",
       "specId": "schemas",
       "blockId": "blk-e17384f08ede4e69aa69fca3b733e2a7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e920962bb5ed4bb48ca7e0c3f0c54a0f",
       "blobHash": null,
       "label": null,
       "relation": "references"

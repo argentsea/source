@@ -11,10 +11,9 @@
     "illustrates": [
       {
         "kind": "spec",
-        "project": "ArgentSea",
+        "project": "argentsea",
         "specId": "behavior",
-        "blockId": "blk-123b620a02214432a1be5269c91992d7",
-        "relation": "validates"
+        "blockId": "blk-0bc088d3e242465c94c6ff7ddd5057a4"
       }
     ]
   },
@@ -27,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "187-214",
+        "lines": "204-232",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -44,7 +43,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "behavior",
-      "blockId": "blk-123b620a02214432a1be5269c91992d7",
+      "blockId": "blk-0bc088d3e242465c94c6ff7ddd5057a4",
       "blobHash": null,
       "label": null,
       "relation": "illustrates"

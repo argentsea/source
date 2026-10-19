@@ -1,0 +1,48 @@
+{
+  "id": "blk-77530745cca642d982c6de223e74db46",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shards values",
+    "definition": "The optional targeting argument (`ShardsValues`) of a shard-set query. It lists the shard ids to query, and each listed shard can carry parameter values that override the shared parameters on that shard only. When supplied, only the listed shards are queried, and an empty set queries none. When omitted, every shard in the set is queried with the same parameters.",
+    "synonyms": [
+      "ShardsValues",
+      "ShardParameterValue",
+      "shard parameter values"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "1-60",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "68-75",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "118-135",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-silo-builder-reminder-extensions",
+    "sectionId": "orleans-reminder-storage",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

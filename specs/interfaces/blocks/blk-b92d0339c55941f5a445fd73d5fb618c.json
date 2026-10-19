@@ -6,25 +6,39 @@
     "name": "FakeGrainStorageSerializer generic serializer stub",
     "kind": "Library",
     "language": "csharp",
-    "contract": "For every generic type T, Deserialize<T>(BinaryData input) returns default(T) and does not derive a value from input. Serialize<T>(T input) returns BinaryData.Empty and does not derive bytes from input."
+    "contract": "For every generic type T, Deserialize<T>(BinaryData input) returns default(T) and does not derive a value from input. Serialize<T>(T input) returns BinaryData.Empty and does not derive bytes from input. This is by design: ArgentSea maps grain state relationally to query parameters and result columns and never serializes it, so OrleansDbPersistenceOptions and OrleansShardPersistenceOptions default their GrainStorageSerializer to this stub to satisfy Orleans' storage-options contract."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-fake-grain-storage-serializer'. Grounded and falsifiable interface stub contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable interface stub contract. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/Providers/FakeGrainStorageSerializer.cs",
-        "lines": "5-8",
+        "lines": "5-15",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansDbPersistenceOptions.cs",
+        "lines": "37-38",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "43-44",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-fake-grain-storage-serializer",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

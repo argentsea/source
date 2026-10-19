@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+	  <Nullable>enable</Nullable>
 	  <!-- Required in both test/product projects. This is a temporary workaround for https://github.com/Microsoft/vstest/issues/800 -->
 	  <DebugType>Full</DebugType>
 	  <AssemblyVersion>2.0.0.0</AssemblyVersion>
@@ -14,7 +15,7 @@
 	  <SignAssembly>false</SignAssembly>
 	  <Authors>johnhicks</Authors>
 	  <RepositoryUrl>https://github.com/argentsea/shared</RepositoryUrl>
-	  <Version>2.0.3</Version>
+	  <Version>2.0.4</Version>
 	  <Description>This is the core ArgentSea library, used by platform-specific implementations like ArgentSea.Sql (Microsoft SQL Server) and ArgentSea.Pg (PostgreSQL).</Description>
 	  <Copyright>© John Hicks</Copyright>
 	  <Title>ArgentSea core library</Title>

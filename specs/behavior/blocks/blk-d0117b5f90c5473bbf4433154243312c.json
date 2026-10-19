@@ -1,0 +1,90 @@
+{
+  "id": "blk-d0117b5f90c5473bbf4433154243312c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardsValues",
+    "where": "the invoked overload is one of the two List<> forms whose records parameter is one key-component narrower than its own generic type parameters: ShardListForeign<TRecord, TChild>(short shardId, List<ShardKey<TRecord>> records) at ShardsValues.cs line 255, or ShardListForeign<TRecord, TChild, TGrandChild>(short shardId, List<ShardKey<TRecord>> records) at line 324",
+    "condition": "the records argument is non-null and its actual runtime type is a caller-supplied subclass of List<ShardKey<TRecord>> that separately implements the wider IList<ShardKey<TRecord, TChild>> (or, for the three-level overload, IList<ShardKey<TRecord, TChild, TGrandChild>>) interface the forwarding cast targets — not true of a plain List<ShardKey<TRecord>> instance, but possible because List<T> is not sealed",
+    "trigger": "the overload is called",
+    "response": "the forwarding cast to the wider interface succeeds, and execution forwards into the IList<> overload at line 265 (ShardListForeign<TRecord, TChild>(short, IList<ShardKey<TRecord, TChild>>)) or line 337 (ShardListForeign<TRecord, TChild, TGrandChild>(short, IList<ShardKey<TRecord, TChild, TGrandChild>>)), which iterates records and builds a ShardsValues containing one entry for each distinct ShardId found in records that is not equal to the supplied shardId",
+    "postcondition": "the returned ShardsValues's Shards dictionary holds exactly one empty entry per distinct foreign shard identifier present in records (the supplied shardId itself excluded), and no exception is thrown"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "255-256",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "265-276",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "324-328",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "337-351",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-13f8387fc2284958aed58b9ead46e21b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

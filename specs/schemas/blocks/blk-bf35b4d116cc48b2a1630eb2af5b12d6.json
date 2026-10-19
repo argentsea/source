@@ -1,0 +1,63 @@
+{
+  "id": "blk-bf35b4d116cc48b2a1630eb2af5b12d6",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ReminderOptionsDefaults reminder-period bounds",
+    "description": "The three reminder-period bounds ArgentSea's reminder storage declares as supported defaults. ArgentSeaReminderOptionsValidator.ValidateConfiguration reads only MinimumReminderPeriodMinutes, as the floor below which a configured ReminderOptions.MinimumReminderPeriod is admitted with a warning instead of rejected. RefreshReminderListPeriodMinutes and InitializationTimeoutMinutes are declared alongside it but are not read anywhere in ValidateConfiguration.",
+    "members": [
+      {
+        "name": "MinimumReminderPeriodMinutes",
+        "type": "uint",
+        "required": true,
+        "description": "Floor, in minutes, below which a configured ReminderOptions.MinimumReminderPeriod is admitted with a logged warning rather than accepted silently or rejected. Literal value: 1."
+      },
+      {
+        "name": "RefreshReminderListPeriodMinutes",
+        "type": "uint",
+        "required": true,
+        "description": "Default interval, in minutes, associated with ReminderOptions.RefreshReminderListPeriod. Literal value: 5. Not read by ValidateConfiguration.",
+        "notes": "Declared but unused by the validator's current checks."
+      },
+      {
+        "name": "InitializationTimeoutMinutes",
+        "type": "uint",
+        "required": true,
+        "description": "Default maximum time, in minutes, associated with ReminderOptions.InitializationTimeout. Literal value: 5. Not read by ValidateConfiguration.",
+        "notes": "Declared but unused by the validator's current checks."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ArgentSeaReminderOptionsValidator.cs",
+        "lines": "31-62",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-storage",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-08938b1b1b694b1d985a9ecf74dc11d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

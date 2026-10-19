@@ -4,9 +4,9 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "ArgentSeaOrleansReminderTable is asked for hash range begin=10 and end=20, and its read Shards decode reminder rows named \"a\" and \"b\".",
+      "given": "ArgentSeaOrleansReminderTable is asked for hash range begin=10 and end=20; one read Shard returns reminder rows named \"a1\" and \"a2\" and another returns \"b1\" and \"b2\".",
       "when": "ReadRows(10, 20) is invoked.",
-      "then": "the returned ReminderTableData contains the decoded \"a\" and \"b\" reminder rows."
+      "then": "the returned ReminderTableData contains all four decoded reminder rows \"a1\", \"a2\", \"b1\" and \"b2\", not just the first row of each Shard."
     },
     "illustrates": [
       {
@@ -27,14 +27,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
-        "lines": "123-159,89-119",
+        "lines": "130-166,89-127",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-reminder-table",
+    "sectionId": "orleans-reminder-storage",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

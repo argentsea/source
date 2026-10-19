@@ -1,0 +1,48 @@
+{
+  "id": "blk-31154526294748d19a16add7fd9c4e44",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A shard set contains shard ids 7 and 11; ShardSetsBase<TConfiguration>.ShardSetReadFirst.QueryAsync is called for query Q; shard 7's per-shard read task resolves first with non-null model A while shard 11's per-shard read task is still in flight.",
+      "when": "the read-first call observes shard 7's non-null result.",
+      "then": "model A is returned, and the linked cancellation token source whose token was passed to both per-shard reads is cancelled, so shard 11's in-flight read is cancelled; whatever outcome shard 11's task reaches (cancelled, completed, or faulted) is observed and never surfaced to the caller."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ed70930c2ec94fb8b428748a4fa65630"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "168-189",
+        "label": "per-shard read tasks dispatched with the linked queryCancelationToken.Token, then handed to ShardFanOut.FirstNonNullAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "132-144",
+        "label": "once a result is chosen, the losing shards are cancelled through the linked source and their late outcomes observed"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

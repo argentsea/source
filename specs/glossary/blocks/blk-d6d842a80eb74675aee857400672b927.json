@@ -1,0 +1,47 @@
+{
+  "id": "blk-d6d842a80eb74675aee857400672b927",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Parameter collection",
+    "definition": "`ParameterCollection` is a free-standing `DbParameterCollection` that can be created without a command object. Parameters can therefore be declared once, on the caller's thread, before any connection exists, and then copied onto each connection's command. Because every connection gets its own copy, a caller must not hold references to the original output parameters expecting them to receive results. ArgentSea's typed parameter extension methods and the Mapper work both on it and on any provider command's `Parameters`.",
+    "synonyms": [
+      "ParameterCollection",
+      "QueryParameterCollection (older docs)"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ParameterCollection.cs",
+        "lines": "15-40",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/setparameters.md",
+        "lines": "1-17",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "58-67",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,49 @@
+{
+  "id": "blk-e596ae1931fc4ac3a475fed5dec5f5ac",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardKeySerialization internal type-code and value codec",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "Internal static class providing the type-code layer beneath ShardKey<> serialization. GetKeyDataType maps a supported .NET key-column type to its KeyDataType code: Guid, byte[], int, byte, short, long, char, decimal, double, float, DateTime, DateOnly, string, TimeSpan, and any enum whose underlying type is int, byte, short or long (coded as Int32Enum/ByteEnum/Int16Enum/Int64Enum respectively); every other type, including TimeOnly, yields KeyDataType.Undefined. TryEncodeTypeMetadata has one overload per key arity (1 to 4 Type arguments) that packs each key part's code into a byte sequence sized by arity -- 1 byte for one part, 2 for two, and 3 for three or four, since four 6-bit codes fit in 24 bits -- and returns true only when every supplied type produced a non-Undefined code; the packed bytes are written even on failure, with each Undefined part encoded as zero. In the three- and four-arity overloads the 6-bit codes do not align to byte boundaries: the byte at position 2 carries grandchildType's low 2 bits together with greatgrandchildType's full 6-bit code (when present). ThrowIfMetadataMismatch has the same four arities: it recomputes the expected metadata via TryEncodeTypeMetadata for the call-site types and throws InvalidShardKeyMetadataException with no type argument when the recomputed length differs from the supplied metadata's length; throws it naming only the single first-position call-site type (keyType) -- never the call-site type that actually failed to encode -- when any call-site type fails to encode; and otherwise throws it naming keyType, childType or grandchildType for a position-0, position-1 or position-2 packed-byte mismatch respectively, where a position-2 mismatch in the four-arity overload is still attributed to grandchildType even though that byte also carries greatgrandchildType's full code. GetArgType is GetKeyDataType's inverse, mapping a KeyDataType code back to a .NET Type for reconstruction when only the embedded code is known; it is not a strict inverse -- KeyDataType.Blob maps back to typeof(Array) rather than typeof(byte[]), the four *Enum codes map back to their underlying primitive type rather than the original enum type, and KeyDataType.TimeOnly has no case and returns null. TryConvertFromBytes reads one key-column value from a byte span at a caller-supplied cursor position and returns it as dynamic so the caller needs no generic type parameter; the out dynamic result is unconditionally set to its default (null) before the type dispatch runs. For Guid and decimal it checks that at least 16 bytes remain ahead of the cursor: when they do not, it reports failure and assigns an explicit sentinel (Guid.Empty or decimal.Zero) without advancing the position; otherwise it decodes exactly 16 bytes (a Guid reads exactly 16, so later key parts may follow it), advances the position, and reports success. For int, long, short, char, double, float, DateTime, DateOnly, TimeOnly and TimeSpan it delegates the length check and decode to the private TryConvertType helper, which measures the bytes remaining ahead of the cursor and reports failure without advancing the position when too few remain, yielding a zero-valued output in that case; it then assigns result from that helper's output -- wrapped in a constructor or factory for the four non-numeric types (new DateTime(ticks), DateOnly.FromDayNumber(dayNumber), new TimeOnly(ticks), new TimeSpan(ticks)) -- so a failed length check leaves result at that type's zero-tick/zero-day equivalent rather than at the method's initial default. For byte, string, byte[], Memory<byte> and ReadOnlyMemory<byte> it reads directly at the cursor with no length check against data.Length, so a cursor at or past the end of the span throws IndexOutOfRangeException instead of returning false; for the variable-length cases (string, byte[], Memory<byte>, ReadOnlyMemory<byte>) a leading zero length-and-flag byte short-circuits to that type's empty/null value. For any enum type it decodes the enum's underlying integer type and returns the corresponding enum value (via Enum.ToObject), so enum key parts round-trip. A further branch dispatches on reference equality to the literal type typeof(Nullable) (the non-generic Nullable class, not any constructed Nullable<T>); neither GetArgType nor GetKeyDataType ever produces that Type, so the branch is not reachable from a valueType this component itself derives from a KeyDataType code, and its own final statement unconditionally overwrites its out result with the recursive call's bool return value rather than the decoded value, so it would not produce a usable result even if reached by some other caller. GetValueBytes serializes an IComparable value to bytes: it has explicit cases for int, byte, short, long, char, decimal, double, float, uint, ulong, ushort, sbyte, DateTime, string (prefixed with a one-byte length-and-flag byte; throws ArgumentOutOfRangeException when the UTF-8 encoding exceeds 127 bytes, the most its one-byte prefix can encode), Enum (converted to its underlying primitive type and re-dispatched through GetValueBytes), DateTimeOffset, TimeSpan, Guid, Half, Int128 and UInt128. Its default branch contains a check for a non-null value whose runtime type is a generic Nullable<T>, intended to prefix a one-byte flag (false) ahead of the unwrapped value's own recursive GetValueBytes encoding, but this check can never match at runtime: the parameter is declared as IComparable, and the common language runtime never boxes a nullable value type as Nullable<T> itself -- a nullable local boxes to a reference to its underlying type when it has a value, or to a null reference when it does not -- so value.GetType() can never return a constructed Nullable<T> type and this branch is unreachable dead code. GetValueBytes has no explicit case matching byte[], Memory<byte>, ReadOnlyMemory<byte> or DateOnly, so it is not a write-side counterpart for those four TryConvertFromBytes read types; of the four, only DateOnly implements IComparable -- GetValueBytes's parameter type -- so only a DateOnly value can be passed to GetValueBytes through an ordinary typed call, reaching the default branch's final throw of System.Exception. byte[], Memory<byte> and ReadOnlyMemory<byte> do not implement IComparable, so no ordinary typed call can pass them to GetValueBytes at all: an argument statically typed as one of these three does not satisfy the IComparable parameter and the call does not compile, so the missing write-side counterpart for these three types manifests as a compile-time type mismatch rather than a runtime throw. IsEqualWithNulls compares two same-typed key values, treating two nulls as equal and a null paired with a non-null as unequal, and otherwise delegating to IComparable.CompareTo."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "37-392",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "394-691",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

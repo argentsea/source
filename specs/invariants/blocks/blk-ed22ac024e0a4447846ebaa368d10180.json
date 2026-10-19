@@ -1,0 +1,75 @@
+{
+  "id": "blk-ed22ac024e0a4447846ebaa368d10180",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A table name supplied to a CopyMapper Add registration must be either an unqualified \"table\" or a schema-qualified \"schema.table\": it is non-empty, contains at most one period, and when it contains one, the schema part before it and the table part after it are both non-empty. Each part separately must be no more than 63 characters long (PostgreSQL's per-identifier NAMEDATALEN limit), must begin with a letter or an underscore, and must contain only letters, digits, underscores, or dollar signs. Any violation raises a plain System.Exception naming the specific rule broken before any destination-table or COPY command text is generated. A valid schema-qualified name is emitted into the generated CREATE TABLE and COPY text with each part quoted as its own identifier (\"schema\".\"table\"); an unqualified name is emitted as one quoted identifier (\"table\").",
+    "scope": "The tableName parameter of every CopyMapper Add registration (both the model-collection family and the virtual-compound-key family, across DatabaseBatch<TResult>, ShardBatch<TResult>, and ShardSetBatch), validated once per batch-step execution by ValidatePgTableName before the step body builds any command text, and quoted part-by-part by QuotePgTableName for the schema-qualified (persistent-table) path."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "430-465",
+        "label": "ValidatePgTableName: at most one separator, both parts non-empty, per-part 63-character, leading-character and character-class rules"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "467-475",
+        "label": "QuotePgTableName quotes each part as its own identifier"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "151,206,264,326,378",
+        "label": "each copy step validates before building command text"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "158-162,213-217,271-275,333-337,395-399",
+        "label": "schema-qualified path emits the part-quoted name"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/CopyTableNameTests.cs",
+        "lines": "9-70",
+        "label": "valid/invalid names and quoted output",
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "copy-load",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-7cee1125d4324f8cb4978303e9a3e1f9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

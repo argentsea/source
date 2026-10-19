@@ -1,0 +1,58 @@
+{
+  "id": "blk-6f418939dc074229857ac55313f1fffa",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaGrainStorageProviderBuilder declarative grain-storage registration",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ArgentSeaGrainStorageDbProviderBuilder and ArgentSeaGrainStorageShardProviderBuilder are internal sealed IProviderBuilder<ISiloBuilder> implementations, one per backing store. Each type's Configure(ISiloBuilder builder, string? dataProviderName, IConfigurationSection configurationSection) method registers the matching grain-storage factory against the builder's service collection under the supplied dataProviderName: the Db builder registers ArgentSeaGrainStorageFactory.CreateDb and sets the named OrleansDbPersistenceOptions.DatabaseKey, the Shard builder registers ArgentSeaGrainStorageFactory.CreateShards and sets the named OrleansShardPersistenceOptions.ShardSetKey. The key is resolved in order: the supplied configurationSection's DatabaseKey/ShardSetKey when present and non-empty; otherwise the same key in the application configuration's top-level \"OrleansData\" section; otherwise \"Default\". Precondition: when configurationSection does not supply the key, the \"OrleansData\" section must exist, or Configure throws InvalidOperationException. This is the declarative counterpart to ArgentSeaSiloBuilderExtensions' imperative registration calls; both ultimately register the same ArgentSeaGrainStorageFactory delegates under the same provider name."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageProviderBuilder.cs",
+        "lines": "13-65",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "12-53",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-hosting",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-72aef794489e40859ce8f8592555f11f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-7e04fd4beed94b3bb0b0f47847434a4c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

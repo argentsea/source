@@ -1,0 +1,72 @@
+{
+  "id": "blk-b6aca07a12544038b7a905aab5d89e61",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a BinaryExpression with NodeType Multiply whose Left is a BinaryExpression with NodeType Add (itself with ParameterExpression operands named 'x' and 'y') and whose Right is a ParameterExpression named 'z'",
+      "when": "DebugViewWriter visits the node",
+      "then": "it renders \"($x + $y) * $z\": the Add left operand is wrapped in parentheses because Add's operator precedence (10) is strictly lower than Multiply's (11), while the Parameter right operand is left unparenthesized because Parameter's precedence (15) is not lower than Multiply's"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "invariants",
+        "blockId": "blk-087089d4ef9d4940a3623d13bd21a497"
+      },
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-1e46588e666949c4bf6be6d042bf06df"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "420-421",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "701-776",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "780-899",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "437",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "449",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

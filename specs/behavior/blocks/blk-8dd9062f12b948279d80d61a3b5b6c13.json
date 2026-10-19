@@ -1,0 +1,42 @@
+{
+  "id": "blk-8dd9062f12b948279d80d61a3b5b6c13",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a KeyStep<TRecord> was added to a batch via BatchExtensions.Add without a shardIdColumnName, and the batch is executing on shard 7",
+      "when": "the step's query returns one row containing only the record-id column",
+      "then": "the step returns a ShardKey<TRecord> whose shard id is 7 — the shardId passed into ExecuteAsync — not a value read from the row"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-db9c113ffe1649229c350b59e6d29460"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "254-284",
+        "label": "KeyStep.ExecuteAsync shard-id fallback"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

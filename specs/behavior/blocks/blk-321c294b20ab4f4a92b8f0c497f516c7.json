@@ -1,0 +1,52 @@
+{
+  "id": "blk-321c294b20ab4f4a92b8f0c497f516c7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DbParameter pDouble and a DbParameter pFloat, each with Value set to DBNull.Value.",
+      "when": "GetDouble(pDouble) and GetFloat(pFloat) are invoked.",
+      "then": "GetDouble(pDouble) returns double.NaN and GetFloat(pFloat) returns float.NaN; neither call throws."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-1061beb1fd4448749b2813c5324db684"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "127-141,151-172",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-1061beb1fd4448749b2813c5324db684",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

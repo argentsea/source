@@ -1,0 +1,41 @@
+{
+  "id": "blk-d9e5aef9e5504b31a8cd3f4f5f0cd8b0",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "The Orleans Grain Storage Package's declared dependencies must never include a database-platform package or project. ArgentSea.Orleans.csproj names only Microsoft Orleans packages (Microsoft.Orleans.Reminders, Microsoft.Orleans.Runtime, Microsoft.Orleans.Sdk, all pinned to 10.3.1) and a single ProjectReference to ArgentSea core (ArgentSea.Shared/src/ArgentSea.csproj); it carries no reference to SqlClient, Npgsql, ArgentSea.Sql, or ArgentSea.Pg.",
+    "scope": "ArgentSea.Orleans package's declared PackageReference and ProjectReference items (ArgentSea.Orleans.csproj)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/ArgentSea.Orleans.csproj",
+        "lines": "24-37",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-10084c48c0764214be41173256ac7357",
+      "blobHash": null,
+      "label": null,
+      "relation": "grounds"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,96 @@
+{
+  "id": "blk-8243ce77e46441c78253fb977de6d4be",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Embed key-type metadata in serialized shard keys",
+    "status": "Accepted",
+    "decision": "Each ShardKey carries compact shard key type metadata, a code for the .NET type of each record-key column. The metadata is written at the front of every serialized form (binary, UTF-8 and external key) and checked when a key is deserialized as a specific generic type. Equality compares the shard id and key values only.",
+    "context": "Serialized keys now flow through channels where the reader may not know the generic types in advance, such as logging and Orleans grain ids.",
+    "alternatives": [
+      {
+        "option": "Keep the DataOrigin character, serialized as an 8-bit value.",
+        "whyRejected": "The DataOrigin was not helpful in any real-world development scenarios; it was a solution in search of a problem. It also add substantial development overhead that was not justified by the perceived benefit."
+      },
+      {
+        "option": "Serialize without any type information.",
+        "whyRejected": "Deserialization would only work if the type was always known in advance. Orleans and certain logging scenarios do not always know this."
+      }
+    ],
+    "consequences": "Deserializing with the wrong generic types fails, and a ghost shard key can rebuild an unknown key. This is a requirement for logging and Orleans support."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "14-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "351-366",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "10-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/readme.md",
+        "lines": "7-13",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "18-33",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": "Shard key type metadata",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-827f0c1209484f9081031f55581c7f41",
+      "blobHash": null,
+      "label": "Ghost shard key",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": "ShardKey",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,31 @@
+{
+  "id": "blk-8148f33ca6654cc8a69fa2f59d956d62",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "TvpMapper's compiled table-valued-record projection must never bind more than one column-mapping attribute to the same model property; it throws MultipleMapAttributesException instead.",
+    "scope": "Properties considered while TvpMapper.IterateTvpProperties builds a model type's table-valued-record projection."
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "237-247",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

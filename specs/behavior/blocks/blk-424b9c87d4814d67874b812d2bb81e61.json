@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "OrleansSqlPersistence",
-    "trigger": "an application registers database or shard-set grain storage with a provider name",
-    "response": "register the grain-storage provider under exactly that name and select the database or shard-set factory that matches the registration operation",
+    "subject": "Orleans Grain Storage Hosting",
+    "trigger": "an application registers database or shard-set grain storage with a provider name through ArgentSeaSiloBuilderExtensions (AddArgentSeaDbOrleansGrainStorage or AddArgentSeaShardOrleansGrainStorage)",
+    "response": "register the grain-storage provider under exactly that name and select the ArgentSeaGrainStorageFactory delegate that matches the registration operation (CreateDb for database storage, CreateShards for shard-set storage)",
     "postcondition": "the caller can continue configuring through the same silo builder or service collection"
   },
   "metadata": {
@@ -31,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-persistence",
+    "sectionId": "orleans-grain-storage-hosting",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

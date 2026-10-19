@@ -1,0 +1,43 @@
+{
+  "id": "blk-1bf2e9b856024458aca7786aafa4c318",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Provider Package",
+    "response": "grant visibility of the ArgentSea.Sql assembly's internal types and members to the assembly named $(MSBuildProjectName).Test (this project's own name with a \".Test\" suffix) via an InternalsVisibleTo item in the project file",
+    "postcondition": "the SQL Server provider's own test assembly can exercise its internal implementation directly without those internals becoming part of the package's public API"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "40",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -4,7 +4,7 @@
   "type": "Term",
   "fields": {
     "name": "Mock results",
-    "definition": "A per-connection (or per-shard-set) dictionary, keyed by query contract name, that short-circuits query execution: when a key matches the invoked query, the stored object is returned as the result and no database call occurs. Enables unit tests to exercise the real ArgentSea call path without a live database.",
+    "definition": "A dictionary on a data connection, shard or shard set, keyed by Query name. When a data method is invoked with a Query whose name is present, the stored object is returned as the result and no database call is made. It lets unit tests exercise application code through ArgentSea's real call path without a live database.",
     "synonyms": [
       "MockResults",
       "canned results"

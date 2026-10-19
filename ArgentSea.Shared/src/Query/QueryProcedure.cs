@@ -13,7 +13,7 @@ namespace ArgentSea
         {
 
         }
-        public QueryProcedure(string sprocName, string[] parameterNames)
+        public QueryProcedure(string sprocName, string[]? parameterNames)
             : base(sprocName, sprocName, parameterNames)
         {
 

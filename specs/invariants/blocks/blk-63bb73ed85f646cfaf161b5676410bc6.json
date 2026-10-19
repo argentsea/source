@@ -1,0 +1,31 @@
+{
+  "id": "blk-63bb73ed85f646cfaf161b5676410bc6",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj's ProjectReference ItemGroup always lists both ArgentSea.Orleans and ArgentSea.Sql together; the file contains no ProjectReference state in which only one of the two is present.",
+    "scope": "ArgentSea.Orleans.Sql.csproj ProjectReference ItemGroup: ArgentSea.Orleans and ArgentSea.Sql entries."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-37",
+        "label": "Full file: the cited ItemGroup (28-31) establishes both ProjectReference entries, and the whole-file read establishes no one-sided ProjectReference state exists anywhere in the file"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

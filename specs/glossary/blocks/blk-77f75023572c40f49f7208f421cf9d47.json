@@ -1,0 +1,42 @@
+{
+  "id": "blk-77f75023572c40f49f7208f421cf9d47",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Data connection",
+    "definition": "One read or write endpoint of a database or shard: the object on which data methods are invoked. It owns its resolved connection settings, which are derived from the configuration hierarchy and recomputed when an inherited property changes, together with its own resilience strategy and its mock results. Every command it runs opens a fresh pooled provider connection.",
+    "synonyms": [
+      "DataConnection",
+      "ShardDataConnection",
+      "endpoint"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "19-94",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "20-60",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

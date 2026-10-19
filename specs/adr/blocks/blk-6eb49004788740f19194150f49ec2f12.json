@@ -1,0 +1,69 @@
+{
+  "id": "blk-6eb49004788740f19194150f49ec2f12",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Logging is mandatory, structured and tiered",
+    "status": "Accepted",
+    "decision": "Every Mapper entry point and data method takes an `ILogger`; it is not optional. ArgentSea logs through precompiled `LoggerMessage` definitions with fixed, numbered event ids (connection-string built, expression-tree creation, parameter or column not found, mapper cache status, mapper trace, unexpected DbNull, invalid reader, command executed, connect or command retry, circuit breaker, batch step). Each event has a fixed level. Critical: circuit breaker tripped. Error: reader closed or null, with connection context. Warning: retry started. Information: breaker test and recovery. Debug: why a required mapping returned null, rendered generated mapper code, missing parameters, delegate cache misses. Trace: per-property mapping progress and command execution times. Logs always carry the query name and connection description.",
+    "context": "Data-tier failures in a sharded, concurrent system are hard to diagnose. An exception thrown on one of many worker threads loses context, compiled mapping code cannot be stepped through in a debugger, and retries hidden in a driver make degradation invisible. A supportable application needs logs by design (principle p6: never hide resilience activity).",
+    "alternatives": [
+      {
+        "option": "An optional logger, with no logging when none is supplied.",
+        "whyRejected": "Diagnostics would silently disappear exactly where they are needed most."
+      },
+      {
+        "option": "String-formatted ad-hoc logging.",
+        "whyRejected": "It allocates on every call, even when the level is disabled, and gives no stable event ids to alert on."
+      }
+    ],
+    "consequences": "Operators can alert on stable event ids, such as breaker trips and retries, and trace any failure to a query and endpoint. Debug and Trace levels expose the Mapper's generated code and per-property progress for troubleshooting. Debug and Trace are expensive and should not run in production, so the log level is a performance setting. Every call site must have a logger available."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/logging.md",
+        "lines": "1-46",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "18-90",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-768e9df6a28647b1a82400b0aae5261b",
+      "blobHash": null,
+      "label": "Connection description",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p6-resilient-by-default",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

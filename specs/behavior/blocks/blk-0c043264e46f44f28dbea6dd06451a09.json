@@ -18,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/CopyMapper.cs",
-        "lines": "27-42,114-120,376-421,467-479,621-711",
+        "lines": "27-42,114-120,376-421,494-506,648-740",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-copy-mapper",
+    "sectionId": "copy-load",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

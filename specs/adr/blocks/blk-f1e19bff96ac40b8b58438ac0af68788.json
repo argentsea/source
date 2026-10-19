@@ -3,17 +3,21 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Leave database failover coordinated outside the client",
-    "decision": "Do not provide native automatic failover to a standby database server; permit callers to build failover by updating connection properties in the configuration hierarchy.",
-    "context": "High-availability and disaster-recovery approaches vary across DNS, provider configuration, and infrastructure coordination. A robust strategy cannot be assumed at an individual client.",
+    "title": "Leave database failover to infrastructure; make it possible, not automatic",
+    "status": "Accepted",
+    "decision": "ArgentSea does not fail a connection over to a standby server on its own. Failover is delegated to the infrastructure (DNS, availability-group listeners, the provider's FailoverPartner or multi-subnet settings) or to application code. Application code can redirect connections at run time by updating endpoint properties in the configuration hierarchy, and those changes propagate to inheriting connections.",
+    "context": "High-availability and disaster-recovery designs vary widely. A real failover usually involves coordinated infrastructure changes and a business decision. A single client that independently decides to fail over can split traffic across primaries and corrupt data.",
     "alternatives": [
       {
-        "option": "Have an individual ArgentSea client automatically fail over to a standby database.",
-        "whyRejected": "Business-continuity failover requires coordinated infrastructure signals; an uncoordinated client could make a rogue failover decision."
+        "option": "Built-in automatic failover to a configured secondary after repeated failures.",
+        "whyRejected": "No single policy works predictably across the possible topologies, and an uncoordinated client-side failover is dangerous."
+      },
+      {
+        "option": "No run-time reconfiguration at all; require a restart to change endpoints.",
+        "whyRejected": "Would prevent applications from implementing their own coordinated failover signal."
       }
     ],
-    "consequences": "ArgentSea remains compatible with high-availability and disaster-recovery solutions while avoiding an opinionated native policy; callers can select their own trigger and update endpoints or database names.",
-    "status": "Accepted"
+    "consequences": "ArgentSea stays out of the failover decision. The circuit breaker prevents pile-ups while a database is down, but recovery depends on infrastructure or application code. Applications that want client-driven failover must build the trigger and coordination themselves, using updatable connection properties."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +28,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
-        "lines": "80-89",
+        "lines": "81-90",
         "label": "Failover boundary and configuration update capability",
         "relation": "grounds"
       }

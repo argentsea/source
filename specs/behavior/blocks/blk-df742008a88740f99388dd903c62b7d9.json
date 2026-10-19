@@ -1,0 +1,52 @@
+{
+  "id": "blk-df742008a88740f99388dd903c62b7d9",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an exception is an InvalidOperationException rather than a SqlException",
+      "when": "ArgentSea.Sql.DataProviderServiceFactory.GetIsErrorTransient evaluates the exception",
+      "then": "the result is false"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-494b49456138442883d6833b47f978a0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "16-103",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": "Transient error",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

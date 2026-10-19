@@ -1,0 +1,131 @@
+{
+  "id": "blk-546540800dec48db88a259cdfb7e2a76",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSea.Orleans package manifest",
+    "description": "Identity and compilation configuration declared in the two PropertyGroup blocks of ArgentSea.Orleans.csproj: the .NET target and language settings the package compiles under, its assembly/package version numbers, and the NuGet metadata used when it is packed. The <Description> element is declared twice in the same PropertyGroup (line 9, then again at line 14) with different text; this file does not itself establish which declaration MSBuild resolves at build time, only that both are present.",
+    "members": [
+      {
+        "name": "TargetFramework",
+        "type": "nvarchar(50)",
+        "description": "The .NET target framework moniker the package compiles against.",
+        "required": true,
+        "notes": "net10.0"
+      },
+      {
+        "name": "ImplicitUsings",
+        "type": "nvarchar(10)",
+        "description": "Whether implicit global C# using directives are enabled for the project. MSBuild treats this element's value as a string token, not a boolean bit.",
+        "required": true,
+        "notes": "enable"
+      },
+      {
+        "name": "Nullable",
+        "type": "nvarchar(10)",
+        "description": "C# nullable reference-type annotation mode for the project's sources. MSBuild treats this element's value as a string token, not a boolean bit.",
+        "required": true,
+        "notes": "enable"
+      },
+      {
+        "name": "AssemblyVersion",
+        "type": "nvarchar(20)",
+        "description": "The compiled assembly's version.",
+        "required": true,
+        "notes": "2.0.0.0"
+      },
+      {
+        "name": "FileVersion",
+        "type": "nvarchar(20)",
+        "description": "The compiled assembly file's version resource.",
+        "required": true,
+        "notes": "2.0.0.0"
+      },
+      {
+        "name": "Version",
+        "type": "nvarchar(20)",
+        "description": "The NuGet package version.",
+        "required": true,
+        "notes": "2.0.4"
+      },
+      {
+        "name": "Title",
+        "type": "nvarchar(200)",
+        "description": "The NuGet package title shown on NuGet.",
+        "required": true,
+        "notes": "'ArgentSea core library for Microsoft Orleans persistence'"
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar(max)",
+        "description": "The NuGet package description. Declared twice in the same PropertyGroup with different text; this file does not itself establish which declaration MSBuild resolves to.",
+        "required": true,
+        "notes": "Line 9: 'This library depends on the core ArgentSea library and provides extensions to allow it to provide storage services to Microsoft Orleans..' (doubled trailing full stop as written). Line 14: 'Abstrations which enable ArgentSea to serve as a data provider for Microsoft Orleans.' (misspelling of 'Abstractions' as written)."
+      },
+      {
+        "name": "Copyright",
+        "type": "nvarchar(200)",
+        "description": "The NuGet package copyright string.",
+        "required": true,
+        "notes": "© John Hicks"
+      },
+      {
+        "name": "PackageIcon",
+        "type": "nvarchar(260)",
+        "description": "The packaged icon file name shown on NuGet.",
+        "required": true,
+        "notes": "argentsea-logo.png"
+      },
+      {
+        "name": "PackageLicenseExpression",
+        "type": "nvarchar(100)",
+        "description": "The SPDX license expression declared for the package.",
+        "required": true,
+        "notes": "MIT"
+      },
+      {
+        "name": "GeneratePackageOnBuild",
+        "type": "bit",
+        "description": "Whether a NuGet package is produced on every build of the project.",
+        "required": true,
+        "notes": "True"
+      },
+      {
+        "name": "IncludeSymbols",
+        "type": "bit",
+        "description": "Whether a matching .snupkg symbols package is produced alongside the NuGet package.",
+        "required": true,
+        "notes": "true"
+      },
+      {
+        "name": "SymbolPackageFormat",
+        "type": "nvarchar(20)",
+        "description": "The format of the produced symbols package.",
+        "required": true,
+        "notes": "snupkg"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/ArgentSea.Orleans.csproj",
+        "lines": "3-22",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

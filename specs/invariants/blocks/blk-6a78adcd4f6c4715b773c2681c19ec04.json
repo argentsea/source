@@ -1,0 +1,37 @@
+{
+  "id": "blk-6a78adcd4f6c4715b773c2681c19ec04",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A DatabasesBase<TConfiguration>.DataConnection instance cannot be constructed by code outside the ArgentSea.Shared assembly, because its constructor is internal; an external caller obtains an instance only through DatabasesBase<TConfiguration>.Database.Read or .Write, the two call sites where Database's constructor creates it.",
+    "scope": "DatabasesBase<TConfiguration>.DataConnection construction"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "109-117",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "86-117",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "databases-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

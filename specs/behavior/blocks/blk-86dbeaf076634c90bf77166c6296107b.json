@@ -1,0 +1,66 @@
+{
+  "id": "blk-86dbeaf076634c90bf77166c6296107b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Resilient Command Execution",
+    "trigger": "the retry policy exhausts the connection's configured retry count without a successful execution",
+    "response": "let whatever exception the connection's current resilience policy (ResiliencePolicy.ExecuteAsync) throws propagate to the caller: none of DataConnectionManager's seven execution methods (ReturnAsync x2, ListAsync x2, QueryAsync, RunAsync, RunBatchAsync) wraps that call in a try/catch that could intercept, translate or replace it, and DataConnectionManager.cs never constructs a RetryLimitExceededException."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "19-585",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/RetryLimitExceededException.cs",
+        "lines": "14-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "components",
+      "blockId": "resilient-command-execution",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

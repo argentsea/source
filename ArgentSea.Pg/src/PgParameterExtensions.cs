@@ -14,26 +14,26 @@ namespace ArgentSea.Pg
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a typed array.</returns>
-        public static T[] GetArray<T>(this DbParameter prm)
+        public static T[]? GetArray<T>(this DbParameter prm)
         {
             if (prm.Value == System.DBNull.Value)
             {
                 return null;
             }
-            return (T[])prm.Value;
+            return (T[]?)prm.Value;
         }
         /// <summary>
         /// Gets an array from the output parameter, or null if the parameter value is DbNull.
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a typed array.</returns>
-        public static IDictionary<string, string> GetHStore(this DbParameter prm)
+        public static IDictionary<string, string>? GetHStore(this DbParameter prm)
         {
             if (prm.Value == System.DBNull.Value)
             {
                 return null;
             }
-            return (Dictionary<string, string>)prm.Value;
+            return (Dictionary<string, string>?)prm.Value;
         }
     }
 }

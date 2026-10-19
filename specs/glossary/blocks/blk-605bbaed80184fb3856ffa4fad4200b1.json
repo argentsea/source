@@ -1,0 +1,47 @@
+{
+  "id": "blk-605bbaed80184fb3856ffa4fad4200b1",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Mapper",
+    "definition": "ArgentSea's attribute-driven mapper between model properties and query parameters and results. The first time a model type is used, it reads the type's mapping attributes by reflection and compiles expression-tree delegates that create and set input parameters, create output parameters, read output parameters, read data-reader rows, or build table-valued-parameter rows. The delegates are cached per type for the life of the process, so later calls run at hand-coded ADO.NET speed. The Mapper is exposed as extension methods (`CreateInputParameters`, `CreateOutputParameters`, `ToModel`, `ToList`) and as ready-made result handlers. It never generates SQL, and each of its steps can be used, skipped or replaced independently.",
+    "synonyms": [
+      "ArgentSea Mapper",
+      "ORM (parameters-and-results)"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/mapping.md",
+        "lines": "1-31",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "24-40",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/targets.md",
+        "lines": "1-11",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

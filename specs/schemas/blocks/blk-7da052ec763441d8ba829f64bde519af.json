@@ -53,7 +53,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options-pg-shard-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -72,7 +72,7 @@
       "kind": "spec",
       "project": "argentsea",
       "specId": "components",
-      "blockId": "shared-i-shard-connection-configuration",
+      "blockId": "connection-configuration-hierarchy",
       "blobHash": null,
       "label": null,
       "relation": "dependsOn"

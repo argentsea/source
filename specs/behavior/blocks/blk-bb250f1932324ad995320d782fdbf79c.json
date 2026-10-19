@@ -4,16 +4,16 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "a concrete SharedQueryTypes implementation is initialized with SQL \"SELECT @id\", name \"Lookup\", parameter names [\"@id\"], and command classification CommandType.Text",
-      "when": "a consumer reads its Query contract",
+      "given": "a QueryStatement (a Query-derived instance) is constructed with SQL \"SELECT @id\", name \"Lookup\", and parameter names [\"@id\"]",
+      "when": "a consumer reads Sql, Name, ParameterNames, and Type",
       "then": "the consumer receives SQL \"SELECT @id\", name \"Lookup\", parameter names [\"@id\"], and command classification CommandType.Text"
     },
     "illustrates": [
       {
         "kind": "spec",
-        "project": "ArgentSea",
+        "project": "argentsea",
         "specId": "behavior",
-        "blockId": "blk-ae794fe23dcc479ca26210fafeffe965"
+        "blockId": "blk-f09e5e3da06d471dacb922688dbd3e04"
       }
     ]
   },
@@ -29,11 +29,18 @@
         "lines": "8-26",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "34-34",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-types",
+    "sectionId": "query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

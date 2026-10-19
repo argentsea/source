@@ -1,0 +1,43 @@
+{
+  "id": "blk-3d44c2d1a05c4aef91153f233526599d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "a mapped property is marked required and its corresponding parameter or reader column is DbNull",
+    "trigger": "ExpressionHelpers builds the early-exit expression for that property via ReturnNullIfPrmNull or ReturnNullIfColNull",
+    "response": "return the model type's default value from the mapping delegate immediately, without evaluating any further property-mapping expressions"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "574-614",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-67d09a13d68f412aa1af5d696140ed43",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

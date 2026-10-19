@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <Description>Opt-in integration tests that run ArgentSea against real SQL Server and PostgreSQL servers started with Testcontainers (or supplied through ARGENTSEA_SQL_TEST_CONNECTION / ARGENTSEA_PG_TEST_CONNECTION). Every test is skipped, not failed, when no server is available.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="8.10.0" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="18.10.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.0" />
+    <PackageReference Include="Testcontainers.MsSql" Version="4.16.0" />
+    <PackageReference Include="Testcontainers.PostgreSql" Version="4.16.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="Xunit.SkippableFact" Version="1.5.85" />
+    <PackageReference Include="xunit.analyzers" Version="2.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="4.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArgentSea.Sql\src\ArgentSea.Sql.csproj" />
+    <ProjectReference Include="..\ArgentSea.Pg\src\ArgentSea.Pg.csproj" />
+    <ProjectReference Include="..\ArgentSea.Orleans.Sql\src\ArgentSea.Orleans.Sql.csproj" />
+    <!-- Shares the numeric-mapping cases, models and DebugLogger with the SQL Server unit tests that the moved integration tests build on. -->
+    <ProjectReference Include="..\ArgentSea.Sql\test\ArgentSea.Sql.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The Orleans SQL Server scripts are deployed verbatim into the container by the Orleans script tests. -->
+    <None Include="..\ArgentSea.Orleans.Sql\src\common.sql" Link="Scripts\common.sql" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\ArgentSea.Orleans.Sql\src\tenant.sql" Link="Scripts\tenant.sql" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

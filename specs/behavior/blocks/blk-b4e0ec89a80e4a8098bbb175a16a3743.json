@@ -1,0 +1,52 @@
+{
+  "id": "blk-b4e0ec89a80e4a8098bbb175a16a3743",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Table Valued Parameters",
+    "trigger": "a model's collection property marked with MapToSqlTableValuedParameterAttribute is converted into SQL command parameters",
+    "response": "shall add one table-valued SQL parameter whose value enumerates the collection's elements and whose TypeName is set to the SQL Server table type name declared on the attribute, treating an uninitialized (default) ImmutableArray collection as empty rather than letting enumeration fail",
+    "postcondition": "the command's SqlParameterCollection holds a single SqlParameter configured with the collection's elements as its table-valued value and TypeName set to the declared SQL Server table type"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1348-1415",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

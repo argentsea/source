@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-sets-base-shard-set-read-all",
+    "sectionId": "shard-set-fan-out",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

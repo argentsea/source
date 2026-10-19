@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlConnectionConfiguration",
+    "subject": "SQL Server Connection Settings",
     "where": "a Configuration hierarchy supplies any combination of global, shard-set, read/write, shard, and local SQL Server settings",
     "trigger": "a caller requests the connection string",
     "response": "apply each non-null setting in global, shard-set, read/write, shard, then local order to construct the SQL Server connection string",
@@ -18,7 +18,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
-        "lines": "37-144,146-180",
+        "lines": "41-148,150-184",
         "label": null,
         "relation": "grounds"
       },
@@ -32,7 +32,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-connection-configuration",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

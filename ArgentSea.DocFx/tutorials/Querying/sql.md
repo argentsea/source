@@ -87,9 +87,10 @@ When PostgreSQL services are loaded, via the `AddPgServices` call in the `Config
 
 As with the default folder, you can change the default extension by setting the static `QueryStatement.Extension` property, or by using one of the `Create` overloads. Be sure to set this value, *after* the `AddPgServices` call, but before a query is invoked.
 
-As with the default folder, you can change the default extension by setting the static `QueryStatement.Extension` property, or by using one of the `Create` overloads.
-
 ***
+
+> [!NOTE]
+> `QueryStatement.Extension` is a single process-wide default. If your application registers *both* SQL Server and PostgreSQL services, create statements with the provider-specific factories instead: `SqlQueryStatement.Create(name)` (extension `SqlQueryStatement.Extension`, default “sql”) and `PgQueryStatement.Create(name)` (extension `PgQueryStatement.Extension`, default “psql”). These ignore the shared default, so each provider’s files resolve correctly regardless of registration order.
 
 ### 3. Ensure the SQL files are deployed
 

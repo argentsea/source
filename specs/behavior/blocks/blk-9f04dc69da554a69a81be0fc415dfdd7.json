@@ -1,0 +1,42 @@
+{
+  "id": "blk-9f04dc69da554a69a81be0fc415dfdd7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" has no query contract registered in the provider's persistence options",
+      "when": "ArgentSeaDbGrainPersistence<TDatabaseOptions>.ReadStateAsync is invoked for \"orders\"",
+      "then": "it throws OrleansQueryNotProvidedException naming \"orders\" before touching the supplied grain state"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ea747f3d72834d758567f1684fcd03f6"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "60-63",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

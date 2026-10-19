@@ -3,8 +3,8 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ExpressionHelpers",
-    "trigger": "a parameter or reader field is resolved by name",
+    "subject": "Mapping Expression Builders",
+    "trigger": "ExpressionHelpers: a parameter or reader field is resolved by name",
     "response": "attempt exact ordinal name matching, then invariant-culture case-insensitive matching, then case-insensitive matching that also ignores Kana type and width",
     "postcondition": "no parameter match yields null and no reader-field match yields -1"
   },
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
-        "lines": "523-579",
+        "lines": "516-572",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-expression-helpers",
+    "sectionId": "mapping-expression-builders",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

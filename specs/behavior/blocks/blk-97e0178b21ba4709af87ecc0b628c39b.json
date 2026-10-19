@@ -1,0 +1,48 @@
+{
+  "id": "blk-97e0178b21ba4709af87ecc0b628c39b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A shard-write delegate compiled with validateKey true for a model whose ShardKey property decodes to shard 3, record 100; the grain identity passed in decodes to shard 3, record 200.",
+      "when": "The compiled delegate executes against that grain identity and model.",
+      "then": "OrleansExpressionHelper throws OrleansIdKeyMismatchException naming the grain type, because the value decoded from the grain identity (record 200) does not equal the model's own ShardKey value (record 100)."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-db2db64747a04350a72d145f5014b3be"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "219-227",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansIdKeyMismatchException.cs",
+        "lines": "26-29",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

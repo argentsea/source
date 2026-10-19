@@ -57,7 +57,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options-pg-shard-connections-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

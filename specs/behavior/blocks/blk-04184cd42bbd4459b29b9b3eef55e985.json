@@ -1,0 +1,58 @@
+{
+  "id": "blk-04184cd42bbd4459b29b9b3eef55e985",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaRemindersProviderBuilder",
+    "trigger": "Orleans resolves the keyed Silo provider registered under category \"Reminders\" for provider name \"ArgentSea\"",
+    "response": "add a ClusterOptions options registration to the silo's services and install the ArgentSea reminder service onto the silo builder with ReminderOptions left at their defaults",
+    "postcondition": "a silo configured only by naming the ArgentSea reminders provider has its reminder service, reminder table, and reminder-options validator registered with ReminderOptions left at their defaults, with no further ReminderOptions configuration required to complete registration"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaRemindersProviderBuilder.cs",
+        "lines": "7-18",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/SiloBuilderReminderExtensions.cs",
+        "lines": "38-46",
+        "label": "IServiceCollection overload registering AddReminders, IReminderTable and IConfigurationValidator"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-storage",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-3b00d26115794c439f2302c372fb816d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-90920a87867a4469b540c803c23d0d32",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "blk-a1e7eed7f7d5462ba2f19d58d2b42d65",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "DataConnectionManager.ListAsync<string, object, object> returns 3 items whose Item1 values are \"Alpha\", \"Beta\", \"Gamma\".",
+      "when": "The caller invokes ListAsync<string>(query, parameters, \"Name\", cancellationToken).",
+      "then": "The operation returns the list [\"Alpha\", \"Beta\", \"Gamma\"]."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-8c6a35420c6640b28bcdb57e50419e7c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "188-201",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "databases-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

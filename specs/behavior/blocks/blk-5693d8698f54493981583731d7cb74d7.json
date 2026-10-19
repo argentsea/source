@@ -1,0 +1,53 @@
+{
+  "id": "blk-5693d8698f54493981583731d7cb74d7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DataConnectionConfigurationBase instance's UserName property currently holds the value \"svc_shard01\".",
+      "when": "The caller assigns UserName the same value, \"svc_shard01\", again.",
+      "then": "The setter's value-changed check (comparing the new value to the current _userName field) finds no difference, so UserName is left unchanged and PropertyChanged is not raised."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-d408f46971a040e292e8898732234253",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "66-76",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-d408f46971a040e292e8898732234253",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

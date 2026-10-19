@@ -1,0 +1,50 @@
+{
+  "id": "blk-4d8e45de1ad74ec7b0d1f43b176992b1",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Batch step",
+    "definition": "One unit of work in a batch, implementing the abstract `BatchStep`. Most steps execute a Query; custom steps allow non-query operations, such as a bulk copy or COPY load, inside the batch transaction. When several steps produce a result, the batch returns the last non-null, non-default one.",
+    "synonyms": [
+      "BatchStep"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/batches.md",
+        "lines": "13-41",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "1-48",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": "Batch",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

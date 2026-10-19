@@ -3,35 +3,42 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "Mapper",
-    "trigger": "a query-result handler receives a root model and zero through eight typed dependent reader result sets",
-    "response": "materialize the root model from either the first reader row or output parameters, materialize each available dependent result set as a list, and assign compatible result lists to the root model",
-    "postcondition": "use an empty list for each dependent result set that is absent"
+    "subject": "Model Mapping",
+    "trigger": "one of the typed-result query-result handlers, Mapper.ModelFromOutResultsHandler or Mapper.ModelFromReaderResultsHandler, receives a root model and zero through eight typed dependent reader result sets named by its TReaderResult type arguments",
+    "response": "materialize the root model from output parameters (ModelFromOutResultsHandler) or from the first reader row (ModelFromReaderResultsHandler), materialize each available dependent result set as a list, and assign compatible result lists to the root model",
+    "postcondition": "these typed-result handlers use an empty list for each dependent result set that is absent from the reader (NextResult returns false), so a query that returns fewer result sets than the handler's type arguments is tolerated. This does not apply to Mapper.ModelFromReaderWithCollectionsHandler, which hydrates CollectionMapAttributeBase properties and throws UnexpectedSqlResultException for an absent result set instead, because those properties are written back as table-valued parameters and an empty list would read as 'no children'."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded and falsifiable behavioral block for Mapper query-result handler materialization citing committed Terms.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable behavioral block for Mapper query-result handler materialization citing committed Terms. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'model-mapping' resolves to component 'Model Mapping' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "24-3980",
-        "label": null,
+        "lines": "1580-2576",
+        "label": "ModelFromOutResultsHandler family: root from output parameters, absent dependent result set -> empty list (e.g. 1771-1779)",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "3984-3984",
-        "label": null,
+        "lines": "2709-3732",
+        "label": "ModelFromReaderResultsHandler family: root from first reader row, absent dependent result set -> empty list (e.g. 2827-2837)",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "3759-4170",
+        "label": "BuildModelFromResultsExpressions assigns compatible result lists to the root model",
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-mapper",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

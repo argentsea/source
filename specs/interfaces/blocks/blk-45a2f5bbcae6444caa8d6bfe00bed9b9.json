@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-parameter-value",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

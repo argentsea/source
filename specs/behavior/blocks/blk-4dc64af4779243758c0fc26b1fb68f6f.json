@@ -1,0 +1,42 @@
+{
+  "id": "blk-4dc64af4779243758c0fc26b1fb68f6f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Status, of an enum type, maps to a present reader column holding the string \"Active\"",
+      "when": "ExpressionHelpers builds and executes Status's reader-column expression via ReaderStringExpressions",
+      "then": "Status is assigned the result of Enum.Parse(typeof(Status), \"Active\")"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-82f5b43a6961481b8c654f0c113f0c2e",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "304-312",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

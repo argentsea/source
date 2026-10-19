@@ -1,0 +1,44 @@
+{
+  "id": "blk-c924ca65ef8a4fe3892a468b60b70b77",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Map method",
+    "definition": "A data method whose results are built by the Mapper, as opposed to a Query method, which takes a caller-written result handler. There are three families. `MapReader*` builds the root model from a single-row data reader result. `MapOutput*` builds it from output parameters. `MapList*` returns one model per row. MapReader and MapOutput can also fill up to eight result-set list properties from further result sets. On a shard set, the `First` and `All` suffixes select ReadFirst or ReadAll semantics.",
+    "synonyms": [
+      "MapReaderAsync",
+      "MapOutputAsync",
+      "MapListAsync",
+      "Query method",
+      "QueryAsync"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "5-37",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "102-156",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

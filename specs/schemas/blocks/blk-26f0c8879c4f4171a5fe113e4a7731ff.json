@@ -33,7 +33,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-i-shard-sets-configuration-options",
+    "sectionId": "connection-configuration-hierarchy",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -52,7 +52,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "shared-i-shard-set-connections-configuration",
+      "blockId": "connection-configuration-hierarchy",
       "blobHash": null,
       "label": null,
       "relation": "references"

@@ -4,7 +4,7 @@
   "type": "Term",
   "fields": {
     "name": "Resilience strategy",
-    "definition": "The configured combination of retry and circuit-breaking policies used to recover from transient connection or command failures.",
+    "definition": "The policy ArgentSea applies to every command it executes on a data connection: retry with retry backoff on transient errors, wrapped by a circuit breaker. Each read or write endpoint has its own policy instance. It is built from the `RetryCount`, `RetryInterval`, `RetryLengthening`, `CircuitBreakerFailureCount` and `CircuitBreakerTestInterval` settings, with built-in defaults for any that are unset, and is rebuilt when the endpoint's retry count or circuit-breaker settings change. The provider driver's own connection retries are turned off so that every retry goes through, and is logged by, this policy.",
     "synonyms": [
       "resilience policy"
     ]
@@ -19,6 +19,13 @@
         "kind": "file",
         "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
         "lines": "3-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "73-94",
         "label": null,
         "relation": "grounds"
       }

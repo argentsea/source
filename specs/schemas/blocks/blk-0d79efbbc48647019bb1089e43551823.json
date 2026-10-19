@@ -4,12 +4,12 @@
   "type": "Schema",
   "fields": {
     "name": "MapToPg*Attribute supported-type matrix",
-    "description": "The valid MapToPg*Attribute selections and compatible CLR model-property types. Each member names the target PostgreSQL type selected by that variant; nullable forms listed in the description are explicitly accepted.",
+    "description": "The valid MapToPg*Attribute selections and compatible CLR model-property types. Each member's type names the PostgreSQL type selected by that variant (its NpgsqlDbType and the column definition it renders for bulk-load table creation, produced from one shared NpgsqlDbType-to-PostgreSQL type-name mapping); the description lists exactly the CLR shapes its IsValidType override accepts. Nullable forms are accepted only where listed; enum acceptance is limited to the string-family and integer variants. Any other shape is rejected with InvalidMapTypeException when the mapping is first built.",
     "members": [
       {
         "name": "Varchar",
         "type": "varchar(n)",
-        "description": "MapToPgVarcharAttribute accepts string, enum, or nullable enum; length is required."
+        "description": "MapToPgVarcharAttribute accepts string, enum, or nullable enum; length is required. A positive length renders varchar(n); a zero or negative length renders the unbounded varchar."
       },
       {
         "name": "Char",
@@ -19,16 +19,16 @@
       {
         "name": "Text",
         "type": "text",
-        "description": "MapToPgTextAttribute accepts string."
+        "description": "MapToPgTextAttribute accepts string only (no enum or nullable-enum form)."
       },
       {
         "name": "Bigint",
         "type": "bigint",
-        "description": "MapToPgBigintAttribute accepts long, enum, or nullable long."
+        "description": "MapToPgBigintAttribute accepts long, enum, or nullable long; a nullable enum is NOT accepted."
       },
       {
         "name": "Integer",
-        "type": "int",
+        "type": "integer",
         "description": "MapToPgIntegerAttribute accepts int, enum, nullable int, or nullable enum."
       },
       {
@@ -38,17 +38,17 @@
       },
       {
         "name": "InternalChar",
-        "type": "tinyint",
-        "description": "MapToPgInternalCharAttribute accepts byte, enum, nullable byte, or nullable enum."
+        "type": "\"char\" (single-byte internal type)",
+        "description": "MapToPgInternalCharAttribute accepts byte, enum, nullable byte, or nullable enum. Its column definition renders the type as the double-quoted \"char\", which PostgreSQL requires to distinguish it from char(n)."
       },
       {
         "name": "Boolean",
-        "type": "bit",
+        "type": "boolean",
         "description": "MapToPgBooleanAttribute accepts bool or nullable bool."
       },
       {
         "name": "Numeric",
-        "type": "decimal(p,s)",
+        "type": "numeric(p,s)",
         "description": "MapToPgNumericAttribute accepts decimal or nullable decimal; precision and scale are required."
       },
       {
@@ -58,7 +58,7 @@
       },
       {
         "name": "Double",
-        "type": "float",
+        "type": "double precision",
         "description": "MapToPgDoubleAttribute accepts double or nullable double."
       },
       {
@@ -68,18 +68,18 @@
       },
       {
         "name": "Timestamp",
-        "type": "datetime2",
-        "description": "MapToPgTimestampAttribute accepts DateTime, DateTimeOffset, nullable DateTime, or nullable DateTimeOffset."
+        "type": "timestamp",
+        "description": "MapToPgTimestampAttribute accepts DateTime or nullable DateTime. DateTimeOffset is NOT accepted: timestamp without time zone carries no offset, and DateTimeOffset properties map to TimestampTz."
       },
       {
         "name": "TimestampTz",
-        "type": "datetimeoffset",
+        "type": "timestamp with time zone",
         "description": "MapToPgTimestampTzAttribute accepts DateTimeOffset or nullable DateTimeOffset."
       },
       {
         "name": "Date",
         "type": "date",
-        "description": "MapToPgDateAttribute accepts DateTime or nullable DateTime."
+        "description": "MapToPgDateAttribute accepts DateTime or nullable DateTime (DateOnly is NOT accepted)."
       },
       {
         "name": "Time",
@@ -88,37 +88,37 @@
       },
       {
         "name": "Interval",
-        "type": "time",
+        "type": "interval",
         "description": "MapToPgIntervalAttribute accepts TimeSpan or nullable TimeSpan."
       },
       {
         "name": "TimeTz",
-        "type": "time",
-        "description": "MapToPgTimeTzAttribute accepts TimeSpan, DateTimeOffset, nullable TimeSpan, or nullable DateTimeOffset."
+        "type": "time with time zone",
+        "description": "MapToPgTimeTzAttribute accepts DateTimeOffset or nullable DateTimeOffset only, and reads output parameters as DateTimeOffset. TimeSpan and nullable TimeSpan are NOT accepted: Npgsql maps PostgreSQL time with time zone only to DateTimeOffset, so TimeSpan time-of-day properties map to Time."
       },
       {
         "name": "Array",
-        "type": "array<T>",
-        "description": "MapToPgArrayAttribute accepts an array; its constructor requires the PostgreSQL element type."
+        "type": "<element>[]",
+        "description": "MapToPgArrayAttribute accepts any CLR array type (Type.IsArray); its constructor requires the PostgreSQL element NpgsqlDbType, which is combined as NpgsqlDbType.Array | element. The column definition renders the element's PostgreSQL type name followed by [] (for example double precision[], \"char\"[], timestamp with time zone[], integer[]), never the raw enum name."
       },
       {
         "name": "Bytea",
-        "type": "varbinary(n)",
-        "description": "MapToPgByteaAttribute accepts byte[]; length is required."
+        "type": "bytea",
+        "description": "MapToPgByteaAttribute accepts byte[] only; a length argument is required by the constructor but is not part of the rendered column definition."
       },
       {
         "name": "Hstore",
-        "type": "object<Hstore>",
-        "description": "MapToPgHstoreAttribute accepts IDictionary<string, string>."
+        "type": "hstore",
+        "description": "MapToPgHstoreAttribute accepts exactly IDictionary<string, string> (a concrete Dictionary<string, string> property type is NOT accepted)."
       },
       {
         "name": "Uuid",
-        "type": "uniqueidentifier",
+        "type": "uuid",
         "description": "MapToPgUuidAttribute accepts Guid or nullable Guid."
       }
     ],
     "representations": {
-      "CSharp": "Compatibility is enforced by each public MapToPg*Attribute variant's IsValidType(Type) override; constructors select the corresponding NpgsqlDbType."
+      "CSharp": "Compatibility is enforced by each public MapToPg*Attribute variant's IsValidType(Type) override; constructors select the corresponding NpgsqlDbType; PgParameterMapAttribute.PgTypeName renders the PostgreSQL type name used in every column definition."
     }
   },
   "metadata": {
@@ -130,14 +130,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
-        "lines": "41-1034",
-        "label": "MapToPg attribute type selections and IsValidType predicates",
+        "lines": "36-1055",
+        "label": "PgTypeName mapping, MapToPg attribute type selections, column definitions and IsValidType predicates",
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/TypeMappingCoverageTests.cs",
+        "lines": "41-74",
+        "label": "TimeTz DateTimeOffset-only acceptance tests",
+        "relation": "validates"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-map-to-pg-attribute-family",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

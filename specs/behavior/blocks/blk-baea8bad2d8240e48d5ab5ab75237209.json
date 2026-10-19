@@ -1,0 +1,47 @@
+{
+  "id": "blk-baea8bad2d8240e48d5ab5ab75237209",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a key column of enum type DayOfWeek (whose underlying type is int), encoded via GetKeyDataType to KeyDataType.Int32Enum",
+      "when": "GetArgType(KeyDataType.Int32Enum) is invoked to reconstruct the column's type",
+      "then": "it returns typeof(int), not typeof(DayOfWeek)"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-49dcb2e37a5347a298d76da7c90ecf87"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "95-113",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "381-382",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

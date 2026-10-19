@@ -1,0 +1,41 @@
+{
+  "id": "blk-eee7f551a58f4b4f9e5f8b6bebc2389f",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard id parameter",
+    "definition": "An optional query parameter, named by the caller, that ArgentSea sets to the current shard's id on each connection before executing. It lets SQL know which shard it is running on, for example to return shard-qualified keys, or to verify that the connection reached the shard the client expects and so guard against shard misconfiguration.",
+    "synonyms": [
+      "shardParameterName",
+      "shardParameterOrdinal"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "76-81",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "158-165",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

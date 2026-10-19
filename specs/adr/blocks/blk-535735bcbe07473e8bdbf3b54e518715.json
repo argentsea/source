@@ -3,17 +3,21 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Keep SQL Server and PostgreSQL implementations separate within a project",
-    "decision": "Do not support combining the PostgreSQL and SQL Server implementations in one project; a model targets one provider.",
-    "context": "The Mapper must know which provider will execute created parameters and would otherwise encounter attributes for multiple providers; provider delegates would also have to be separated.",
+    "title": "A model and an application target exactly one database provider",
+    "status": "Accepted",
+    "decision": "ArgentSea ships separate provider packages (ArgentSea.Sql for SQL Server, ArgentSea.Pg for PostgreSQL) over one shared core. A model's mapping attributes must all come from one provider, and combining both providers in one application is unsupported and untested. Applications that need both platforms should split along a service boundary.",
+    "context": "The Mapper compiles one set of delegates per model type, and those delegates emit provider-typed parameters such as `SqlParameter` and `NpgsqlParameter` and read provider-specific values. The mapping attributes carry provider database types (`MapToSqlNVarChar` versus `MapToPgVarchar`), and when the Mapper builds a delegate it does not know which provider will eventually run the parameters.",
     "alternatives": [
       {
-        "option": "Enable both provider implementations in one project.",
-        "whyRejected": "The documented review found the added Mapper ambiguity and delegate complexity exceed the potential value."
+        "option": "Provider-neutral mapping attributes resolved to a provider at run time.",
+        "whyRejected": "Gives up exact database-type declarations such as length, precision and locale, which the design relies on for correctly sized parameters and strict type matching. It would also require choosing a delegate per call, forfeiting the single compiled delegate per type."
+      },
+      {
+        "option": "Allow both providers' attributes on one model, with per-provider delegate caches.",
+        "whyRejected": "When the Mapper meets attributes for two providers it cannot know which to emit. Duplicating every cache by provider adds considerable complexity, and the maintainers judged the cost to exceed the demand."
       }
     ],
-    "consequences": "Provider-specific behavior remains explicit and simpler; applications needing multiple providers must separate that work rather than mix providers in one project.",
-    "status": "Accepted"
+    "consequences": "Each provider package stays small and exact about its platform's types. Teams that need both SQL Server and PostgreSQL must separate them into different projects or services. Models cannot be shared between providers."
   },
   "metadata": {
     "status": "Draft",

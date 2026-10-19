@@ -1,7 +1,7 @@
 /* ===========================================================================
- * This is the setup file for a “common” SQL Server database.
+ * This is the setup file for a ï¿½commonï¿½ SQL Server database.
  * This table contains the cluster registration table, used by Silos and Clients
- * and it is “common” in that a single set of tables are shared across all shards/tenents.
+ * and it is ï¿½commonï¿½ in that a single set of tables are shared across all shards/tenents.
  * The connection to this should into the ArgentSea DbCollection. 
 =========================================================================== */
 
@@ -13,15 +13,23 @@ GO
 
 CREATE DATABASE Common
 CONTAINMENT = Partial
-ON PRIMARY
-(
-    NAME = N'Common'
-),
-FILEGROUP imoltp CONTAINS MEMORY_OPTIMIZED_DATA
-(
-    NAME = N'IMOLTP'
-)
-COLLATE Latin1_General_100_CI_AI_SC_UTF8; -- note that we are using a newer, non-default UTF8 collation (default is UTF16)
+COLLATE Latin1_General_100_CI_AI_SC; -- not the UTF8 variant: SQL Server rejects UTF8-collated strings (even literals) in the natively compiled procedures below, and every string column here is nvarchar anyway
+GO
+
+-- The membership tables are memory-optimized, which needs a MEMORY_OPTIMIZED_DATA filegroup with one container.
+-- SQL Server requires an explicit FILENAME for that container, so it is created under the instance's default data
+-- path (which works on Windows and Linux alike). Both steps are skipped when the filegroup or container already exists.
+IF NOT EXISTS (SELECT 1 FROM Common.sys.filegroups WHERE name = N'imoltp')
+BEGIN;
+	ALTER DATABASE Common ADD FILEGROUP imoltp CONTAINS MEMORY_OPTIMIZED_DATA;
+END;
+GO
+IF NOT EXISTS (SELECT 1 FROM Common.sys.database_files WHERE name = N'IMOLTP')
+BEGIN;
+	DECLARE @dataPath nvarchar(260) = CAST(SERVERPROPERTY('InstanceDefaultDataPath') AS nvarchar(260));
+	EXECUTE (N'ALTER DATABASE Common ADD FILE (NAME = N''IMOLTP'', FILENAME = N''' + @dataPath + N'Common_IMOLTP'') TO FILEGROUP imoltp;');
+END;
+GO
 
 ALTER DATABASE Common SET READ_COMMITTED_SNAPSHOT ON;
 ALTER DATABASE Common SET ALLOW_SNAPSHOT_ISOLATION ON;
@@ -79,12 +87,11 @@ BEGIN;
 	CREATE TABLE dbo.OrleansClusterMemberSuspicion
 	(
 		ClusterMemberId int NOT NULL,
-		Address bigint NOT NULL,
+		Address varbinary(16) NOT NULL,
 		Port int NOT NULL,
 		Generation int NOT NULL,
 		Timestamp datetime2(3) NOT NULL DEFAULT GETUTCDATE(),
-		CONSTRAINT PK_OrleansClusterMemberSuspicion  PRIMARY KEY NONCLUSTERED (ClusterMemberId),
-		CONSTRAINT UIX_OrleansClusterMemberSuspicion_Source UNIQUE (Address, Port, Generation),
+		CONSTRAINT PK_OrleansClusterMemberSuspicion  PRIMARY KEY NONCLUSTERED (ClusterMemberId, Address, Port, Generation),
 		CONSTRAINT FK_OrleansClusterMemberSuspicion_Member FOREIGN KEY (ClusterMemberId) REFERENCES dbo.OrleansClusterMember (ClusterMemberId)
 	) WITH (MEMORY_OPTIMIZED=ON);
 END;
@@ -341,10 +348,11 @@ AS BEGIN ATOMIC WITH
 	WHERE ClusterId = @ClusterId
 		AND ETagNo = @ETagNo;
 
-    --IF @@ROWCOUNT = 0
-    --BEGIN;
-    --    THROW 51000, 'Concurrency error.', 1;
-    --END;
+    -- Error 51000 is the concurrency signal ArgentSeaOrleansMembershipTable.InsertRow maps to a false result.
+    IF @@ROWCOUNT = 0
+    BEGIN;
+        THROW 51000, 'Concurrency error.', 1;
+    END;
 
 	INSERT INTO dbo.OrleansClusterMember
 	(
@@ -383,10 +391,10 @@ AS BEGIN ATOMIC WITH
 			AND OrleansClusterMember.Generation = @Generation
 	);
 
-	--IF @@ROWCOUNT = 0
- --   BEGIN;
-	--	THROW 51000, 'Unexpectedly could not insert a new value in the cluster membership table. Possibly already exists', 1;
- --   END;
+	IF @@ROWCOUNT = 0
+    BEGIN;
+		THROW 51000, 'Unexpectedly could not insert a new value in the cluster membership table. Possibly already exists', 1;
+    END;
 END;
 GO
 
@@ -438,7 +446,7 @@ CREATE OR ALTER PROCEDURE wtr.OrleansClusterUpdateMemberKeyV1 (
 	@Address varbinary(16),
 	@Port int,
 	@Generation int,
-    @SuspectTimes dbo.SuspicionType READONLY,
+    @SuspectTimes wtr.SuspicionType READONLY,
 	@ETagNo int,
 	@Version int
     )
@@ -481,13 +489,15 @@ BEGIN;
     INSERT INTO dbo.OrleansClusterMemberSuspicion (ClusterMemberId, Address, Port, Generation, Timestamp)
     SELECT @ClusterMemberId, Susp.Address, Susp.Port, Susp.Generation, Susp.Timestamp
     FROM @SuspectTimes As Susp
-        LEFT OUTER JOIN OrleansClusterMemberSuspicion
-        ON OrleansClusterMemberSuspicion.ClusterMemberId = @ClusterMemberId
+    WHERE NOT EXISTS
+    (
+        SELECT 1
+        FROM dbo.OrleansClusterMemberSuspicion
+        WHERE OrleansClusterMemberSuspicion.ClusterMemberId = @ClusterMemberId
             AND OrleansClusterMemberSuspicion.Address = Susp.Address
             AND OrleansClusterMemberSuspicion.Port = Susp.Port
             AND OrleansClusterMemberSuspicion.Generation = Susp.Generation
-    WHERE ClusterMemberId = @ClusterMemberId
-        AND Susp.Port Is Null;
+    );
 
     UPDATE dbo.OrleansClusterMemberSuspicion
     SET Timestamp = Susp.Timestamp
@@ -508,7 +518,7 @@ BEGIN;
     WHERE OrleansClusterMemberSuspicion.ClusterMemberId = @ClusterMemberId
         AND Susp.Port is Null;
 END;
-
+GO
 
 GRANT EXECUTE ON OBJECT::rdr.OrleansClusterGatewayListV1 TO clientUser;
 

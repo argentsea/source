@@ -1,0 +1,33 @@
+{
+  "id": "blk-fde5bc17103f4097a05f6df357f04705",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "LoggingExtensions.ReaderStateEvents",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The degenerate-result-state event family: DataReaderIsNull(ILogger, string sprocName, string connectionName) and DataReaderIsClosed(ILogger, string sprocName, string connectionName) each log at Error under event id MapperResultsReaderInvalid (7) that the data reader expected from the named procedure/connection was null, respectively already closed. EmptyResult(ILogger, string queryName) logs at Debug under event id UnexpectedDbNull (6) that a query returned no rows at all. NullShardChildArguments<TRecord,TChild>(ILogger, string propertyName, ShardKey<TRecord,TChild> shardChild), the type's only generic member, logs at Information under event id UnexpectedDbNull (6), event name NullShardChildArguments, that a two-part ShardKey could not be built because an input value was null — but only when Information is enabled and the key's RecordId or ChildId is null. A value-typed identity can never be null, so a key whose identities are both value types never logs; the shard id is a short and is not checked. The sibling delegate `_sqlShardKeyNull`, compiled for a single-column shard-key-null message under the same event id, is never invoked by any method in this file — there is no public or internal wrapper for it."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "50,97-98,110-112,181-187,225-230,300-301",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

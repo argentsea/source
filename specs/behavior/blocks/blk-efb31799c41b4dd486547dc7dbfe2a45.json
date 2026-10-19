@@ -1,0 +1,60 @@
+{
+  "id": "blk-efb31799c41b4dd486547dc7dbfe2a45",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Provider Services",
+    "trigger": "a resilience strategy asks whether a caught exception represents a transient failure",
+    "response": "report that exception's own IsTransient value when it is an NpgsqlException; report not transient (false) for every other exception type, without inspecting any specific SQL state itself"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "18-26",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-581e371f27fe439fa7b4f93812b288b3",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

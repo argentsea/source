@@ -1,0 +1,33 @@
+{
+  "id": "blk-805df5b3d8854fca85f8eac3741f9b6a",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "LoggingExtensions.NotFoundAndNullEvents",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The mapping-mismatch event family, varying by what was missing and where: SqlParameterNotFound(ILogger, string parameterName, Type propertyType) logs at Debug under event id MapperSqlParameterNotFound (2) that a mapping attribute named a parameter which was not found among the supplied parameters. SqlFieldNotFound(ILogger, string columnName, string modelName) logs at Debug under event id MapperSqlColumnNotFound (3) that a mapping attribute named a result-set column which was not present in the data reader's row. RequiredPropertyIsDbNull(ILogger, string modelName, string parameterName) logs at Debug under event id UnexpectedDbNull (6) that a mapped value declared required read back as database null. All three take only strings/Type (and a Type for the first), so none can be gated more cheaply than the compiled delegate's own IsEnabled check; none of the three wrapper methods adds an extra guard."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "91-92,112,134-144,231-232",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

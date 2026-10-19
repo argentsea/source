@@ -3,17 +3,25 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Provide built-in compound-key support for sharded record identity",
-    "decision": "Provide the ShardKey virtual compound key that combines a shard connection key with a record key to identify and route a record in a shard set.",
-    "context": "A record key alone is not unique across multiple databases, and a dispatcher must know the target connection for a record.",
+    "title": "Identify sharded records with a shard-qualified compound key (ShardKey)",
+    "status": "Accepted",
+    "decision": "ArgentSea provides ShardKey, an immutable value type that combines the shard id with the record's own key of one to four columns, as its built-in identity for sharded records. The key carries its own routing information: indexing a shard set with a ShardKey selects the shard. The Mapper builds shard keys directly from mapped columns. Applications may use another identity scheme, such as identity ranges with their own resolver, and still use the rest of ArgentSea.",
+    "context": "Once a dataset spans databases, the engine no longer guarantees key uniqueness across them. A client receiving a key also needs to know which shard holds the record. Relationships that cross shards need a key that names the foreign shard. Keys must also travel outside the application, through URLs and JSON, as a single value.",
     "alternatives": [
       {
-        "option": "Assign each database a distinct identity range.",
-        "whyRejected": "That approach requires client and server range configuration, makes mistakes more likely and hard to correct, and requires the dispatcher to know every range."
+        "option": "Disjoint identity ranges per database.",
+        "whyRejected": "Merging data is easy, but both clients and servers must be configured with the ranges, mistakes are likely and very hard to repair, and the dispatcher must know every range to route a key."
+      },
+      {
+        "option": "Globally unique random keys (Guid) with a separate lookup to find the shard.",
+        "whyRejected": "Every access pays for a directory lookup or a fan-out search, and wide random keys cost storage and index locality."
+      },
+      {
+        "option": "Encode the shard into a single integer, for example by high-order bits.",
+        "whyRejected": "Ties the key width to the shard count and cannot express compound primary keys."
       }
     ],
-    "consequences": "The target shard is encoded in the key and database servers need not carry separate identity ranges; combining or splitting shards can be more complicated. ArgentSea still works with either overall identity design.",
-    "status": "Accepted"
+    "consequences": "Routing is a property of the key, and databases can use small, ordinary identity columns, often int rather than bigint. Compound primary keys are first-class, with up to four columns. Every persisted reference to a record on another shard must also store that shard's id. Splitting or merging shards requires rewriting keys. Correctness depends on every client mapping shard ids to the same databases."
   },
   "metadata": {
     "status": "Draft",

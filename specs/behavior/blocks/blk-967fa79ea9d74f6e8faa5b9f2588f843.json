@@ -1,0 +1,44 @@
+{
+  "id": "blk-967fa79ea9d74f6e8faa5b9f2588f843",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "a mapped nested-model property is writable and its current value is null",
+    "trigger": "ExpressionHelpers prepares that property's mapping expressions via TryInstantiateMapToModel",
+    "response": "assign a new default instance of the property's type to the property",
+    "postcondition": "a non-writable nested-model property, or one that is already non-null, is left unmodified by this check"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "507-513",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

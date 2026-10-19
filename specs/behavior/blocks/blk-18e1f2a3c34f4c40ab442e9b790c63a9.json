@@ -1,0 +1,36 @@
+{
+  "id": "blk-18e1f2a3c34f4c40ab442e9b790c63a9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Shard Targeting Values",
+    "trigger": "ShardsValues: ShardListForeign is called with an excluded shard identifier and a collection of virtual compound keys or keyed models, at any of the one-to-four identity levels and through either the List<> or the IList<> overload",
+    "response": "return one empty shard entry for each distinct input shard identifier that differs from the excluded identifier",
+    "postcondition": "the result contains neither the excluded identifier nor duplicate remaining identifiers"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-123b620a02214432a1be5269c91992d7",
+      "blobHash": null,
+      "label": "supersedes",
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

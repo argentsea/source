@@ -1,0 +1,52 @@
+{
+  "id": "blk-264681d2e45d40488e4359d677847028",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardsValues \"target\" has no entry for shard identifier 9, and a second ShardsValues \"source\" has shard identifier 9 mapped to {\"limit\": 10}.",
+      "when": "target.Merge(source) is called.",
+      "then": "The call completes without throwing, and target.Shards now maps shard identifier 9 to its own parameter set containing \"limit\": 10."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-3c901f4c5902414f9aa7e0d058d6e7f5"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "146-181",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-fed86efc1a7f46bd89399fa68aff6d01",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

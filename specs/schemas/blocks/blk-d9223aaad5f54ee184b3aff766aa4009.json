@@ -144,7 +144,7 @@
     }
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -159,7 +159,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-configuration",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -172,6 +172,15 @@
       "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-6d0dfdad34f9467db4ae1002f3d4a997",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

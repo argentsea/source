@@ -9,7 +9,7 @@
     "contract": "PgSharding accepts provider-specific PostgreSQL shard-set configurations through PgShardConnectionOptions.PgShardSets. Consumers of the shared sharding contract obtain that same collection through IShardSetsConfigurationOptions.ShardSetsConfigInternal as IShardSetConnectionsConfiguration entries; each returned entry preserves its shard-set identity, default shard identifier, shard collection, and optional read/write configuration views."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -45,7 +45,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-sharding",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -76,6 +76,15 @@
       "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-a66606d46e7549218536082e5f1334b4",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

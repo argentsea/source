@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlServerProvider.DataProviderServiceFactory",
+    "subject": "SQL Server Provider Services",
     "trigger": "a provider-neutral caller prepares a query contract with a destination command, source SQL parameters, requested parameter names, and optional replacement values",
-    "response": "copy every source SQL parameter when requested parameter names are absent or empty; otherwise copy only source parameters whose names match the normalized requested names, preserving their provider metadata and original value except where a replacement value exists for the parameter name",
-    "postcondition": "the destination command contains the selected SQL parameters in the requested-selection order"
+    "response": "copy every source SQL parameter when requested parameter names are absent or empty, setting each destination SqlParameter's CompareInfo, DbType, Direction, IsNullable, LocaleId, Offset, ParameterName, Precision, Scale, Size, SourceColumn, SourceColumnNullMapping, SqlDbType, SqlValue, TypeName and Value from the matching source parameter, then overwriting Value with the replacement value when one is supplied for that parameter name; otherwise, for each requested parameter name, normalize it and copy the first source parameter whose name equals the normalized name (later source parameters with the same name are ignored) using the same per-property copy and value-replacement rule, and when no source parameter's name equals the normalized name, throw a ParameterNotFoundException constructed with that normalized name",
+    "postcondition": "the destination command contains exactly one SQL parameter per requested name, in the requested-selection order, unless a requested name normalizes to a value absent from the source collection, in which case construction fails with a ParameterNotFoundException naming that normalized value"
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
-        "lines": "119-202",
+        "lines": "120-205",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/ProviderServicesTests.cs",
+        "lines": "26-62",
+        "label": null,
+        "relation": "verifies"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-data-provider-service-factory",
+    "sectionId": "sql-server-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

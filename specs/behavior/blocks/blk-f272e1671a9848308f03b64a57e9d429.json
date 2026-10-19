@@ -9,7 +9,7 @@
     "postcondition": "the shared sharding consumer observes the same shard-set configurations configured for PostgreSQL"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -31,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-sharding",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -53,6 +53,15 @@
       "blockId": "blk-d527344991cf4b07adc892ff766a405f",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-724161b41bdb40ff84491716cf6d0ca9",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

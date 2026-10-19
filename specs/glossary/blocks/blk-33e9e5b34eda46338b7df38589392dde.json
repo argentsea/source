@@ -4,10 +4,12 @@
   "type": "Term",
   "fields": {
     "name": "Read/write connection pair",
-    "definition": "Optional distinct connection endpoints for read traffic and write traffic; when not separately supplied, both inherit the parent connection settings.",
+    "definition": "The two data connections, `Read` and `Write`, that every database and every shard exposes. The caller chooses which one to use for each query; ArgentSea never infers whether a query reads or writes. Each endpoint is configured through the configuration hierarchy. When the two are not configured differently, both resolve to the same endpoint, so code that consistently picks Read or Write can move to read scale-out later without change.",
     "synonyms": [
-      "read connection",
-      "write connection"
+      "Read connection",
+      "Write connection",
+      "read endpoint",
+      "write endpoint"
     ]
   },
   "metadata": {

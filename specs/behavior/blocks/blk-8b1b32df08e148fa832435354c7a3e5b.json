@@ -1,0 +1,60 @@
+{
+  "id": "blk-8b1b32df08e148fa832435354c7a3e5b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Grain Persistence",
+    "trigger": "the grain key marshaller compiles a new key-mapping, shard-key or default-activation delegate for a grain type",
+    "response": "when the host logger has Debug enabled, render the compiled expression tree as a debug-view listing and log it with the grain type at Debug under event id ExpressionTreeCreation (1), as CreatedExpressionTreeForDatabaseKey for database-key delegates, CreatedExpressionTreeForShardKey for shard-key delegates, and CreatedExpressionTreeForActivation, with its own activation message text, for the activation delegate",
+    "postcondition": "with Debug disabled no rendering occurs; each kind of listing is distinguishable by its event name and message"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/LoggingExtensions.cs",
+        "lines": "32-34,52-54,85-117",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "57,88,120,137,196,313,347,447,500",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-d0cc6db246764e9eb27c2cf3f1941f24",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

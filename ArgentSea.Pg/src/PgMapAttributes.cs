@@ -32,6 +32,39 @@ namespace ArgentSea.Pg
         internal abstract string ColumnDefinition { get; }
 
         public override string SqlTypeName => ((NpgsqlDbType)base.SqlType).ToString();
+
+        /// <summary>
+        /// Renders the PostgreSQL DDL type name for an NpgsqlDbType (without any length, precision, or array modifier).
+        /// NpgsqlDbType enum names do not always match PostgreSQL type names (e.g. Double is "double precision" and InternalChar is the quoted "char"),
+        /// so the names that differ are mapped explicitly; the remaining names are the lower-cased enum name.
+        /// </summary>
+        internal static string PgTypeName(NpgsqlDbType pgType) => pgType switch
+        {
+            NpgsqlDbType.Bigint => "bigint",
+            NpgsqlDbType.Integer => "integer",
+            NpgsqlDbType.Smallint => "smallint",
+            NpgsqlDbType.InternalChar => "\"char\"",
+            NpgsqlDbType.Boolean => "boolean",
+            NpgsqlDbType.Numeric => "numeric",
+            NpgsqlDbType.Money => "money",
+            NpgsqlDbType.Double => "double precision",
+            NpgsqlDbType.Real => "real",
+            NpgsqlDbType.Varchar => "varchar",
+            NpgsqlDbType.Char => "char",
+            NpgsqlDbType.Text => "text",
+            NpgsqlDbType.Timestamp => "timestamp",
+            NpgsqlDbType.TimestampTz => "timestamp with time zone",
+            NpgsqlDbType.Date => "date",
+            NpgsqlDbType.Time => "time",
+            NpgsqlDbType.TimeTz => "time with time zone",
+            NpgsqlDbType.Interval => "interval",
+            NpgsqlDbType.Bytea => "bytea",
+            NpgsqlDbType.Hstore => "hstore",
+            NpgsqlDbType.Uuid => "uuid",
+            NpgsqlDbType.Varbit => "bit varying",
+            NpgsqlDbType.PgLsn => "pg_lsn",
+            _ => pgType.ToString().ToLowerInvariant()
+        };
     }
 
     #region String parameters
@@ -43,7 +76,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Unicode database column, with a variable but maximum length.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix ':' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		/// <param name="length">The maximum length of the string.</param>
 		public MapToPgVarcharAttribute(string parameterName, int length) : base(parameterName, NpgsqlDbType.Varchar)
 		{
@@ -56,29 +89,29 @@ namespace ArgentSea.Pg
 		public int Length { get; private set; }
 
 		public override bool IsValidType(Type candidateType)
-			=> candidateType.IsEnum || candidateType == typeof(string) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType).IsEnum);
+			=> candidateType.IsEnum || candidateType == typeof(string) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType)!.IsEnum);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterStringExpressionBuilder(this.ParameterName, this.Length, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgVarcharInputParameter), null, expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgVarcharOutputParameter), Expression.Constant(this.Length, typeof(int)), null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterStringExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetString), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderStringExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" varchar({this.Length.ToString()})";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Varchar)}{(this.Length > 0 ? $"({this.Length})" : string.Empty)}";
     }
 
     /// <summary>
@@ -89,7 +122,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Unicode fixed-size database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix ':' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		/// <param name="length">The length of the fixed-size string.</param>
 		public MapToPgCharAttribute(string parameterName, int length) : base(parameterName, NpgsqlDbType.Char)
 		{
@@ -102,30 +135,30 @@ namespace ArgentSea.Pg
 		public int Length { get; private set; }
 
 		public override bool IsValidType(Type candidateType)
-			=> candidateType.IsEnum || candidateType == typeof(string) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType).IsEnum);
+			=> candidateType.IsEnum || candidateType == typeof(string) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType)!.IsEnum);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterStringExpressionBuilder(this.ParameterName, this.Length, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgCharInputParameter), null, expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgCharOutputParameter), Expression.Constant(this.Length, typeof(int)), null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterStringExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetString), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderStringExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" char({this.Length.ToString()})";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Char)}({this.Length})";
     }
 
     /// <summary>
@@ -136,7 +169,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Unicode database column, with any size length.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix ':' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgTextAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Text)
 		{
 			//
@@ -147,30 +180,30 @@ namespace ArgentSea.Pg
 		}
 		public override bool IsValidType(Type candidateType)
 			=> candidateType == typeof(string);
-        //=> candidateType.IsEnum || candidateType == typeof(string) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType).IsEnum);
+        //=> candidateType.IsEnum || candidateType == typeof(string) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType)!.IsEnum);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTextInputParameter), null, null, parameterNames, expLogger, logger);
         //=> ExpressionHelpers.InParameterStringExpressionBuilder(this.ParameterName, this.Length, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTextInParameter), null, expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTextOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterStringExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetString), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmPgRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmPgRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderStringExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmPgRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" text";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Text)}";
     }
     #endregion
     #region Number parameters
@@ -182,7 +215,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified BigInt (64-bit) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgBigintAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Bigint)
 		{
 			//
@@ -198,26 +231,26 @@ namespace ArgentSea.Pg
 			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(long));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterEnumXIntExpressionBuilder(this.ParameterName, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgBigintInputParameter), typeof(long?), expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgBigintOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterEnumXIntExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetLong), nameof(DbParameterExtensions.GetNullableLong), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderEnumXIntExpressions(this.ParameterName, expProperty, typeof(long), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" bigint";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Bigint)}";
     }
 
     /// <summary>
@@ -228,7 +261,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Int (32-bit) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgIntegerAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Integer)
 		{
 			//
@@ -241,29 +274,29 @@ namespace ArgentSea.Pg
 		public override bool IsValidType(Type candidateType)
 			=> candidateType == typeof(int)
 			|| candidateType.IsEnum
-			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && (Nullable.GetUnderlyingType(candidateType) == typeof(int) || Nullable.GetUnderlyingType(candidateType).IsEnum));
+			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && (Nullable.GetUnderlyingType(candidateType) == typeof(int) || Nullable.GetUnderlyingType(candidateType)!.IsEnum));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterEnumXIntExpressionBuilder(this.ParameterName, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgIntegerInputParameter), typeof(int?), expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgIntegerOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterEnumXIntExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetInteger), nameof(DbParameterExtensions.GetNullableInteger), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderEnumXIntExpressions(this.ParameterName, expProperty, typeof(int), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" integer";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Integer)}";
     }
 
     /// <summary>
@@ -274,7 +307,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified SmallInt (16-bit) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgSmallintAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Smallint)
 		{
 			//
@@ -287,29 +320,29 @@ namespace ArgentSea.Pg
 		public override bool IsValidType(Type candidateType)
 			=> candidateType == typeof(short)
 			|| candidateType.IsEnum
-			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && (Nullable.GetUnderlyingType(candidateType) == typeof(short) || Nullable.GetUnderlyingType(candidateType).IsEnum));
+			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && (Nullable.GetUnderlyingType(candidateType) == typeof(short) || Nullable.GetUnderlyingType(candidateType)!.IsEnum));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterEnumXIntExpressionBuilder(this.ParameterName, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgSmallintInputParameter), typeof(short?), expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgSmallintOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterEnumXIntExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetShort), nameof(DbParameterExtensions.GetNullableShort), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderEnumXIntExpressions(this.ParameterName, expProperty, typeof(short), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" smallint";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Smallint)}";
     }
 
     /// <summary>
@@ -320,7 +353,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified TinyInt (unsigned 8-bit) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgInternalCharAttribute(string parameterName) : base(parameterName, NpgsqlDbType.InternalChar)
 		{
 			//
@@ -333,29 +366,29 @@ namespace ArgentSea.Pg
 		public override bool IsValidType(Type candidateType)
 			=> candidateType == typeof(byte)
 			|| candidateType.IsEnum
-			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && (Nullable.GetUnderlyingType(candidateType) == typeof(byte) || Nullable.GetUnderlyingType(candidateType).IsEnum));
+			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && (Nullable.GetUnderlyingType(candidateType) == typeof(byte) || Nullable.GetUnderlyingType(candidateType)!.IsEnum));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterEnumXIntExpressionBuilder(this.ParameterName, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgInternalCharInputParameter), typeof(byte?), expressions, expSprocParameters, expIgnoreParameters, parameterNames, expProperty, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgInternalCharOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterEnumXIntExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetByte), nameof(DbParameterExtensions.GetNullableByte), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderEnumXIntExpressions(this.ParameterName, expProperty, typeof(byte), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" internal char";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.InternalChar)}";
     }
 
     /// <summary>
@@ -366,7 +399,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Bit (boolean) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgBooleanAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Boolean)
 		{
 			//
@@ -380,25 +413,25 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(bool) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(bool));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgBooleanInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgBooleanOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetBoolean), nameof(DbParameterExtensions.GetNullableBoolean), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" boolean";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Boolean)}";
     }
 
     /// <summary>
@@ -409,7 +442,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified decimal database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		/// <param name="precision">The maximum number of digits in the database value.</param>
 		/// <param name="scale">The number of digits to the right of the decimal point.</param>
 		public MapToPgNumericAttribute(string parameterName, byte precision, byte scale) : base(parameterName, NpgsqlDbType.Numeric)
@@ -431,25 +464,25 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(decimal) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(decimal));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgNumericInputParameter), Expression.Constant(this.Precision, typeof(byte)), Expression.Constant(this.Scale, typeof(byte)), parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgNumericOutputParameter), Expression.Constant(this.Precision, typeof(byte)), Expression.Constant(this.Scale, typeof(byte)), parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDecimal), nameof(DbParameterExtensions.GetNullableDecimal), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" numeric({this.Precision.ToString()}, {this.Scale.ToString()})";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Numeric)}({this.Precision}, {this.Scale})";
     }
 
     /// <summary>
@@ -460,7 +493,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Money database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgMoneyAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Money)
 		{
 			//
@@ -474,25 +507,25 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(decimal) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(decimal));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgMoneyInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgMoneyOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDecimal), nameof(DbParameterExtensions.GetNullableDecimal), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" money";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Money)}";
     }
 
     /// <summary>
@@ -503,7 +536,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Float (64-bit floating point or .NET double) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgDoubleAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Double)
 		{
 			//
@@ -517,26 +550,26 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(double) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(double));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgDoubleInputParameter), null, null, parameterNames, expLogger, logger);
 
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgDoubleOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDouble), nameof(DbParameterExtensions.GetNullableDouble), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderNullableValueTypeExpressions(this.ParameterName, expProperty, Expression.Constant(double.NaN, typeof(double)), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" double precision";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Double)}";
     }
 
     /// <summary>
@@ -547,7 +580,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Real (32-bit floating point or .NET float) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgRealAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Real)
 		{
 			//
@@ -561,26 +594,26 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(float) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(float));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgRealInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgRealOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetFloat), nameof(DbParameterExtensions.GetNullableFloat), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderNullableValueTypeExpressions(this.ParameterName, expProperty, Expression.Constant(float.NaN, typeof(float)), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" real";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Real)}";
     }
     #endregion
     #region Temporal parameters
@@ -592,7 +625,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Timestamp database column (without Timezone).
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgTimestampAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Timestamp)
 		{
 			//
@@ -603,32 +636,31 @@ namespace ArgentSea.Pg
 		}
 
 		public override bool IsValidType(Type candidateType)
-			=> candidateType == typeof(DateTime) 
-				|| candidateType == typeof(DateTimeOffset) 
-				|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(DateTime))
-				|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(DateTimeOffset));
+			// timestamp (without time zone) carries no offset; DateTimeOffset properties map to MapToPgTimestampTz instead.
+			=> candidateType == typeof(DateTime)
+				|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(DateTime));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimestampInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimestampOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDateTime), nameof(DbParameterExtensions.GetNullableDateTime), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" timestamp";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Timestamp)}";
     }
 
     /// <summary>
@@ -639,7 +671,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Timestamp database column (with Timezone).
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgTimestampTzAttribute(string parameterName) : base(parameterName, NpgsqlDbType.TimestampTz)
 		{
 			//
@@ -654,26 +686,26 @@ namespace ArgentSea.Pg
 				|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(DateTimeOffset));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimestampTzInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimestampTzOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDateTimeOffset), nameof(DbParameterExtensions.GetNullableDateTimeOffset), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" timestamp with time zone";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.TimestampTz)}";
     }
 
     /// <summary>
@@ -684,7 +716,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Date database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgDateAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Date)
 		{
 			//
@@ -699,26 +731,26 @@ namespace ArgentSea.Pg
 				|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(DateTime));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgDateInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgDateOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDateTime), nameof(DbParameterExtensions.GetNullableDateTime), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" date";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Date)}";
     }
 
     /// <summary>
@@ -729,7 +761,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Time database column (without Timezone).
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgTimeAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Time)
 		{
 			//
@@ -743,26 +775,26 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(TimeSpan) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(TimeSpan));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimeInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimeOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetTimeSpan), nameof(DbParameterExtensions.GetNullableTimeSpan), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" time";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Time)}";
     }
 
     /// <summary>
@@ -773,7 +805,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified Time database column (without Timezone).
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgIntervalAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Interval)
 		{
 			//
@@ -788,26 +820,26 @@ namespace ArgentSea.Pg
 				|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(TimeSpan));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgIntervalInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgIntervalOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetTimeSpan), nameof(DbParameterExtensions.GetNullableTimeSpan), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" interval";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Interval)}";
     }
 
     /// <summary>
@@ -816,9 +848,9 @@ namespace ArgentSea.Pg
     public class MapToPgTimeTzAttribute : PgParameterMapAttribute
 	{
 		/// <summary>
-		/// Map this property to the specified Time database column (without Timezone).
+		/// Map this property to the specified time with time zone database column. Npgsql reads and writes this type only as a DateTimeOffset.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgTimeTzAttribute(string parameterName) : base(parameterName, NpgsqlDbType.TimeTz)
 		{
 			//
@@ -829,40 +861,29 @@ namespace ArgentSea.Pg
 		}
 
 		public override bool IsValidType(Type candidateType)
-			=> candidateType == typeof(TimeSpan) 
-			|| candidateType == typeof(DateTimeOffset)
-			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(TimeSpan))
+			=> candidateType == typeof(DateTimeOffset)
 			|| (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(DateTimeOffset));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimeTzInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgTimeTzOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
-		{
-			if (propertyType == typeof(TimeSpan))
-			{
-				ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetTimeSpan), nameof(DbParameterExtensions.GetNullableTimeSpan), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
-			}
-			else
-			{
-				ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDateTimeOffset), nameof(DbParameterExtensions.GetNullableDateTimeOffset), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
-			}
-		}
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
+			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetDateTimeOffset), nameof(DbParameterExtensions.GetNullableDateTimeOffset), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" time with time zone";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.TimeTz)}";
     }
     #endregion
     #region Other parameters
@@ -887,26 +908,26 @@ namespace ArgentSea.Pg
 			=> candidateType.IsArray;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgArrayInputParameter), Expression.Constant(_arrayType, typeof(NpgsqlDbType)), null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgArrayOutputParameter), Expression.Constant(_arrayType, typeof(NpgsqlDbType)), null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterArrayExpressions(this.ParameterName, typeof(PgParameterExtensions), nameof(PgParameterExtensions.GetArray), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" { _arrayType.ToString().ToLowerInvariant() }[]";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(_arrayType)}[]";
     }
 
     /// <summary>
@@ -928,26 +949,26 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(byte[]);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgByteaInputParameter), Expression.Constant(this.Length, typeof(int)), null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgByteaOutputParameter), Expression.Constant(this.Length, typeof(int)), null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterBinaryExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetBytes), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderSimpleValueExpressions(this.ParameterName, expProperty, columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" bytea";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Bytea)}";
     }
 
     /// <summary>
@@ -968,26 +989,26 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(IDictionary<string, string>);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgHstoreInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgHstoreOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterBinaryExpressions(this.ParameterName, typeof(PgParameterExtensions), nameof(PgParameterExtensions.GetHStore), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderEnumXIntExpressions(this.ParameterName, expProperty, typeof(Dictionary<string, string>), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
 
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" hstore";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Hstore)}";
     }
 
     /// <summary>
@@ -998,7 +1019,7 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Map this property to the specified UniqueIdentifier (Guid) database column.
 		/// </summary>
-		/// <param name="parameterName">The name of the parameter or column that contains the value. The system will automatically add or remove the prefix '@' as needed.</param>
+		/// <param name="parameterName">The name of the parameter or column that contains the value. The name is used exactly as given; PostgreSQL parameter and column names are not normalized (no prefix is added or removed).</param>
 		public MapToPgUuidAttribute(string parameterName) : base(parameterName, NpgsqlDbType.Uuid)
 		{
 			//
@@ -1012,25 +1033,25 @@ namespace ArgentSea.Pg
 			=> candidateType == typeof(Guid) || (candidateType.IsGenericType && candidateType.GetGenericTypeDefinition() == typeof(Nullable<>) && Nullable.GetUnderlyingType(candidateType) == typeof(Guid));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendInParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, Expression expProperty, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.InParameterSimpleBuilder(this.ParameterName, propertyType, expSprocParameters, expIgnoreParameters, expProperty, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgUuidInputParameter), null, null, parameterNames, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger logger)
+        public override void AppendSetOutParameterExpressions(IList<Expression> expressions, ParameterExpression expSprocParameters, ParameterExpression expIgnoreParameters, HashSet<string> parameterNames, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.OutParameterBuilder(this.ParameterName, expSprocParameters, expressions, typeof(PgParameterCollectionExtensions), nameof(PgParameterCollectionExtensions.AddPgUuidOutputParameter), null, null, parameterNames, expIgnoreParameters, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReadOutParameterExpressions(Expression expProperty, IList<Expression> expressions, ParameterExpression expPrms, ParameterExpression expPrm, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReadOutParameterSimpleValueExpressions(this.ParameterName, typeof(DbParameterExtensions), nameof(DbParameterExtensions.GetGuid), nameof(DbParameterExtensions.GetNullableGuid), expProperty, expressions, expPrms, expPrm, propertyType, expLogger, logger);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger logger)
+        public override void AppendReaderExpressions(Expression expProperty, IList<MethodCallExpression> columnLookupExpressions, IList<Expression> expressions, ParameterExpression prmSqlRdr, ParameterExpression expOrdinals, ParameterExpression expOrdinal, ref int propIndex, Type propertyType, ParameterExpression expLogger, ILogger? logger)
 			=> ExpressionHelpers.ReaderNullableValueTypeExpressions(this.ParameterName, expProperty, Expression.Constant(Guid.Empty, typeof(Guid)), columnLookupExpressions, expressions, prmSqlRdr, expOrdinals, expOrdinal, ref propIndex, propertyType, expLogger, logger);
 
         public override string ParameterName { get => PgParameterCollectionExtensions.NormalizePgParameterName(base.Name); }
 
         public override string ColumnName { get => PgParameterCollectionExtensions.NormalizePgColumnName(base.Name); }
-        internal override string ColumnDefinition => $"\"{this.ColumnName}\" uuid";
+        internal override string ColumnDefinition => $"\"{this.ColumnName}\" {PgTypeName(NpgsqlDbType.Uuid)}";
     }
 
     #endregion

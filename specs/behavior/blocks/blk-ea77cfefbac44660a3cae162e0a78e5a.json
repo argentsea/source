@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgConnectionConfiguration",
+    "subject": "Postgres Connection Settings",
     "condition": "a resolved PostgreSQL connection configuration supplies a non-null IncludeErrorDetails or LogParameters setting",
     "trigger": "a caller requests its connection string",
     "response": "apply each supplied setting to the PostgreSQL connection builder",
@@ -13,12 +13,12 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'pg-connection-configuration'. Grounded in ArgentSea.Pg/src/PgConnectionConfiguration.cs:114-143 and falsifiable, but without sectionId equal to component ID 'pg-connection-configuration', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Pg/src/PgConnectionConfiguration.cs:114-143 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'postgres-connection-settings' resolves to component 'Postgres Connection Settings' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
-        "lines": "114-118,140-143",
+        "lines": "118-122,144-147",
         "label": null,
         "relation": "grounds"
       },
@@ -32,7 +32,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

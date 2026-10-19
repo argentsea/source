@@ -1,0 +1,50 @@
+{
+  "id": "shard-key-serialization",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Shard Key Serialization",
+    "responsibility": "Encodes a record identity's column values together with a compact code for each column's .NET type into the binary, UTF-8 and URL-safe external forms, and decodes them back — refusing a decode whose embedded type codes do not match the types expected at the call site. Because the type codes travel with the data, it can also recover an identity whose column types are not known where it is handled, which is what lets a serialized key cross a boundary that is not generic over it.",
+    "parent": "sharding"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "10-691",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "11-134",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "15-426",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidShardKeyMetadataException.cs",
+        "lines": "10-47",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

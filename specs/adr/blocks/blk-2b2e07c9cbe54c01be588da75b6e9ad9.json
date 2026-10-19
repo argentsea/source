@@ -1,0 +1,79 @@
+{
+  "id": "blk-2b2e07c9cbe54c01be588da75b6e9ad9",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Mapping is strict about types and tolerant about presence",
+    "status": "Accepted",
+    "decision": "A mapping attribute's database type must match its property's .NET type exactly, and the Mapper raises an error on a mismatch rather than casting. By contrast, a mapped column missing from a data-reader result, or a mapped output parameter missing from the collection, is skipped and logged at Debug level, not raised. Column positions are resolved by name once per result set and then read by ordinal.",
+    "context": "Silent conversions hide data-loss bugs, such as a long truncated to an int or an enum stored with the wrong base type, and add per-value cost. At the same time, one model class is routinely reused across queries that return different subsets of its columns (a list query versus a detail query), and requiring every query to return every mapped column would force a model per query.",
+    "alternatives": [
+      {
+        "option": "Lenient type coercion through `Convert.ChangeType` or the provider's conversions.",
+        "whyRejected": "It hides schema drift and precision loss, and costs a conversion on every value."
+      },
+      {
+        "option": "Strict presence, failing when a mapped column or parameter is absent.",
+        "whyRejected": "It would forbid reusing a model across queries that return different column subsets."
+      },
+      {
+        "option": "Resolving columns by name on every row.",
+        "whyRejected": "It needs a name lookup per value; resolving ordinals once per result set preserves name-based robustness at ordinal-read speed."
+      }
+    ],
+    "consequences": "Type mistakes surface immediately, while models stay reusable across queries. Column order and extra columns do not matter. A misspelled column name leaves the property silently at its default, discoverable only through Debug logging. Enum mappings must use the enum's exact base type."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/attributes.md",
+        "lines": "73-80",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/mapping.md",
+        "lines": "23-31",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/process.md",
+        "lines": null,
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": "Mapping attribute",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": "Model",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

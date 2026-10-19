@@ -3,29 +3,36 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ArgentSeaShardGrainPersistence<TShardOptions>",
+    "subject": "Grain Persistence",
     "where": "the grain type has a configured Query contract",
-    "trigger": "a grain state is read",
-    "response": "derive the Shard identifier from the grain identity and map the configured read result from that Shard into the supplied grain state",
-    "postcondition": "the grain-state envelope records whether its state exists"
+    "trigger": "ArgentSeaShardGrainPersistence<TShardOptions>.ReadStateAsync is invoked",
+    "response": "derive the Shard identifier and read parameters from the grain identity through the read delegate cached for the Orleans state name (the grainType argument) and the state type TModel; map the configured read result from that Shard into the supplied state, or into a new default TModel instance when the supplied state is null, keeping the mapped result on every mapping branch; when the mapping returns no result (null), create the state with TModel's static IActivator<TModel> factory when TModel implements IActivator<TModel>, otherwise as a default TModel instance whose shard key is set from the grain id through the shard-setting delegate cached for that state name and state type",
+    "postcondition": "when the read returned a record, the grain-state envelope holds the mapped result and records that its state exists; when it returned none, the envelope holds the newly activated instance and records the state as absent"
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-grain-persistence'. Grounded in ArgentSeaShardGrainPersistence.cs:53-137 and falsifiable behavioral block citing committed Terms.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ArgentSeaShardGrainPersistence.cs:53-137 and falsifiable behavioral block citing committed Terms. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
-        "lines": "53-137",
+        "lines": "55-122",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "8-48",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-shard-grain-persistence",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

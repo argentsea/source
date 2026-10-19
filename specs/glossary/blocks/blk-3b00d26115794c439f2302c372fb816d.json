@@ -1,0 +1,50 @@
+{
+  "id": "blk-3b00d26115794c439f2302c372fb816d",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Orleans cluster providers",
+    "definition": "ArgentSea.Orleans.Sql's implementations of the Orleans membership table, gateway list provider and reminder table. They store cluster membership, client gateway discovery and grain reminders in SQL Server through versioned stored procedures, with reader (`rdr`) and writer (`wtr`) schemas. Because Orleans' membership and reminder types are sealed and cannot carry mapping attributes, these providers use ADO.NET directly rather than the Mapper.",
+    "synonyms": [
+      "ArgentSeaOrleansMembershipTable",
+      "ArgentSeaGatewayListProvider",
+      "ArgentSeaOrleansReminderTable",
+      "Orleans clustering",
+      "Orleans reminders"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "6-65",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": null,
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
+        "lines": null,
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

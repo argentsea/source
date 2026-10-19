@@ -1,0 +1,41 @@
+{
+  "id": "blk-7b61ff3fe4bf4018916310fac43b858c",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Model",
+    "definition": "An application class whose properties carry mapping attributes. It serves as the source of a query's parameters or the target of its results. A model inherits the mapping attributes of its base classes. It may nest other models (nested model), hold result-set list properties, and expose its identity as a keyed model.",
+    "synonyms": [
+      "Model class",
+      "TModel"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/attributes.md",
+        "lines": "1-30",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/attributes.md",
+        "lines": "189-200",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -3,8 +3,8 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "A newly constructed PgSharding PgShardConnectionOptions.PgShardConnectionConfiguration must always have initialized provider-specific read and write connection configuration objects.",
-    "scope": "Default construction of PgSharding shard connection configuration entries."
+    "statement": "A newly constructed PgShardConnectionOptions.PgShardConnectionConfiguration must always have initialized, distinct PgConnectionConfiguration objects for its ReadConnection and WriteConnection.",
+    "scope": "Default construction of PgShardConnectionOptions.PgShardConnectionConfiguration entries in Postgres Connection Settings."
   },
   "metadata": {
     "status": "Draft",
@@ -15,14 +15,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
-        "lines": "31-37",
+        "lines": "31-38",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-sharding",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"

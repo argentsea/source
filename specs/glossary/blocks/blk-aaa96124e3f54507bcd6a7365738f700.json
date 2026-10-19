@@ -1,0 +1,42 @@
+{
+  "id": "blk-aaa96124e3f54507bcd6a7365738f700",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Result handler",
+    "definition": "A delegate matching `QueryResultModelHandler<TArg, TModel>` that turns one connection's command results, its data reader and parameter collection, into a model. It receives a model instance to populate, the shard id (default for non-sharded databases), the query name, an optional caller-supplied argument, the connection description and the logger. It is invoked once per connection and, in a fan-out query, concurrently on many threads, so it must be thread-safe. The Mapper supplies ready-made handlers used by the Map methods; Query methods take a caller-written one.",
+    "synonyms": [
+      "QueryResultModelHandler",
+      "handler delegate",
+      "data handler"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
+        "lines": "9-23",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/handling.md",
+        "lines": "1-64",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -28,7 +28,7 @@ public class ShardKeyOrleansSerializer<T> : IFieldCodec<ShardKey<T>>, IDeepCopie
         }
 
         field.EnsureWireType(WireType.LengthPrefixed);
-        var numBytes = reader.ReadByte();
+        var numBytes = reader.ReadVarUInt32();
         ReadOnlySpan<byte> resultArray = reader.ReadBytes(numBytes);
         var shardKey = new ShardKey<T>(resultArray);
 
@@ -36,7 +36,7 @@ public class ShardKeyOrleansSerializer<T> : IFieldCodec<ShardKey<T>>, IDeepCopie
         return shardKey;
     }
 
-    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type expectedType, ShardKey<T> value) where TBufferWriter : IBufferWriter<byte>
+    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type? expectedType, ShardKey<T> value) where TBufferWriter : IBufferWriter<byte>
     {
         if (ReferenceCodec.TryWriteReferenceField(ref writer, fieldIdDelta, expectedType, value))
         {
@@ -45,7 +45,9 @@ public class ShardKeyOrleansSerializer<T> : IFieldCodec<ShardKey<T>>, IDeepCopie
 
         writer.WriteFieldHeader(fieldIdDelta, expectedType, typeof(ShardKey<T>), WireType.LengthPrefixed);
         var bytes = value.ToArray();
-        writer.WriteByte((byte)bytes.Length);
+        // Orleans frames a LengthPrefixed field with a VarUInt32 length; its generic SkipField relies on it, and it
+        // has no 255-byte ceiling.
+        writer.WriteVarUInt32((uint)bytes.Length);
         writer.Write(bytes.Span);
     }
 }
@@ -71,7 +73,7 @@ public class ShardKeyOrleansSerializer<TShard, TChild> : IFieldCodec<ShardKey<TS
         }
 
         field.EnsureWireType(WireType.LengthPrefixed);
-        var numBytes = reader.ReadByte();
+        var numBytes = reader.ReadVarUInt32();
         ReadOnlySpan<byte> resultArray = reader.ReadBytes(numBytes);
         var shardKey = new ShardKey<TShard, TChild>(resultArray);
 
@@ -79,7 +81,7 @@ public class ShardKeyOrleansSerializer<TShard, TChild> : IFieldCodec<ShardKey<TS
         return shardKey;
     }
 
-    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type expectedType, ShardKey<TShard, TChild> value) where TBufferWriter : IBufferWriter<byte>
+    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type? expectedType, ShardKey<TShard, TChild> value) where TBufferWriter : IBufferWriter<byte>
     {
         if (ReferenceCodec.TryWriteReferenceField(ref writer, fieldIdDelta, expectedType, value))
         {
@@ -88,7 +90,9 @@ public class ShardKeyOrleansSerializer<TShard, TChild> : IFieldCodec<ShardKey<TS
 
         writer.WriteFieldHeader(fieldIdDelta, expectedType, typeof(ShardKey<TShard, TChild>), WireType.LengthPrefixed);
         var bytes = value.ToArray();
-        writer.WriteByte((byte)bytes.Length);
+        // Orleans frames a LengthPrefixed field with a VarUInt32 length; its generic SkipField relies on it, and it
+        // has no 255-byte ceiling.
+        writer.WriteVarUInt32((uint)bytes.Length);
         writer.Write(bytes.Span);
     }
 }
@@ -114,7 +118,7 @@ public class ShardKeyOrleansSerializer<TShard, TChild, TGrandChild> : IFieldCode
         }
 
         field.EnsureWireType(WireType.LengthPrefixed);
-        var numBytes = reader.ReadByte();
+        var numBytes = reader.ReadVarUInt32();
         ReadOnlySpan<byte> resultArray = reader.ReadBytes(numBytes);
         var shardKey = new ShardKey<TShard, TChild, TGrandChild>(resultArray);
 
@@ -122,7 +126,7 @@ public class ShardKeyOrleansSerializer<TShard, TChild, TGrandChild> : IFieldCode
         return shardKey;
     }
 
-    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type expectedType, ShardKey<TShard, TChild, TGrandChild> value) where TBufferWriter : IBufferWriter<byte>
+    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type? expectedType, ShardKey<TShard, TChild, TGrandChild> value) where TBufferWriter : IBufferWriter<byte>
     {
         if (ReferenceCodec.TryWriteReferenceField(ref writer, fieldIdDelta, expectedType, value))
         {
@@ -131,7 +135,9 @@ public class ShardKeyOrleansSerializer<TShard, TChild, TGrandChild> : IFieldCode
 
         writer.WriteFieldHeader(fieldIdDelta, expectedType, typeof(ShardKey<TShard, TChild, TGrandChild>), WireType.LengthPrefixed);
         var bytes = value.ToArray();
-        writer.WriteByte((byte)bytes.Length);
+        // Orleans frames a LengthPrefixed field with a VarUInt32 length; its generic SkipField relies on it, and it
+        // has no 255-byte ceiling.
+        writer.WriteVarUInt32((uint)bytes.Length);
         writer.Write(bytes.Span);
     }
 }
@@ -157,7 +163,7 @@ public class ShardKeyOrleansSerializer<TShard, TChild, TGrandChild, TGreatGrandC
         }
 
         field.EnsureWireType(WireType.LengthPrefixed);
-        var numBytes = reader.ReadByte();
+        var numBytes = reader.ReadVarUInt32();
         ReadOnlySpan<byte> resultArray = reader.ReadBytes(numBytes);
         var shardKey = new ShardKey<TShard, TChild, TGrandChild, TGreatGrandChild>(resultArray);
 
@@ -165,7 +171,7 @@ public class ShardKeyOrleansSerializer<TShard, TChild, TGrandChild, TGreatGrandC
         return shardKey;
     }
 
-    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type expectedType, ShardKey<TShard, TChild, TGrandChild, TGreatGrandChild> value) where TBufferWriter : IBufferWriter<byte>
+    public void WriteField<TBufferWriter>(ref Writer<TBufferWriter> writer, uint fieldIdDelta, Type? expectedType, ShardKey<TShard, TChild, TGrandChild, TGreatGrandChild> value) where TBufferWriter : IBufferWriter<byte>
     {
         if (ReferenceCodec.TryWriteReferenceField(ref writer, fieldIdDelta, expectedType, value))
         {
@@ -174,7 +180,9 @@ public class ShardKeyOrleansSerializer<TShard, TChild, TGrandChild, TGreatGrandC
 
         writer.WriteFieldHeader(fieldIdDelta, expectedType, typeof(ShardKey<TShard, TChild, TGrandChild, TGreatGrandChild>), WireType.LengthPrefixed);
         var bytes = value.ToArray();
-        writer.WriteByte((byte)bytes.Length);
+        // Orleans frames a LengthPrefixed field with a VarUInt32 length; its generic SkipField relies on it, and it
+        // has no 255-byte ceiling.
+        writer.WriteVarUInt32((uint)bytes.Length);
         writer.Write(bytes.Span);
     }
 }

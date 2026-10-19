@@ -4,9 +4,11 @@
   "type": "Term",
   "fields": {
     "name": "Retry backoff",
-    "definition": "The policy that determines how long later retry attempts wait after transient failures, including whether the wait lengthens between attempts.",
+    "definition": "How long the resilience strategy waits before each retry of a transient error. The wait is computed from `RetryInterval` (milliseconds) and the `RetryLengthening` sequence, which is one of Linear (1, 2, 3, 4… × interval), Lengthening (1, 3, 5, 7… × interval), HalfSquare or Squaring and defaults to Lengthening. `Fibonacci` is an obsolete alias of Lengthening kept so existing configuration still binds; the progression was never a Fibonacci sequence. `RetryCount` caps the number of retries. All three settings participate in the configuration hierarchy and fall back to built-in defaults when unset.",
     "synonyms": [
-      "retry sequence lengthening"
+      "retry sequence lengthening",
+      "RetryLengthening",
+      "SequenceLengthening"
     ]
   },
   "metadata": {
@@ -18,7 +20,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
-        "lines": "22-37",
+        "lines": "22-40",
         "label": null,
         "relation": "grounds"
       }

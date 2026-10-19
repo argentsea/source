@@ -1,0 +1,43 @@
+{
+  "id": "blk-fa6d6016c80b49228ad69563cd1d2ced",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" has a configured clear query, and the clear-delegate cache of this closed ArgentSeaShardGrainPersistence<TShardOptions> type already holds an entry for (\"orders\", false), populated by a provider instance with ValidateGrainKeys = false",
+      "when": "ClearStateAsync is invoked for \"orders\" from a later provider instance whose own ValidateGrainKeys is true",
+      "then": "the (\"orders\", false) entry is not reused: OrleansExpressionHelper.BuildShardClearLambda is called with validateGrainKeys = true and its delegate is cached under (\"orders\", true), so the later instance clears with key validation on"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-b5ab7a1ea84d42cbb5ad252bb4ac5628"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "26-30,159-188",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

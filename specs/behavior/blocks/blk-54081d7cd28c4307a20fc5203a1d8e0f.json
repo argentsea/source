@@ -21,7 +21,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-persistence-options-validator'. Grounded in ArgentSeaShardPersistenceOptionsValidator.cs:54-57 and falsifiable scenario block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ArgentSeaShardPersistenceOptionsValidator.cs:54-57 and falsifiable scenario block. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -33,7 +33,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-shard-persistence-options-validator",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,52 @@
+{
+  "id": "blk-0e608bc7df6c471584c254f26914a81c",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model type that declares two CollectionMapAttributeBase properties, Items then Notes in that declaration order, and a data reader whose remaining result sets after the model's own row are: one result set for Items and then no further result set",
+      "when": "ModelFromReaderWithCollectionsHandler reads the model and then hydrates its collection properties in order",
+      "then": "Items is populated from the one available trailing result set, and the attempt to hydrate Notes throws ArgentSea.UnexpectedSqlResultException instead of leaving Notes as an empty list"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-e266f5473fcb43a9a8cb6cdf6b18fa18"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2620-2667",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-e266f5473fcb43a9a8cb6cdf6b18fa18",
+      "blobHash": null,
+      "label": null,
+      "relation": "satisfies"
+    }
+  ],
+  "evidenceLinks": []
+}

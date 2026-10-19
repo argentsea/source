@@ -5,7 +5,7 @@
   "fields": {
     "gwt": {
       "given": "source parameters named \"@account_id\" with value 7 and \"@enabled\" with value true, and a query contract whose requested parameter-name list is [\"@enabled\"]",
-      "when": "PostgreSqlProvider.DataProviderServiceFactory materializes the command parameters",
+      "when": "ArgentSea.Pg.DataProviderServiceFactory materializes the command parameters",
       "then": "the command has one independent PostgreSQL parameter named \"@enabled\" with value true"
     },
     "illustrates": [
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
-        "lines": "64-101",
+        "lines": "62-91",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-data-provider-service-factory",
+    "sectionId": "postgres-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

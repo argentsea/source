@@ -1,0 +1,48 @@
+{
+  "id": "blk-d7f5a73aa96c4fb99195bf458d897ae7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "An Order instance has Name = \"PO-48213\" (a mapped string property, column 'Name', declared earlier in Order than ShipAddress and so carrying the lower MetadataToken) and ShipAddress = an Address instance with City = \"Springfield\" (Address's only mapped property, column 'City'); the ShipAddress property on Order is marked MapToModel and carries no column-mapping attribute of its own; Name and ShipAddress are Order's only two mapped-or-MapToModel properties",
+      "when": "ToTvpRecord<Order> builds the table-valued-record projection for this Order instance by calling IterateTvpProperties, which recurses into Address's properties when it reaches ShipAddress",
+      "then": "the resulting SqlDataRecord has exactly two columns: Name at ordinal 0 holding \"PO-48213\", and City at ordinal 1 holding \"Springfield\", both written into the same row as Order's own properties; ShipAddress contributes no column of its own, and Address's properties do not produce a second row or a separate result"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-03877f34088e41c3bc4613ec34d8a7ce"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "258-261",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "62-267",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

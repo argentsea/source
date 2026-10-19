@@ -1,0 +1,33 @@
+{
+  "id": "blk-ca70152bf9fa440d9eb6d57fc5ad30ef",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "LoggingExtensions.MappingCacheEvents",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The compiled-mapping cache-status family, eight members varying along two dimensions: cache kind (InParameters, SetOutParameters, ReadOutParameters, Reader) and outcome (Miss vs Hit). Each member — SqlInParametersCacheMiss/Hit, SqlSetOutParametersCacheMiss/Hit, SqlReadOutParametersCacheMiss/Hit, SqlReaderCacheMiss/Hit — takes (this ILogger logger, Type TModel) and logs under event id MapperCacheStatus (4), with the model type as the one logged argument (the cache key the whole family turns on). Every Miss logs at Debug (\"this is normal for the first execution\"); every Hit logs at Trace. Each event's EventId.Name is its own wrapper method's name, and its message names the cache kind (input parameters, setting output parameters, reading output parameters, or data reader), so a host can distinguish all four kinds by event name. None of the eight wrapper methods adds an IsEnabled guard beyond the compiled delegate's own."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "83-90,145-167",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

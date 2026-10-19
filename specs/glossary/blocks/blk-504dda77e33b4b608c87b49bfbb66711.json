@@ -1,0 +1,40 @@
+{
+  "id": "blk-504dda77e33b4b608c87b49bfbb66711",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Instance hydration",
+    "definition": "Populating a caller-supplied, already-existing model instance with query results, instead of always constructing a new model. It was introduced in version 2 so that objects whose lifetime ArgentSea does not own, such as Orleans grain state, can be loaded in place. Result handlers therefore receive the instance to fill as their first argument.",
+    "synonyms": [
+      "populate existing instance"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/readme.md",
+        "lines": "1-15",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
+        "lines": "23",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

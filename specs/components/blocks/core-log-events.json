@@ -1,0 +1,32 @@
+{
+  "id": "core-log-events",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Core Log Events",
+    "responsibility": "Defines the platform-neutral events the library reports to a host's logger — connection strings built, mapping caches hit or missed, parameters and columns not found, commands executed, connection and command retries, circuit-breaker transitions and batch-step boundaries — together with the event id each carries, and emits them through delegates compiled once so that a suppressed level costs nothing. It owns what the library says about itself at runtime.",
+    "parent": "configuration"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "16-307",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

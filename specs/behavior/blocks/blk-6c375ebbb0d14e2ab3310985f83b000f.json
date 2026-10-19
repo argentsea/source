@@ -26,7 +26,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
-        "lines": "14-457",
+        "lines": "14-448",
         "label": null,
         "relation": "grounds"
       },
@@ -54,7 +54,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-key",
+    "sectionId": "shard-key",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

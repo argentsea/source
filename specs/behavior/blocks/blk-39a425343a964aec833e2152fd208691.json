@@ -1,0 +1,58 @@
+{
+  "id": "blk-39a425343a964aec833e2152fd208691",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Shard Key Serialization",
+    "trigger": "ShardKeySerialization: a caller reads a key-column value from a byte span at a cursor position via TryConvertFromBytes, supplying the .NET type expected for that column, or writes one via GetValueBytes",
+    "response": "When the supplied valueType matches none of TryConvertFromBytes's recognized types -- Guid, int, long, byte, short, char, decimal, double, float, DateTime, DateOnly, TimeOnly, TimeSpan, string, byte[], Memory<byte>, ReadOnlyMemory<byte>, any enum type, or the branch keyed on the literal type typeof(Nullable) that this component's own type-code recovery never produces -- TryConvertFromBytes returns false, leaves result at its initial null, and leaves position unchanged; no exception is thrown for an unsupported type. For Guid and decimal, TryConvertFromBytes checks that at least 16 bytes remain ahead of the cursor: when they do not, it returns false, assigns an explicit sentinel (Guid.Empty or decimal.Zero) to result, and leaves position unchanged; otherwise it decodes exactly 16 bytes (a Guid reads exactly 16, so later key parts may follow it), advances the position by 16, and returns true. For int, long, short, char, double, float, DateTime, DateOnly, TimeOnly and TimeSpan, the length check measures the bytes remaining ahead of the cursor: when fewer than the type's required byte count remain, TryConvertFromBytes returns false and leaves result at that type's zero-equivalent (zero, 0001-01-01, midnight, or a zero Ticks value) rather than at null; otherwise it decodes, assigns the value to result, and advances the position. For an enum type, TryConvertFromBytes decodes the enum's underlying integer type and returns the corresponding enum value, so enum key parts round-trip. For byte, string, byte[], Memory<byte> and ReadOnlyMemory<byte>, TryConvertFromBytes reads directly at the cursor with no length check against the remaining span: a cursor at or past the end of the span throws IndexOutOfRangeException rather than returning false. For the variable-length cases (string, byte[], Memory<byte>, ReadOnlyMemory<byte>), a leading zero length-and-flag byte short-circuits to that type's empty or null representation without consuming further bytes, while a nonzero length-and-flag byte that declares more payload bytes than remain in the span causes the payload read to throw ArgumentOutOfRangeException rather than TryConvertFromBytes returning false. GetValueBytes serializes an IComparable to bytes with explicit cases for int, byte, short, long, char, decimal, double, float, uint, ulong, ushort, sbyte, DateTime, string (length-and-flag-byte prefixed; throws ArgumentOutOfRangeException past 127 UTF-8 bytes, the most its one-byte prefix can encode), Enum (re-dispatched via its underlying primitive type), DateTimeOffset, TimeSpan, Guid, Half, Int128 and UInt128.",
+    "postcondition": "GetValueBytes has no case matching byte[], Memory<byte>, ReadOnlyMemory<byte> or DateOnly, so it is not a write-side counterpart for those four TryConvertFromBytes read types. Its default branch contains a check for a non-null value whose runtime type is a generic Nullable<T>, intended to prefix a flag byte ahead of the unwrapped value's own recursive GetValueBytes encoding, but this check can never match at runtime: value is declared as IComparable, and the common language runtime never boxes a nullable value type as Nullable<T> itself -- a nullable local boxes to a reference to its underlying type when it has a value, or to a null reference when it does not -- so value.GetType() can never return a constructed Nullable<T> type and this branch is unreachable dead code. Of the four unmatched read types, only DateOnly implements IComparable -- GetValueBytes's parameter type -- so only a DateOnly value can be passed to GetValueBytes through an ordinary typed call; such a call reaches the default branch and falls through to the final throw of System.Exception. byte[], Memory<byte> and ReadOnlyMemory<byte> do not implement IComparable, so no ordinary typed call can pass them to GetValueBytes at all: an argument statically typed as one of these three does not satisfy the IComparable parameter and the call does not compile, so the missing write-side counterpart for these three types manifests as a compile-time type mismatch rather than a runtime throw."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "406-580",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "582-677",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-e596ae1931fc4ac3a475fed5dec5f5ac",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

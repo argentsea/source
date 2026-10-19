@@ -1,0 +1,55 @@
+{
+  "id": "blk-1e46588e666949c4bf6be6d042bf06df",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Expression Debug View",
+    "condition": "the visited expression node is a binary, unary, or type-testing node",
+    "response": "render the node using the C#-equivalent operator token for its node type: an infix token between the rendering of the left and right operand for a binary node (or `left[right]` for an array-index binary node), a prefix or suffix token around the rendering of the single operand for a unary node depending on its node type, and the rendering of the operand followed by `.Is Type` or `.TypeEqual Type` for a type-testing node; a checked arithmetic variant's operator token is prefixed with `#`",
+    "postcondition": "an operand is wrapped in parentheses exactly when the renderer's fixed operator-precedence table requires them to preserve the operand's original grouping, and is left unparenthesized otherwise"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "409-504",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "700-899",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1011-1115",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

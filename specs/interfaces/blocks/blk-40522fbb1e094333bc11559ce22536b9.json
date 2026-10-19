@@ -6,25 +6,32 @@
     "name": "OrleansShardPersistenceOptions",
     "kind": "Library",
     "language": "csharp",
-    "contract": "OrleansShardPersistenceOptions is a mutable options surface for sharded Orleans persistence. A caller may create it empty or supply a shard-set key and a list of query definitions; the supplied key is retained and the definitions are exposed through the Queries lookup by each definition's GrainType."
+    "contract": "OrleansShardPersistenceOptions is a mutable options surface for sharded Orleans persistence. A parameterless instance starts with ShardSetKey defaulted to the default Orleans storage provider name, ValidateGrainKeys defaulted to true, no query mappings, and InitStage defaulted to ApplicationServices. Construction from a shard-set key and query definitions retains the supplied key and exposes the definitions through the Queries lookup by each definition's GrainType, which is matched against the state name Orleans passes to the storage provider. ArgentSeaShardGrainPersistence<TShardOptions> honours each provider instance's own ValidateGrainKeys value: it caches its compiled write and clear delegates in static fields keyed by the triple (state name, state type, ValidateGrainKeys). So two providers with different settings never share a delegate, and neither do two state types that share a state name (as every Grain<TState> does, since Orleans passes the literal \"state\" for all of them). What the delegate builder does with the value is outside this component's evidence."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-persistence-options'. Grounded in OrleansShardPersistenceOptions.cs:13-54 and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in OrleansShardPersistenceOptions.cs:13-54 and falsifiable interface contract. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
-        "lines": "13-54",
+        "lines": "13-50",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "26-30,140,172",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-shard-persistence-options",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

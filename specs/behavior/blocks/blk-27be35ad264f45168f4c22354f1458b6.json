@@ -1,0 +1,50 @@
+{
+  "id": "blk-27be35ad264f45168f4c22354f1458b6",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A non-null, non-empty List<ShardKey<int>> records argument and shardId = (short)1.",
+      "when": "The caller calls ShardsValues.ShardListForeign<int, string>((short)1, records), invoking the arity-mismatched overload at ShardsValues.cs line 255.",
+      "then": "The call throws a System.InvalidCastException at the overload's own cast expression, because the records argument's runtime type List<ShardKey<int>> does not implement IList<ShardKey<int, string>>; the forwarded overload at line 265 is never reached and no ShardsValues is returned."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-13f8387fc2284958aed58b9ead46e21b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "255-256",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-13f8387fc2284958aed58b9ead46e21b",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

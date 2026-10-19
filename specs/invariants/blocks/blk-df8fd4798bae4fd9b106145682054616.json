@@ -1,0 +1,42 @@
+{
+  "id": "blk-df8fd4798bae4fd9b106145682054616",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans exposes no IdParser or IdParser2 type: their source (a GrainId/IdSpan formatter that rendered the grain key through GhostShardKey) is entirely commented out, so turning a grain id back into a readable shard key is not part of the package surface and no code may depend on it.",
+    "scope": "ArgentSea.Orleans grain key marshalling (ArgentSea.Orleans/src/GrainPersistance/IdParser.cs)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/IdParser.cs",
+        "lines": "1-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-827f0c1209484f9081031f55581c7f41",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

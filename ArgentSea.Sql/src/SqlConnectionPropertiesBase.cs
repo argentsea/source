@@ -9,13 +9,13 @@ namespace ArgentSea.Sql
     public abstract class SqlConnectionPropertiesBase : DataConnectionConfigurationBase
     {
         private ApplicationIntent? _applicationIntent = null;
-        private string _applicationName = null;
+        private string? _applicationName;
         private int? _connectTimeout = null;
-        private string _currentLanguage = null;
-        private string _dataSource = null;
+        private string? _currentLanguage;
+        private string? _dataSource;
         private bool? _encrypt = null;
-        private string _failoverPartner = null;
-        private string _initialCatalog = null;
+        private string? _failoverPartner;
+        private string? _initialCatalog;
         private int? _loadBalanceTimeout = null;
         private int? _maxPoolSize = null;
         private int? _minPoolSize = null;
@@ -25,11 +25,11 @@ namespace ArgentSea.Sql
         private bool? _persistSecurityInfo = null;
         private bool? _pooling = null;
         private bool? _replication = null;
-        private string _transactionBinding = null;
+        private string? _transactionBinding;
         private bool? _trustServerCertificate = null;
-        private string _typeSystemVersion = null;
+        private string? _typeSystemVersion;
         private bool? _userInstance = null;
-        private string _workstationID = null;
+        private string? _workstationID;
 
         /// <summary>
         /// Declares the application workload type when connecting to a database in an SQL Server Availability Group.
@@ -39,15 +39,18 @@ namespace ArgentSea.Sql
             get { return _applicationIntent; }
             set
             {
-                _applicationIntent = value;
-                RaisePropertyChanged();
+                if (_applicationIntent != value)
+                {
+                    _applicationIntent = value;
+                    RaisePropertyChanged();
+                }
             }
         }
 
         /// <summary>
         /// The optional application name parameter to be sent to the backend during connection initiation.
         /// </summary>
-        public string ApplicationName
+        public string? ApplicationName
         {
             get { return _applicationName; }
             set
@@ -80,7 +83,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets the SQL Server Language record name.
         /// </summary>
-        public string CurrentLanguage
+        public string? CurrentLanguage
         {
             get { return _currentLanguage; }
             set
@@ -96,7 +99,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets the name or network address of the instance of SQL Server to connect to.
         /// </summary>
-        public string DataSource
+        public string? DataSource
         {
             get { return _dataSource; }
             set
@@ -128,7 +131,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets the name or address of the partner server to connect to if the primary server is down.
         /// </summary>
-        public string FailoverPartner
+        public string? FailoverPartner
         {
             get { return _failoverPartner; }
             set
@@ -144,7 +147,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets the name of the database associated with the connection.
         /// </summary>
-        public string InitialCatalog
+        public string? InitialCatalog
         {
             get { return _initialCatalog; }
             set
@@ -304,7 +307,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets a string value that indicates how the connection maintains its association with an enlisted System.Transactions transaction.
         /// </summary>
-        public string TransactionBinding
+        public string? TransactionBinding
         {
             get { return _transactionBinding; }
             set
@@ -336,7 +339,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets a string value that indicates the type system the application expects.
         /// </summary>
-        public string TypeSystemVersion
+        public string? TypeSystemVersion
         {
             get { return _typeSystemVersion; }
             set
@@ -368,7 +371,7 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Gets or sets the name of the workstation connecting to SQL Server.
         /// </summary>
-        public string WorkstationID
+        public string? WorkstationID
         {
             get { return _workstationID; }
             set

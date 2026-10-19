@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-global-properties-options",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "pg-connection-properties-base",
+      "blockId": "postgres-connection-settings",
       "blobHash": null,
       "label": null,
       "relation": "dependsOn"

@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-set-batch",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

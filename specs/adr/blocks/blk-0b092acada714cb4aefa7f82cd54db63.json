@@ -1,0 +1,88 @@
+{
+  "id": "blk-0b092acada714cb4aefa7f82cd54db63",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Compile attribute mappings once into cached expression-tree delegates",
+    "status": "Accepted",
+    "decision": "The Mapper uses reflection only the first time a model type is mapped for a given purpose: creating input parameters, creating output parameters, reading output parameters, reading data-reader rows, building table-valued-parameter rows, or assigning result-set lists. From that metadata it builds an expression tree, compiles it into a delegate, and caches the delegate per model type in a process-wide concurrent cache with exactly-once lazy initialization. Every later call runs the compiled delegate, so there is no per-call reflection.",
+    "context": "Attribute-driven mapping removes most ADO.NET boilerplate, but attributes can only be read by reflection, which is far too slow to run on every row of every query in a high-throughput, sharded data tier. The framework's premise (principle p2) is that convenience must not cost performance relative to hand-written ADO.NET.",
+    "alternatives": [
+      {
+        "option": "Reflection on every call, as in typical micro-ORMs before code generation.",
+        "whyRejected": "Its per-call cost is the overhead the framework exists to avoid."
+      },
+      {
+        "option": "Build-time source generation of mapping code.",
+        "whyRejected": "Not available when the design was set. It would also tie the mapping to the build and complicate the generic, provider-extensible attribute model, in which provider attributes contribute their own expression fragments."
+      },
+      {
+        "option": "Hand-written mapping code only.",
+        "whyRejected": "Fastest, but it is the boilerplate the Mapper exists to remove; ArgentSea still allows it as an escape hatch."
+      }
+    ],
+    "consequences": "Steady-state mapping runs at compiled-code speed. The first use of each model type per purpose costs reflection plus compilation (typically under a second) and is CPU-intensive; this cost recurs after every process restart. Compiled code is opaque to the debugger, so ArgentSea compensates with diagnostic logging: it logs cache misses and a rendering of the generated code at Debug level, and per-property progress at Trace level. Model types must be stable for the life of the process, and the cache is never evicted."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/mapping.md",
+        "lines": "14-22",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "24-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/process.md",
+        "lines": "1-12",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": "Mapper",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": "Mapping attribute",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p2-native-performance",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

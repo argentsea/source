@@ -4,7 +4,7 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "a newly constructed PgDbConnectionOptions.PgDbConnectionConfiguration",
+      "given": "a newly constructed PgDbConnectionConfiguration",
       "when": "its read and write endpoints and their internal aliases are inspected",
       "then": "ReferenceEquals(ReadConnection, WriteConnection) is false, ReferenceEquals(ReadConnection, ReadConnectionInternal) is true, and ReferenceEquals(WriteConnection, WriteConnectionInternal) is true"
     },
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
-        "lines": "38-46",
+        "lines": "40-48",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-db-connection-options-pg-db-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

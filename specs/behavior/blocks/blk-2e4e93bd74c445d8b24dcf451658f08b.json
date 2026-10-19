@@ -1,0 +1,58 @@
+{
+  "id": "blk-2e4e93bd74c445d8b24dcf451658f08b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Grain Persistence",
+    "trigger": "OrleansShardPersistenceOptions's parameterless constructor is invoked",
+    "response": "default ShardSetKey to the default Orleans storage provider name, default ValidateGrainKeys to true, start Queries as an empty dictionary, and default InitStage to ServiceLifecycleStage.ApplicationServices",
+    "postcondition": "each provider instance's own ValidateGrainKeys value governs its writes and clears: ArgentSeaShardGrainPersistence caches its compiled write and clear delegates per (state name, state type, ValidateGrainKeys) triple, so providers configured differently never share a delegate, and neither do state types that share a state name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "15-16,27,33,49",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "26-30,140,172",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-015f9bf2c26c4167a8effe95830da14f",
+      "blobHash": null,
+      "label": null
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

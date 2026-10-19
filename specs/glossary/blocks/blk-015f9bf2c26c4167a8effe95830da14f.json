@@ -4,8 +4,9 @@
   "type": "Term",
   "fields": {
     "name": "Shard set",
-    "definition": "A collection of databases with essentially identical schemas, each containing a segment of a dataset; one system may use more than one independent partition plan.",
+    "definition": "A named collection of shards: databases with essentially identical schemas, each holding a distinct segment of one dataset. A shard set is addressed as a unit, both to route a record to the shard that holds it and to fan one query out across all (or a targeted subset of) its shards. It is configured by `ShardSetName` and retrieved by that exact key (casing, accents and kana must match). An application may define several shard sets, each an independent partitioning plan, but most define one.",
     "synonyms": [
+      "ShardSet",
       "shardset"
     ]
   },

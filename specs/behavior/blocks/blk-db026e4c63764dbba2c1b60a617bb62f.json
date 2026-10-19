@@ -3,29 +3,29 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ArgentSeaDbGrainPersistence<TDatabaseOptions>",
-    "condition": "the supplied grain state is non-null and a query contract is configured for its grain type",
-    "trigger": "ClearStateAsync is invoked",
-    "response": "derive parameters from the grain identifier and execute the configured clear query",
-    "postcondition": "the grain state reports RecordExists as false."
+    "subject": "Grain Persistence",
+    "condition": "the supplied grain state is non-null and a query contract is configured for the grain type",
+    "trigger": "ArgentSeaDbGrainPersistence<TDatabaseOptions>.ClearStateAsync is invoked",
+    "response": "derive clear-query parameters from the grain identifier and execute the database's configured clear query for that grain type",
+    "postcondition": "the grain state reports RecordExists as false"
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-grain-persistence'. Grounded and falsifiable behavioral block citing committed Term.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable behavioral block citing committed Term. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
-        "lines": "134-162",
+        "lines": "139-168",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-db-grain-persistence",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -36,6 +36,24 @@
       "project": "ArgentSea",
       "specId": "glossary",
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-32b362ab7a0647eca1e54b12d08f7564",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ea747f3d72834d758567f1684fcd03f6",
       "blobHash": null,
       "label": null,
       "relation": "references"

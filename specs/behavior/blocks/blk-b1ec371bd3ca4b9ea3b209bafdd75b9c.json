@@ -1,0 +1,52 @@
+{
+  "id": "blk-b1ec371bd3ca4b9ea3b209bafdd75b9c",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "the insert-member stored procedure (invoked via _db.Write.RunAsync) raises SqlException 51000 because the supplied TableVersion etag does not match, while a separate call fails with a connection timeout.",
+      "when": "InsertRow(entry, tableVersion) is invoked in each case.",
+      "then": "the etag-conflict call returns false without throwing; the timeout call logs the error and the exception propagates out of InsertRow to the caller."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b0466f322fc64ca7a7909149b65eba64"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "132-147",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-providers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b0466f322fc64ca7a7909149b65eba64",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

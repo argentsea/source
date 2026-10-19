@@ -1,0 +1,48 @@
+{
+  "id": "blk-eb6e1a65b28b4c3f8fdc0cadffa70db7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "data is the 1-byte span [0x07] with position = 0, and valueType = typeof(object) -- a type neither GetKeyDataType nor GetArgType ever produces",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(object), out result) is called",
+      "then": "TryConvertFromBytes returns false, result is null, and position remains 0 -- no exception is thrown for the unrecognized type"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-39a425343a964aec833e2152fd208691"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "406-409",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "562-579",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

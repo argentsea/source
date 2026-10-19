@@ -17,7 +17,7 @@ namespace Microsoft.Extensions.DependencyInjection
     public static class SqlServiceBuilderExtensions
     {
 		/// <summary>
-		/// Loads configuration into injectable Options and the DbDataStores service. This overload does not load ShardSets.  ILogger service should have already be created.
+		/// Loads configuration into injectable Options and registers the SqlDatabases and SqlShardSets services. ILogger service should have already be created.
 		/// </summary>
 		/// <param name="services"></param>
 		/// <param name="config"></param>

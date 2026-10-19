@@ -1,0 +1,57 @@
+{
+  "id": "blk-f6ac4f8b3324408c8df4076f4d44529d",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardsValues instance was constructed via ShardsValues(IList<short> list) with an empty list, so its Shards property is null.",
+      "when": "The caller begins enumerating the instance directly, e.g. foreach (var item in shardsValues).",
+      "then": "The first MoveNext call on the explicit IEnumerable<ShardParameterValue>.GetEnumerator() iterator throws a System.NullReferenceException because its foreach (var shd in Shards) dereferences the null Shards dictionary; no element is yielded."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "24-30",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "95-113",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

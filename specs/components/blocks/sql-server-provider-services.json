@@ -1,0 +1,40 @@
+{
+  "id": "sql-server-provider-services",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SQL Server Provider Services",
+    "responsibility": "Supplies the SQL Server end of the provider seam: creating a SqlClient connection and command, applying a named parameter set to a command while normalising the names SQL Server expects, and judging from the error number whether a failure is transient and so worth retrying.",
+    "parent": "sql-server-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "data-provider-services"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "14-207",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

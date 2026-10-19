@@ -3,8 +3,8 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ShardsValues",
-    "trigger": "its collection entries are counted or enumerated",
+    "subject": "Shard Targeting Values",
+    "trigger": "ShardsValues: its collection entries are counted or enumerated",
     "response": "represent each shard whose value mapping is null or empty by one placeholder entry and represent every named mapping by one entry carrying that mapping's name and value",
     "postcondition": "Count equals the number of entries that enumeration yields"
   },
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "61-114",
+        "lines": "66-130",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

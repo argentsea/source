@@ -12,11 +12,11 @@ namespace ArgentSea
     /// </summary>
 	public interface IShardSetConnectionsConfiguration
     {
-        string ShardSetName { get; set; }
+        string? ShardSetName { get; set; }
         short DefaultShardId { get; set; }
-        IShardConnectionConfiguration[] ShardsConfigInternal { get; }
-        IShardConnectionConfiguration ReadConfigInternal { get; }
-        IShardConnectionConfiguration WriteConfigInternal { get; }
+        IShardConnectionConfiguration?[]? ShardsConfigInternal { get; }
+        IShardConnectionConfiguration? ReadConfigInternal { get; }
+        IShardConnectionConfiguration? WriteConfigInternal { get; }
 
     }
 }

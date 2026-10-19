@@ -1,0 +1,47 @@
+{
+  "id": "blk-37977366bbdb485ebad77635ea3f17fd",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Every event-emitting member of LoggingExtensions is backed by a delegate created exactly once, in the type's static constructor, via LoggerMessage.Define or LoggerMessage.DefineScope; invoking that compiled delegate when its own configured level is disabled costs only the delegate's internal enabled-check, never message formatting or allocation. Members that do expensive work before reaching that check first guard it with IsEnabled at the delegate's own level: the ExpressionTreeCreatedEvents family at Debug, the command-execution timing events at Trace, and NullShardChildArguments at Information before it formats the ShardKey's string form.",
+    "scope": "LoggingExtensions (ArgentSea.Shared/src/LoggerExtensions.cs) — all static readonly Action/Func event and scope delegate fields and their one-time assignment in the static constructor."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "35-123",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "181-187",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-6565dc6a77354ba8a2692ce5e2955f78",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

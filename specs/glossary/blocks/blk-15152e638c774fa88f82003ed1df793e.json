@@ -1,0 +1,40 @@
+{
+  "id": "blk-15152e638c774fa88f82003ed1df793e",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Foreign shard",
+    "definition": "Relative to a record, any shard other than the one that holds it. A record that refers to a record on a foreign shard must store that record's shard id alongside its key, and no database-enforced foreign key can cover the relationship. ArgentSea helps locate such references: it can collect the foreign shards named by a list of keys or keyed models into a shards values argument for a targeted fan-out query, and the Mapper can read a foreign shard id from a column named in a shard key mapping.",
+    "synonyms": [
+      "ForeignShards"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "120-169",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "321-350",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

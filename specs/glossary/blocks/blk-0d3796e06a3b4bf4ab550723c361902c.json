@@ -1,0 +1,44 @@
+{
+  "id": "blk-0d3796e06a3b4bf4ab550723c361902c",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Databases collection",
+    "definition": "The injectable singleton (`SqlDatabases`, `PgDatabases`; base `DatabasesBase`) that holds every configured non-sharded database, keyed by its `DatabaseKey`. Lookup requires an exact match on casing, accents and kana. Each entry exposes a read/write connection pair. Its membership is fixed when it is built from configuration.",
+    "synonyms": [
+      "Databases",
+      "SqlDatabases",
+      "PgDatabases",
+      "DatabasesBase",
+      "database key"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/configuration.md",
+        "lines": "9-22",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "100-130",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

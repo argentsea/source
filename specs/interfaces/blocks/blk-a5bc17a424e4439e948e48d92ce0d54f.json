@@ -6,7 +6,7 @@
     "name": "MapToModel",
     "kind": "Library",
     "language": "csharp",
-    "contract": "A property may be marked with [MapToModel] at most once. The marker applies only to the property on which it is declared; derived properties do not inherit it."
+    "contract": "MapToModel declares no explicit constructor, so its entire callable surface is the compiler-supplied public parameterless constructor that the `[MapToModel]` attribute syntax binds to; the marker carries no configuration data of its own."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/MapToModel.cs",
-        "lines": "10-14",
+        "lines": "11-14",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-map-to-model",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

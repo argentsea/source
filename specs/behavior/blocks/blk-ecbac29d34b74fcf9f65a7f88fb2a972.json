@@ -6,7 +6,7 @@
     "gwt": {
       "given": "SequenceLengthening retry backoff uses a 250 ms interval and attempt number 3.",
       "when": "retry-delay resolution selects each declared SequenceLengthening value.",
-      "then": "Linear yields 750 ms; HalfSquare yields 1000 ms; Squaring yields 1000 ms; and Fibonacci yields 1250 ms."
+      "then": "Linear yields 750 ms; HalfSquare yields 1000 ms; Squaring yields 1000 ms; and Lengthening (the default, also selected by its obsolete alias Fibonacci) yields 1250 ms."
     },
     "illustrates": [
       {
@@ -27,14 +27,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
-        "lines": "120-148",
+        "lines": "207-238",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-sequence-lengthening",
+    "sectionId": "connection-configuration-hierarchy",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

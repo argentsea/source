@@ -1,0 +1,42 @@
+{
+  "id": "blk-1e5574b319c54e5aabfd568a7f801002",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SpanParser",
+    "trigger": "a caller invokes GetDbGrainId with a null model",
+    "response": "throw ArgumentNullException naming the model parameter"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "455-460",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

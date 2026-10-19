@@ -1,0 +1,48 @@
+{
+  "id": "blk-24186a3cb91e46a78fea4bf9542f307b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a LambdaExpression named 'Add' whose Type is Func<int,int,int>, encountered for the first time while the tree is being rendered",
+      "when": "DebugViewWriter visits the node",
+      "then": "it renders the token sequence \".Lambda Add<System.Func`3[System.Int32,System.Int32,System.Int32]>\", and enqueues the node exactly once so that its own parameter-list-and-body definition is appended, in first-encounter order, after the root lambda's rendering"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-6ff6aaeeb0c945a8913394244859c2c9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "525-547",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1347-1353",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

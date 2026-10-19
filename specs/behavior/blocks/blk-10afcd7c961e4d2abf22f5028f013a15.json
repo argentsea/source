@@ -1,0 +1,43 @@
+{
+  "id": "blk-10afcd7c961e4d2abf22f5028f013a15",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Expression Debug View",
+    "trigger": "the renderer emits a parenthesized, bracketed, braced, or angle-bracketed list of sub-expressions or parameter declarations",
+    "response": "open with the list's delimiter character, lay out a braced list or any list with more than one element with each element on its own indented line separated by the list's separator character (a comma by default), keep a single-element non-braced list on one line, close with the delimiter's matching character (`)` for `(`, `}` for `{`, `]` for `[`, `>` for `<`), and for a parameter-declaration list additionally render each declared variable's type, an `&` suffix when it is by-reference, and then the variable's own parameter rendering",
+    "postcondition": "every delimiter the renderer opens for the list is closed with its complementary character"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "331-398",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "blk-2dabbb25d492416587b62c62170576e7",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "InvalidShardArgumentsException",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea;\npublic sealed class InvalidShardArgumentsException : ApplicationException {\n  InvalidShardArgumentsException();               // \"An empty shard key type must have zeros for shard and record values.\"\n  InvalidShardArgumentsException(string message);\n  InvalidShardArgumentsException(string message, Exception innerException);\n}\n// Carries no properties beyond the message.\n// Declared as part of the public surface for rejecting inconsistent ShardKey construction arguments (an 'empty' key whose shard or record values are not zero), but no code in the library currently throws it: the ShardKey family's constructors and parsers do not raise it, so callers will not observe it from ArgentSea itself. It remains available for application code that validates key arguments and wants a library-consistent exception type."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidShardArgumentsException.cs",
+        "lines": "16-44",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

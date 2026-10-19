@@ -18,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ParameterCollection.cs",
-        "lines": "17-50,122-132,172-185",
+        "lines": "17-50,86-89,122-134,159-162",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-parameter-collection",
+    "sectionId": "query-parameters",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

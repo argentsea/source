@@ -1,0 +1,42 @@
+{
+  "id": "blk-3bec8680c2984d1097abda3284c6dd98",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a KeyListStep<TRecord> was added to a batch via BatchExtensions.Add",
+      "when": "the step's query returns three rows",
+      "then": "the step returns a List<ShardKey<TRecord>> containing exactly three elements, in the data reader's row order, each built the same way the single-row KeyStep builds its result"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-08408c4296454fa5b418f9519f5e9ad5"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "402-448",
+        "label": "KeyListStep.ExecuteAsync row accumulation"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

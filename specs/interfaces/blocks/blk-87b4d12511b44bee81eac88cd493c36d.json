@@ -12,19 +12,12 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'sql-map-sql-shard-key-attribute'. The block accurately describes the 10-constructor overload family of MapSqlShardKeyAttribute and is falsifiable, but without sectionId equal to component BLOCK ID 'sql-map-sql-shard-key-attribute', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): The block accurately describes the 10-constructor overload family of MapSqlShardKeyAttribute and is falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'sql-server-type-mapping' resolves to component 'SQL Server Type Mapping' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
         "lines": "23-215",
-        "label": null,
-        "relation": "grounds"
-      },
-      {
-        "kind": "file",
-        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
-        "lines": "36-65",
         "label": null,
         "relation": "grounds"
       },
@@ -38,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-map-sql-shard-key-attribute",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

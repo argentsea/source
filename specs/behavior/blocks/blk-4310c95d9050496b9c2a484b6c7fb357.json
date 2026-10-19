@@ -1,0 +1,80 @@
+{
+  "id": "blk-4310c95d9050496b9c2a484b6c7fb357",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardsValues",
+    "where": "the invoked overload is one of the two List<> forms whose records parameter is one key-component narrower than its own generic type parameters: ShardListForeign<TRecord, TChild>(short shardId, List<ShardKey<TRecord>> records) at ShardsValues.cs line 255, or ShardListForeign<TRecord, TChild, TGrandChild>(short shardId, List<ShardKey<TRecord>> records) at line 324",
+    "trigger": "it is called with a null records argument",
+    "response": "pass the null through its forwarding cast unchanged, because a null reference is assignable to any reference type regardless of the cast's target type, and then throw a System.NullReferenceException when the forwarded overload (ShardListForeign<TRecord, TChild> at line 265, or ShardListForeign<TRecord, TChild, TGrandChild> at line 337) attempts to enumerate the null records argument in its foreach loop",
+    "postcondition": "no ShardsValues is returned, and the exception is attributed to the forwarded overload's enumeration rather than to the originating overload's cast"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "255-256",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "265-276",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "324-328",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "337-351",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,46 @@
+{
+  "id": "blk-bc99ebb02bd948aaa8bdeb12658e3486",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ShardKeyOrleansSerializer<TShard,TChild>, ShardKeyOrleansSerializer<TShard,TChild,TGrandChild>, and ShardKeyOrleansSerializer<TShard,TChild,TGrandChild,TGreatGrandChild> each declare both the [RegisterSerializer] and [RegisterCopier] attributes together on their class declaration; neither attribute appears without the other on these classes.",
+    "scope": "ShardKeyOrleansSerializer<TShard,TChild>, ShardKeyOrleansSerializer<TShard,TChild,TGrandChild>, and ShardKeyOrleansSerializer<TShard,TChild,TGrandChild,TGreatGrandChild>"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "59-61",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "104-106",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "149-151",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-orleans-codecs",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

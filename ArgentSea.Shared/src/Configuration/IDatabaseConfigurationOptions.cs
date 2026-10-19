@@ -14,6 +14,6 @@ namespace ArgentSea
     /// </summary>
     public interface IDatabaseConfigurationOptions
 	{
-		IDatabaseConnectionConfiguration[] DbConnectionsInternal { get; }
+		IDatabaseConnectionConfiguration?[]? DbConnectionsInternal { get; }
 	}
 }

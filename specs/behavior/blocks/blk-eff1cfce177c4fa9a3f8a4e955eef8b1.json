@@ -27,14 +27,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "61-114",
+        "lines": "66-130",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

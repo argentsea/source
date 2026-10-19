@@ -1,0 +1,43 @@
+{
+  "id": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Shard Targeting Values",
+    "trigger": "ShardsValues: a caller constructs it via the ShardsValues(IList<short> list) constructor with a null list",
+    "response": "throw a System.ArgumentNullException naming the list parameter"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "24-35",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

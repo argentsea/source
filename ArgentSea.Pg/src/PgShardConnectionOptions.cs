@@ -12,29 +12,29 @@ namespace ArgentSea.Pg
     /// </summary>
 	public class PgShardConnectionOptions : IShardSetsConfigurationOptions
     {
-        public IShardSetConnectionsConfiguration[] ShardSetsConfigInternal { get => PgShardSets; }
-		public PgShardConnectionsConfiguration[] PgShardSets { get; set; }
+        public IShardSetConnectionsConfiguration?[]? ShardSetsConfigInternal { get => PgShardSets; }
+		public PgShardConnectionsConfiguration[]? PgShardSets { get; set; }
 
         public class PgShardConnectionsConfiguration : PgConnectionPropertiesBase, IShardSetConnectionsConfiguration
         {
-            public string ShardSetName { get; set; }
+            public string? ShardSetName { get; set; }
             public short DefaultShardId { get; set; }
-            public IShardConnectionConfiguration[] ShardsConfigInternal { get => Shards; }
-			public PgShardConnectionConfiguration[] Shards { get; set; }
+            public IShardConnectionConfiguration?[]? ShardsConfigInternal { get => Shards; }
+			public PgShardConnectionConfiguration[]? Shards { get; set; }
 
-            public IShardConnectionConfiguration ReadConfigInternal => Read;
-            public IShardConnectionConfiguration WriteConfigInternal => Write;
-            public PgShardConnectionConfiguration Read { get; set; }
-            public PgShardConnectionConfiguration Write { get; set; }
+            public IShardConnectionConfiguration? ReadConfigInternal => Read;
+            public IShardConnectionConfiguration? WriteConfigInternal => Write;
+            public PgShardConnectionConfiguration? Read { get; set; }
+            public PgShardConnectionConfiguration? Write { get; set; }
         }
 
         public class PgShardConnectionConfiguration : PgConnectionPropertiesBase, IShardConnectionConfiguration
 		{
 			public short ShardId { get; set; }
-			public IDataConnection ReadConnectionInternal { get => ReadConnection; }
-			public IDataConnection WriteConnectionInternal { get => WriteConnection; }
-            public PgConnectionConfiguration ReadConnection { get; set; } = new PgConnectionConfiguration();
-			public PgConnectionConfiguration WriteConnection { get; set; } = new PgConnectionConfiguration();
+			public IDataConnection? ReadConnectionInternal { get => ReadConnection; }
+			public IDataConnection? WriteConnectionInternal { get => WriteConnection; }
+            public PgConnectionConfiguration? ReadConnection { get; set; } = new PgConnectionConfiguration();
+			public PgConnectionConfiguration? WriteConnection { get; set; } = new PgConnectionConfiguration();
         }
 
 	}

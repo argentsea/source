@@ -5,8 +5,8 @@
   "fields": {
     "gwt": {
       "given": "an empty parameter collection for a Query contract",
-      "when": "AddPgDoubleInputParameter is called with parameter name \"score\" and value Double.NaN",
-      "then": "the same collection contains one Double Input parameter named \"score\" whose value is database null"
+      "when": "AddPgDoubleInputParameter (the non-nullable double overload) is called with parameter name \"score\" and value Double.NaN",
+      "then": "by design, the same collection contains one Double Input parameter named \"score\" whose value is database null — NaN is the null marker, mirroring GetDouble returning NaN for a database null"
     },
     "illustrates": [
       {
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "594-614",
+        "lines": "600-620",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameter-collection-extensions",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

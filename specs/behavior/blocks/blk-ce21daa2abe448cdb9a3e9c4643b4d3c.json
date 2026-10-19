@@ -6,13 +6,14 @@
     "subject": "OrleansDbQueryDefinitions",
     "condition": "the selected read, write, or clear query role has neither an eager nor a deferred Query contract",
     "trigger": "a caller accesses that role",
-    "response": "throw OrleansQueryNotProvidedException with the definition's grain type"
+    "response": "throw OrleansQueryNotProvidedException carrying both the definition's grain type and the name of the accessed role (ReadQuery, WriteQuery, or ClearQuery), captured automatically from the accessor property name",
+    "postcondition": "the thrown exception's message identifies which of the three query roles was never supplied, not merely that one was missing"
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'orleans-db-query-definitions'. Grounded in ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs:140-150 and falsifiable, but without sectionId equal to component ID 'orleans-db-query-definitions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs:140-150 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-query-definitions' resolves to component 'Grain Query Definitions' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -20,11 +21,18 @@
         "lines": "140-150",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansQueryNotProvidedException.cs",
+        "lines": "26-29",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-db-query-definitions",
+    "sectionId": "grain-query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,68 @@
+{
+  "id": "grain-key-marshalling",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Grain Key Marshalling",
+    "responsibility": "Translates between an Orleans grain's identity and the key the persisted model carries — compiling and caching, per grain type, the delegates that read a grain id into a model's record identity or database key and that build a grain id back out of a loaded model — and reads and writes the delimited byte spans a composite grain id is encoded in. It is where a grain whose key type does not match its model, or whose grain id carries no recoverable shard, is refused.",
+    "parent": "orleans-grain-storage-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "14-505",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "20-474",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/QueryExtensions.cs",
+        "lines": "5-19",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/InvalidKeyTypeException.cs",
+        "lines": "10-48",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/ShardKeyNotFoundException.cs",
+        "lines": "10-39",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansIdKeyMismatchException.cs",
+        "lines": "12-54",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/IdParser.cs",
+        "lines": "1-36",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

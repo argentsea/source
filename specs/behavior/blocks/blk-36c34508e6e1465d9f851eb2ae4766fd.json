@@ -1,0 +1,60 @@
+{
+  "id": "blk-36c34508e6e1465d9f851eb2ae4766fd",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls the SqlConnectionStringBuilt(ILogger, string) extension method with a newly built connection-string value",
+    "response": "SqlConnectionStringBuilt reports that connection-string value to the host's logger at Debug level under event id ConnectionStringBuilt (EventIdentifier.ConnectionStringBuilt)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "82,125-126",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-abc42ce2cbf448278919e14586a16c1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,71 @@
+{
+  "id": "blk-98e320e2ec3b49189c8c00be74a679b3",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaReminderOptionsValidator",
+    "condition": "ReminderOptions.MinimumReminderPeriod is not less than TimeSpan.Zero",
+    "trigger": "ValidateConfiguration is called and MinimumReminderPeriod.TotalMinutes is less than ReminderOptionsDefaults.MinimumReminderPeriodMinutes",
+    "response": "complete validation without throwing and invoke ILogger.LogWarning under RSErrorCode.RS_FastReminderInterval reporting the configured period against the default minimum",
+    "postcondition": "an unusually short reminder period does not fail validation; ValidateConfiguration invokes ILogger.LogWarning under RS_FastReminderInterval reporting the configured period against the default minimum, rather than rejecting the period outright or returning with no logging call"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ArgentSeaReminderOptionsValidator.cs",
+        "lines": "31-43",
+        "label": "The negative-period guard (31-36) that would otherwise throw, the below-floor warning if-block, and the method's control reaching its end (line 43) without a throw"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-storage",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-3b00d26115794c439f2302c372fb816d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "invariants",
+      "blockId": "blk-691a21722e7945909232c2031ee93d2d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-08938b1b1b694b1d985a9ecf74dc11d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-bf35b4d116cc48b2a1630eb2af5b12d6",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,58 @@
+{
+  "id": "blk-a9701748f55d4eabab4e41d3415d55b9",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A caller builds a ShardsValues instance whose Shards collection is empty and passes it to ShardSetsBase<TConfiguration>.ShardSetReadAll.QueryAsync, for a shard set with no MockResults entry for query Q's name and a cancellation token that is not already cancelled.",
+      "when": "the call executes.",
+      "then": "no shard is queried and the call returns an empty list immediately, without touching the shard set."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "invariants",
+        "blockId": "blk-57ef08d5babb4915ad0a23fc6cf7efea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "127-130",
+        "label": "ReadQueryAllAsync empty-ShardsValues check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "108-113",
+        "label": "ReadQueryAllAsync MockResults short-circuit and upfront cancellation check that this scenario's \"no MockResults entry\" / \"not already cancelled\" preconditions name"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "invariants",
+      "blockId": "blk-57ef08d5babb4915ad0a23fc6cf7efea",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -43,18 +43,20 @@
       {
         "name": "Read",
         "type": "ref<SqlShardConnectionOptions.SqlShardConnectionConfiguration>",
-        "description": "SQL-specific read configuration.",
-        "notes": "C# projection: SqlShardConnectionConfiguration."
+        "required": false,
+        "description": "SQL-specific read configuration. Unlike the shard-level ReadConnection/WriteConnection, this property has no default instance: it remains null until a configuration provider or caller explicitly assigns it.",
+        "notes": "C# projection: SqlShardConnectionConfiguration, declared with no property initializer."
       },
       {
         "name": "Write",
         "type": "ref<SqlShardConnectionOptions.SqlShardConnectionConfiguration>",
-        "description": "SQL-specific write configuration.",
-        "notes": "C# projection: SqlShardConnectionConfiguration."
+        "required": false,
+        "description": "SQL-specific write configuration. Unlike the shard-level ReadConnection/WriteConnection, this property has no default instance: it remains null until a configuration provider or caller explicitly assigns it.",
+        "notes": "C# projection: SqlShardConnectionConfiguration, declared with no property initializer."
       }
     ],
     "representations": {
-      "CSharp": "Public nested class SqlShardConnectionOptions.SqlShardConnectionsConfiguration; the interface-typed ShardsConfigInternal, ReadConfigInternal, and WriteConfigInternal views are derived from the concrete Shards, Read, and Write properties."
+      "CSharp": "Public nested class SqlShardConnectionOptions.SqlShardConnectionsConfiguration; the interface-typed ShardsConfigInternal, ReadConfigInternal, and WriteConfigInternal views are derived from the concrete Shards, Read, and Write properties. Read and Write carry no property initializer, so a newly constructed instance leaves them null, in contrast to SqlShardConnectionConfiguration's ReadConnection/WriteConnection, which each initialize to a new SqlConnectionConfiguration."
     }
   },
   "metadata": {
@@ -73,7 +75,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-shard-connection-options-sql-shard-connections-configuration",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

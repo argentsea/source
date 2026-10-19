@@ -9,7 +9,7 @@
     "response": "return n times the interval for Linear, floor(n squared divided by 2) times the interval for HalfSquare, 2 to the power n minus 1 times the interval for Squaring, and (2n minus 1) times the interval for the default strategy"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-data-connection-configuration-base'. Grounded in ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs:120-149 and falsifiable, but without sectionId equal to component ID 'shared-data-connection-configuration-base', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-data-connection-configuration-base",
+    "sectionId": "connection-configuration-hierarchy",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -46,6 +46,15 @@
       "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-72ccc2fd25164b36b613de540315a781",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

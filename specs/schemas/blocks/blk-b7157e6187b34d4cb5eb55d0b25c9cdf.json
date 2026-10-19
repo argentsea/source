@@ -8,13 +8,13 @@
     "members": [
       {
         "name": "value",
-        "type": "enum<Linear|Fibonacci|HalfSquare|Squaring>",
+        "type": "enum<Linear|Lengthening|HalfSquare|Squaring>",
         "required": true,
-        "description": "The selected retry-backoff mode; no other named enum member is declared."
+        "description": "The selected retry-backoff mode: Linear = 0, Lengthening = 1 (the default; 1, 3, 5, 7… × interval), HalfSquare = 2, Squaring = 3. The only other declared name is the [Obsolete] alias Fibonacci = Lengthening, which shares value 1 and so is not a distinct mode; configuration value \"Fibonacci\" binds to Lengthening."
       }
     ],
     "representations": {
-      "C#": "public enum SequenceLengthening { Linear, Fibonacci, HalfSquare, Squaring }"
+      "C#": "public enum SequenceLengthening { Linear = 0, Lengthening = 1, HalfSquare = 2, Squaring = 3, [Obsolete(\"Use Lengthening.\")] Fibonacci = Lengthening }"
     }
   },
   "metadata": {
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
-        "lines": "15-21",
+        "lines": "15-46",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-sequence-lengthening",
+    "sectionId": "connection-configuration-hierarchy",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

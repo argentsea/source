@@ -1,0 +1,84 @@
+{
+  "id": "blk-e8f5a6b6871d460fa2498088b2467604",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Use client transactions only inside a batch",
+    "status": "Accepted",
+    "decision": "ArgentSea opens an ADO.NET client transaction in exactly one place: when executing a batch. All steps of a database or shard batch run on one connection in one transaction, committed after the last step and rolled back if any step throws. A shard-set batch runs as an independent transaction on each targeted shard. There is no cross-shard (distributed) transaction. Every other data method is a single command with no client transaction; any transaction it needs is managed server-side, inside the procedure or statement.",
+    "context": "Client-managed transactions hold locks across network round trips and are far less efficient than transactions inside a single procedure. The legitimate need for one is combining non-query operations, such as SQL Server bulk copy or a PostgreSQL COPY load, with queries atomically, or assembling a dynamic sequence of commands.",
+    "alternatives": [
+      {
+        "option": "Expose general client transactions (`BeginTransaction`) on every connection.",
+        "whyRejected": "It encourages chatty, lock-holding transaction patterns that the static-SQL design avoids."
+      },
+      {
+        "option": "Distributed transactions across shards.",
+        "whyRejected": "Coordinator cost and availability coupling are at odds with independently failing shards."
+      }
+    ],
+    "consequences": "Most work runs as one round trip per call. Bulk loads can be committed together with the SQL that consumes them. A shard-set batch can partially succeed: some shards commit and others fail, so callers must make such work idempotent or compensate. Batches cost a round trip per step and should not replace a single multi-statement command."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/batches.md",
+        "lines": "1-41",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "569-583",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "576-611",
+        "label": "BatchAllAsync runs the batch independently on each targeted shard"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": "Batch",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-4d8e45de1ad74ec7b0d1f43b176992b1",
+      "blobHash": null,
+      "label": "Batch step",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": "COPY load",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

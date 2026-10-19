@@ -60,15 +60,17 @@ namespace ArgentSea.Orleans
                 throw new OrleansConfigurationException($"Invalid configuration of {this.name ?? nameof(ArgentSeaShardGrainPersistence<TShardOptions>)}. {nameof(ShardSetsBase<TShardOptions>.ShardSet)}[{name}] cannot have no defined shards.");
             }
 
-            for (short i = 0; i < this.shardSet.Count; i++) 
+            // Shard ids are not positions: they need not start at zero or be contiguous, so check every configured shard by enumerating the set.
+            foreach (var entry in this.shardSet)
             {
-                if (string.IsNullOrEmpty(this.shardSet[i].Read?.ConnectionString))
+                var shard = (KeyValuePair<short, ShardInstance<TShardOptions>>)entry;
+                if (string.IsNullOrEmpty(shard.Value.Read?.ConnectionString))
                 {
-                    throw new OrleansConfigurationException($"Invalid configuration of {this.name ?? nameof(ArgentSeaShardGrainPersistence<TShardOptions>)}. {nameof(ShardSetsBase<TShardOptions>.ShardSet)}[{name}], connection {i} has no Read connection information defined.");
+                    throw new OrleansConfigurationException($"Invalid configuration of {this.name ?? nameof(ArgentSeaShardGrainPersistence<TShardOptions>)}. {nameof(ShardSetsBase<TShardOptions>.ShardSet)}[{name}], shard {shard.Key} has no Read connection information defined.");
                 }
-                if (string.IsNullOrEmpty(this.shardSet[i].Write?.ConnectionString))
+                if (string.IsNullOrEmpty(shard.Value.Write?.ConnectionString))
                 {
-                    throw new OrleansConfigurationException($"Invalid configuration of {this.name ?? nameof(ArgentSeaShardGrainPersistence<TShardOptions>)}. {nameof(ShardSetsBase<TShardOptions>.ShardSet)}[{name}], connection {i} has no Write connection information defined.");
+                    throw new OrleansConfigurationException($"Invalid configuration of {this.name ?? nameof(ArgentSeaShardGrainPersistence<TShardOptions>)}. {nameof(ShardSetsBase<TShardOptions>.ShardSet)}[{name}], shard {shard.Key} has no Write connection information defined.");
                 }
             }
         }

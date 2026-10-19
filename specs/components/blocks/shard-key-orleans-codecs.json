@@ -1,0 +1,32 @@
+{
+  "id": "shard-key-orleans-codecs",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Shard Key Orleans Codecs",
+    "responsibility": "Teaches the Orleans serializer how to put a record identity on the wire and how to deep-copy one, for each of the identity widths the library supports, so that a shard key may be passed to and returned from a grain call like any other value without the application registering a codec itself.",
+    "parent": "orleans-grain-storage-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "16-180",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

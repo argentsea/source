@@ -4,9 +4,10 @@
   "type": "Term",
   "fields": {
     "name": "Query contract",
-    "definition": "The defined boundary of parameters accepted and results returned by a query, allowing its database implementation to change without changing its consumers.",
+    "definition": "The interface a query presents to the application: the parameters it accepts and the results it returns. Behind that interface the SQL implementation can be rewritten, re-indexed, hinted or re-partitioned without changing application code. It is a property of a query, not an object. The object that names a query in code is a Query (a QueryProcedure or QueryStatement).",
     "synonyms": [
-      "query interface"
+      "query interface",
+      "data contract"
     ]
   },
   "metadata": {

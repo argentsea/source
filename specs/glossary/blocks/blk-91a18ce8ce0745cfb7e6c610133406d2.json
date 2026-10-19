@@ -1,0 +1,40 @@
+{
+  "id": "blk-91a18ce8ce0745cfb7e6c610133406d2",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "QueryProcedure",
+    "definition": "A Query that names a stored procedure (SQL Server) or a function (PostgreSQL) and executes with command type StoredProcedure, so the SQL itself lives and evolves in the database. It is the preferred form for SQL Server. With PostgreSQL it can call only functions; stored procedures are invoked with `CALL` from a QueryStatement.",
+    "synonyms": [
+      "stored procedure query"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryProcedure.cs",
+        "lines": null,
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sql.md",
+        "lines": "32-51",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

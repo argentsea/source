@@ -1,0 +1,44 @@
+{
+  "id": "blk-e1839043f5bd41bfb4b9f11cad4bfdcc",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "the mapped property type is Nullable<T>",
+    "trigger": "an enum-backed-integral or simple-value output parameter expression is built for that property",
+    "response": "call the provider's nullable get-method (nullableGetMethodName) instead of its standard get-method (getMethodName) to retrieve the output parameter's value",
+    "postcondition": "only the enum-backed-integral and simple-value output-parameter builders accept a nullableGetMethodName; the string, binary and array output-parameter builders call a single get-method regardless of the property's nullability"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "194-263",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

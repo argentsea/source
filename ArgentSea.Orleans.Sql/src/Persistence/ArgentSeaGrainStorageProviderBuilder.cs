@@ -10,17 +10,42 @@ using Orleans.Runtime.Hosting;
 
 namespace Orleans.Hosting;
 
+internal static class ArgentSeaGrainStorageProviderConfiguration
+{
+    /// <summary>The legacy, application-wide configuration section documented in the readme.</summary>
+    internal const string LegacySectionName = "OrleansData";
+
+    /// <summary>The value used when neither configuration source supplies the key.</summary>
+    internal const string DefaultKey = "Default";
+
+    /// <summary>
+    /// Resolves a provider setting. The provider's own configuration section (the one Orleans passes to
+    /// <see cref="IProviderBuilder{TBuilder}.Configure"/>, e.g. Orleans:GrainStorage:{name}) wins when it has the key;
+    /// otherwise the legacy top-level "OrleansData" section is required, as before; if that lacks the key too, "Default" is used.
+    /// </summary>
+    internal static string ResolveKey(IConfiguration configuration, IConfigurationSection? providerSection, string settingName)
+    {
+        var fromProvider = providerSection?[settingName];
+        if (!string.IsNullOrEmpty(fromProvider))
+        {
+            return fromProvider;
+        }
+        return configuration.GetRequiredSection(LegacySectionName)[settingName] ?? DefaultKey;
+    }
+}
+
 internal sealed class ArgentSeaGrainStorageDbProviderBuilder : IProviderBuilder<ISiloBuilder>
 {
     public void Configure(ISiloBuilder builder, string? dataProviderName, IConfigurationSection configurationSection) => 
         builder.ConfigureServices(services =>
     {
-        var section = builder.Configuration.GetRequiredSection("OrleansData");
-        builder.Services.Configure<OrleansDbPersistenceOptions>(dataProviderName, opts =>
+        var name = dataProviderName ?? ProviderConstants.DEFAULT_STORAGE_PROVIDER_NAME;
+        var databaseKey = ArgentSeaGrainStorageProviderConfiguration.ResolveKey(builder.Configuration, configurationSection, "DatabaseKey");
+        builder.Services.Configure<OrleansDbPersistenceOptions>(name, opts =>
         {
-            opts.DatabaseKey = section["DatabaseKey"] ?? "Default";
+            opts.DatabaseKey = databaseKey;
         });
-        services.AddGrainStorage(dataProviderName, ArgentSeaGrainStorageFactory.CreateDb);
+        services.AddGrainStorage(name, ArgentSeaGrainStorageFactory.CreateDb);
         return;
     });
 }
@@ -30,12 +55,13 @@ internal sealed class ArgentSeaGrainStorageShardProviderBuilder : IProviderBuild
     public void Configure(ISiloBuilder builder, string? dataProviderName, IConfigurationSection configurationSection) => 
         builder.ConfigureServices(services =>
     {
-        var section = builder.Configuration.GetRequiredSection("OrleansData");
-        builder.Services.Configure<OrleansShardPersistenceOptions>(dataProviderName, opts =>
+        var name = dataProviderName ?? ProviderConstants.DEFAULT_STORAGE_PROVIDER_NAME;
+        var shardSetKey = ArgentSeaGrainStorageProviderConfiguration.ResolveKey(builder.Configuration, configurationSection, "ShardSetKey");
+        builder.Services.Configure<OrleansShardPersistenceOptions>(name, opts =>
         {
-            opts.ShardSetKey = section["ShardSetKey"] ?? "Default";
+            opts.ShardSetKey = shardSetKey;
         });
-        services.AddGrainStorage(dataProviderName, ArgentSeaGrainStorageFactory.CreateShards);
+        services.AddGrainStorage(name, ArgentSeaGrainStorageFactory.CreateShards);
         return;
     });
 }

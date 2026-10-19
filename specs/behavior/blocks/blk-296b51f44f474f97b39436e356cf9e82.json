@@ -1,0 +1,85 @@
+{
+  "id": "blk-296b51f44f474f97b39436e356cf9e82",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Batch Execution",
+    "trigger": "a single-result key, child-key, or record step's query matches no row",
+    "response": "return that step's defined empty or default representation — ShardKey<TRecord>.Empty for a key step, ShardKey<TRecord,TChild>.Empty for a child-key step, or default(TRecord) for a record step — instead of throwing",
+    "postcondition": "DatabaseBatch<TResult> and ShardBatch<TResult> aggregate step results by overwriting a running batch result only when a step's result is not equal to default(TResult); they apply no special case for an Empty or default step outcome, so when a step's own result equals default(TResult) for the batch's TResult type — as a record step's default(TRecord) always does when TResult is TRecord — that empty/default outcome never becomes the batch's own returned aggregate result, regardless of where in the step sequence it occurs"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "272-284",
+        "label": "KeyStep returns ShardKey<TRecord>.Empty when no row is read"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "322-335",
+        "label": "ChildStep returns ShardKey<TRecord,TChildId>.Empty when no row is read"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "528-536",
+        "label": "RecordStep returns default(TRecord) when no row is read"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "16-31",
+        "label": "DatabaseBatch<TResult>.ExecuteAsync only overwrites the running batch result when a step's result is not equal to default(TResult)"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardBatch.cs",
+        "lines": "16-31",
+        "label": "ShardBatch<TResult>.ExecuteAsync only overwrites the running batch result when a step's result is not equal to default(TResult)"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": "ShardKey",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-816d8a3a410b46aab981dfbce5db1cb3",
+      "blobHash": null,
+      "label": "Record id",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": "Query",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

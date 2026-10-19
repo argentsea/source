@@ -4,13 +4,13 @@
   "type": "Schema",
   "fields": {
     "name": "PgConnectionConfiguration resolved connection identity",
-    "description": "The externally exposed identity of the PostgreSQL endpoint after PgConnectionConfiguration resolves database and host across its configuration hierarchy.",
+    "description": "The externally exposed identity of the PostgreSQL endpoint after PgConnectionConfiguration resolves database and host across its configuration hierarchy. The value is cached; the cache is cleared by SetAmbientConfiguration, by a PropertyChanged on the configuration's own (local) properties, and by a PropertyChanged on any currently supplied inherited level, and is overwritten whenever GetConnectionString builds the connection string.",
     "members": [
       {
         "name": "ConnectionDescription",
         "type": "nvarchar(max)",
         "required": true,
-        "description": "A resolved value formatted as \"database {Database} on server {Host}\"; each segment uses the latest non-null Database or Host among global, shard-set, read/write, shard, and local values."
+        "description": "Formatted as \"database {Database} on server {Host}\". When computed by the ConnectionDescription getter, each segment uses the latest non-null, non-empty (string.IsNullOrEmpty) Database or Host among global, shard-set, read/write, shard, and local values. When set by GetConnectionString, each segment is the built connection string's value, where every non-null level value — including an empty string — overrides earlier levels. The two agree unless some level supplies an empty Database or Host."
       }
     ],
     "representations": {
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
-        "lines": "16-367",
+        "lines": "15-403",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -43,16 +43,16 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "pg-connection-properties-base",
+      "blockId": "postgres-connection-settings",
       "blobHash": null,
       "label": null,
       "relation": "dependsOn"
     },
     {
       "kind": "spec",
-      "project": "ArgentSea",
+      "project": "argentsea",
       "specId": "components",
-      "blockId": "shared-i-data-connection",
+      "blockId": "connection-configuration-hierarchy",
       "blobHash": null,
       "label": null,
       "relation": "dependsOn"

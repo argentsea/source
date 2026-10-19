@@ -1,0 +1,49 @@
+{
+  "id": "blk-a61d1b7131564fa8969944e46ec6199c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Expression Debug View",
+    "condition": "the visited expression node is a conditional, block, switch, loop, try, label, or goto node",
+    "response": "render the node using a brace-delimited keyword block matching its control construct: `.If (test) { ifTrue } .Else { ifFalse }` for a conditional; `.Block<Type>` (the block expression's own type) followed by a parenthesized, comma-separated list of its declared variables (each rendered as `Type name`, or `Type& name` when passed by reference) and a `;`-separated braced body for a block; `.Switch (value) { .Case (test): body ... .Default: body }` for a switch and its cases; `.Loop { body }`, optionally preceded by its continue label and followed by its break label, for a loop; `.Try { body }` followed by each `.Catch (ExceptionType var) .If (filter) { handler }` and a trailing `.Finally { block }` or `.Fault { block }` for a try node; `.Label` followed, on an indented new line, by the rendering of its default value and then, after dedenting, `.LabelTarget name:` on its own new line for a label node; and `.GotoKind labelName { value }` for a goto node",
+    "postcondition": "the rendered body of each brace-delimited block is indented one level deeper than its enclosing construct and is dedented again when the construct closes"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "561-586",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1117-1261",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -8,6 +8,12 @@ namespace ArgentSea.ShardKeys;
 /// <summary>
 /// A GhostShardKey is for situations where you have ShardKey’s serialzied data, but you do not know the original generics used when it was serialize, and therefore cannot create an instance to deserialize it.
 /// </summary>
+/// <remarks>
+/// A key with an enum-typed part cannot be reconstructed this way. The serialized metadata records only that a part is an
+/// enum of a given underlying width (int, byte, short or long), not which enum type, so <see cref="GetInstance"/> can only
+/// select the underlying primitive; the typed key it then constructs rejects the stored enum code with
+/// <see cref="InvalidShardKeyMetadataException"/>. Deserialize such keys with the original <c>ShardKey&lt;...&gt;</c> type instead.
+/// </remarks>
 public class GhostShardKey
 {
     private ReadOnlyMemory<byte> _serialization;
@@ -26,7 +32,8 @@ public class GhostShardKey
     /// Create an instance of the ShareKey from the serialization or null.
     /// </summary>
     /// <returns>The ShardKey,ShardChild, ShardGrandChild, ShardGreatGrandChild, or null.</returns>
-    public dynamic GetInstance()
+    /// <exception cref="InvalidShardKeyMetadataException">Thrown when a key part is an enum type, which the metadata cannot name (see the class remarks).</exception>
+    public dynamic? GetInstance()
     {
         var span = _serialization.Span;
         var isUtf8 = ((span[0] & 128) != 128);
@@ -64,42 +71,45 @@ public class GhostShardKey
         }
     }
     #region Make Instances
-    private dynamic MakeShardKeyInstance(uint typeInfo)
+    private static Type GetKnownArgType(KeyDataType dataType)
+        => ShardKeySerialization.GetArgType(dataType) ?? throw new InvalidShardKeyMetadataException();
+
+    private dynamic? MakeShardKeyInstance(uint typeInfo)
     {
         var generic = typeof(ShardKey<>);
         var shardDataType = (KeyDataType)((typeInfo >> 18) & 63);
-        var types = new Type[1] { ShardKeySerialization.GetArgType(shardDataType) };
+        var types = new Type[1] { GetKnownArgType(shardDataType) };
         var shardDefinition = generic.MakeGenericType(types);
         return Activator.CreateInstance(shardDefinition, _serialization);
     }
-    private dynamic MakeShardChildKeyInstance(uint typeInfo)
+    private dynamic? MakeShardChildKeyInstance(uint typeInfo)
     {
         var generic = typeof(ShardKey<,>);
         var shardDataType = (KeyDataType)((typeInfo >> 18) & 63);
         var shardChildDataType = (KeyDataType)((typeInfo >> 12) & 63);
-        var types = new Type[2] { ShardKeySerialization.GetArgType(shardDataType), ShardKeySerialization.GetArgType(shardChildDataType) };
+        var types = new Type[2] { GetKnownArgType(shardDataType), GetKnownArgType(shardChildDataType) };
         var shardDefinition = generic.MakeGenericType(types);
         return Activator.CreateInstance(shardDefinition, _serialization);
     }
-    private dynamic MakeShardGrandChildKeyInstance(uint typeInfo)
+    private dynamic? MakeShardGrandChildKeyInstance(uint typeInfo)
     {
         var generic = typeof(ShardKey<,,>);
         var shardDataType = (KeyDataType)((typeInfo >> 18) & 63);
         var shardChildDataType = (KeyDataType)((typeInfo >> 12) & 63);
         var shardGrandChildDataType = (KeyDataType)((typeInfo >> 6) & 63);
-        var types = new Type[3] { ShardKeySerialization.GetArgType(shardDataType), ShardKeySerialization.GetArgType(shardChildDataType), ShardKeySerialization.GetArgType(shardGrandChildDataType) };
+        var types = new Type[3] { GetKnownArgType(shardDataType), GetKnownArgType(shardChildDataType), GetKnownArgType(shardGrandChildDataType) };
         var shardDefinition = generic.MakeGenericType(types);
         return Activator.CreateInstance(shardDefinition, _serialization);
     }
 
-    private dynamic MakeShardGreatGrandChildKeyInstance(uint typeInfo)
+    private dynamic? MakeShardGreatGrandChildKeyInstance(uint typeInfo)
     {
         var generic = typeof(ShardKey<,,,>);
         var shardDataType = (KeyDataType)((typeInfo >> 18) & 63);
         var shardChildDataType = (KeyDataType)((typeInfo >> 12) & 63);
         var shardGrandChildDataType = (KeyDataType)((typeInfo >> 6) & 63);
         var shardGreatGrandChildDataType = (KeyDataType)(typeInfo & 63);
-        var types = new Type[4] { ShardKeySerialization.GetArgType(shardDataType), ShardKeySerialization.GetArgType(shardChildDataType), ShardKeySerialization.GetArgType(shardGrandChildDataType), ShardKeySerialization.GetArgType(shardGreatGrandChildDataType) };
+        var types = new Type[4] { GetKnownArgType(shardDataType), GetKnownArgType(shardChildDataType), GetKnownArgType(shardGrandChildDataType), GetKnownArgType(shardGreatGrandChildDataType) };
         var shardDefinition = generic.MakeGenericType(types);
         return Activator.CreateInstance(shardDefinition, _serialization);
     }

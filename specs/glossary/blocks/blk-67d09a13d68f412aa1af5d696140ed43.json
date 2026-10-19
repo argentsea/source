@@ -1,0 +1,47 @@
+{
+  "id": "blk-67d09a13d68f412aa1af5d696140ed43",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Required mapping",
+    "definition": "The `required` flag on a mapping attribute or shard key mapping. When the mapped database value is null, the Mapper treats the record as absent rather than as a record with a null property: a single-model read returns null, and a list read omits that row. Because nested model properties are flattened into their parent, a required column inside a nested model nulls the whole parent model, not just the nested property. When the Mapper drops a model this way, it logs the culprit column at Debug level.",
+    "synonyms": [
+      "required",
+      "required attribute"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/attributes.md",
+        "lines": "156-159",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/complexattributes.md",
+        "lines": "129-150",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/logging.md",
+        "lines": "30-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

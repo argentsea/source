@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "209-217",
+        "lines": "211-219",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameter-collection-extensions",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

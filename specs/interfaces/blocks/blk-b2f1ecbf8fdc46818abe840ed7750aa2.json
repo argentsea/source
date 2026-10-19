@@ -1,0 +1,53 @@
+{
+  "id": "blk-b2f1ecbf8fdc46818abe840ed7750aa2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "PgLoggingExtensions COPY-load log events",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea.Pg;\npublic static class PgLoggingExtensions {   // public, unlike the internal Orleans counterpart\n  // No enum of its own: every event id is taken from ArgentSea.LoggingExtensions.EventIdentifier, so COPY events share the core categories.\n  // Each event is a LoggerMessage.Define delegate compiled once in the static constructor; EventId.Name equals the wrapper method name.\n  void PgCopyCacheMiss(this ILogger logger, Type modelT)  // Information, id MapperCacheStatus (4): \"No cached delegate was found for mapping type {modelT} to Pg row metadata; this is normal for the first execution.\"\n  void PgCopyCacheHit(this ILogger logger, Type modelT)   // Debug, id MapperCacheStatus (4): \"A cached delegate for mapping type {modelT} to Pg row metadata was found.\"\n      // one level higher than the core mapping-cache events (miss Debug / hit Trace)\n  void TraceCopyMapperProperty(this ILogger logger, string propertyName) // Trace, id MapperProcessTrace (5): \"Copy mapper is now processing property {name}.\"\n  void CreatedExpressionTreeForCopy(this ILogger logger, Type model, Expression codeBlock)\n      // Debug, id ExpressionTreeCreation (1): \"Compiled code to map model {model} to Pg COPY row values as:\\r\\n{code}.\"\n      // renders codeBlock with a debug-view writer only when logger.IsEnabled(LogLevel.Debug), the level it logs at; logs model.ToString().\n  void CopySqlStatements(this ILogger logger, string tableDef, string importerDef)\n      // Debug, id CmdExecuted (8): \"Copy mapper used a create table definition of: \\r\\n{tableDef} \\r\\n and used the copy import statment of:\\r\\n{copyDef}.\"\n  // None of the wrappers except CreatedExpressionTreeForCopy adds an IsEnabled guard beyond the delegate's own.\n}"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgLoggingExtensions.cs",
+        "lines": "11-61",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "copy-load",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

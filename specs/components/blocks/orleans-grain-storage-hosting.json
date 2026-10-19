@@ -1,0 +1,44 @@
+{
+  "id": "orleans-grain-storage-hosting",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans Grain Storage Hosting",
+    "responsibility": "Registers ArgentSea's grain storage with an Orleans silo under a given store name and constructs the storage instance when the silo resolves it, choosing between the database-backed and shard-set-backed form and binding each to the SQL Server collections already in the container. It is the only place the platform-neutral grain persistence is joined to a concrete SQL Server deployment.",
+    "parent": "orleans-sql-server-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageFactory.cs",
+        "lines": "10-29",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageProviderBuilder.cs",
+        "lines": "13-65",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaSiloBuilderExtensions.cs",
+        "lines": "10-56",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

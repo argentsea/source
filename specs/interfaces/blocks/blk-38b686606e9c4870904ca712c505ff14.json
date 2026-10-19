@@ -6,7 +6,7 @@
     "name": "ArgentSeaOrleansMembershipTable membership-table library surface",
     "kind": "Library",
     "language": "text",
-    "contract": "ArgentSeaOrleansMembershipTable provides one cluster-scoped membership-table surface. It can optionally establish that cluster's initial version record; remove defunct entries before a supplied UTC cutoff; remove all entries for an explicitly supplied cluster; insert a complete silo membership record while presenting a table version; read either all records or one addressed record together with the table version; update only a record's liveness time; and replace a record while presenting both its record ETag and table version. Insert and replacement report successful completion with true; callers receive the membership data reconstructed from the table's version, member, and suspect result sets."
+    "contract": "ArgentSeaOrleansMembershipTable provides one cluster-scoped membership-table surface. It can optionally establish that cluster's initial version record; remove defunct entries before a supplied UTC cutoff; remove all entries for an explicitly supplied cluster; insert a complete silo membership record while presenting a table version; read either all records or one addressed record together with the table version; update only a record's liveness time; and replace a record while presenting both its record ETag and table version. ReadRow binds exactly one parameter per procedure argument of rdr.OrleansClusterMemberReadRowKeyV1 (@ClusterId, @Address, @Port, @Generation), returns the addressed silo's record with Status read as the smallint column and the member ETag and version read from the member columns that follow the version timestamp, and attaches that record's suspect reports. Insert and replacement return true on successful completion and false when the write procedure signals a concurrency conflict (SqlException error number 51000: table-version or record ETag mismatch, a missing record on replacement, or an already-existing record on insert); any other failure propagates as an exception. Callers receive the membership data reconstructed from the table's version, member, and suspect result sets."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
-        "lines": "43-56,62-69,81-89,113-141,152-224,241-298,301-313,344-400",
+        "lines": "43-56,62-69,81-89,113-161,170-242,259-316,319-331,362-434",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-membership-table",
+    "sectionId": "orleans-cluster-providers",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "orleans-sql-orleans-membership-table",
+      "blockId": "orleans-cluster-providers",
       "blobHash": null,
       "label": null,
       "relation": "references"

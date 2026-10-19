@@ -1,0 +1,48 @@
+{
+  "id": "blk-3b8abf5e386e4a38a5143b19cb5e974b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a parenthesized argument list (open='(', default ',' separator) containing two ParameterExpression elements named 'a' and 'b'",
+      "when": "the renderer lays out the list via VisitExpressions",
+      "then": "it opens with \"(\", places \"$a\" and \"$b\" on separate indented lines separated by \",\", and closes with \")\", because a list with more than one element always breaks onto separate lines"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-10afcd7c961e4d2abf22f5028f013a15"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "355-398",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "506-523",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

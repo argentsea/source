@@ -1,0 +1,80 @@
+{
+  "id": "blk-a9f3cfde102645e297e0416dbc5be64c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Shard Set Fan-Out",
+    "trigger": "one of the per-shard read tasks dispatched concurrently to every targeted shard throws an exception while a read-all call awaits them through ShardFanOut.WhenAllCancelOnFaultAsync",
+    "response": "on the first fault the read-all call cancels the remaining dispatched shard reads through the cancellation token linked to the caller's token (every per-shard read was dispatched with that linked token), waits until every dispatched task has settled, and then faults with every shard failure it observed: a single failure is rethrown as-is, with its original exception type and stack preserved through ExceptionDispatchInfo, and two or more are thrown together as one AggregateException, so the entire read-all call faults",
+    "postcondition": "no partial list is returned and results already produced by other shards are discarded; a fault from another shard that arrives after the first is surfaced alongside it unless it is an OperationCanceledException raised by that shard in response to the cancellation the first fault triggered, and shards that ended cancelled because of the first fault never replace or add to the reported failures; when no shard faults, caller cancellation of any shard read surfaces as OperationCanceledException"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "97-147",
+        "label": "ReadQueryAllAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "17-60",
+        "label": "WhenAllCancelOnFaultAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "83-94",
+        "label": "ThrowFailures"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/ShardFanOutTests.cs",
+        "lines": "135-171",
+        "label": "read-all fault tests",
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-a7029785ab434c9fb4c8832d2a705845",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-8db2a20ae6d84ff0a8d358d63ce24373",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

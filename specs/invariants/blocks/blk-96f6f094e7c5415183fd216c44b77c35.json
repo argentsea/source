@@ -1,0 +1,41 @@
+{
+  "id": "blk-96f6f094e7c5415183fd216c44b77c35",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Pg.csproj declares Npgsql as the only database-platform client dependency among its direct PackageReference and ProjectReference items: it carries no SqlClient or Microsoft.Data.SqlClient package reference, and no project or package reference to ArgentSea.Sql. Its complete set of non-core direct references is Npgsql, Microsoft.Extensions.Configuration, Microsoft.Extensions.Logging, and a single ProjectReference to the shared ArgentSea core (ArgentSea.Shared).",
+    "scope": "The PackageReference and ProjectReference items declared directly in ArgentSea.Pg.csproj — ArgentSea.Pg's own, non-transitive dependency declarations. This does not characterize dependencies pulled in transitively through ArgentSea.Shared or the listed packages, which the csproj does not show."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/ArgentSea.Pg.csproj",
+        "lines": "26-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

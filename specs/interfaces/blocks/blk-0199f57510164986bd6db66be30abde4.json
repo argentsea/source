@@ -9,7 +9,7 @@
     "contract": "A concrete SharedQueryTypes implementation is initialized with SQL text, a name, and a sequence of parameter names. Consumers can retrieve those supplied values through Sql, Name, and ParameterNames. Each concrete implementation supplies its CommandType classification through Type."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-types",
+    "sectionId": "query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -37,6 +37,15 @@
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-5bdaec2404b34a9e98d438dbbac67797",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

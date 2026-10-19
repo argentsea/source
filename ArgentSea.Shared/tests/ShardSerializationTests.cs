@@ -28,6 +28,7 @@ namespace ArgentSea.Test
             sk2.Should().Be(sk1, "because the serialized array creates an equivalent shardKey");
         }
         [Fact]
+        [Trait("Spec", "blk-48ec5c393ad342319928a62dff09ab47")]
         public void TestOreleansShardKeySerializationInts4()
         {
             var sk1 = new ShardKey<Guid>(0, Guid.NewGuid());
@@ -106,6 +107,7 @@ namespace ArgentSea.Test
             sc2.Should().Be(sc1, "because the serialized string creates an equivalent shardChild");
         }
         [Fact]
+        [Trait("Spec", "blk-30c536c49b71490ea360f17396a34637")]
         public void TestShardGhostSerializationRawArray()
         {
             var sc1 = new ShardKey<int, short, byte, string>(1, 6, 7, 8 , "9");
@@ -114,6 +116,8 @@ namespace ArgentSea.Test
             sc1.ToString().Should().Be(obj.ToString(), "because the ghost was created from shard binary serialization.");
         }
         [Fact]
+        [Trait("Spec", "blk-271dd0dd4a414ab6bc1964c3bee81729")]
+        [Trait("Spec", "blk-30c536c49b71490ea360f17396a34637")]
         public void TestShardGhostSerializationUtf8Array()
         {
             var sc1 = new ShardKey<int, short, byte, string>(1, 6, 7, 8, "9");

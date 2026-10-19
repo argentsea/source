@@ -1,0 +1,84 @@
+{
+  "id": "blk-7d8433e1617e48b29bfdb7be9d115e18",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardKeys.GhostShardKey",
+    "condition": "its retained bytes encode a virtual compound key at least one of whose identity parts was declared as an enum type (metadata code Int32Enum, ByteEnum, Int16Enum or Int64Enum)",
+    "trigger": "GetInstance (or ToString, which calls it) is invoked",
+    "response": "throw InvalidShardKeyMetadataException rather than return a key: the metadata records only the enum part's underlying width, never the enum type, so the ghost can only select the underlying primitive (int, byte, short or long) as the generic argument, and the ShardKey<...> it then constructs rejects the stored *Enum code as a mismatch for that primitive. This is a documented, accepted limitation of the serialization format, not a defect to be fixed: a caller holding a serialized enum-part key must deserialize it with the original ShardKey<...> type, which round-trips enum parts correctly",
+    "postcondition": "a GhostShardKey never yields a key whose enum parts have been silently replaced by their underlying integers"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "1-60",
+        "label": "GetInstance selects GetArgType's primitive for each part"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "350-400",
+        "label": "GetArgType maps the *Enum codes to primitives"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/ShardKeySerializationTests.cs",
+        "lines": null,
+        "label": "EnumKeyPartsRoundTripAsTheirUnderlyingTypeAndReadBackAsTheEnum asserts the throw",
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-49dcb2e37a5347a298d76da7c90ecf87",
+      "blobHash": null,
+      "label": "GetArgType recovers only the underlying primitive",
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-2b260aa4b2a544ffb697e711413eddf8",
+      "blobHash": null,
+      "label": "the general GetInstance behaviour this limits",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

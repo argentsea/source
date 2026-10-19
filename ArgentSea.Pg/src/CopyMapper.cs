@@ -146,7 +146,7 @@ namespace ArgentSea.Pg
                 _shardIdDefinition = shardIdDefinition;
                 _recordIdDefinition = recordIdDefinition;
             }
-            protected override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellation)
+            protected override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellation)
             {
                 CopyMapper.ValidatePgTableName(_tableName);
                 cancellation.ThrowIfCancellationRequested();
@@ -157,9 +157,9 @@ namespace ArgentSea.Pg
                 string importDef;
                 if (_tableName.Contains('.'))
                 {
-                    var parsedTableName = _tableName.Replace(".", "\".\"");
-                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnDefinition }\", \"{ _recordIdDefinition.ColumnDefinition }\");";
-                    importDef = $"COPY \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\") FROM STDIN (FORMAT BINARY)";
+                    var parsedTableName = QuotePgTableName(_tableName);
+                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS { parsedTableName } ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition });";
+                    importDef = $"COPY { parsedTableName } (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\") FROM STDIN (FORMAT BINARY)";
                 }
                 else
                 {
@@ -201,7 +201,7 @@ namespace ArgentSea.Pg
                 _recordIdDefinition = recordIdDefinition;
                 _childIdDefinition = childIdDefinition;
             }
-            protected override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellation)
+            protected override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellation)
             {
                 ValidatePgTableName(_tableName);
                 cancellation.ThrowIfCancellationRequested();
@@ -212,13 +212,13 @@ namespace ArgentSea.Pg
                 string importDef;
                 if (_tableName.Contains('.'))
                 {
-                    var parsedTableName = _tableName.Replace(".", "\".\"");
-                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnDefinition }\", \"{ _recordIdDefinition.ColumnDefinition }\", \"{ _childIdDefinition.ColumnDefinition }\");";
-                    importDef = $"COPY \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
+                    var parsedTableName = QuotePgTableName(_tableName);
+                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS { parsedTableName } ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition }, { _childIdDefinition.ColumnDefinition });";
+                    importDef = $"COPY { parsedTableName } (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
                 }
                 else
                 {
-                    cmd.CommandText = $"CREATE TEMP TABLE IF NOT EXISTS \"{ _tableName }\" (\"{ _shardIdDefinition.ColumnDefinition}\", \"{ _recordIdDefinition.ColumnDefinition}\", \"{ _childIdDefinition.ColumnDefinition}\") ON COMMIT DROP;";
+                    cmd.CommandText = $"CREATE TEMP TABLE IF NOT EXISTS \"{ _tableName }\" ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition }, { _childIdDefinition.ColumnDefinition }) ON COMMIT DROP;";
                     importDef = $"COPY \"{ _tableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
                 }
                 logger.CopySqlStatements(cmd.CommandText, importDef);
@@ -259,7 +259,7 @@ namespace ArgentSea.Pg
                 _childIdDefinition = childIdDefinition;
                 _grandChildIdDefinition = grandChildIdDefinition;
             }
-            protected override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellation)
+            protected override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellation)
             {
                 ValidatePgTableName(_tableName);
                 cancellation.ThrowIfCancellationRequested();
@@ -270,13 +270,13 @@ namespace ArgentSea.Pg
                 string importDef;
                 if (_tableName.Contains('.'))
                 {
-                    var parsedTableName = _tableName.Replace(".", "\".\"");
-                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnDefinition }\", \"{ _recordIdDefinition.ColumnDefinition }\", \"{ _childIdDefinition.ColumnDefinition }\", \"{ _grandChildIdDefinition.ColumnDefinition }\");";
-                    importDef = $"COPY \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\", \"{_grandChildIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
+                    var parsedTableName = QuotePgTableName(_tableName);
+                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS { parsedTableName } ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition }, { _childIdDefinition.ColumnDefinition }, { _grandChildIdDefinition.ColumnDefinition });";
+                    importDef = $"COPY { parsedTableName } (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\", \"{_grandChildIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
                 }
                 else
                 {
-                    cmd.CommandText = $"CREATE TEMP TABLE IF NOT EXISTS \"{ _tableName }\" (\"{ _shardIdDefinition.ColumnDefinition}\", \"{ _recordIdDefinition.ColumnDefinition}\", \"{ _childIdDefinition.ColumnDefinition}\", \"{ _grandChildIdDefinition.ColumnDefinition }\") ON COMMIT DROP;";
+                    cmd.CommandText = $"CREATE TEMP TABLE IF NOT EXISTS \"{ _tableName }\" ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition }, { _childIdDefinition.ColumnDefinition }, { _grandChildIdDefinition.ColumnDefinition }) ON COMMIT DROP;";
                     importDef = $"COPY \"{ _tableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\", \"{_grandChildIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
                 }
                 logger.CopySqlStatements(cmd.CommandText, importDef);
@@ -321,7 +321,7 @@ namespace ArgentSea.Pg
                 _grandChildIdDefinition = grandChildIdDefinition;
                 _greatGrandChildIdDefinition = greatGrandChildIdDefinition;
             }
-            protected override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellation)
+            protected override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellation)
             {
                 ValidatePgTableName(_tableName);
                 cancellation.ThrowIfCancellationRequested();
@@ -332,13 +332,13 @@ namespace ArgentSea.Pg
                 string importDef;
                 if (_tableName.Contains('.'))
                 {
-                    var parsedTableName = _tableName.Replace(".", "\".\"");
-                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnDefinition }\", \"{ _recordIdDefinition.ColumnDefinition }\", \"{ _childIdDefinition.ColumnDefinition }\", \"{ _grandChildIdDefinition.ColumnDefinition }\", \"{ _greatGrandChildIdDefinition.ColumnDefinition }\");";
-                    importDef = $"COPY \"{ parsedTableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\", \"{_grandChildIdDefinition.ColumnName}\", \"{_greatGrandChildIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
+                    var parsedTableName = QuotePgTableName(_tableName);
+                    cmd.CommandText = $"CREATE TABLE IF NOT EXISTS { parsedTableName } ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition }, { _childIdDefinition.ColumnDefinition }, { _grandChildIdDefinition.ColumnDefinition }, { _greatGrandChildIdDefinition.ColumnDefinition });";
+                    importDef = $"COPY { parsedTableName } (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\", \"{_grandChildIdDefinition.ColumnName}\", \"{_greatGrandChildIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
                 }
                 else
                 {
-                    cmd.CommandText = $"CREATE TEMP TABLE IF NOT EXISTS \"{ _tableName }\" (\"{ _shardIdDefinition.ColumnDefinition}\", \"{ _recordIdDefinition.ColumnDefinition}\", \"{ _childIdDefinition.ColumnDefinition}\", \"{ _grandChildIdDefinition.ColumnDefinition }\", \"{ _greatGrandChildIdDefinition.ColumnDefinition }\") ON COMMIT DROP;";
+                    cmd.CommandText = $"CREATE TEMP TABLE IF NOT EXISTS \"{ _tableName }\" ({ _shardIdDefinition.ColumnDefinition }, { _recordIdDefinition.ColumnDefinition }, { _childIdDefinition.ColumnDefinition }, { _grandChildIdDefinition.ColumnDefinition }, { _greatGrandChildIdDefinition.ColumnDefinition }) ON COMMIT DROP;";
                     importDef = $"COPY \"{ _tableName }\" (\"{ _shardIdDefinition.ColumnName }\", \"{ _recordIdDefinition.ColumnName }\", \"{_childIdDefinition.ColumnName}\", \"{_grandChildIdDefinition.ColumnName}\", \"{_greatGrandChildIdDefinition.ColumnName}\") FROM STDIN (FORMAT BINARY)";
                 }
                 logger.CopySqlStatements(cmd.CommandText, importDef);
@@ -373,7 +373,7 @@ namespace ArgentSea.Pg
                 _models = models;
                 _tableName = tableName;
             }
-            protected override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellation)
+            protected override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellation)
             {
                 ValidatePgTableName(_tableName);
                 var tModel = typeof(TModel);
@@ -388,15 +388,15 @@ namespace ArgentSea.Pg
                     PgLoggingExtensions.PgCopyCacheMiss(logger, tModel);
                 }
                 var meta = lazyCopyDelegate.Value;
-                var setRow = (Action<TModel, NpgsqlBinaryImporter, ILogger>)meta.setRow;
+                var setRow = (Action<TModel, NpgsqlBinaryImporter, ILogger?>)meta.setRow;
 
                 string tableDef;
                 string importDef;
                 if (_tableName.Contains('.'))
                 {
-                    var parsedTableName = _tableName.Replace(".", "\".\"");
-                    tableDef = meta.tableDef.Replace("<<TABLEDEF>>", $"TABLE IF NOT EXISTS \"{ parsedTableName }\"");
-                    importDef = meta.importDef.Replace("<<TABLEDEF>>", $"\"{ parsedTableName }\"");
+                    var parsedTableName = QuotePgTableName(_tableName);
+                    tableDef = meta.tableDef.Replace("<<TABLEDEF>>", $"TABLE IF NOT EXISTS { parsedTableName }");
+                    importDef = meta.importDef.Replace("<<TABLEDEF>>", $"{ parsedTableName }");
                 }
                 else
                 {
@@ -427,29 +427,56 @@ namespace ArgentSea.Pg
 
         #region Helper methods
 
-        private static void ValidatePgTableName(string tableName)
+        /// <summary>
+        /// Validates a copy target name, which is either “table” or “schema.table”: at most one “.” separator, with both parts non-empty.
+        /// Each part must begin with a letter or underscore, contain only letters, numbers, dollar signs or underscores,
+        /// and not exceed PostgreSQL’s 63-character (NAMEDATALEN) identifier limit.
+        /// </summary>
+        internal static void ValidatePgTableName(string tableName)
         {
             if (string.IsNullOrEmpty(tableName))
             {
                 throw new Exception($"The table name was not defined.");
             }
-            if (tableName.Length > 63)
+            var parts = tableName.Split('.');
+            if (parts.Length > 2)
             {
-                throw new Exception($"The table name, “{ tableName }”, is not valid. PostgreSQL table names cannot exceed 63 characters.");
+                throw new Exception($"The table name, “{ tableName }”, is not valid. PostgreSQL table names can contain at most one “.” schema separator.");
             }
-            if (!char.IsLetter(tableName[0]) && tableName[0] != '_')
+            foreach (var part in parts)
             {
-                throw new Exception($"The table name, “{ tableName }”, is not valid. PostgreSQL table names must begin with a letter or underscore.");
+                if (part.Length == 0)
+                {
+                    throw new Exception($"The table name, “{ tableName }”, is not valid. The schema and table names on either side of the “.” schema separator cannot be empty.");
+                }
+                if (part.Length > 63)
+                {
+                    throw new Exception($"The table name, “{ tableName }”, is not valid. PostgreSQL schema and table names cannot exceed 63 characters.");
+                }
+                if (!char.IsLetter(part[0]) && part[0] != '_')
+                {
+                    throw new Exception($"The table name, “{ tableName }”, is not valid. PostgreSQL schema and table names must begin with a letter or underscore.");
+                }
+                if (!part.All((c) => { return char.IsLetterOrDigit(c) || c == '_' || c == '$'; }))
+                {
+                    throw new Exception($"The table name, “{ tableName }”, can only contain letters, numbers, dollar signs, underscores, or a “.” schema separator.");
+                }
             }
-            if (!tableName.All((c) => { return char.IsLetterOrDigit(c) || c == '.' || c == '_' || c == '$'; }))
-            {
-                throw new Exception($"The table name, “{ tableName }”, can only contain letters, numbers, dollar signs, underscores, or a “.” schema separator.");
-            }
+        }
+
+        /// <summary>
+        /// Validates the copy target name (see <see cref="ValidatePgTableName"/>) and returns it as a quoted identifier:
+        /// “"table"” or, when schema-qualified, “"schema"."table"”.
+        /// </summary>
+        internal static string QuotePgTableName(string tableName)
+        {
+            ValidatePgTableName(tableName);
+            return string.Join(".", tableName.Split('.').Select(part => $"\"{ part }\""));
         }
 
         private static ConcurrentDictionary<Type, Lazy<(string tableDef, string importDef, Delegate setRow)>> _setCopyParamCache = new ConcurrentDictionary<Type, Lazy<(string tableDef, string importDef, Delegate setRow)>>();
 
-        private static (string, string, Action<TModel, NpgsqlBinaryImporter, ILogger>) BuildCopyDelegateAndQuery<TModel>(ILogger logger) where TModel : class
+        private static (string, string, Action<TModel, NpgsqlBinaryImporter, ILogger?>) BuildCopyDelegateAndQuery<TModel>(ILogger? logger) where TModel : class
         {
             var tModel = typeof(TModel);
             var variables = new List<ParameterExpression>();
@@ -460,7 +487,7 @@ namespace ArgentSea.Pg
             var expLogger = Expression.Parameter(typeof(ILogger), "logger");
             var exprInPrms = new ParameterExpression[] { prmModel, expImporter, expLogger };
 
-            expressions.Add(Expression.Call(expImporter, typeof(NpgsqlBinaryImporter).GetMethod(nameof(NpgsqlBinaryImporter.StartRow))));
+            expressions.Add(Expression.Call(expImporter, typeof(NpgsqlBinaryImporter).GetMethod(nameof(NpgsqlBinaryImporter.StartRow))!));
 
             var tableSB = new StringBuilder();
             var insertSB = new StringBuilder();
@@ -474,16 +501,16 @@ namespace ArgentSea.Pg
             insertSB.Append(") FROM STDIN BINARY;");
 
             var expBlock = Expression.Block(variables, expressions);
-            var lambda = Expression.Lambda<Action<TModel, NpgsqlBinaryImporter, ILogger>>(expBlock, exprInPrms);
+            var lambda = Expression.Lambda<Action<TModel, NpgsqlBinaryImporter, ILogger?>>(expBlock, exprInPrms);
             logger.CreatedExpressionTreeForCopy(tModel, expBlock);
             return (tableSB.ToString(), insertSB.ToString(), lambda.Compile());
         }
 
-        private static void IterateCopyProperties(Type tModel, ref bool isFirstColumn, StringBuilder tableSB, StringBuilder insertSB, List<Expression> expressions, ParameterExpression expImporter, Expression prmModel, ParameterExpression expLogger, List<ParameterExpression> variables, ILogger logger)
+        private static void IterateCopyProperties(Type tModel, ref bool isFirstColumn, StringBuilder tableSB, StringBuilder insertSB, List<Expression> expressions, ParameterExpression expImporter, Expression prmModel, ParameterExpression expLogger, List<ParameterExpression> variables, ILogger? logger)
         {
             var unorderedProps = tModel.GetProperties();
             var props = unorderedProps.OrderBy(prop => prop.MetadataToken);
-            var miLogTrace = typeof(PgLoggingExtensions).GetMethod(nameof(PgLoggingExtensions.TraceCopyMapperProperty));
+            var miLogTrace = typeof(PgLoggingExtensions).GetMethod(nameof(PgLoggingExtensions.TraceCopyMapperProperty))!;
 
             var miWrite = typeof(NpgsqlBinaryImporter).GetMethods().Single(
                 method =>
@@ -493,7 +520,7 @@ namespace ArgentSea.Pg
                     method.GetParameters()[1].ParameterType == typeof(NpgsqlTypes.NpgsqlDbType)
                 );
 
-            var miWriteNull = typeof(NpgsqlBinaryImporter).GetMethod(nameof(NpgsqlBinaryImporter.WriteNull));
+            var miWriteNull = typeof(NpgsqlBinaryImporter).GetMethod(nameof(NpgsqlBinaryImporter.WriteNull))!;
             foreach (var prop in props)
             {
                 MemberExpression expOriginalProperty = Expression.Property(prmModel, prop);
@@ -501,7 +528,7 @@ namespace ArgentSea.Pg
                 Type propType = prop.PropertyType;
                 var shdAttr = ExpressionHelpers.GetMapShardKeyAttribute(prop, propType, out var isNullable, out var isShardKey, out var isShardChild, out var isShardGrandChild, out var isShardGreatGrandChild);
 
-                if (!(shdAttr is null) && (isShardKey || isShardChild || isShardGrandChild || isShardGrandChild))
+                if (shdAttr is not null && (isShardKey || isShardChild || isShardGrandChild || isShardGreatGrandChild))
                 {
                     var foundRecordId = false;
                     var foundChildId = false;
@@ -512,24 +539,24 @@ namespace ArgentSea.Pg
                     Expression expIsNotNullOrEmpty;
                     if (isNullable)
                     {
-                        expProperty = Expression.Property(expProperty, propType.GetProperty(nameof(Nullable<int>.Value)));
-                        propType = Nullable.GetUnderlyingType(propType);
-                        expIsNotNullOrEmpty = Expression.Property(expOriginalProperty, propType.GetProperty(nameof(Nullable<int>.HasValue)));
+                        expProperty = Expression.Property(expProperty, propType.GetProperty(nameof(Nullable<int>.Value))!);
+                        propType = Nullable.GetUnderlyingType(propType)!; // guarded by the Nullable<> check above
+                        expIsNotNullOrEmpty = Expression.Property(expOriginalProperty, propType.GetProperty(nameof(Nullable<int>.HasValue))!);
                     }
                     else
                     {
-                        expIsNotNullOrEmpty = Expression.NotEqual(expOriginalProperty, Expression.Property(null, propType.GetProperty(nameof(ShardKey<int>.Empty))));
+                        expIsNotNullOrEmpty = Expression.NotEqual(expOriginalProperty, Expression.Property(null, propType.GetProperty(nameof(ShardKey<int>.Empty))!));
                     }
 
-                    if (!(shdAttr.ShardParameter is null))
+                    if (shdAttr.ShardParameter is not null)
                     {
-                        var expShardProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.ShardId)));
+                        var expShardProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.ShardId))!);
                         expressions.Add(Expression.IfThenElse(
                             expIsNotNullOrEmpty, //if
                             Expression.Call(expImporter, miWrite.MakeGenericMethod(new Type[] { expShardProperty.Type }), expShardProperty, Expression.Constant(NpgsqlTypes.NpgsqlDbType.Smallint)), //then
                             Expression.Call(expImporter, miWriteNull) //else
                             ));
-                        BuildQueryColumnText(ref isFirstColumn, tableSB, insertSB, $"\"{shdAttr.ShardIdName}\" smallint", shdAttr.ShardIdName);
+                        BuildQueryColumnText(ref isFirstColumn, tableSB, insertSB, $"\"{shdAttr.ShardIdName}\" smallint", shdAttr.ShardIdName!); // set whenever ShardParameter is
                     }
 
 
@@ -544,7 +571,7 @@ namespace ArgentSea.Pg
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType);
                             }
-                            var expRecordProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.RecordId)));
+                            var expRecordProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int>.RecordId))!);
                             expressions.Add(Expression.IfThenElse(
                                 expIsNotNullOrEmpty, //if
                                 Expression.Call(expImporter, miWrite.MakeGenericMethod(new Type[] { expRecordProperty.Type }), expRecordProperty, Expression.Constant((NpgsqlTypes.NpgsqlDbType)attrPM.SqlType)), //then
@@ -560,7 +587,7 @@ namespace ArgentSea.Pg
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType);
                             }
-                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int>.ChildId)));
+                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int>.ChildId))!);
                             expressions.Add(Expression.IfThenElse(
                                 expIsNotNullOrEmpty, //if
                                 Expression.Call(expImporter, miWrite.MakeGenericMethod(new Type[] { expChildProperty.Type }), expChildProperty, Expression.Constant((NpgsqlTypes.NpgsqlDbType)attrPM.SqlType)), //then
@@ -576,7 +603,7 @@ namespace ArgentSea.Pg
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType);
                             }
-                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int>.ChildId)));
+                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int>.ChildId))!);
                             expressions.Add(Expression.IfThenElse(
                                 expIsNotNullOrEmpty, //if
                                 Expression.Call(expImporter, miWrite.MakeGenericMethod(new Type[] { expChildProperty.Type }), expChildProperty, Expression.Constant((NpgsqlTypes.NpgsqlDbType)attrPM.SqlType)), //then
@@ -592,7 +619,7 @@ namespace ArgentSea.Pg
                             {
                                 throw new InvalidMapTypeException(prop, attrPM.SqlType);
                             }
-                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int, int>.ChildId)));
+                            var expChildProperty = Expression.Property(expProperty, propType.GetProperty(nameof(ShardKey<int, int, int, int>.ChildId))!);
                             expressions.Add(Expression.IfThenElse(
                                 expIsNotNullOrEmpty, //if
                                 Expression.Call(expImporter, miWrite.MakeGenericMethod(new Type[] { expChildProperty.Type }), expChildProperty, Expression.Constant((NpgsqlTypes.NpgsqlDbType)attrPM.SqlType)), //then
@@ -631,14 +658,14 @@ namespace ArgentSea.Pg
                         alreadyFound = true;
                         var dataName = attrPM.ColumnName;
                         expressions.Add(Expression.Call(miLogTrace, expLogger, Expression.Constant(prop.Name)));
-                        Expression expIfNull = null;
+                        Expression? expIfNull = null;
                         if (!attrPM.IsValidType(propType))
                         {
                             throw new InvalidMapTypeException(prop, attrPM.SqlType);
                         }
                         if (propType == typeof(double) || propType == typeof(float))
                         {
-                            expIfNull = Expression.Call(propType.GetMethod(nameof(double.IsNaN)), expProperty );
+                            expIfNull = Expression.Call(propType.GetMethod(nameof(double.IsNaN))!, expProperty );
                         }
                         else if (propType == typeof(Guid))
                         {
@@ -646,15 +673,16 @@ namespace ArgentSea.Pg
                         }
                         else if (isNullable)
                         {
-                            expProperty = Expression.Property(expProperty, propType.GetProperty(nameof(Nullable<int>.Value)));
-                            propType = Nullable.GetUnderlyingType(propType);
+                            var nullableType = propType;
+                            expProperty = Expression.Property(expProperty, nullableType.GetProperty(nameof(Nullable<int>.Value))!);
+                            propType = Nullable.GetUnderlyingType(nullableType)!; // guarded by the Nullable<> check above
                             if (propType.IsEnum)
                             {
                                 if (attrPM.SqlType == (int)NpgsqlTypes.NpgsqlDbType.Text
                                     || attrPM.SqlType == (int)NpgsqlTypes.NpgsqlDbType.Char
                                     || attrPM.SqlType == (int)NpgsqlTypes.NpgsqlDbType.Varchar)
                                 {
-                                    var miEnumToString = typeof(Enum).GetMethod(nameof(Enum.ToString), new Type[] { });
+                                    var miEnumToString = typeof(Enum).GetMethod(nameof(Enum.ToString), new Type[] { })!;
                                     expProperty = Expression.Call(expProperty, miEnumToString);
                                 }
                                 else
@@ -663,7 +691,8 @@ namespace ArgentSea.Pg
                                     expProperty = Expression.Convert(expProperty, propType);
                                 }
                             }
-                            expIfNull = Expression.Property(expOriginalProperty, propType.GetProperty(nameof(Nullable<int>.HasValue)));
+                            // expIfNull is the write-NULL condition: a Nullable<T> property without a value is written as NULL.
+                            expIfNull = Expression.Not(Expression.Property(expOriginalProperty, nullableType.GetProperty(nameof(Nullable<int>.HasValue))!));
                         }
                         else if (propType.IsEnum)
                         {
@@ -671,7 +700,7 @@ namespace ArgentSea.Pg
                                 || attrPM.SqlType == (int)NpgsqlTypes.NpgsqlDbType.Char 
                                 || attrPM.SqlType == (int)NpgsqlTypes.NpgsqlDbType.Varchar)
                             {
-                                var miEnumToString = typeof(Enum).GetMethod(nameof(Enum.ToString), new Type[] { });
+                                var miEnumToString = typeof(Enum).GetMethod(nameof(Enum.ToString), new Type[] { })!;
                                 expProperty = Expression.Call(expProperty, miEnumToString);
                             }
                             else

@@ -4,9 +4,9 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "a membership update has suspect report A=(address 10.0.0.1, port 1111, generation 1, timestamp 2026-08-16T10:00:00Z) and report B=(address 10.0.0.2, port 2222, generation 2, timestamp 2026-08-16T11:00:00Z).",
+      "given": "a membership update has suspect reports A1=(address 10.0.0.1, port 1111, generation 1, timestamp 2026-08-16T10:00:00Z), A2=(address 10.0.0.1, port 1111, generation 1, timestamp 2026-08-16T11:00:00Z) and B=(address 10.0.0.2, port 2222, generation 2, timestamp 2026-08-16T10:30:00Z).",
       "when": "UpdateRow prepares the SuspectTimes table-valued parameter.",
-      "then": "the parameter contains exactly one row with A's address, port, and generation and timestamp 2026-08-16T11:00:00Z."
+      "then": "the parameter contains exactly two rows: one for 10.0.0.1:1111 generation 1 with timestamp 2026-08-16T11:00:00Z (the later of A1 and A2), and one for 10.0.0.2:2222 generation 2 with timestamp 2026-08-16T10:30:00Z."
     },
     "illustrates": [
       {
@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
-        "lines": "350-377",
+        "lines": "368-368,401-434",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-membership-table",
+    "sectionId": "orleans-cluster-providers",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

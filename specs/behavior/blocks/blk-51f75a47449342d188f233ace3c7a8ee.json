@@ -1,0 +1,61 @@
+{
+  "id": "blk-51f75a47449342d188f233ace3c7a8ee",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A consumer needs the default reminder-storage registration shape from Queries.orleansDbQueryDefinitions.",
+      "when": "The consumer retrieves `Queries.orleansDbQueryDefinitions`.",
+      "then": "The returned `OrleansDbQueryDefinitions` is keyed by the empty string `\"\"` as its grain type, names `OrleansReminderReadRowKey` as the read query in `QueryResultFormat.ResultSet` form, `OrleansReminderUpsertRowKey` as the write query, and `OrleansReminderDeleteRowKey` as the clear query."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ee640f568d434fe9be9d4317130f64f0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "63",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-runtime-query-catalog",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-8719cd5fac1c4f36885a754d2ed2abb7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ee640f568d434fe9be9d4317130f64f0",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

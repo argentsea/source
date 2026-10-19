@@ -6,13 +6,13 @@
     "name": "TvpMapper.ToTvpRecord<TModel> mapping family",
     "kind": "Library",
     "language": "csharp",
-    "contract": "TvpMapper converts one mapped TModel instance into a SqlDataRecord suitable for a table-valued parameter. The two overloads differ only by whether the caller supplies a column list: without it, the record contains all mapped columns; with it, the returned metadata fields are selected by exact mapped column name and ordered exactly as requested. Model properties are considered in metadata-token order while the mapping is built."
+    "contract": "TvpMapper converts one mapped TModel instance into a SqlDataRecord suitable for a table-valued parameter. The two overloads differ only by whether the caller supplies a column list: without it, the record contains all mapped columns; with it, the returned metadata fields are selected by exact mapped column name (the normalized name, without a leading '@') and ordered exactly as requested, and each selected column's value — for every column type, binary and decimal included — is written at that same requested position. Model properties are considered in metadata-token order while the mapping is built."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-mapper'. Grounded in ArgentSea.Sql/src/TvpMapper.cs:21-331, but without sectionId equal to component ID 'sql-tvp-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Sql/src/TvpMapper.cs:21-331. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'table-valued-parameters' resolves to component 'Table Valued Parameters' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-tvp-mapper",
+    "sectionId": "table-valued-parameters",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

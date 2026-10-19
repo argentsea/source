@@ -1,0 +1,48 @@
+{
+  "id": "blk-f3d3ab8826134c4e992db970c3bf8c33",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A grain model declares a property marked as the record identifier whose .NET type is DateTime, a type for which SpanParser has no Extract or Append overload.",
+      "when": "OrleansExpressionHelper compiles the grain-id-to-database-parameters delegate for that model type.",
+      "then": "OrleansExpressionHelper throws InvalidKeyTypeException naming the model's grain type and the property."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-c244337ded434a45bf72c9d25764118c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "173-187",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/InvalidKeyTypeException.cs",
+        "lines": "34-37",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

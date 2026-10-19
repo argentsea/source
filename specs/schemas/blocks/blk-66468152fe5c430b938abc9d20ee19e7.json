@@ -32,14 +32,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
-        "lines": "31-35",
+        "lines": "33-39",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-db-connection-options",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -58,7 +58,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "pg-db-connection-options-pg-db-connection-configuration",
+      "blockId": "postgres-connection-settings",
       "blobHash": null,
       "label": null,
       "relation": "references"

@@ -1,0 +1,31 @@
+{
+  "id": "blk-5053da46df184628a6864355f3cfd8b0",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj's ItemGroup declares PackageReference entries for Microsoft.Orleans.Runtime, Microsoft.Orleans.Reminders, and Microsoft.Orleans.Sdk, all pinned to version 10.3.1; the file references none of the three Orleans packages at any other version, and declares no other PackageReference.",
+    "scope": "ArgentSea.Orleans.Sql.csproj PackageReference ItemGroup: Microsoft.Orleans.Runtime, Microsoft.Orleans.Reminders, Microsoft.Orleans.Sdk."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-37",
+        "label": "Full file: the cited ItemGroup (21-26) establishes the three pinned PackageReference entries, and the whole-file read establishes no other PackageReference exists anywhere in the file"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,69 @@
+{
+  "id": "blk-a58adcb590fd42adb06ca2df142b4f29",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Data Provider Services",
+    "trigger": "a data connection executes a query",
+    "response": "supply, through the injected IDataProviderServiceFactory, the provider DbConnection for the endpoint's resolved connection string (NewConnection), the provider DbCommand for the query text on that connection (NewCommand), and the population of that command from the query's parameter names, the caller's parameter collection and any per-call parameter values (SetParameters)",
+    "postcondition": "the provider-neutral core opens, builds and parameterises every command without constructing any platform-specific connection, command or parameter type itself"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "321-329",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "data-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-3e1bd826f9a248159335f08bcdebd3bf",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

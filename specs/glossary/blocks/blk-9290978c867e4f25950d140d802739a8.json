@@ -1,0 +1,47 @@
+{
+  "id": "blk-9290978c867e4f25950d140d802739a8",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Transient error",
+    "definition": "A database error that the provider classifies as likely to clear on its own, such as a network interruption, deadlock, failover in progress, or optimistic-concurrency conflict in SQL Server in-memory tables. The provider decides through its data provider services' `GetIsErrorTransient`. Only transient errors are retried by the resilience strategy; all others surface to the caller at once.",
+    "synonyms": [
+      "transient fault",
+      "retryable error"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "16-60",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "115-122",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "20-24",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

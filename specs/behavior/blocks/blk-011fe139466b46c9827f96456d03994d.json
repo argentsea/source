@@ -1,0 +1,44 @@
+{
+  "id": "blk-011fe139466b46c9827f96456d03994d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "QueryStatement",
+    "condition": "the Lazy<QueryStatement> was produced by the Create(name) or Create(name, parameterNames) overload, neither of which is given an explicit folder or extension",
+    "trigger": "a caller evaluates Value on that Lazy<QueryStatement> for the first time",
+    "response": "resolve the statement file using whatever values QueryStatement.Folder and QueryStatement.Extension hold at the moment Value is evaluated, not whatever they held when Create was called",
+    "postcondition": "reassigning QueryStatement.Folder or QueryStatement.Extension after Create returns but before Value is first read changes which file that Lazy<QueryStatement> loads"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "36-45,53-66",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

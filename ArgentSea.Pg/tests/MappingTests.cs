@@ -453,7 +453,7 @@ namespace ArgentSea.Pg.Test
             //dbLogger2.AddConsole();
             var dbLogger = dbLogger2.CreateLogger("");
             var result = cmd.Parameters.ToModel<PgMapModel>((short)5, dbLogger);
-            result.ArgentSeaTestDataId.Should().Be(10, "that was the output parameter value");
+            result!.ArgentSeaTestDataId.Should().Be(10, "that was the output parameter value");
             result.Name.Should().Be("Test2", "that was the output parameter value");
             result.Iso3166.Should().Be("US", "that was the output parameter value");
             result.BigCount.Should().Be(5L, "that was the output parameter value");
@@ -480,12 +480,12 @@ namespace ArgentSea.Pg.Test
             result.EnvTarget.Should().Be(EnvironmentVariableTarget.Machine, "that was the output parameter value");
             result.Color.Should().Be(ConsoleColor.Black, "that was the output parameter value");
             result.Modifier.Should().Be(ConsoleModifiers.Control, "that was the output parameter value");
-            result.KeyValues["one"].Should().Be("1", "that was the output parameter value");
+            result.KeyValues!["one"].Should().Be("1", "that was the output parameter value");
             result.KeyValues["two"].Should().Be("2", "that was the output parameter value");
             result.CleanOutStuff.Should().Be(new TimeSpan(3, 4, 5), "that was the output parameter value");
             result.GarbageCollectorNotificationStatus.Should().Be(GCNotificationStatus.Failed, "that was the output parameter value");
 
-            result.RecordKey.Value.ShardId.Should().Be(6, "that was the output parameter value");
+            result.RecordKey!.Value.ShardId.Should().Be(6, "that was the output parameter value");
             result.RecordKey.Value.RecordId.Should().Be(4, "that was the output parameter value");
 
             result.RecordChild.ShardId.Should().Be(15, "that was the output parameter value");
@@ -495,7 +495,7 @@ namespace ArgentSea.Pg.Test
             result.DataShard2.ShardId.Should().Be(5, "that is the value of the current shard");
             result.DataShard2.RecordId.Should().Be(long.MaxValue, "that is the record id");
 
-            result.ChildShard2.Value.ShardId.Should().Be(255, "that is the value of the current shard");
+            result.ChildShard2!.Value.ShardId.Should().Be(255, "that is the value of the current shard");
             result.ChildShard2.Value.RecordId.Should().Be(12345, "that is the record id");
             result.ChildShard2.Value.ChildId.Should().Be("Test123", "that is the child id");
 
@@ -552,7 +552,7 @@ namespace ArgentSea.Pg.Test
 
             var result = Mapper.ToModel<PgMapModel>(prms, 16, dbLogger);
 
-            result.ArgentSeaTestDataId.Should().Be(11, "that was the output parameter value");
+            result!.ArgentSeaTestDataId.Should().Be(11, "that was the output parameter value");
             result.Name.Should().BeNull("the output parameter was set to DbNull");
             result.Iso3166.Should().BeNull("the output parameter was set to DbNull");
             result.BigCount.Should().BeNull("the output parameter was set to DbNull");
@@ -965,7 +965,7 @@ namespace ArgentSea.Pg.Test
             var dbLogger = Substitute.For<Microsoft.Extensions.Logging.ILogger>();
             var resultList = Mapper.ToList<PgMapModel>(rdr, (short)32, dbLogger);
             var result = resultList[0];
-            result.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
+            result!.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
             result.Name.Should().Be(modelValues.Name, "that is the source value");
             result.Iso3166.Should().Be(modelValues.Iso3166, "that is the source value");
             result.BigCount.Should().Be(modelValues.BigCount, "that is the source value");
@@ -986,25 +986,25 @@ namespace ArgentSea.Pg.Test
             result.Ratio.Should().Be(modelValues.Ratio, "that is the source value");
             result.Temperature.Should().Be(modelValues.Temperature, "that is the source value");
             result.LongStory.Should().Be(modelValues.LongStory, "that is the source value");
-            result.MissingBits.Length.Should().Be(modelValues.MissingBits.Length, "that is the source value");
+            result.MissingBits!.Length.Should().Be(modelValues.MissingBits!.Length, "that is the source value");
             result.Price.Should().Be(modelValues.Price, "that is the source value");
             result.EnvTarget.Should().Be(modelValues.EnvTarget, "that is the source value");
             result.Color.Should().Be(modelValues.Color, "that is the source value");
             result.Modifier.Should().Be(modelValues.Modifier, "that is the source value");
-            result.Numbers[0].Should().Be(modelValues.Numbers[0], "that is the source value");
+            result.Numbers![0].Should().Be(modelValues.Numbers![0], "that is the source value");
             result.Numbers[1].Should().Be(modelValues.Numbers[1], "that is the source value");
             result.Numbers[2].Should().Be(modelValues.Numbers[2], "that is the source value");
             result.Numbers[3].Should().Be(modelValues.Numbers[3], "that is the source value");
-            result.KeyValues["one"].Should().Be("1", "that is the source value");
+            result.KeyValues!["one"].Should().Be("1", "that is the source value");
             result.KeyValues["two"].Should().Be("2", "that is the source value");
             result.CleanOutStuff.Should().Be(modelValues.CleanOutStuff, "that is the source value");
             result.GarbageCollectorNotificationStatus.Should().Be(modelValues.GarbageCollectorNotificationStatus, "that is the source value");
             result.RecordKey.HasValue.Should().BeTrue("because the row has values");
-            result.RecordKey.Value.Should().Be(modelValues.RecordKey, "because that is the source value");
+            result.RecordKey.Should().Be(modelValues.RecordKey, "because that is the source value");
             result.RecordChild.Should().Be(modelValues.RecordChild, "because that is the source value");
             result.DataShard2.ShardId.Should().Be((short)32, "because that is the shardId passed into the method call");
             result.DataShard2.RecordId.Should().Be(-1234L, "because that is the recordId data value");
-            result.ChildShard2.Value.Should().Be(modelValues.ChildShard2, "because that is the source value");
+            result.ChildShard2.Should().Be(modelValues.ChildShard2, "because that is the source value");
         }
         [Fact]
         public void ValidateNullSqlDataReader()
@@ -1150,7 +1150,7 @@ namespace ArgentSea.Pg.Test
             var resultList = Mapper.ToList<PgMapModel>(rdr, 200, dbLogger);
 
             var result = resultList[0];
-            result.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
+            result!.ArgentSeaTestDataId.Should().Be(modelValues.ArgentSeaTestDataId, "that is the source value");
             result.Name.Should().BeNull("the reader value is DbNull");
             result.Iso3166.Should().BeNull("the reader value is DbNull");
             result.BigCount.Should().BeNull("the reader value is DbNull");
@@ -1184,6 +1184,22 @@ namespace ArgentSea.Pg.Test
             result.RecordChild.Should().Be(ShardKey<int, short>.Empty, "the result should be empty");
             result.DataShard2.Should().Be(ShardKey<long>.Empty, "the result should be empty");
             result.ChildShard2.Should().BeNull("the input values are null");
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-e497f0970ddb4de789d4d4400a7fe0cb")]
+        public void MapPgShardKeyAttributeExposesItsSelectorsAndASmallintShardParameter()
+        {
+            var attribute = new MapPgShardKeyAttribute("ShardId", "RecordId", "ChildId", false);
+
+            attribute.ShardIdName.Should().Be("ShardId");
+            attribute.RecordIdName.Should().Be("RecordId");
+            attribute.ChildIdName.Should().Be("ChildId");
+            attribute.IsRecordIdentifier.Should().BeFalse();
+            var shard = attribute.ShardParameter.Should().BeOfType<MapToPgSmallintAttribute>().Which;
+            ((NpgsqlTypes.NpgsqlDbType)shard.SqlType).Should().Be(NpgsqlTypes.NpgsqlDbType.Smallint);
+            shard.IsRecordIdentifier.Should().BeFalse();
+            new MapPgShardKeyAttribute("RecordId").ShardParameter.Should().BeNull();
         }
     }
 }

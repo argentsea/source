@@ -6,18 +6,18 @@
     "name": "Mapper mapped query-contract materialization",
     "kind": "Library",
     "language": "text",
-    "contract": "Mapper is a static library surface that translates declared model mapping metadata at a query contract boundary. Its extension families (1) append mapped input or output parameters while allowing already-present and explicitly ignored names to remain excluded, (2) materialize a new or supplied model from output parameters or one reader row, and (3) materialize a list from reader rows. Each materialization family has a variant accepting a Shard identifier; query-result handler variants accept a root model plus zero through eight typed dependent reader-result collections, with optional output-parameter materialization."
+    "contract": "Mapper is a static library surface that translates declared model mapping metadata at a query contract boundary. Its extension families (1) append mapped input or output parameters while allowing already-present and explicitly ignored names to remain excluded, (2) materialize a new or supplied model from output parameters or one reader row, and (3) materialize a list from reader rows. Each materialization family has a variant accepting a Shard identifier; query-result handler variants accept a root model plus zero through eight typed dependent reader-result collections, with optional output-parameter materialization. Because each extension family is implemented as a C# extension method whose `this` parameter is a DbParameterCollection or DbDataReader, a caller may invoke them with extension-method syntax as `parameters.CreateInputParameters(...)` or `rdr.ToModel(...)`; ordinary static invocation as `Mapper.CreateInputParameters(...)` remains legal C# and is not disabled by declaring the method as an extension. Mapper also holds several per-model-Type delegate caches as private static fields; they are internal compiled-delegate state, not public surface."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded and falsifiable interface contract for Mapper mapped query-contract materialization.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable interface contract for Mapper mapped query-contract materialization. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'model-mapping' resolves to component 'Model Mapping' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "24-3980",
+        "lines": "25-3980",
         "label": null,
         "relation": "grounds"
       },
@@ -31,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-mapper",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

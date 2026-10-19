@@ -1,0 +1,31 @@
+{
+  "id": "blk-ebdfb0922b5147a2aacc35bebc2fe2c9",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea Core's published package declares exactly these external dependencies, at these pinned versions: Microsoft.CSharp 4.7.0, Microsoft.Extensions.Configuration 10.0.12, Microsoft.Extensions.Logging 10.0.12, Microsoft.Extensions.Options 10.0.12, Microsoft.Extensions.Options.ConfigurationExtensions 10.0.12, Polly 8.7.0, and System.Collections.Immutable 10.0.12. Polly is the package's only non-Microsoft dependency; it is the resilience library (retry and circuit-breaking) that ArgentSea Core's platform-neutral resilient command execution is implemented on top of.",
+    "scope": "ArgentSea Core NuGet package dependency declarations (ArgentSea.Shared/src/ArgentSea.csproj PackageReference items)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ArgentSea.csproj",
+        "lines": "44-50",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "argent-sea-core",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,40 @@
+{
+  "id": "postgres-provider-services",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Postgres Provider Services",
+    "responsibility": "Supplies the PostgreSQL end of the provider seam: creating an Npgsql connection and command, applying a named parameter set (with any per-call value overrides) to a command and preparing it unless the connection multiplexes, and judging whether a failure is transient and so worth retrying by deferring to the Npgsql exception's own IsTransient verdict.",
+    "parent": "postgres-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "data-provider-services"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "16-110",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

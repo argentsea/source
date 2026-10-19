@@ -1,0 +1,54 @@
+{
+  "id": "blk-879f47de7dc4474ea337cbc4010ca520",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Grain persistence",
+    "definition": "ArgentSea's Orleans grain storage provider. It reads, writes and clears grain state through per-grain-type queries mapped by the Mapper to ordinary relational tables (third normal form), rather than to serialized state blobs, so grain data can be queried across grains with SQL. It has two variants: on a single database (`ArgentSeaDbGrainPersistence`), or on a shard set (`ArgentSeaShardGrainPersistence`), where the shard is resolved from the grain's key, a serialized ShardKey. When no row exists, the state is created by default construction or by the model's `IActivator` factory.",
+    "synonyms": [
+      "ArgentSeaDbGrainPersistence",
+      "ArgentSeaShardGrainPersistence",
+      "grain storage provider"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/readme.md",
+        "lines": "1-6",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "55-122",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/IActivator.cs",
+        "lines": "9-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "8-48",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

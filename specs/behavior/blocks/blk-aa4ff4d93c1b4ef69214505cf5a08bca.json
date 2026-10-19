@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ExpressionHelpers",
+    "subject": "Mapping Expression Builders",
     "condition": "a property is mapped as a nonempty virtual compound key",
-    "trigger": "its mapping expressions are built",
+    "trigger": "ExpressionHelpers: its mapping expressions are built",
     "response": "append parameter expressions for the configured shard identifier and each configured record or subordinate identity whose mapping attribute name matches the virtual compound key element",
     "postcondition": "an empty or nullable absent virtual compound key supplies null for each configured element"
   },
@@ -18,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
-        "lines": "680-846",
+        "lines": "673-839",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-expression-helpers",
+    "sectionId": "mapping-expression-builders",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

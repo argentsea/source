@@ -1,0 +1,48 @@
+{
+  "id": "blk-414cab67e68e4e63ab8639c77a8988ac",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "TvpMapper.ToTvpRecord<TModel> has already been called once for a given model type, so a compiled table-valued-record projection delegate for that type is cached",
+      "when": "ToTvpRecord<TModel> is called again for the same model type",
+      "then": "the cached delegate is reused without recompiling, and the call reports a cache hit rather than a cache miss"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-f8bd3bf6109449d9863f4016a9ff86cb"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "293-303",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlLoggingExtensions.cs",
+        "lines": "33-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "blk-3626c618a74b4d45aac7a1a535bfc37b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Payload of type ReadOnlyMemory<byte> is mapped to an input binary parameter",
+      "when": "ExpressionHelpers builds the input binary parameter expression for Payload",
+      "then": "the generated expression calls ToArray() on the ReadOnlyMemory<byte> value before passing it to the provider's add-parameter method"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-c3374db5eda5474b951a1d35559cfd30"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "152-166",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

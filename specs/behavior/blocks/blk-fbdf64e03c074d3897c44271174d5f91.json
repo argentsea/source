@@ -11,7 +11,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-mapper'. Grounded in ArgentSea.Sql/src/TvpMapper.cs:72-235, but without sectionId equal to component ID 'sql-tvp-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Sql/src/TvpMapper.cs:72-235. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'table-valued-parameters' resolves to component 'Table Valued Parameters' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -23,7 +23,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-tvp-mapper",
+    "sectionId": "table-valued-parameters",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

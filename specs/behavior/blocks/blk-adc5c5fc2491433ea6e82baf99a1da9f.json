@@ -1,0 +1,73 @@
+{
+  "id": "blk-adc5c5fc2491433ea6e82baf99a1da9f",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapper.ModelFromReaderWithCollectionsHandler",
+    "trigger": "a query-result handler receives a root model type that declares one or more CollectionMapAttributeBase properties, and a data reader positioned at that model's own result set",
+    "response": "the handler shall materialize the root model from the reader's first result set, and only when that result set yields a non-null model (its one row was read) shall it then, for each collection property in the order Mapper.GetCollectionMapProperties returns them for that model type (ascending PropertyInfo.MetadataToken order, computed by an explicit sort rather than Type.GetProperties() reflection order), advance to the next result set and assign that property a list built from it; when the first result set yields no row, the handler shall return that null/default result without advancing to or reading any further result set",
+    "postcondition": "the root model's collection properties are populated in the order Mapper.GetCollectionMapProperties returns them for that model type (ascending PropertyInfo.MetadataToken order, computed by an explicit sort rather than Type.GetProperties() reflection order) whenever the root row exists, and are left unpopulated when the root row does not exist"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2598-2678",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/CollectionMapAttributeBase.cs",
+        "lines": "18-39",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "500-530",
+        "label": "GetCollectionMapProperties sorts by MetadataToken"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-f41203b8a9544e63b12d3fb4940475eb",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

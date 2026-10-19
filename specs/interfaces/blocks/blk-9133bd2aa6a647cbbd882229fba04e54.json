@@ -6,7 +6,7 @@
     "name": "ShardDataConnection<TConfiguration> QueryAsync family",
     "kind": "Library",
     "language": "text",
-    "contract": "For a Query contract, QueryAsync returns a result model assembled from the query's output and reader results. Variants choose the model and reader-result types and optionally bind a named parameter to the endpoint's current shard identifier."
+    "contract": "For a Query contract, QueryAsync returns a TModel instance produced entirely by a caller-supplied QueryResultModelHandler delegate from the query's output parameters and data reader, not by a built-in reader-to-model mapping convention. Variants select: whether an optional TArg argument is threaded through to the handler (QueryResultModelHandler<TArg,TModel> plus an optionalArgument parameter passed to it) or omitted (QueryResultModelHandler<object,TModel>, with null passed in the unused argument slot since there is no caller-supplied TArg value); and whether a named parameter is bound to the endpoint's current shard identifier before execution. There is no reader-result-type dimension on this family -- that belongs to the MapReaderAsync/MapOutputAsync families, which supply their own built-in handlers."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
-        "lines": "570-614",
+        "lines": "570-615",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-data-connection",
+    "sectionId": "shard-addressing",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

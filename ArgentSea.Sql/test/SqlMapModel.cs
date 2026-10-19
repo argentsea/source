@@ -11,16 +11,16 @@ namespace ArgentSea.Sql.Test
 		public int ArgentSeaTestDataId { get; set; }
 
 		[MapToSqlNVarChar("Name", 255)]
-		public string Name { get; set; }
+		public string? Name { get; set; }
 
 		[MapToSqlVarChar("LatinName", 255, 1033)]
-		public string LatinName { get; set; }
+		public string? LatinName { get; set; }
 
 		[MapToSqlNChar("Iso3166", 2)]
-		public string Iso3166 { get; set; }
+		public string? Iso3166 { get; set; }
 
 		[MapToSqlChar("Iso639", 2, 1033)]
-		public string Iso639 { get; set; }
+		public string? Iso639 { get; set; }
 
 		[MapToSqlBigInt("BigCount")]
 		public long? BigCount { get; set; }
@@ -74,19 +74,19 @@ namespace ArgentSea.Sql.Test
 		public float? Temperature { get; set; }
 
 		[MapToSqlNVarChar("LongStory", -1)]
-		public string LongStory { get; set; }
+		public string? LongStory { get; set; }
 
 		[MapToSqlVarChar("LatinStory", -1, 1033)]
-		public string LatinStory { get; set; }
+		public string? LatinStory { get; set; }
 
 		[MapToSqlBinary("TwoBits", 2)]
-		public byte[] TwoBits { get; set; }
+		public byte[]? TwoBits { get; set; }
 
 		[MapToSqlVarBinary("MissingBits", 12)]
-		public byte[] MissingBits { get; set; }
+		public byte[]? MissingBits { get; set; }
 
 		[MapToSqlVarBinary("Blob", -1)]
-		public byte[] Blob { get; set; }
+		public byte[]? Blob { get; set; }
 
 		[MapToSqlMoney("Price")]
 		public decimal? Price { get; set; }

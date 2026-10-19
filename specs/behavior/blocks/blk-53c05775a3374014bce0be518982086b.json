@@ -1,0 +1,60 @@
+{
+  "id": "blk-53c05775a3374014bce0be518982086b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "one model property carries MapToPgArrayAttribute(\"vals\", NpgsqlDbType.Double) and another carries MapToPgInternalCharAttribute(\"flag\")",
+      "when": "a COPY load reads each variant's ColumnDefinition",
+      "then": "the array column renders \"\\\"vals\\\" double precision[]\" (not double[]) and the internal-char column renders \"\\\"flag\\\" \\\"char\\\"\" with the type name double-quoted (not internal char); an InternalChar array element likewise renders \"char\"[]"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-41a9bebdf55c44f9a0932b450373d38b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "36-68",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/TypeMappingCoverageTests.cs",
+        "lines": "92-105",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-41a9bebdf55c44f9a0932b450373d38b",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

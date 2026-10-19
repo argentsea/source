@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlConnectionConfiguration",
+    "subject": "SQL Server Connection Settings",
     "where": "a Configuration hierarchy supplies InitialCatalog and DataSource values across global, shard-set, read/write, shard, and local layers",
     "trigger": "a caller reads ConnectionDescription before a connection string has set it",
     "response": "return database {InitialCatalog} on server {DataSource} using the last non-empty value for each field in global, shard-set, read/write, shard, then local order",
@@ -18,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
-        "lines": "208-253",
+        "lines": "238-291",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-connection-configuration",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

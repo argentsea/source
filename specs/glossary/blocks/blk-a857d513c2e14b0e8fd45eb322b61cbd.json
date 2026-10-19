@@ -1,0 +1,44 @@
+{
+  "id": "blk-a857d513c2e14b0e8fd45eb322b61cbd",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Child id",
+    "definition": "The second record-key column of a multi-column shard key (`ChildId`). The third and fourth columns are the grandchild id and great-grandchild id. They express a table whose primary key has more than one column, typically a parent id plus an id within that parent (an order and its line number). Like the record id, they are unique only in combination with the shard id.",
+    "synonyms": [
+      "ChildId",
+      "GrandChildId",
+      "GreatGrandChildId",
+      "grandchild id",
+      "great-grandchild id"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "56-58",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardChild.cs",
+        "lines": "18-30",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,50 @@
+{
+  "id": "resilient-command-execution",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Resilient Command Execution",
+    "responsibility": "Opens a connection, executes a query's command against it and materialises the results as a model, a list, a scalar or a caller-supplied handler's output — retrying failures the provider calls transient on a backoff computed from the endpoint's settings, and wrapping those retries in a per-connection circuit breaker that fails fast once consecutive failures pass the configured count. Every data method in the library runs through this and nowhere else, so this is the single place the resilience policy exists.",
+    "parent": "querying"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "19-585",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
+        "lines": "23-23",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedSqlResultException.cs",
+        "lines": "13-40",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/RetryLimitExceededException.cs",
+        "lines": "14-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

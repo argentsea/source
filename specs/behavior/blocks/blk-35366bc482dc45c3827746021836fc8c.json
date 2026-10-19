@@ -1,0 +1,67 @@
+{
+  "id": "blk-35366bc482dc45c3827746021836fc8c",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a Customer model with a mapped @CustomerId property and a writable [MapToModel] Address property whose Address type maps @Street and @City, and a Customer instance whose Address is null",
+      "when": "input parameters are created from that Customer, and later a Customer is read from a data reader row containing CustomerId, Street and City columns",
+      "then": "the input parameter set contains @CustomerId, @Street and @City in one flat collection, and the original Customer's Address has been assigned a new, empty Address instance; the model read from the reader has a non-null Address whose Street and City come from the same row as CustomerId"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-48b74c836b7a45bca710fee937fe54c9"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "460-464",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1486-1491",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "507-513",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7f7f704538bc4e6093dc1e4cf34c120a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

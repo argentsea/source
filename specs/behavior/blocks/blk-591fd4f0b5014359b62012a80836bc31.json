@@ -1,0 +1,44 @@
+{
+  "id": "blk-591fd4f0b5014359b62012a80836bc31",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "the property being written to an input string parameter is an enum type or a nullable enum type",
+    "trigger": "an input string parameter expression is built for that property",
+    "response": "convert the property's enum value to its string representation via Enum.ToString before passing it to the provider's add-parameter method, substituting a null string constant when a nullable enum property currently has no value",
+    "postcondition": "a non-enum string property is passed to the add-parameter method unconverted"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "85-114",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

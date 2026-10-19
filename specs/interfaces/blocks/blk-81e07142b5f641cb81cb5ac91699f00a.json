@@ -9,7 +9,7 @@
     "contract": "Provider-specific database configuration option implementations expose DbConnectionsInternal as an array of IDatabaseConnectionConfiguration values. Consumers of SharedConfiguration.IDatabaseConfigurationOptions obtain the complete database-connection configuration collection through that property."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-configuration'. Furthermore, SharedConfiguration (shared-configuration) is a structural parent component whose assigned source span (IDatabaseConfigurationOptions.cs:12-14) contains only XML documentation comments. IDatabaseConfigurationOptions is owned by committed child component shared-i-database-configuration-options (tasks surface-0231/surface-0232); proposing it here duplicates child ownership and is ungrounded by lines 12-14.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-configuration",
+    "sectionId": "connection-configuration-hierarchy",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -37,6 +37,15 @@
       "blockId": "shared-i-database-configuration-options",
       "blobHash": null,
       "label": "Owning interface component",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-d4ca447227c6464aab769f60463e0a83",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

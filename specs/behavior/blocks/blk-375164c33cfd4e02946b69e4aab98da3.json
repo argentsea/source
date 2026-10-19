@@ -21,20 +21,20 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded and falsifiable scenario block illustrating Mapper ToList data-reader materialization.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable scenario block illustrating Mapper ToList data-reader materialization. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'model-mapping' resolves to component 'Model Mapping' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "24-3980",
-        "label": null,
+        "lines": "356-394",
+        "label": "ToList(rdr, shardId)",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "3984-3984",
-        "label": null,
+        "lines": "1408-1494",
+        "label": "BuildReaderMapDelegate per-row reader mapping",
         "relation": "grounds"
       },
       {
@@ -47,7 +47,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-mapper",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,48 @@
+{
+  "id": "blk-219fd7bf7e59483292c731155f9c80b4",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Total is marked required and its resolved output parameter's Value is DBNull",
+      "when": "the compiled mapping delegate reaches the required-value check for Total via ReturnNullIfPrmNull",
+      "then": "the delegate returns the model type's default value immediately, without evaluating the mapping expressions for any properties that follow Total"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-3d44c2d1a05c4aef91153f233526599d",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "574-586",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "601-606",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

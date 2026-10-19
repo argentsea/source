@@ -1,0 +1,51 @@
+{
+  "id": "blk-8720c6e92b0142ed8308a371fea29ad4",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "ShardKey",
+    "definition": "ArgentSea's immutable value type implementing the virtual compound key. It holds a shard id plus a record key of one to four columns: `ShardKey<TRecord>`, `ShardKey<TRecord, TChild>`, `ShardKey<TRecord, TChild, TGrandChild>` and `ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>`. It also embeds shard key type metadata. Equality compares the shard id and the key values. Because it is a struct it cannot be null: an absent key is `ShardKey.Empty` (shard 0, default key values), or the property is declared `Nullable<ShardKey<…>>`. It serializes to bytes, UTF-8 and an external key.",
+    "synonyms": [
+      "shard key",
+      "ShardKey<TRecord>"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "10-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "12-60",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": "Virtual compound key",
+      "relation": "realizes"
+    }
+  ],
+  "evidenceLinks": []
+}

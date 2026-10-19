@@ -9,7 +9,7 @@
     "response": "throw UnexpectedMultiRowResultException"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-mapper'. Grounded in ArgentSea.Shared/src/Mapping/Mapper.cs:324-325 and falsifiable, but without sectionId equal to component ID 'shared-mapper', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
-        "lines": "324-325",
+        "lines": "321-329",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-unexpected-multi-row-result-exception",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -37,6 +37,15 @@
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-94064726580947bd9c3dc9cb6ea219d0",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

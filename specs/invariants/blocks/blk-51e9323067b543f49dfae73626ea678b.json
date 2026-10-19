@@ -1,0 +1,74 @@
+{
+  "id": "blk-51e9323067b543f49dfae73626ea678b",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Setting RetryCount, RetryInterval, RetryLengthening, CircuitBreakerFailureCount, or CircuitBreakerTestInterval on a DataConnectionConfigurationBase never raises its PropertyChanged event, unlike UserName, Password, and WindowsAuth, which do. Changes to these resilience settings nonetheless take effect without the event: before each execution the data connection's DataConnectionManager compares RetryCount, CircuitBreakerFailureCount and CircuitBreakerTestInterval with the values its current resilience policy was built from and rebuilds the policy when they differ, and RetryInterval and RetryLengthening are read on every retry.",
+    "scope": "DataConnectionConfigurationBase (ArgentSea.Shared), and the resilience policy of each data connection that resolves its settings from it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "111-143",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "66-109",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "64-67",
+        "label": "the resilience state records the retry count and circuit-breaker settings its policy was built from"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "79-94",
+        "label": "each execution compares those settings with the live configuration and rebuilds the policy when they differ"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "120",
+        "label": "retry interval and lengthening are read on every retry"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-d408f46971a040e292e8898732234253",
+      "blobHash": null,
+      "label": "Credential property change raises PropertyChanged",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

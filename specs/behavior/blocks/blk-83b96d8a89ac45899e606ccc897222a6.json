@@ -3,11 +3,11 @@
   "specId": "behavior",
   "type": "Scenario",
   "fields": {
-    "title": "OrleansSqlPersistence registers database grain storage by name",
+    "title": "ArgentSeaSiloBuilderExtensions registers database grain storage by name",
     "gwt": {
       "given": "an ISiloBuilder and provider name \"catalog\"",
-      "when": "the caller invokes AddArgentSeaDbOrleansGrainStorage(\"catalog\")",
-      "then": "the same ISiloBuilder is returned and its services register grain storage named \"catalog\" with the database factory"
+      "when": "the caller invokes ArgentSeaSiloBuilderExtensions.AddArgentSeaDbOrleansGrainStorage(\"catalog\")",
+      "then": "the same ISiloBuilder is returned and its services register grain storage named \"catalog\" with ArgentSeaGrainStorageFactory.CreateDb"
     },
     "illustrates": [
       {
@@ -35,7 +35,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-persistence",
+    "sectionId": "orleans-grain-storage-hosting",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

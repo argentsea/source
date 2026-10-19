@@ -10,8 +10,8 @@ The properties specific to a resilience strategy are:
   "CircuitBreakerTestInterval": 5000,
   "ConnectTimeout": 5,
   "RetryCount": 6,
-  "RetryInterval": 256,
-  "RetryLengthening": "Fibonacci",
+  "RetryInterval": 250,
+  "RetryLengthening": "Lengthening",
 }
 ````
 
@@ -29,20 +29,21 @@ The properties that define the retry behavior are:
 
 Presumably, if the system encounters a transient error, it should retry quickly, then, if the retry is not successful, it should wait a bit longer for the error to clear before retrying again. The `RetryLengthening` value is what determines how much longer it will pause on subsequent retries before giving up.
 
-The [Retry Sequence Lengthening](/api/ArgentSea.DataResilienceConfiguration.SequenceLengthening.html) values are:
+The [Retry Sequence Lengthening](/api/ArgentSea.SequenceLengthening.html) values are:
 
-* __Linear__ - each retry is the same duration as specified in `RetryInterval`
-* __Fibonacci__ - The first retry is at `RetryInterval`, each subsequent retry interval pauses for the duration of the previous two combined.
-* __HalfSquare__ - the retry count number is squared, then divided by two, then multiplied by `RetryInterval`
-* __Squaring__ - each retry attempt doubles the duration of the previous one.
+* __Linear__ - each retry waits the attempt number multiplied by `RetryInterval`: 1, 2, 3, 4… × `RetryInterval`.
+* __Lengthening__ - the default. Each retry waits the next odd number multiplied by `RetryInterval`: 1, 3, 5, 7… × `RetryInterval` (that is, (2 × attempt − 1) × `RetryInterval`).
+* __HalfSquare__ - the retry count number is squared, then divided by two (integer division), then multiplied by `RetryInterval`: 0, 2, 4, 8, 12… × `RetryInterval`.
+* __Squaring__ - each retry attempt doubles the duration of the previous one: 1, 2, 4, 8… × `RetryInterval`.
+
+> [!NOTE]
+> Earlier versions named the `Lengthening` value `Fibonacci`, although the progression was never a Fibonacci sequence. `Fibonacci` remains as an obsolete alias of `Lengthening`, so existing configuration values of `"Fibonacci"` still bind and behave identically.
 
 You can visualize the impact of `RetryLengthening` with these charts:
 
 ![Linear](../../images/retrygraphs/linear.jpg)
 
 ![HalfSquare](../../images/retrygraphs/halfsquare.jpg)
-
-![Fibonacci](../../images/retrygraphs/fibonacci.jpg)
 
 ![Doubling](../../images/retrygraphs/doubling.jpg)
 
@@ -51,8 +52,8 @@ If a Resilience Strategy is not defined, ArgentSea will use a default strategy. 
 | Setting | Default Value |
 | --- | --- |
 | RetryCount | 6 tries |
-|RetryInterval | 256 milliseconds |
-| Lengthening | Fibonacci |
+|RetryInterval | 250 milliseconds |
+| RetryLengthening | Lengthening |
 | (Connect) Timeout | 5 |
 
 > [!NOTE]

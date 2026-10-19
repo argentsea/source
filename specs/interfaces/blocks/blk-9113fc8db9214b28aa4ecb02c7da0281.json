@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
-        "lines": "23-35",
+        "lines": "23-68",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameter-map-attribute",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

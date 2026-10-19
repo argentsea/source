@@ -1,5 +1,6 @@
 ﻿using ArgentSea.ShardKeys;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -346,7 +347,7 @@ internal static class ShardKeySerialization
         }
     }
 
-    internal static Type GetArgType(KeyDataType typeEnum)
+    internal static Type? GetArgType(KeyDataType typeEnum)
     {
         switch (typeEnum)
         {
@@ -391,9 +392,10 @@ internal static class ShardKeySerialization
 
     }
 
-    private static bool TryConvertType<T>(ref ReadOnlySpan<byte> data, ref int position, int length, Func<ReadOnlySpan<byte>, T> converter, out T result)
+    private static bool TryConvertType<T>(ref ReadOnlySpan<byte> data, ref int position, int length, Func<ReadOnlySpan<byte>, T> converter, [MaybeNullWhen(false)] out T result)
     {
-        if (data.Length < length)
+        // Measured from the cursor: earlier key parts may already have been read.
+        if (data.Length - position < length)
         {
             result = default;
             return false;
@@ -406,12 +408,13 @@ internal static class ShardKeySerialization
     internal static bool TryConvertFromBytes(ref ReadOnlySpan<byte> data, ref int position, Type valueType, out dynamic result)
     {
         var success = false;
-        result = default;
+        result = null!; // only read when this returns true; a decoded null blob part is valid (ShardKey tolerates null parts, see ShardKeyEmptyValue)
         if (valueType == typeof(Guid))
         {
-            if (data.Length >= 16)
+            if (data.Length - position >= 16)
             {
-                result = new Guid(data.Slice(position));
+                // Exactly 16 bytes: later key parts follow the Guid when it is not the last part.
+                result = new Guid(data.Slice(position, 16));
                 position += 16;
                 success = true;
             }
@@ -432,6 +435,11 @@ internal static class ShardKeySerialization
         }
         else if (valueType == typeof(byte))
         {
+            if (data.Length - position < 1)
+            {
+                result = (byte)0;
+                return false;
+            }
             position += 1;
             result = data[position - 1];
             success = true;
@@ -448,7 +456,7 @@ internal static class ShardKeySerialization
         }
         else if (valueType == typeof(decimal))
         {
-            if (data.Length >= 16)
+            if (data.Length - position >= 16)
             {
                 var i0 = BitConverter.ToInt32(data.Slice(position));
                 var i1 = BitConverter.ToInt32(data.Slice(position + 4));
@@ -471,6 +479,7 @@ internal static class ShardKeySerialization
         else if (valueType == typeof(float))
         {
             success = TryConvertType(ref data, ref position, 4, BitConverter.ToSingle, out float converted);
+            result = converted;
         }
         else if (valueType == typeof(DateTime))
         {
@@ -494,52 +503,64 @@ internal static class ShardKeySerialization
         }
         else if (valueType == typeof(string))
         {
-            if (data[position] == 0)
+            if (!TryGetVariableLength(data, position, out var len))
+            {
+                return false;
+            }
+            if (len == 0)
             {
                 position += 1;
                 result = string.Empty;
                 return true;
             }
-            var len = (int)data[position] >> 1;
             position += len + 1;
             result = System.Text.Encoding.UTF8.GetString(data.Slice(position - len, len));
             success = true;
         }
         else if (valueType == typeof(byte[]))
         {
-            if (data[position] == 0)
+            if (!TryGetVariableLength(data, position, out var len))
+            {
+                return false;
+            }
+            if (len == 0)
             {
                 position += 1;
-                result = (byte[])null;
+                result = null!; // a zero-length blob part decodes to null; see the note at the top of this method
                 return true;
             }
-            var len = (int)data[position] >> 1;
             position += len + 1;
             result = data.Slice(position - len, len).ToArray();
             success = true;
         }
         else if (valueType == typeof(Memory<byte>))
         {
-            if (data[position] == 0)
+            if (!TryGetVariableLength(data, position, out var len))
+            {
+                return false;
+            }
+            if (len == 0)
             {
                 position += 1;
                 result = Memory<byte>.Empty;
                 return true;
             }
-            var len = (int)data[position] >> 1;
             position += len + 1;
             result = new Memory<byte>(data.Slice(position - len, len).ToArray());
             success = true;
         }
         else if (valueType == typeof(ReadOnlyMemory<byte>))
         {
-            if (data[position] == 0)
+            if (!TryGetVariableLength(data, position, out var len))
+            {
+                return false;
+            }
+            if (len == 0)
             {
                 position += 1;
                 result = ReadOnlyMemory<byte>.Empty;
                 return true;
             }
-            var len = (int)data[position] >> 1;
             position += len + 1;
             result = new ReadOnlyMemory<byte>(data.Slice(position - len, len).ToArray());
             success = true;
@@ -559,24 +580,34 @@ internal static class ShardKeySerialization
         //    success = TryConvertType(ref data, ref position, 1, BitConverter.ToUInt128, out UInt128 converted);
         //    result = converted;
         //}
-        else if (valueType == typeof(Enum))
+        else if (valueType.IsEnum)
         {
+            // An enum part is stored as its underlying integer; decode that, then restore the enum type so the
+            // caller can assign the result to its enum-typed key field.
             var baseType = Enum.GetUnderlyingType(valueType);
-            success = TryConvertFromBytes(ref data, ref position, baseType, out result);
-        }
-        else if (valueType == typeof(Nullable))
-        {
-            var isNull = BitConverter.ToBoolean(data.Slice(position));
-            position += 1;
-            if (isNull)
-            {
-                result = null;
-                success = true;
-            }
-            var baseType = Nullable.GetUnderlyingType(valueType);
-            result = TryConvertFromBytes(ref data, ref position, baseType, out result);
+            success = TryConvertFromBytes(ref data, ref position, baseType, out dynamic underlying);
+            result = success ? Enum.ToObject(valueType, (object)underlying) : Enum.ToObject(valueType, 0);
         }
         return success;
+    }
+
+    /// <summary>
+    /// Reads the length-and-flag byte of a variable-length part at the cursor, measured against the bytes remaining: false when
+    /// the cursor is at or past the end of the span, or when the declared payload would run past it (a zero byte declares no payload).
+    /// </summary>
+    private static bool TryGetVariableLength(ReadOnlySpan<byte> data, int position, out int length)
+    {
+        length = 0;
+        if (position >= data.Length)
+        {
+            return false;
+        }
+        if (data[position] == 0)
+        {
+            return true;
+        }
+        length = (int)data[position] >> 1;
+        return data.Length - position - 1 >= length;
     }
 
     internal static byte[] GetValueBytes(IComparable value)
@@ -585,6 +616,8 @@ internal static class ShardKeySerialization
         {
             case int i:
                 return BitConverter.GetBytes(i);
+            case DateOnly dateOnly:
+                return BitConverter.GetBytes(dateOnly.DayNumber); // the read side decodes a DateOnly part with DateOnly.FromDayNumber
             case byte b:
                 return new byte[1] { b };
             case short s:
@@ -624,9 +657,10 @@ internal static class ShardKeySerialization
                 else
                 {
                     var aStr = System.Text.Encoding.UTF8.GetBytes(str);
-                    if (aStr.Length > 128)
+                    // The length prefix is (length << 1) + 1 in a single byte, so 127 UTF-8 bytes is the most it can encode.
+                    if (aStr.Length > 127)
                     {
-                        throw new Exception("Shard values cannot serialize strings longer than 128 bytes.");
+                        throw new ArgumentOutOfRangeException(nameof(value), aStr.Length, "Shard key string values cannot exceed 127 UTF-8 bytes.");
                     }
                     var aResult = new byte[aStr.Length + 1];
                     aResult[0] = Convert.ToByte((aStr.Length << 1) + 1);
@@ -635,8 +669,9 @@ internal static class ShardKeySerialization
                 }
             case Enum e:
                 var type = Enum.GetUnderlyingType(value.GetType());
-                var newValue = Convert.ChangeType(value, type);
-                return ShardKeySerialization.GetValueBytes(newValue as IComparable);
+                // Converting a (non-null) enum to its integral underlying type always yields a non-null IComparable.
+                var newValue = (IComparable)Convert.ChangeType(value, type)!;
+                return ShardKeySerialization.GetValueBytes(newValue);
             case DateTimeOffset dto:
                 var adt = BitConverter.GetBytes(dto.Ticks);
                 var tsp = BitConverter.GetBytes(dto.Offset.Ticks);
@@ -655,15 +690,15 @@ internal static class ShardKeySerialization
             //    return new byte[0];
             default:
                 var tValue = value.GetType();
-                if (tValue.IsGenericType && Nullable.GetUnderlyingType(tValue) != null)
+                if (tValue.IsGenericType && Nullable.GetUnderlyingType(tValue) is { } shdType)
                 {
                     if (value == null)
                     {
                         return BitConverter.GetBytes(true);
                     }
-                    var shdType = Nullable.GetUnderlyingType(value.GetType());
-                    var nonNullValue = Convert.ChangeType(value, shdType);
-                    var aVal = GetValueBytes(nonNullValue as IComparable);
+                    // value is non-null here, so converting it to the underlying value type yields a non-null IComparable.
+                    var nonNullValue = (IComparable)Convert.ChangeType(value, shdType)!;
+                    var aVal = GetValueBytes(nonNullValue);
                     var valResult = new byte[1 + aVal.Length];
                     valResult[0] = BitConverter.GetBytes(false)[0];
                     aVal.CopyTo(valResult, 1);

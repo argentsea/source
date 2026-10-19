@@ -1,0 +1,105 @@
+{
+  "id": "blk-6c3a5dabb90943cfb4d1d234eac1033c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls DataReaderIsNull, DataReaderIsClosed, EmptyResult, or NullShardChildArguments on the logger",
+    "response": "log the degenerate state via DataReaderIsNull or DataReaderIsClosed (Error, event id MapperResultsReaderInvalid) naming the procedure and connection, or via EmptyResult (Debug, event id UnexpectedDbNull) naming the query; NullShardChildArguments emits its Information-level UnexpectedDbNull event, under the event name NullShardChildArguments, naming the property and the ShardKey's string form only when Information is enabled and the ShardKey's record or child identity is null (a value-typed identity can never be null, so such keys never log)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "110-112,181-187,225-230,300-301",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-a857d513c2e14b0e8fd45eb322b61cbd",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-fde5bc17103f4097a05f6df357f04705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-816d8a3a410b46aab981dfbce5db1cb3",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

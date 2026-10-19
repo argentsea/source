@@ -1,0 +1,71 @@
+{
+  "id": "blk-41a9bebdf55c44f9a0932b450373d38b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Type Mapping",
+    "trigger": "the internal ColumnDefinition property of a model property's MapToPg*Attribute variant is evaluated",
+    "response": "render that column's definition as the double-quoted column name followed by the PostgreSQL type name selected by the variant, taken from one shared NpgsqlDbType-to-PostgreSQL type-name mapping (for example Double renders double precision, TimestampTz renders timestamp with time zone, TimeTz renders time with time zone, and InternalChar renders the double-quoted \"char\"), including the variant's declared length (Varchar when the length is positive, Char), precision and scale (Numeric), or, for Array, the element type's PostgreSQL type name followed by [] wherever its constructor requires one for those types — except MapToPgByteaAttribute, whose constructor-required Length configures only parameter and buffer construction and is never rendered into the bulk-load column definition, which stays the unparameterized \"bytea\"; a Varchar whose length is zero or negative renders the unbounded varchar",
+    "postcondition": "the rendered definition is valid PostgreSQL DDL naming the type the variant's NpgsqlDbType selects, carrying the variant's length, precision/scale, or element type name where that type renders one, but never carrying MapToPgByteaAttribute's Length and never a raw lower-cased NpgsqlDbType enum name such as double[] or internalchar[]"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "32,114,161,206,253,299,345,391,434,485,528,572,616,663,708,753,797,842,886,930,971,1011,1054",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "936-971",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
+        "lines": "1153-1204",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
+        "lines": "36-68",
+        "label": "PgTypeName: shared NpgsqlDbType-to-PostgreSQL type-name mapping",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": "Mapping attribute",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-0d79efbbc48647019bb1089e43551823",
+      "blobHash": null,
+      "label": "MapToPg*Attribute supported-type matrix",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

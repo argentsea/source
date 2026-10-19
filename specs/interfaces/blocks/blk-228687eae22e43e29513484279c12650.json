@@ -1,0 +1,58 @@
+{
+  "id": "blk-228687eae22e43e29513484279c12650",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "MapToSqlTableValuedParameterAttribute collection-to-TVP-parameter contract",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "MapToSqlTableValuedParameterAttribute marks a model's collection property as the source of a SQL Server table-valued parameter. Its constructor requires both the SQL parameter name and the name of the SQL Server table type that describes the row shape; the table type name is fixed once the attribute is declared. When the collection property is processed, the attribute builds a parameter from the collection's element type by calling SqlParameterCollectionExtensions.AddSqlTableValuedParameter<TElement>, first normalizing an uninitialized (default) ImmutableArray<TElement> collection to its empty value — because enumerating a default ImmutableArray throws InvalidOperationException — and converting the collection to IEnumerable<TElement> before the call. After the parameter is added, the attribute sets the newly added SqlParameter's TypeName to the declared table type name. Each row's columns are supplied by the element type's own column-mapping attributes, or — for any element property marked MapToModel — by recursing into that nested type's column-mapping attributes (and transitively further through any further MapToModel property); the element's object graph must contribute at least one mapped column for the row projection to be built."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1348-1415",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "237-266",
+        "label": "zero-mapping guard and per-property mapping-attribute requirement"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

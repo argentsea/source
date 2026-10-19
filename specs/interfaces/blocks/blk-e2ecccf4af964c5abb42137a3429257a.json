@@ -6,7 +6,7 @@
     "name": "ShardDataConnection<TConfiguration> MapOutputAsync family",
     "kind": "Library",
     "language": "text",
-    "contract": "For a supplied model instance and Query contract, MapOutputAsync returns that model populated from output parameters and zero to eight reader result sets. Variants choose the reader-result type sequence and optionally bind a named parameter to the endpoint's current shard identifier."
+    "contract": "For a Query contract, MapOutputAsync returns a TModel instance populated from the query's output parameters and zero to eight data-reader result sets (TReaderResult0..TReaderResult7, each constrained new()). Variants select: the reader-result arity, 0 through 8; whether the method constructs the TModel via a parameterless constructor or instead populates a TModel instance the caller supplies; and whether a named parameter is bound to the endpoint's current shard identifier before execution."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
-        "lines": "658-1409",
+        "lines": "658-1419",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-data-connection",
+    "sectionId": "shard-addressing",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

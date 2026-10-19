@@ -51,7 +51,7 @@
     ]
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -59,14 +59,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "19-1356",
+        "lines": "19-1364",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameter-collection-extensions",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -79,6 +79,15 @@
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
       "blobHash": null,
       "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-1056cf5d563e450db9e5eb1e2d01d22c",
+      "blobHash": null,
+      "label": "successor",
       "relation": "references"
     }
   ],

@@ -25,7 +25,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-batch-base",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

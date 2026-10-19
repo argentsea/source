@@ -14,37 +14,46 @@ namespace ArgentSea.Pg
     public static class PgLoggingExtensions
     {
 
-        private static readonly Action<ILogger, Type, Exception> _pgCopyCacheMiss;
-        private static readonly Action<ILogger, Type, Exception> _pgCopyCacheHit;
-        private static readonly Action<ILogger, string, Exception> _pgMapperCopyTrace;
-        private static readonly Action<ILogger, string, string, Exception> _pgGetInExpressionTreeCreation;
-        private static readonly Action<ILogger, string, string, Exception> _pgCopySqlStatements;
+        private static readonly Action<ILogger, Type, Exception?> _pgCopyCacheMiss;
+        private static readonly Action<ILogger, Type, Exception?> _pgCopyCacheHit;
+        private static readonly Action<ILogger, string, Exception?> _pgMapperCopyTrace;
+        private static readonly Action<ILogger, string, string, Exception?> _pgGetInExpressionTreeCreation;
+        private static readonly Action<ILogger, string, string, Exception?> _pgCopySqlStatements;
 
         static PgLoggingExtensions()
         {
             _pgCopyCacheMiss = LoggerMessage.Define<Type>(LogLevel.Information, new EventId((int)LoggingExtensions.EventIdentifier.MapperCacheStatus, nameof(PgCopyCacheMiss)), "No cached delegate was found for mapping type {modelT} to Pg row metadata; this is normal for the first execution.");
             _pgCopyCacheHit = LoggerMessage.Define<Type>(LogLevel.Debug, new EventId((int)LoggingExtensions.EventIdentifier.MapperCacheStatus, nameof(PgCopyCacheHit)), "A cached delegate for mapping type {modelT} to Pg row metadata was found.");
             _pgMapperCopyTrace = LoggerMessage.Define<string>(LogLevel.Trace, new EventId((int)LoggingExtensions.EventIdentifier.MapperProcessTrace, nameof(TraceCopyMapperProperty)), "Copy mapper is now processing property {name}.");
-            _pgGetInExpressionTreeCreation = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)LoggingExtensions.EventIdentifier.ExpressionTreeCreation, nameof(CreatedExpressionTreeForCopy)), "Compiled code to map model {model} to input parameters as:\r\n{code}.");
+            _pgGetInExpressionTreeCreation = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)LoggingExtensions.EventIdentifier.ExpressionTreeCreation, nameof(CreatedExpressionTreeForCopy)), "Compiled code to map model {model} to Pg COPY row values as:\r\n{code}.");
             _pgCopySqlStatements = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)LoggingExtensions.EventIdentifier.CmdExecuted, nameof(CopySqlStatements)), "Copy mapper used a create table definition of: \r\n{tableDef} \r\n and used the copy import statment of:\r\n{copyDef}.");
 
         }
 
-        public static void PgCopyCacheMiss(this ILogger logger, Type modelT)
+        public static void PgCopyCacheMiss(this ILogger? logger, Type modelT)
         {
-            _pgCopyCacheMiss(logger, modelT, null);
+            if (logger is not null)
+            {
+                _pgCopyCacheMiss(logger, modelT, null);
+            }
         }
-        public static void PgCopyCacheHit(this ILogger logger, Type modelT)
+        public static void PgCopyCacheHit(this ILogger? logger, Type modelT)
         {
-            _pgCopyCacheHit(logger, modelT, null);
+            if (logger is not null)
+            {
+                _pgCopyCacheHit(logger, modelT, null);
+            }
         }
-        public static void TraceCopyMapperProperty(this ILogger logger, string propertyName)
+        public static void TraceCopyMapperProperty(this ILogger? logger, string propertyName)
         {
-            _pgMapperCopyTrace(logger, propertyName, null);
+            if (logger is not null)
+            {
+                _pgMapperCopyTrace(logger, propertyName, null);
+            }
         }
-        public static void CreatedExpressionTreeForCopy(this ILogger logger, Type model, Expression codeBlock)
+        public static void CreatedExpressionTreeForCopy(this ILogger? logger, Type model, Expression codeBlock)
         {
-            if (logger.IsEnabled(LogLevel.Information))
+            if (logger is not null && logger.IsEnabled(LogLevel.Debug))
             {
                 using (System.IO.StringWriter writer = new System.IO.StringWriter(CultureInfo.CurrentCulture))
                 {
@@ -53,9 +62,12 @@ namespace ArgentSea.Pg
                 }
             }
         }
-        public static void CopySqlStatements(this ILogger logger, string tableDef, string importerDef)
+        public static void CopySqlStatements(this ILogger? logger, string tableDef, string importerDef)
         {
-            _pgCopySqlStatements(logger, tableDef, importerDef, null);
+            if (logger is not null)
+            {
+                _pgCopySqlStatements(logger, tableDef, importerDef, null);
+            }
         }
 
     }

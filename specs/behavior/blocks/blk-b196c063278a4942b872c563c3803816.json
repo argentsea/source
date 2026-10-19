@@ -1,0 +1,68 @@
+{
+  "id": "blk-b196c063278a4942b872c563c3803816",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Postgres Provider Services",
+    "where": "the command's connection string does not enable multiplexing, as judged by parsing it with NpgsqlConnectionStringBuilder and reading its Multiplexing property (so Npgsql's own key casing and whitespace rules apply, e.g. \"Multiplexing = true\" counts as enabled); an empty connection string counts as not multiplexing",
+    "trigger": "SetParameters finishes adding the command's parameters",
+    "response": "prepare the command by calling NpgsqlCommand.Prepare(); when multiplexing is enabled, skip preparation"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "92-95, 98-109",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ProviderServicesTests.cs",
+        "lines": "86-97",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-2a2a41ac73944646b18322571471bb18",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -3,6 +3,7 @@
 
 using System;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
 namespace ArgentSea
@@ -24,14 +25,14 @@ namespace ArgentSea
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a string.</returns>
-        public static string GetString(this DbParameter prm) => prm.Value as string;
+        public static string? GetString(this DbParameter prm) => prm.Value as string;
 
         /// <summary>
         /// Gets a byte array from the output parameter, or null if the parameter value is DbNull.
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a byte[].</returns>
-        public static byte[] GetBytes(this DbParameter prm) => prm.Value as byte[];
+        public static byte[]? GetBytes(this DbParameter prm) => prm.Value as byte[];
 
         /// <summary>
         /// Gets an Int64 value from the output parameter.
@@ -39,7 +40,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as an Int64.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static long GetLong(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(long), prm.ParameterName) : (long)prm.Value;
+        public static long GetLong(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(long), prm.ParameterName) : (long)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;Int64&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -54,7 +55,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as an Int32.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static int GetInteger(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(int), prm.ParameterName) : (int)prm.Value;
+        public static int GetInteger(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(int), prm.ParameterName) : (int)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;Int32&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -69,7 +70,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as an Int16.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static short GetShort(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(short), prm.ParameterName) : (short)prm.Value;
+        public static short GetShort(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(short), prm.ParameterName) : (short)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;Int16&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -84,7 +85,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a byte array.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static byte GetByte(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(byte), prm.ParameterName) : (byte)prm.Value;
+        public static byte GetByte(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(byte), prm.ParameterName) : (byte)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;Byte&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -99,7 +100,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a Boolean.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static bool GetBoolean(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(bool), prm.ParameterName) : (bool)prm.Value;
+        public static bool GetBoolean(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(bool), prm.ParameterName) : (bool)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;Boolean&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -114,7 +115,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a Decimal.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static decimal GetDecimal(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(decimal), prm.ParameterName) : (decimal)prm.Value;
+        public static decimal GetDecimal(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(decimal), prm.ParameterName) : (decimal)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;Decimal&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -126,11 +127,15 @@ namespace ArgentSea
         /// <summary>
         /// Gets a Double (64-bit floating point) value from the output parameter, or NaN (Not a Number) if the value is DbNull.
         /// </summary>
+        /// <remarks>
+        /// By design, a database null is returned as double.NaN rather than throwing, so NaN serves as the null marker.
+        /// A caller that must distinguish a database null from a stored NaN should use <see cref="GetNullableDouble(DbParameter)"/>, which returns null instead.
+        /// </remarks>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a Double.</returns>
         public static double GetDouble(this DbParameter prm)
 		{
-			if (System.DBNull.Value.Equals(prm.Value))
+			if (IsNullOrDbNull(prm.Value))
 			{
 				return double.NaN;
 			}
@@ -151,11 +156,15 @@ namespace ArgentSea
         /// <summary>
         /// Gets a Float (32-bit floating point) value from the output parameter, or NaN (Not a Number) if the value is DbNull.
         /// </summary>
+        /// <remarks>
+        /// By design, a database null is returned as float.NaN rather than throwing, so NaN serves as the null marker.
+        /// A caller that must distinguish a database null from a stored NaN should use <see cref="GetNullableFloat(DbParameter)"/>, which returns null instead.
+        /// </remarks>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a Float.</returns>
         public static float GetFloat(this DbParameter prm)
 		{
-			if (System.DBNull.Value.Equals(prm.Value))
+			if (IsNullOrDbNull(prm.Value))
 			{
 				return float.NaN;
 			}
@@ -174,13 +183,17 @@ namespace ArgentSea
 			=> prm.Value as float?;
 
         /// <summary>
-        /// Gets a Guid value from the output parameter, or Guid.Emtpy if the value is DbNull.
+        /// Gets a Guid value from the output parameter, or Guid.Empty if the value is DbNull.
         /// </summary>
+        /// <remarks>
+        /// By design, a database null is returned as Guid.Empty rather than throwing, so Guid.Empty serves as the null marker.
+        /// A caller that must distinguish a database null from a stored empty Guid should use <see cref="GetNullableGuid(DbParameter)"/>, which returns null instead.
+        /// </remarks>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a Guid.</returns>
         public static Guid GetGuid(this DbParameter prm)
 		{
-			if (System.DBNull.Value.Equals(prm.Value))
+			if (IsNullOrDbNull(prm.Value))
 			{
 				return Guid.Empty;
 			}
@@ -197,7 +210,7 @@ namespace ArgentSea
         /// <returns>The parameter value as a Nullable&lt;Guid&gt;.</returns>
 		public static Guid? GetNullableGuid(this DbParameter prm)
 		{
-			if (System.DBNull.Value.Equals(prm.Value))
+			if (IsNullOrDbNull(prm.Value))
 			{
 				return null;
 			}
@@ -213,7 +226,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a DateTime.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-		public static DateTime GetDateTime(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(DateTime), prm.ParameterName) : (DateTime)prm.Value;
+		public static DateTime GetDateTime(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(DateTime), prm.ParameterName) : (DateTime)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;DateTime&gt;) value from the output parameter, or null if the parameter value is DbNull.
@@ -228,7 +241,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a DateTimeOffset.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static DateTimeOffset GetDateTimeOffset(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(DateTimeOffset), prm.ParameterName) : (DateTimeOffset)prm.Value;
+        public static DateTimeOffset GetDateTimeOffset(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(DateTimeOffset), prm.ParameterName) : (DateTimeOffset)prm.Value;
 
         /// <summary>
 		/// Gets a Nullable&lt;DateTimeOffset&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -243,7 +256,7 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a TimeSpan.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static TimeSpan GetTimeSpan(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(TimeSpan), prm.ParameterName) : (TimeSpan)prm.Value;
+        public static TimeSpan GetTimeSpan(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(TimeSpan), prm.ParameterName) : (TimeSpan)prm.Value;
 
         /// <summary>
         /// Gets a Nullable&lt;TimeSpan&gt; value from the output parameter, or null if the parameter value is DbNull.
@@ -253,34 +266,48 @@ namespace ArgentSea
         public static TimeSpan? GetNullableTimeSpan(this DbParameter prm) => prm.Value as TimeSpan?;
 
         /// <summary>
-        /// Gets a DateOnly value from the output parameter.
+        /// Gets a DateOnly value from the output parameter. Providers commonly return date output values as DateTime; these are converted to their date part.
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
-        /// <returns>The parameter value as a TimeSpan.</returns>
+        /// <returns>The parameter value as a DateOnly.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static DateOnly GetDateOnly(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(DateOnly), prm.ParameterName) : (DateOnly)prm.Value;
+        public static DateOnly GetDateOnly(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(DateOnly), prm.ParameterName) : (ToDateOnly(prm.Value) ?? (DateOnly)prm.Value);
 
         /// <summary>
-        /// Gets a Nullable&lt;DateOnly&gt; value from the output parameter, or null if the parameter value is DbNull.
+        /// Gets a Nullable&lt;DateOnly&gt; value from the output parameter, or null if the parameter value is DbNull. Providers commonly return date output values as DateTime; these are converted to their date part.
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
-        /// <returns>The parameter value as a Nullable&lt;TimeSpan&gt;.</returns>
-        public static DateOnly? GetNullableDateOnly(this DbParameter prm) => prm.Value as DateOnly?;
+        /// <returns>The parameter value as a Nullable&lt;DateOnly&gt;.</returns>
+        public static DateOnly? GetNullableDateOnly(this DbParameter prm) => ToDateOnly(prm.Value);
 
         /// <summary>
-        /// Gets a TimeSpan value from the output parameter.
+        /// Gets a TimeOnly value from the output parameter. Providers commonly return time output values as TimeSpan; these are converted to the equivalent time of day.
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
-        /// <returns>The parameter value as a TimeSpan.</returns>
+        /// <returns>The parameter value as a TimeOnly.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static TimeOnly GetTimeOnly(this DbParameter prm) => DBNull.Value.Equals(prm.Value) ? throw new UnexpectedNullException(typeof(TimeOnly), prm.ParameterName) : (TimeOnly)prm.Value;
+        public static TimeOnly GetTimeOnly(this DbParameter prm) => IsNullOrDbNull(prm.Value) ? throw new UnexpectedNullException(typeof(TimeOnly), prm.ParameterName) : (ToTimeOnly(prm.Value) ?? (TimeOnly)prm.Value);
 
         /// <summary>
-        /// Gets a Nullable&lt;TimeSpan&gt; value from the output parameter, or null if the parameter value is DbNull.
+        /// Gets a Nullable&lt;TimeOnly&gt; value from the output parameter, or null if the parameter value is DbNull. Providers commonly return time output values as TimeSpan; these are converted to the equivalent time of day.
         /// </summary>
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
-        /// <returns>The parameter value as a Nullable&lt;TimeSpan&gt;.</returns>
-        public static TimeOnly? GetNullableTimeOnly(this DbParameter prm) => prm.Value as TimeOnly?;
+        /// <returns>The parameter value as a Nullable&lt;TimeOnly&gt;.</returns>
+        public static TimeOnly? GetNullableTimeOnly(this DbParameter prm) => ToTimeOnly(prm.Value);
+
+        private static DateOnly? ToDateOnly(object? value) => value switch
+        {
+            DateOnly d => d,
+            DateTime dt => DateOnly.FromDateTime(dt),
+            _ => null
+        };
+
+        private static TimeOnly? ToTimeOnly(object? value) => value switch
+        {
+            TimeOnly t => t,
+            TimeSpan ts => TimeOnly.FromTimeSpan(ts),
+            _ => null
+        };
         #endregion
 
         /// <summary>
@@ -289,9 +316,12 @@ namespace ArgentSea
         /// <param name="prm">The output parameter, populated with a value (after Execute).</param>
         /// <returns>The parameter value as a JsonDocument.</returns>
         /// <exception cref="ArgentSea.UnexpectedNullException">Thrown when a database null value is encountered.</exception>
-        public static JsonDocument GetJson(this DbParameter prm) =>  prm.Value as JsonDocument;
+        public static JsonDocument? GetJson(this DbParameter prm) =>  prm.Value as JsonDocument;
 
-        internal static int GetParameterOrdinal(this DbParameterCollection parameters, string name)
+        // A parameter that was never set (for example, an output parameter of a command that did not run) holds null rather than DBNull.
+        private static bool IsNullOrDbNull([NotNullWhen(false)] object? value) => value is null || value is DBNull;
+
+        internal static int GetParameterOrdinal(this DbParameterCollection parameters, string? name)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -305,13 +335,6 @@ namespace ArgentSea
                 }
             }
             throw new Exception($"Could not find data parameter {name} in the parameters collection.");
-        }
-        internal static void SetShardId<TShard>(this DbParameterCollection parameters, int shardParameterOrdinal, TShard shardId) where TShard : IComparable
-        {
-            if (shardParameterOrdinal >= 0 && shardParameterOrdinal < parameters.Count)
-            {
-                parameters[shardParameterOrdinal].Value = shardId;
-            }
         }
     }
 }

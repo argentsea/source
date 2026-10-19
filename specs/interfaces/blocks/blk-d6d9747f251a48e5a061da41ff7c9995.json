@@ -6,7 +6,7 @@
     "name": "ParameterMapAttributeBase property mapping attribute",
     "kind": "Library",
     "language": "csharp",
-    "contract": "ParameterMapAttributeBase is an abstract property attribute that may be inherited and repeated on one property. Each instance supplies one property-to-database mapping: an implementation must decide whether a candidate CLR type is supported and must contribute the expressions needed for input parameters, output-parameter setup, output-value reading, and data-reader value reading. The base surface exposes the mapping names, provider-specific type code and optional record-identifier role to those operations."
+    "contract": "ParameterMapAttributeBase is an abstract property attribute. Each instance supplies one property-to-database mapping: an implementation must decide whether a candidate CLR type is supported and must contribute the expressions needed for input parameters, output-parameter setup, output-value reading, and data-reader value reading. The base surface exposes the mapping names, provider-specific type code and optional record-identifier role to those operations. Of the six base properties, ParameterName, ColumnName and SqlTypeName are virtual and may be overridden by a derived provider attribute; Name, SqlType and IsRecordIdentifier are fixed once set by the base constructor and cannot be overridden."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Mapping/ParameterMapAttributeBase.cs",
-        "lines": "13-70",
+        "lines": "14-70",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-parameter-map-attribute-base",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -32,9 +32,9 @@
   "references": [
     {
       "kind": "spec",
-      "project": "ArgentSea",
+      "project": "argentsea",
       "specId": "components",
-      "blockId": "shared-parameter-map-attribute-base",
+      "blockId": "model-mapping",
       "blobHash": null,
       "label": null,
       "relation": "references"

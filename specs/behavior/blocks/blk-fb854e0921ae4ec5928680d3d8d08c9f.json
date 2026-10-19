@@ -1,0 +1,42 @@
+{
+  "id": "blk-fb854e0921ae4ec5928680d3d8d08c9f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Count of type int (non-nullable, non-array) maps to a present reader column holding 7",
+      "when": "ExpressionHelpers builds and executes Count's reader-column expression via ReaderSimpleValueExpressions",
+      "then": "Count is assigned the result of DbDataReader.GetFieldValue<int> on that column directly, with no DBNull guard"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-374b6c0991434c418060f0f7df97ab00",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "436-444",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

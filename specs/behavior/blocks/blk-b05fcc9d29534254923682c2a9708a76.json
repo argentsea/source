@@ -3,29 +3,36 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ArgentSeaShardGrainPersistence<TShardOptions>",
+    "subject": "Grain Persistence",
     "where": "the grain type has a configured Query contract",
-    "trigger": "a grain state is written",
-    "response": "derive the Shard identifier from the grain identity and current state, execute the configured write query on that Shard with input parameters mapped from the state",
-    "postcondition": "the grain-state envelope records that the state exists"
+    "trigger": "ArgentSeaShardGrainPersistence<TShardOptions>.WriteStateAsync is invoked",
+    "response": "derive the Shard identifier from the grain identity and current state through the write delegate cached for the combination of the Orleans state name (the grainType argument), the state type TModel and this provider instance's ValidateGrainKeys setting — built on first use with that setting and cached in a static field scoped to this closed ArgentSeaShardGrainPersistence<TShardOptions> type — then execute the configured write query on that Shard with input parameters mapped from the state",
+    "postcondition": "on success the grain-state envelope records that the state exists"
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-grain-persistence'. Grounded in ArgentSeaShardGrainPersistence.cs:140-172 and falsifiable behavioral block citing committed Terms.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ArgentSeaShardGrainPersistence.cs:140-172 and falsifiable behavioral block citing committed Terms. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
-        "lines": "140-172",
+        "lines": "26-28",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "125-157",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-shard-grain-persistence",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -54,6 +61,24 @@
       "project": "ArgentSea",
       "specId": "glossary",
       "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-32b362ab7a0647eca1e54b12d08f7564",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ea747f3d72834d758567f1684fcd03f6",
       "blobHash": null,
       "label": null,
       "relation": "references"

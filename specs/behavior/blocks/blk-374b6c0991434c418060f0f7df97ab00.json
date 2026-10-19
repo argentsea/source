@@ -1,0 +1,42 @@
+{
+  "id": "blk-374b6c0991434c418060f0f7df97ab00",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "trigger": "ExpressionHelpers builds a reader-column expression for a property via ReaderSimpleValueExpressions whose resolved ordinal is present and, for a Nullable<T> or array property, the column is not DBNull",
+    "response": "read the value via DbDataReader.GetFieldValue<T>, made generic over the Nullable<T> property's underlying type or the array property's own array type, and assign it to the property directly; an ordinary non-nullable, non-array property is read and assigned the same way but without any DBNull guard"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "402-445",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

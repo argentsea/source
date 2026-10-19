@@ -1,0 +1,52 @@
+{
+  "id": "blk-242e632bcc3e4bfca54b139ed4dee1bb",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an ISiloBuilder whose configuration has an \"OrleansData\" section with DatabaseKey \"Common\", and Orleans passes the provider's own configuration section (Orleans:GrainStorage:catalog) which either sets DatabaseKey \"Catalog\" or omits DatabaseKey",
+      "when": "ArgentSeaGrainStorageDbProviderBuilder.Configure is invoked on that builder with provider name \"catalog\" and that configuration section",
+      "then": "ArgentSeaGrainStorageFactory.CreateDb is registered under \"catalog\" against the silo's service collection, and the named OrleansDbPersistenceOptions for \"catalog\" get DatabaseKey \"Catalog\" when the provider section sets it, otherwise \"Common\" from OrleansData; if OrleansData also lacks DatabaseKey the value is \"Default\", and if the provider section lacks the key and no OrleansData section exists Configure throws InvalidOperationException"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-324fc1bb2edd4bd69c7875fc9ec60a98"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageProviderBuilder.cs",
+        "lines": "13-35,37-50",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-hosting",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-324fc1bb2edd4bd69c7875fc9ec60a98",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

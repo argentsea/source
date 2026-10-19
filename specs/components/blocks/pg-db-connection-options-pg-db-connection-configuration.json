@@ -20,7 +20,7 @@
     ]
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -28,7 +28,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
-        "lines": "38-46",
+        "lines": "40-48",
         "label": null,
         "relation": "grounds"
       }
@@ -40,6 +40,16 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "postgres-connection-settings",
+      "blobHash": null,
+      "label": "successor",
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }

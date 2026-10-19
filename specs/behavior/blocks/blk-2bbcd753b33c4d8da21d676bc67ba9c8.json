@@ -1,0 +1,80 @@
+{
+  "id": "blk-2bbcd753b33c4d8da21d676bc67ba9c8",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "CopyMapper",
+    "condition": "a Batch has an operation registered through a model-collection Add overload",
+    "trigger": "the Batch executes that operation",
+    "response": "obtain the destination-table definition text, COPY command text, and per-property row-writer for TModel from a process-lifetime cache keyed by typeof(TModel), building and caching all three by reflecting over the model's mapping attributes and compiling an expression-tree delegate the first time that typeof(TModel) key is used, and reusing the cached writer and text without recompiling once that compile has completed",
+    "postcondition": "the execution reports a cache hit when the cached Lazy wrapper for that Type already had its value created at the moment it was checked, or a cache miss when it did not; because that check happens before the Lazy's value is forced, concurrent first-time callers for the same previously-uncached Type can each observe no value created and each report a miss, even though only the one caller that actually forces the value performs the reflection and expression-tree compile — the others block on the same Lazy and receive its compiled result without compiling it themselves"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "378-391",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "477-507",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgLoggingExtensions.cs",
+        "lines": "17-18,25-26,33-40",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "509-740",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "copy-load",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-7cee1125d4324f8cb4978303e9a3e1f9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

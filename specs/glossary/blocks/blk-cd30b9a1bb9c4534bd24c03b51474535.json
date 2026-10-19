@@ -1,0 +1,41 @@
+{
+  "id": "blk-cd30b9a1bb9c4534bd24c03b51474535",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Query parameter names",
+    "definition": "The optional list of parameter names declared on a Query. When present, only parameters whose names are in the list are applied to the command, so one model can feed queries that each expect a different subset of its mapped parameters (an INSERT without `LastModified`, an UPDATE with it). When absent, every parameter in the collection is sent. Extra or missing parameters are errors raised by the database, not by ArgentSea.",
+    "synonyms": [
+      "ParameterNames",
+      "parameter list"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sql.md",
+        "lines": "125-137",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/DataProviderServiceFactory.cs",
+        "lines": "120-161",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

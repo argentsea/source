@@ -1,0 +1,47 @@
+{
+  "id": "blk-f0d1fcc0704a4870bd2f9d7ea7ae7c70",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "SerializeToExternalString produced \"AAt1\" for the single-byte sequence [0x00]",
+      "when": "the string is altered to \"BAt1\" (the first checksum character changed from 'A' to 'B') and passed to SerializeFromExternalString",
+      "then": "it throws a System.Exception with message \"External key string is not valid.\", because the altered leading characters now encode checksum 64 while the unchanged payload still recomputes to checksum 0"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-47c1a251f6944b8399d1a25a4ea9695f"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "95-157",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "225-253",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

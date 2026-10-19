@@ -1,0 +1,32 @@
+{
+  "id": "orleans-runtime-query-catalog",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans Runtime Query Catalog",
+    "responsibility": "Names the stored procedure behind every operation the Orleans runtime tables perform — membership insert, update, read, liveness and defunct cleanup, gateway lookup, and reminder read, upsert and delete — and bundles the reminder trio into the per-grain-type registration shape. It is the single declaration of the database contract an ArgentSea-hosted Orleans cluster expects, which both the cluster store and the reminder store draw on.",
+    "parent": "orleans-sql-server-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "11-66",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

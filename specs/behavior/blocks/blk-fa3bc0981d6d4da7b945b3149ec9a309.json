@@ -1,0 +1,52 @@
+{
+  "id": "blk-fa3bc0981d6d4da7b945b3149ec9a309",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Provider Package",
+    "where": "ArgentSea.Sql.csproj sets GeneratePackageOnBuild to true, IncludeSymbols to true and SymbolPackageFormat to snupkg",
+    "trigger": "the project is built",
+    "response": "pack the ArgentSea.Sql NuGet package (version 2.0.4, assembly and file version 2.0.0.0, MIT licence expression, packing readme.md and argentsea-logo.png at the package root as its readme and icon) together with a separate .snupkg symbol package rather than embedding debugging symbols in the main package",
+    "postcondition": "every build of the SQL Server database provider yields a publishable package and its companion symbol package without a separate pack step"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "3-21",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "34-35",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,88 @@
+{
+  "id": "blk-a38a52ef90b4429487c09695c038a5d4",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "Mapper query-result handler signature family",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ListFromReaderResultsHandler<TModel>, ModelFromOutResultsHandler<TModel,...>, ModelFromReaderResultsHandler<TModel,...> and ModelFromReaderWithCollectionsHandler<TModel> are all named query-result handler methods, but they do not all conform to the same ArgentSea.QueryResultModelHandler<TArg, TModel> delegate shape: (TModel instance, short shardId, string sprocName, TArg optionalArgument, DbDataReader rdr, DbParameterCollection parameters, string connectionDescription, ILogger logger). ModelFromOutResultsHandler, ModelFromReaderResultsHandler and ModelFromReaderWithCollectionsHandler each have an instance-supplied overload taking exactly that eight-parameter shape (the instance first, then the same seven-parameter tail), and only that overload can be assigned to or invoked through the delegate type. ListFromReaderResultsHandler, and the no-instance overloads of ModelFromOutResultsHandler and ModelFromReaderResultsHandler, instead take only the seven-parameter tail with no leading instance parameter; the no-instance overloads are convenience forwarders that construct a new TModel and call their instance-supplied overload, and none of these seven-parameter methods is itself assignable to QueryResultModelHandler<TArg, TModel>. ModelFromOutResultsHandler and ModelFromReaderResultsHandler each additionally overload across zero through eight TReaderResultN type parameters, one per extra data-reader result set consumed as a list and assigned to a compatible model property. ModelFromReaderWithCollectionsHandler instead takes no TReaderResultN type parameters: it discovers how many trailing result sets to read, and in what order, at runtime from the model type's own CollectionMapAttributeBase-decorated properties."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1554-1564",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1594-2479",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2598-2618",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2724-3634",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c924ca65ef8a4fe3892a468b60b70b77",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-f41203b8a9544e63b12d3fb4940475eb",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-b4ac513b6a1b46ca9bf2b0970974124f",
+      "blobHash": null,
+      "label": "QueryResultModelHandler<TArg,TModel> delegate declaration establishing the eight-parameter shape this block asserts assignability against",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

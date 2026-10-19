@@ -1,0 +1,31 @@
+{
+  "id": "blk-90f700c00b3c44629a1e61bfa8bf08cb",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "The SQL Server Provider Package's Debug|AnyCPU build configuration sets Optimize to true and its Release|AnyCPU build configuration sets Optimize to false. This holds as written in the project file and is recorded as observed fact, not as an intended convention.",
+    "scope": "The two configuration-conditioned PropertyGroup elements in ArgentSea.Sql.csproj (Condition \"$(Configuration)|$(Platform)\"==\"Debug|AnyCPU\" and ==\"Release|AnyCPU\")."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/ArgentSea.Sql.csproj",
+        "lines": "23-29",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

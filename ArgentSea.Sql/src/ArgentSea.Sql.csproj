@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
 	<!-- Required in both test/product projects. This is a temporary workaround for https://github.com/Microsoft/vstest/issues/800 -->
 	<DebugType>Full</DebugType>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageProjectUrl>https://www.argentsea.com</PackageProjectUrl>
 	<AssemblyVersion>2.0.0.0</AssemblyVersion>
 	<FileVersion>2.0.0.0</FileVersion>
-	<Version>2.0.3</Version>
+	<Version>2.0.4</Version>
 	<Authors>johnhicks</Authors>
 	<Description>Microsoft SQL Server implementation of ArgentSea, a .NET open source framework for accessing databases, built for simplicity, high-performance and global scale.</Description>
 	<RepositoryUrl>https://github.com/argentsea/sql</RepositoryUrl>
@@ -21,11 +22,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>True</Optimize>
+    <Optimize>False</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>False</Optimize>
+    <Optimize>True</Optimize>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -38,6 +39,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ArgentSea.Shared\src\ArgentSea.csproj" />
 	  <InternalsVisibleTo Include="$(MSBuildProjectName).Test" />
+	  <InternalsVisibleTo Include="ArgentSea.Integration.Test" />
   </ItemGroup>
 
 </Project>

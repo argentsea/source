@@ -1,0 +1,51 @@
+{
+  "id": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Query",
+    "definition": "The object passed to every ArgentSea data method to name the SQL to execute. It carries the SQL text or procedure name, the command type, a name used in logging and in the mock-results lookup, and optional query parameter names. It has two concrete forms, QueryProcedure and QueryStatement. Applications conventionally expose every Query as a static property of one `Queries` class, so usage is visible by reference count. A Query is the handle; the query contract is the interface it stands for.",
+    "synonyms": [
+      "Query object",
+      "Queries class"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "8-27",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sql.md",
+        "lines": "1-31",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": "Query contract",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

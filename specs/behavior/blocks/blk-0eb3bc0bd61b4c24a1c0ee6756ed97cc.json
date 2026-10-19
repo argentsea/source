@@ -1,0 +1,42 @@
+{
+  "id": "blk-0eb3bc0bd61b4c24a1c0ee6756ed97cc",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A Query named \"GetCustomerBalance\" has an output parameter bound to requested value name \"Balance\", the caller requests that value as the non-nullable type decimal, and the stored procedure executes without setting that output parameter (its value remains DBNull).",
+      "when": "The three-value scalar read completes execution and inspects the matched output parameter for \"Balance\".",
+      "then": "The call throws UnexpectedSqlResultException with message \"Database query GetCustomerBalance expected to output the value of Balance, but the database value was null.\"; had the caller requested decimal? instead, the read would return null for Balance."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-315b7adee51448599ba794ae94ec1c1a"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "491-494,508-521",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

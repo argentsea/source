@@ -6,7 +6,7 @@
     "name": "QueryResultModelHandler<TArg, TModel> model-mapping callback",
     "kind": "Library",
     "language": "csharp",
-    "contract": "A caller supplies this callback to map one executed query result for a shard into a TModel value. The callback receives the model instance, the short shard identifier, stored-procedure name, optional TArg argument, DbDataReader, DbParameterCollection, connection description, and logger; it returns the resulting TModel."
+    "contract": "A caller supplies this callback to map one executed query's result for a shard into a TModel value. The callback's third parameter is declared as string sprocName — named for a time when every Query was a stored procedure — but DataConnectionManager's only call site (ExecuteQueryWithDelegateAsync, DataConnectionManager.cs line 545) passes query.Sql, the Query's full SQL/command text, not query.Name; the parameter's name is therefore misleading and callers should read it as the executed command text, not a query identifier. The callback also receives the model instance, the short shard identifier, an optional TArg argument, the open DbDataReader, the command's DbParameterCollection (for reading output values), a connection description, and a logger; it returns the resulting TModel."
   },
   "metadata": {
     "status": "Draft",
@@ -18,13 +18,18 @@
         "kind": "file",
         "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
         "lines": "10-23",
-        "label": null,
-        "relation": "grounds"
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "523-550",
+        "label": null
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-result-model-handler",
+    "sectionId": "resilient-command-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

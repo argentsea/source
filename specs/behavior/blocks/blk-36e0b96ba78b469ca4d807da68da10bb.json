@@ -25,7 +25,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-gateway-list-provider",
+    "sectionId": "orleans-cluster-providers",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

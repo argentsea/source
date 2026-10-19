@@ -1,0 +1,41 @@
+{
+  "id": "blk-a7029785ab434c9fb4c8832d2a705845",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Fan-out query",
+    "definition": "One query executed concurrently against every shard of a shard set, or a targeted subset given by shards values. Each shard runs on its own connection, with its own copy of the parameters, under its own resilience strategy. The per-shard results, produced by a result handler, are then combined. The three forms are ReadAll, ReadFirst and shard-set Write.",
+    "synonyms": [
+      "shard-set query",
+      "cross-shard query"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sequence.md",
+        "lines": "5-27",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "97-191",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

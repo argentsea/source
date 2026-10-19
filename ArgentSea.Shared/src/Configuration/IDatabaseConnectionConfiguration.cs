@@ -12,10 +12,10 @@ namespace ArgentSea
     /// </summary>
     public interface IDatabaseConnectionConfiguration
     {
-        string DatabaseKey { get; set; }
+        string? DatabaseKey { get; set; }
 
-        IDataConnection ReadConnectionInternal { get; }
+        IDataConnection? ReadConnectionInternal { get; }
 
-        IDataConnection WriteConnectionInternal { get; }
+        IDataConnection? WriteConnectionInternal { get; }
     }
 }

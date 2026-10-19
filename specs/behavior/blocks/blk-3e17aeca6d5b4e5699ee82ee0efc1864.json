@@ -1,0 +1,58 @@
+{
+  "id": "blk-3e17aeca6d5b4e5699ee82ee0efc1864",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DataConnectionManager's connection has RetryCount configured to 6, and the data provider's transient-error classifier reports a particular DbException as transient on every attempt.",
+      "when": "A command execution on that connection throws that same DbException on the initial attempt and all 6 retries (7 attempts total), so the retry policy exhausts its configured retry count without a successful execution.",
+      "then": "The call surfaces whatever exception the connection's current resilience policy (ResiliencePolicy.ExecuteAsync) throws straight to the caller — DataConnectionManager itself contains no code that intercepts, translates, catches-and-wraps, or constructs a RetryLimitExceededException or other wrapping exception around that failure."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-86dbeaf076634c90bf77166c6296107b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "19-585",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/RetryLimitExceededException.cs",
+        "lines": "14-41",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "invariants",
+      "blockId": "blk-7ec3c28d2a3d479d95b283d8a4a61e0e",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

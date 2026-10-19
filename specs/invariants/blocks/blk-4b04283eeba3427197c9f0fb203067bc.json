@@ -1,0 +1,31 @@
+{
+  "id": "blk-4b04283eeba3427197c9f0fb203067bc",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj sets TargetFramework to net10.0, Nullable to enable, and ImplicitUsings to enable; these are the project file's only target-framework and nullable/implicit-usings settings, and no other PropertyGroup in the file names a different TargetFramework, Nullable, or ImplicitUsings value.",
+    "scope": "ArgentSea.Orleans.Sql.csproj PropertyGroup: TargetFramework, Nullable, and ImplicitUsings settings."
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "3-19",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

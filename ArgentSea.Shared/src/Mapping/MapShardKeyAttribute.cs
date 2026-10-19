@@ -13,7 +13,7 @@ namespace ArgentSea
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public abstract class MapShardKeyAttribute : Attribute
     {
-        ParameterMapAttributeBase _shardId;
+        ParameterMapAttributeBase? _shardId;
 
         /// <summary>
         /// This property attribute is used to map multiple paramters to a ShardKey object.
@@ -33,7 +33,7 @@ namespace ArgentSea
         /// <param name="grandChildIdName">The name of the optional 3rd data column, if a compound key, which must exactly match the corresponding database attribute.</param>
         /// <param name="greatGrandChildIdName">The name of the optional 4th data column, if a compound key, which must exactly match the corresponding database attribute.</param>
         /// <param name="isRecordIdentifier">A optional value which indicates whether the property is the record identifier. Defaults to True if not set.</param>
-        public MapShardKeyAttribute(ParameterMapAttributeBase shardId, string recordIdName, string childIdName, string grandChildIdName, string greatGrandChildIdName, bool isRecordIdentifier)
+        public MapShardKeyAttribute(ParameterMapAttributeBase? shardId, string recordIdName, string? childIdName, string? grandChildIdName, string? greatGrandChildIdName, bool isRecordIdentifier)
         {
             _shardId = shardId;
             this.RecordIdName = recordIdName;
@@ -43,7 +43,7 @@ namespace ArgentSea
             this.IsRecordIdentifier = isRecordIdentifier;
         }
 
-		public virtual string ShardIdName {
+		public virtual string? ShardIdName {
             get {
                 return this._shardId?.ColumnName;
             }
@@ -51,15 +51,15 @@ namespace ArgentSea
 
 		public virtual string RecordIdName { get; }
 
-        public virtual string ChildIdName { get; }
+        public virtual string? ChildIdName { get; }
 
-        public virtual string GrandChildIdName { get; }
+        public virtual string? GrandChildIdName { get; }
 
-        public virtual string GreatGrandChildIdName { get; }
+        public virtual string? GreatGrandChildIdName { get; }
 
         public virtual bool IsRecordIdentifier { get; }
 
-        public ParameterMapAttributeBase ShardParameter
+        public ParameterMapAttributeBase? ShardParameter
         {
             get { return _shardId;  }
         }

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsTestProject>false</IsTestProject>
+    <RootNamespace>ArgentSea.TestKit</RootNamespace>
+    <Description>Scripted in-memory ADO.NET provider and configuration builders for testing ArgentSea without a database.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ArgentSea.Shared\src\ArgentSea.csproj" />
+  </ItemGroup>
+
+</Project>

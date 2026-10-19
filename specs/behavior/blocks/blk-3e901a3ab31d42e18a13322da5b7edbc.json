@@ -1,0 +1,42 @@
+{
+  "id": "blk-3e901a3ab31d42e18a13322da5b7edbc",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property MiddleName maps to a reader column that is absent from the result set, so GetFieldOrdinal returns -1 for it",
+      "when": "ExpressionHelpers builds and executes MiddleName's reader-column expression",
+      "then": "MiddleName is left at its default value; no get-method call or assignment runs"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-7c59d390938f40c3b1ea467f2874476f",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "336-347",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

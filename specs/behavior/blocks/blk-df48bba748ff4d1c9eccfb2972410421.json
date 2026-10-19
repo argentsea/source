@@ -1,0 +1,61 @@
+{
+  "id": "blk-df48bba748ff4d1c9eccfb2972410421",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "QueryStatement.Create(name, parameterNames, folderName, extension) is invoked with name \"report\" (not rooted), folderName \"SQL\" (not rooted), and extension null",
+      "when": "the returned Lazy<QueryStatement> is realized and GetSqlFullPath resolves the statement file's location",
+      "then": "the computed path is the application's base directory combined with \"SQL\\\\report\", with no extension suffix appended to the file name because a null extension skips the extension-append branch"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9d7c0004be194159bd72d6e2a8ceb718"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "81-117",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-9d7c0004be194159bd72d6e2a8ceb718",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

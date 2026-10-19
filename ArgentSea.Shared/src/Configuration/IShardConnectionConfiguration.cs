@@ -14,8 +14,8 @@ namespace ArgentSea
     {
         short ShardId { get; set; }
 
-         IDataConnection ReadConnectionInternal { get; }
+         IDataConnection? ReadConnectionInternal { get; }
 
-        IDataConnection WriteConnectionInternal { get; }
+        IDataConnection? WriteConnectionInternal { get; }
     }
 }

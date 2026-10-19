@@ -1,0 +1,76 @@
+{
+  "id": "blk-ccbc4bbd4e874666b160415ea89c99e3",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "PgGlobalSettings sets ApplicationName=MyApp, and the PgDbConnections array holds entry MainDb (Host=10.10.25.1, Database=MainDb) and entry OtherDb (ApplicationName=MyOtherApp, Host=10.10.25.2, Database=OtherDb), with no ReadConnection or WriteConnection settings on either",
+      "when": "the databases are built and each entry's read and write connection strings are requested",
+      "then": "both MainDb endpoints yield \"Application Name=MyApp;Database=MainDb;Host=10.10.25.1\" and both OtherDb endpoints yield \"Application Name=MyOtherApp;Database=OtherDb;Host=10.10.25.2\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-9f5a07d6d9304446bd4e51fe2fd8f994"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
+        "lines": "33-48",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ConfigurationTests.cs",
+        "lines": "37-47",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/configurationsettings.json",
+        "lines": "1-23",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-9f5a07d6d9304446bd4e51fe2fd8f994",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "blk-d0409f226e62480eab0a8df308bebefd",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Score of non-nullable type double is mapped to a reader column via ReaderNullableValueTypeExpressions with expNullResult = double.NaN, and the reader reports DBNull for that column",
+      "when": "the reader-column expression for Score executes",
+      "then": "Score is assigned double.NaN, not a null reference"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-1d3850ad10ae44aab00bb63f238ad6ba"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "485-498",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

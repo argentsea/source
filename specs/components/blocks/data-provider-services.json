@@ -1,0 +1,38 @@
+{
+  "id": "data-provider-services",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Data Provider Services",
+    "responsibility": "Defines the one seam through which the platform-neutral half of the library does anything platform-specific: creating a connection, creating a command, applying a named set of parameters to it, and judging whether a failure is transient. Anything a database platform must supply passes through here, which is what keeps every other core component free of a platform dependency.",
+    "parent": "configuration"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/ParameterNotFoundException.cs",
+        "lines": "10-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

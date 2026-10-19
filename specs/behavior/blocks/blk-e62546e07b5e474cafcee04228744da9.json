@@ -1,0 +1,77 @@
+{
+  "id": "blk-e62546e07b5e474cafcee04228744da9",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Grain Persistence",
+    "condition": "the host logger has Trace enabled",
+    "trigger": "a ReadStateAsync, WriteStateAsync or ClearStateAsync call completes its query",
+    "response": "log the elapsed milliseconds and grain type at Trace under event id CmdExecuted (8): the database-backed provider through TraceDbReadCmdExecuted, TraceDbWriteCmdExecuted and TraceDbClearCmdExecuted; the shard provider through TraceShardReadCmdExecuted, TraceShardWriteCmdExecuted and TraceShardClearCmdExecuted, which also carry the id of the shard the query ran on",
+    "postcondition": "nothing is formatted or logged when Trace is disabled; a call that throws before its query completes logs no timing event"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/LoggingExtensions.cs",
+        "lines": "35-40,55-60,119-160",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "117,138,169",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "124,159,190",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-d0cc6db246764e9eb27c2cf3f1941f24",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

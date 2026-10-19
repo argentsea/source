@@ -1,0 +1,42 @@
+{
+  "id": "blk-28a1ba07ee79467ea47de51da13c6f2f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" HAS a configured clear query contract, and the supplied grain state has State = null",
+      "when": "ArgentSeaDbGrainPersistence<TDatabaseOptions>.ClearStateAsync is invoked for \"orders\"",
+      "then": "it throws NoNullAllowedException and the clear query is never executed"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-32b362ab7a0647eca1e54b12d08f7564"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "142-145",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

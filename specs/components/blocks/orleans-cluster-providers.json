@@ -1,0 +1,56 @@
+{
+  "id": "orleans-cluster-providers",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans Cluster Providers",
+    "responsibility": "Keeps an Orleans cluster's silo membership in a configured SQL Server database — inserting and updating a silo's row, recording its liveness, reading the membership table and cleaning out defunct entries — and serves connecting clients the current gateway list from the same store, publishing both to the silo and client builders so a cluster needs no separate membership technology.",
+    "parent": "orleans-sql-server-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "17-435",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "13-87",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ClusteringExtensions.cs",
+        "lines": "8-55",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaClusteringProviderBuilder.cs",
+        "lines": "12-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/OrleansClusteringClientOptions.cs",
+        "lines": "6-28",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "blk-2da9b77fca54432e93660733c0b7be4e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "No grain-id-building delegate has yet been cached for the Order model type.",
+      "when": "GetDbGrainId<Order> is called twice in succession, each time with a different Order instance.",
+      "then": "The first call compiles and caches the Order delegate (logging a cache miss) and the second call reuses the cached delegate (logging a cache hit), each call returning the IdSpan built from its own model instance."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-1451d15d1d1143b48a35815ab357580c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "453-473",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

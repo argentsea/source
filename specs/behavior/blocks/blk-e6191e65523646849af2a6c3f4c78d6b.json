@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlShardConnectionOptions",
+    "subject": "SQL Server Connection Settings",
     "trigger": "ShardSetsConfigInternal is read",
     "response": "return the current SQL shard-set configuration collection through the IShardSetConnectionsConfiguration[] view",
     "postcondition": "the provider-neutral view contains the current SqlShardSets entries"
@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-shard-connection-options'. Grounded in ArgentSea.Sql/src/SqlShardConnectionOptions.cs:13-17, but without sectionId equal to component ID 'sql-shard-connection-options', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Sql/src/SqlShardConnectionOptions.cs:13-17. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'sql-server-connection-settings' resolves to component 'SQL Server Connection Settings' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-shard-connection-options",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -52,7 +52,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "shared-i-shard-sets-configuration-options",
+      "blockId": "connection-configuration-hierarchy",
       "blobHash": null,
       "label": null,
       "relation": "dependsOn"

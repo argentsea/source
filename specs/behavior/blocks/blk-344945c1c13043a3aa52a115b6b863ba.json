@@ -1,0 +1,51 @@
+{
+  "id": "blk-344945c1c13043a3aa52a115b6b863ba",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a result handler expecting a data reader from stored procedure \"usp_GetCustomer\" on connection \"Shard03\", where the reader object returned is null",
+      "when": "DataReaderIsNull(logger, \"usp_GetCustomer\", \"Shard03\") is called",
+      "then": "the logger receives an Error-level event under event id MapperResultsReaderInvalid (7) reading \"Expected data reader object was null from procedure usp_GetCustomer on connection Shard03.\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-6c3a5dabb90943cfb4d1d234eac1033c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "110-111,225-226",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-fde5bc17103f4097a05f6df357f04705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

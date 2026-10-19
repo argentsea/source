@@ -6,7 +6,7 @@
     "name": "ArgentSeaOrleansReminderTable IReminderTable operations",
     "kind": "Library",
     "language": "csharp",
-    "contract": "ArgentSeaOrleansReminderTable provides an IReminderTable implementation for its selected shard set. It reads one reminder by grain and name, reads the reminders for one grain or a hash range, removes a named reminder conditionally using its version text, exposes a completed no-op test-clear operation, and upserts a reminder. A missing single-row result is represented by a ReminderEntry bearing the requested GrainId; a successful upsert returns the new row version as an invariant-culture string; removal returns whether the row was found."
+    "contract": "ArgentSeaOrleansReminderTable provides an IReminderTable implementation for its selected shard set. It reads one reminder by grain and name, reads all reminders for one grain (from that grain's Shard) or for a hash range (from every read Shard), removes a named reminder conditionally using its version text, exposes a completed no-op test-clear operation, and upserts a reminder. The multi-row reads return every matching row of every Shard queried, not one row per Shard. A missing single-row result is represented by a ReminderEntry bearing the requested GrainId; a successful upsert returns the new row version as an invariant-culture string; removal returns whether the row was found."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
-        "lines": "14-223",
+        "lines": "14-229",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-reminder-table",
+    "sectionId": "orleans-reminder-storage",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

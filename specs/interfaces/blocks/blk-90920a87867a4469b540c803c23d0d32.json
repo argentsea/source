@@ -1,0 +1,49 @@
+{
+  "id": "blk-90920a87867a4469b540c803c23d0d32",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSeaRemindersProviderBuilder.Configure",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "ArgentSeaRemindersProviderBuilder implements IProviderBuilder<ISiloBuilder> and is registered as the Orleans keyed provider builder for (\"ArgentSea\", \"Reminders\", \"Silo\") via an assembly-level RegisterProviderAttribute, so Orleans' provider-configuration mechanism discovers and invokes it when a silo's configuration names an \"ArgentSea\" provider of category \"Reminders\". Configure adds a ClusterOptions options registration to the builder's service collection and calls UseArgentSeaReminderService on the builder with an empty configure delegate, installing the ArgentSea reminder table, its configuration validator, and Orleans' reminder subsystem with ReminderOptions left at their defaults. The supplied provider name and configuration section parameters are not inspected."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaRemindersProviderBuilder.cs",
+        "lines": "7-18",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/SiloBuilderReminderExtensions.cs",
+        "lines": "38-46",
+        "label": "IServiceCollection overload performing the registrations Configure triggers via UseArgentSeaReminderService (AddReminders, IReminderTable, IConfigurationValidator)"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-storage",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-b7271cc351ac475c827504fe69e69094",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

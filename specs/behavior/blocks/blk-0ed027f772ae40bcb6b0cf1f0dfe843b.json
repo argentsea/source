@@ -1,0 +1,42 @@
+{
+  "id": "blk-0ed027f772ae40bcb6b0cf1f0dfe843b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Status of enum type OrderStatus (backed by int) is mapped to a reader column via ReaderEnumXIntExpressions with baseType int",
+      "when": "the reader-column expression for Status executes against a non-null column",
+      "then": "the generated expression reads the column as int via GetFieldValue<int> and converts the result to OrderStatus before assignment"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9a0c17b8e68d4dcc832be394ab308c5e"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "362-376",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

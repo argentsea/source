@@ -1,0 +1,67 @@
+{
+  "id": "blk-ddd6e8fcd68a412c9a68697034acd118",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "UnexpectedSqlResultException",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "namespace ArgentSea;\npublic sealed class UnexpectedSqlResultException : ApplicationException {\n  UnexpectedSqlResultException();               // \"The query results are missing an expected value.\"\n  UnexpectedSqlResultException(string message);\n  UnexpectedSqlResultException(string message, Exception innerException);\n}\n// Carries no properties beyond the message; the library always uses the message constructor with a message naming the query and the missing value.\n// Raised when a query completed but its results lack something the caller's contract requires: (1) a requested output parameter of the three-value output read came back null/DBNull and the requested TValue for that value is a non-nullable value type (message \"Database query {query} expected to output the value of {name}, but the database value was null.\") -- when TValue can hold null (a reference type or Nullable<T>) the read returns null for that value instead of throwing; (2) Mapper.ModelFromReaderWithCollectionsHandler found fewer result sets than the model has collection-mapped properties (constructed by reflection inside the compiled handler, message naming the property and the expected result-set position).\n// It is not a transient fault and is never retried by the resilience strategy: it indicates a mismatch between the query (procedure or statement) and the caller's expectations, so callers should treat it as a contract defect. A query whose output value may legitimately be null should request that value as a nullable type (e.g. int? or string)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedSqlResultException.cs",
+        "lines": "13-40",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "491-502,508-521",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2647",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

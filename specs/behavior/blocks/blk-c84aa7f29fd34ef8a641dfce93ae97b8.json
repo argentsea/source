@@ -17,21 +17,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Databases.cs",
-        "lines": "1001-1009",
+        "lines": "1039-1040",
         "label": null,
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
-        "lines": "220-232",
+        "lines": "294-299",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-databases-base-data-connection",
+    "sectionId": "resilient-command-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

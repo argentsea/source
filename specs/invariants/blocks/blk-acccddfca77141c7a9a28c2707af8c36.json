@@ -1,0 +1,41 @@
+{
+  "id": "blk-acccddfca77141c7a9a28c2707af8c36",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "QueryStatement.Folder and QueryStatement.Extension are static members shared process-wide; they are not scoped per QueryStatement instance, per provider, or per call.",
+    "scope": "QueryStatement.Folder, QueryStatement.Extension, and every Create(name) / Create(name, parameterNames) call that reads them."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "36-45",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

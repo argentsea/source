@@ -1,0 +1,66 @@
+{
+  "id": "blk-fed77f502e254db4a2f5fb302b615cb4",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Connection Settings",
+    "where": "the host has registered SQL Server services, binding the SqlGlobalSettings configuration section to SqlGlobalPropertiesOptions",
+    "trigger": "the SqlDatabases or SqlShardSets collection is constructed",
+    "response": "supply the bound SqlGlobalPropertiesOptions value (a SqlConnectionPropertiesBase that adds no members of its own) as the global level of the Configuration hierarchy for every database and shard-set endpoint in that collection",
+    "postcondition": "a SqlClient setting given once under SqlGlobalSettings applies to every SQL Server connection unless a database, shard-set, read/write, shard or endpoint level overrides it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlGlobalPropertiesOptions.cs",
+        "lines": "8-14",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlServiceBuilderExtensions.cs",
+        "lines": "31-32",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDatabases.cs",
+        "lines": "14-18",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardSets.cs",
+        "lines": "16-20",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

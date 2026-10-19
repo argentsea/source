@@ -13,8 +13,8 @@ namespace ArgentSea.Pg
 	{
 		public PgDatabases(
 			IOptions<PgDbConnectionOptions> configOptions,
-			IOptions<PgGlobalPropertiesOptions> globalOptions,
-			ILogger<PgDatabases> logger
+			IOptions<PgGlobalPropertiesOptions>? globalOptions,
+			ILogger<PgDatabases>? logger
 			) : base(configOptions, (IDataProviderServiceFactory)new DataProviderServiceFactory(), globalOptions?.Value, logger)
 		{
 

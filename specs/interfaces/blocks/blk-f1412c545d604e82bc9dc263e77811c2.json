@@ -6,7 +6,7 @@
     "name": "ShardSetsBase<TConfiguration>.ShardSetWrite fan-out write surface",
     "kind": "Library",
     "language": "text",
-    "contract": "ShardSetsBase<TConfiguration>.ShardSetWrite accepts a query contract or batch plus parameters and a cancellation token, and executes on the write connection of every shard by default or only the ShardsValues selection. The query families may inject each shard identifier into a named parameter. RunAsync executes query contracts or batches without returning rows; QueryAsync transforms each shard result through a caller-supplied handler and returns the non-null transformed models; MapReaderAsync and MapOutputAsync construct models from mapping attributes using respectively one to eight reader result sets or output-parameter results; ListAsync combines selected-column values or virtual compound keys from the participating shards. All returned collections are List<T>."
+    "contract": "ShardSetsBase<TConfiguration>.ShardSetWrite accepts a query contract or batch plus parameters and a cancellation token, and executes on the write connection of every shard by default or only the ShardsValues selection. The query families may inject each shard identifier into a named parameter. RunAsync executes query contracts or batches without returning rows; QueryAsync transforms each shard result through a caller-supplied handler and returns the non-null transformed models; MapReaderAsync constructs models from mapping attributes using the primary reader result set alone, or together with one to eight additional result sets (generic TReaderResult types), i.e. two through nine total result sets, the same arities the ShardSetReadAll family offers; MapOutputAsync constructs models from mapping attributes using one to eight output-parameter result types; ListAsync combines selected-column values or virtual compound keys from the participating shards. All returned collections are List<T>."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardSetWrite.cs",
-        "lines": "24-1916",
+        "lines": "24-1976",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-sets-base-shard-set-write",
+    "sectionId": "shard-set-fan-out",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,52 @@
+{
+  "id": "blk-ac586347095e478c852a0087c94aae1e",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Batch Execution",
+    "trigger": "a model step executes its registered Query",
+    "response": "invoke the step's QueryResultModelHandler exactly once, passing it a TModel accumulator seeded to default(TModel), the shard id, the query's SQL text, the step's optional argument, the open data reader, the command's parameter collection, the connection name, and the logger, and return the handler's returned value unchanged",
+    "postcondition": "the Batch Execution does not itself read or interpret the reader's rows for a model step"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "377-399",
+        "label": "ModelStep.ExecuteAsync delegates row handling to the caller's handler"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": "Result handler",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": "Query",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

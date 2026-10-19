@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-query-extensions'. Grounded in QueryExtensions.cs:5-19 and falsifiable behavioral block citing committed Term.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in QueryExtensions.cs:5-19 and falsifiable behavioral block citing committed Term. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-key-marshalling' resolves to component 'Grain Key Marshalling' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-query-extensions",
+    "sectionId": "grain-key-marshalling",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

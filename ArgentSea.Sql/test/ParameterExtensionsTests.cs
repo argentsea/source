@@ -202,7 +202,7 @@ namespace ArgentSea.Sql.Test
             prms["@1"].GetString().Should().Be(value, "that was the string value");
         }
 
-        public static TheoryData<byte[], int> BinaryTestData => new TheoryData<byte[], int>
+        public static TheoryData<byte[]?, int> BinaryTestData => new TheoryData<byte[]?, int>
         {
             { null, 5 },
             { new byte[] { 1, 2, 3 }, 50 },
@@ -211,7 +211,7 @@ namespace ArgentSea.Sql.Test
 
         [Theory]
         [MemberData(nameof(BinaryTestData))]
-        public void BinaryTests(byte[] value, int length)
+        public void BinaryTests(byte[]? value, int length)
         {
             var prms = new ParameterCollection();
             prms.AddSqlBinaryInputParameter("1", value, length);
@@ -223,7 +223,7 @@ namespace ArgentSea.Sql.Test
             }
             else
             {
-                var data = prms["@1"].GetBytes();
+                var data = prms["@1"].GetBytes()!;
                 for (var i = 0; i < data.Length; i++)
                 {
                     data[i].Should().Be(value[i], "that was the array value");
@@ -233,7 +233,7 @@ namespace ArgentSea.Sql.Test
 
         [Theory]
         [MemberData(nameof(BinaryTestData))]
-        public void VarBinaryTests(byte[] value, int length)
+        public void VarBinaryTests(byte[]? value, int length)
         {
             var prms = new ParameterCollection();
             prms.AddSqlVarBinaryInputParameter("1", value, length);
@@ -245,7 +245,7 @@ namespace ArgentSea.Sql.Test
             }
             else
             {
-                var data = prms["@1"].GetBytes();
+                var data = prms["@1"].GetBytes()!;
                 for (var i = 0; i < data.Length; i++)
                 {
                     data[i].Should().Be(value[i], "that was the array value");
@@ -298,7 +298,7 @@ namespace ArgentSea.Sql.Test
             prms.AddSqlDateInputParameter("1", dateOnly);
             prms.AddSqlDateInputParameter("2", (DateOnly?)dateOnly);
             prms["@1"].GetDateOnly().Should().Be(dateOnly, "that was the date value");
-            prms["@2"].GetNullableDateOnly().Value.Should().Be(dateOnly, "that was the date value");
+            prms["@2"].GetNullableDateOnly().Should().Be(dateOnly, "that was the date value");
         }
 
         [Theory]
@@ -309,7 +309,7 @@ namespace ArgentSea.Sql.Test
             prms.AddSqlTimeInputParameter("1", value.TimeOfDay);
             prms.AddSqlTimeInputParameter("2", (TimeSpan?)value.TimeOfDay);
             prms["@1"].GetTimeSpan().Should().Be(value.TimeOfDay, "that was the time value");
-            prms["@2"].GetNullableTimeSpan().Value.Should().Be(value.TimeOfDay, "that was the time value");
+            prms["@2"].GetNullableTimeSpan().Should().Be(value.TimeOfDay, "that was the time value");
         }
 
         public static TheoryData<DateTimeOffset> DateTimeOffsetTestData => new TheoryData<DateTimeOffset>
@@ -329,7 +329,7 @@ namespace ArgentSea.Sql.Test
             prms.AddSqlDateTimeOffsetInputParameter("1", value);
             prms.AddSqlDateTimeOffsetInputParameter("2", (DateTimeOffset?)value);
             prms["@1"].GetDateTimeOffset().Should().Be(value, "that was the time value");
-            prms["@2"].GetNullableDateTimeOffset().Value.Should().Be(value, "that was the datetime offset value");
+            prms["@2"].GetNullableDateTimeOffset().Should().Be(value, "that was the datetime offset value");
         }
 
         [Fact]

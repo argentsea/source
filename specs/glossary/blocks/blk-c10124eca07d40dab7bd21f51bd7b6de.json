@@ -1,0 +1,42 @@
+{
+  "id": "blk-c10124eca07d40dab7bd21f51bd7b6de",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Database provider",
+    "definition": "One of ArgentSea's database-platform packages: ArgentSea.Sql (SQL Server, over SqlClient) or ArgentSea.Pg (PostgreSQL, over Npgsql). Each supplies the platform's configuration options and global, database and shard-set sections, its mapping attributes, typed parameter extension methods, data provider services and service registration, all on top of the shared provider-neutral core (ArgentSea). A model's attributes belong to exactly one provider.",
+    "synonyms": [
+      "provider package",
+      "ArgentSea.Sql",
+      "ArgentSea.Pg"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/setup.md",
+        "lines": "16-29",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/readme.md",
+        "lines": "16-24",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

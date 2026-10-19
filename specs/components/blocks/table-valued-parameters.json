@@ -1,0 +1,58 @@
+{
+  "id": "table-valued-parameters",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Table Valued Parameters",
+    "responsibility": "Turns a list of models into a single SQL Server parameter carrying many rows, so that a set of records is saved in one round trip rather than one command per record. It compiles and caches, per model type, the projection that writes each model into a table row with the right column order and SQL types, declares which property marks a collection as such a parameter, and reports what it mapped and whether the projection was cached.",
+    "parent": "sql-server-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "model-mapping"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1348-1415",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "21-331",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
+        "lines": "17-351",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlLoggingExtensions.cs",
+        "lines": "12-50",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

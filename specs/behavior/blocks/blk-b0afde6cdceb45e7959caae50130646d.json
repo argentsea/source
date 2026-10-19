@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgParameterCollectionExtensions",
-    "trigger": "a Query contract selects a Double or Real input with NaN, or a Uuid input with Guid.Empty",
-    "response": "append an Input parameter with the selected PostgreSQL type and database null rather than the sentinel value",
+    "subject": "Postgres Type Mapping",
+    "trigger": "a Query contract selects a Double or Real input with NaN, or a Uuid input with Guid.Empty, through the non-nullable overload",
+    "response": "append an Input parameter with the selected PostgreSQL type and database null rather than the sentinel value; this is deliberate (by design), mirroring the read-side sentinels where GetDouble/GetFloat return NaN and GetGuid returns Guid.Empty for a database null; a caller that must send the sentinel value itself uses the Nullable overload, which maps only null to database null",
     "postcondition": "return the same parameter collection"
   },
   "metadata": {
@@ -17,14 +17,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "594-614, 668-687, 1289-1310",
+        "lines": "592-620,674-693,1245-1274",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "126-135, 184-193",
+        "label": "read-side NaN / Guid.Empty null sentinels (by design)",
+        "relation": "references"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameter-collection-extensions",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

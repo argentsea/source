@@ -22,7 +22,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-sets-base",
+    "sectionId": "shard-set-fan-out",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"

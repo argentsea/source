@@ -1,0 +1,48 @@
+{
+  "id": "blk-9b1dc414ac214d91ab6d1ed890775858",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "records is an instance of a caller-defined class ForeignKeys that derives from List<ShardKey<int>> (satisfying the forwarding cast's need for a subclass, since a plain List<ShardKey<int>> instance cannot pass it) and separately provides an explicit implementation of IList<ShardKey<int, string>> whose GetEnumerator yields exactly three ShardKey<int, string> instances with ShardId values 5, 7, and 5 (a duplicate) — a view independent of whatever elements the inherited List<ShardKey<int>> base holds, since the forwarded overload enumerates records only through this IList<ShardKey<int, string>> view, never through the base; shardId is 5.",
+      "when": "ShardListForeign<int, string>(5, records) is called, resolving to the List<ShardKey<TRecord>> overload at ShardsValues.cs line 255.",
+      "then": "the forwarding cast of records to IList<ShardKey<int, string>> succeeds because ForeignKeys implements that interface, execution forwards into the IList<> overload at line 265, and that overload enumerates records through the IList<ShardKey<int, string>> view (not the inherited List<ShardKey<int>> view) and returns a ShardsValues whose Shards dictionary contains exactly one entry, for shard identifier 7, because 7 is the only ShardId value yielded by that enumeration that differs from the supplied shardId 5; no exception is thrown."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-d0117b5f90c5473bbf4433154243312c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "255-256",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "265-276",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

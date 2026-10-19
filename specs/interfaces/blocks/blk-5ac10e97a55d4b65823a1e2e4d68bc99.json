@@ -1,0 +1,34 @@
+{
+  "id": "blk-5ac10e97a55d4b65823a1e2e4d68bc99",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "LoggingExtensions.BatchStepBoundaryEvents",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The batch-step boundary pair: internal static void BatchStepStart(this ILogger logger, int stepIndex, string connectionName) and internal static void BatchStepEnd(this ILogger logger, int stepIndex, string connectionName), both logging at Debug under event id BatchStep (12). Unlike every other member in this file, both are `internal`, not `public`. BatchStepStart invokes the `_batchStepStart` delegate (event name BatchStepStart, message \"Starting batch step … on connection …\"); BatchStepEnd invokes the `_batchStepEnd` delegate (event name BatchStepEnd, message \"Completed batch step … on connection …\"). Both messages carry the step index and connection name."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "75-76,121-122,307-310",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

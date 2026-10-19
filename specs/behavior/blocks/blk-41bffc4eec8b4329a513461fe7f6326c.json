@@ -1,0 +1,52 @@
+{
+  "id": "blk-41bffc4eec8b4329a513461fe7f6326c",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A caller calls QueryStatement.Create(@\"C:\\Custom\\Report\", parameterNames, \"SQL\", \"sql\"), where the name argument is itself a rooted path.",
+      "when": "Value is evaluated on the returned Lazy<QueryStatement>.",
+      "then": "The folder argument \"SQL\" is ignored, and the statement text is read from C:\\Custom\\Report.sql."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-9d7c0004be194159bd72d6e2a8ceb718"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "67-73,81-93",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

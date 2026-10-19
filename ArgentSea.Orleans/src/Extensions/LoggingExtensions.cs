@@ -51,7 +51,7 @@ namespace ArgentSea.Orleans
             _orleansShardCacheHit = LoggerMessage.Define<string>(LogLevel.Trace, new EventId((int)EventIdentifier.MapperCacheStatus, nameof(OrleansShardCacheHit)), "The cached delegate for handling orleans sharded keys was already initialized for type {grainType}.");
             _dbExpressionTreeCreation = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)EventIdentifier.ExpressionTreeCreation, nameof(CreatedExpressionTreeForDatabaseKey)), "Compiled code to expression tree for grain {grainType} key mapping for database as:\r\n{code}.");
             _shardExpressionTreeCreation = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)EventIdentifier.ExpressionTreeCreation, nameof(CreatedExpressionTreeForShardKey)), "Compiled code to expression tree for grain {grainType} key mapping for shards as:\r\n{code}.");
-            _dbExpressionTreeForActivation = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)EventIdentifier.ExpressionTreeCreation, nameof(CreatedExpressionTreeForDatabaseKey)), "Compiled code to expression tree for grain {grainType} key mapping for database as:\r\n{code}.");
+            _dbExpressionTreeForActivation = LoggerMessage.Define<string, string>(LogLevel.Debug, new EventId((int)EventIdentifier.ExpressionTreeCreation, nameof(CreatedExpressionTreeForActivation)), "Compiled code to expression tree for grain {grainType} activation, setting the new state's record identifiers from the grain key, as:\r\n{code}.");
             _dbReadCmdExecutedTrace = LoggerMessage.Define<string, long>(LogLevel.Trace, new EventId((int)EventIdentifier.CmdExecuted, nameof(TraceDbReadCmdExecuted)), "Executed read Db command on grainType {grainType} in {milliseconds} milliseconds.");
             _dbWriteCmdExecutedTrace = LoggerMessage.Define<string, long>(LogLevel.Trace, new EventId((int)EventIdentifier.CmdExecuted, nameof(TraceDbWriteCmdExecuted)), "Executed write Db command on grainType {grainType} in {milliseconds} milliseconds.");
             _dbClearCmdExecutedTrace = LoggerMessage.Define<string, long>(LogLevel.Trace, new EventId((int)EventIdentifier.CmdExecuted, nameof(TraceDbClearCmdExecuted)), "Executed clear Db command on grainType {grainType} in {milliseconds} milliseconds.");
@@ -61,30 +61,65 @@ namespace ArgentSea.Orleans
             _sqlMapperPersistanceTrace = LoggerMessage.Define<string>(LogLevel.Trace, new EventId((int)EventIdentifier.MapperProcessTrace, nameof(TraceMapperGrainPersistance)), "Grain persistance mapper is now processing property {name}.");
         }
 
-        public static void PersistanceLifecycleOnStart(this ILogger logger, string name)
-            => _persistanceLifecycleStart(logger, name, null);
-
-        public static void PersistanceLifecycleOnStop(this ILogger logger, string name)
-            => _persistanceLifecycleStop(logger, name, null);
-
-        public static void OrleansDbCacheHit(this ILogger logger, string grainType)
-            => _orleansDbCacheHit(logger, grainType, null);
-
-        public static void OrleansDbCacheMiss(this ILogger logger, string grainType)
-            => _orleansDbCacheMiss(logger, grainType, null);
-
-        public static void OrleansShardCacheHit(this ILogger logger, string grainType)
-            => _orleansShardCacheHit(logger, grainType, null);
-
-        public static void OrleansShardCacheMiss(this ILogger logger, string grainType)
-            => _orleansShardCacheMiss(logger, grainType, null);
-
-        public static void TraceMapperGrainPersistance(this ILogger logger, string propertyName)
-            => _sqlMapperPersistanceTrace(logger, propertyName, null);
-
-        public static void CreatedExpressionTreeForDatabaseKey(this ILogger logger, string grainType, Expression codeBlock)
+        public static void PersistanceLifecycleOnStart(this ILogger? logger, string name)
         {
-            if (logger.IsEnabled(LogLevel.Information))
+            if (logger is not null)
+            {
+                _persistanceLifecycleStart(logger, name, null);
+            }
+        }
+
+        public static void PersistanceLifecycleOnStop(this ILogger? logger, string name)
+        {
+            if (logger is not null)
+            {
+                _persistanceLifecycleStop(logger, name, null);
+            }
+        }
+
+        public static void OrleansDbCacheHit(this ILogger? logger, string grainType)
+        {
+            if (logger is not null)
+            {
+                _orleansDbCacheHit(logger, grainType, null);
+            }
+        }
+
+        public static void OrleansDbCacheMiss(this ILogger? logger, string grainType)
+        {
+            if (logger is not null)
+            {
+                _orleansDbCacheMiss(logger, grainType, null);
+            }
+        }
+
+        public static void OrleansShardCacheHit(this ILogger? logger, string grainType)
+        {
+            if (logger is not null)
+            {
+                _orleansShardCacheHit(logger, grainType, null);
+            }
+        }
+
+        public static void OrleansShardCacheMiss(this ILogger? logger, string grainType)
+        {
+            if (logger is not null)
+            {
+                _orleansShardCacheMiss(logger, grainType, null);
+            }
+        }
+
+        public static void TraceMapperGrainPersistance(this ILogger? logger, string propertyName)
+        {
+            if (logger is not null)
+            {
+                _sqlMapperPersistanceTrace(logger, propertyName, null);
+            }
+        }
+
+        public static void CreatedExpressionTreeForDatabaseKey(this ILogger? logger, string grainType, Expression codeBlock)
+        {
+            if (logger is not null && logger.IsEnabled(LogLevel.Debug))
             {
                 using (System.IO.StringWriter writer = new System.IO.StringWriter(CultureInfo.CurrentCulture))
                 {
@@ -93,9 +128,9 @@ namespace ArgentSea.Orleans
                 }
             }
         }
-        public static void CreatedExpressionTreeForShardKey(this ILogger logger, string grainType, Expression codeBlock)
+        public static void CreatedExpressionTreeForShardKey(this ILogger? logger, string grainType, Expression codeBlock)
         {
-            if (logger.IsEnabled(LogLevel.Information))
+            if (logger is not null && logger.IsEnabled(LogLevel.Debug))
             {
                 using (System.IO.StringWriter writer = new System.IO.StringWriter(CultureInfo.CurrentCulture))
                 {
@@ -104,9 +139,9 @@ namespace ArgentSea.Orleans
                 }
             }
         }
-        public static void CreatedExpressionTreeForActivation(this ILogger logger, string grainType, Expression codeBlock)
+        public static void CreatedExpressionTreeForActivation(this ILogger? logger, string grainType, Expression codeBlock)
         {
-            if (logger.IsEnabled(LogLevel.Information))
+            if (logger is not null && logger.IsEnabled(LogLevel.Debug))
             {
                 using (System.IO.StringWriter writer = new System.IO.StringWriter(CultureInfo.CurrentCulture))
                 {
@@ -116,44 +151,44 @@ namespace ArgentSea.Orleans
             }
         }
 
-        public static void TraceDbReadCmdExecuted(this ILogger logger, string grainType, long milliseconds)
+        public static void TraceDbReadCmdExecuted(this ILogger? logger, string grainType, long milliseconds)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
+            if (logger is not null && logger.IsEnabled(LogLevel.Trace))
             {
                 _dbReadCmdExecutedTrace(logger, grainType, milliseconds, null);
             }
         }
-        public static void TraceDbWriteCmdExecuted(this ILogger logger, string grainType, long milliseconds)
+        public static void TraceDbWriteCmdExecuted(this ILogger? logger, string grainType, long milliseconds)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
+            if (logger is not null && logger.IsEnabled(LogLevel.Trace))
             {
                 _dbWriteCmdExecutedTrace(logger, grainType, milliseconds, null);
             }
         }
-        public static void TraceDbClearCmdExecuted(this ILogger logger, string grainType, long milliseconds)
+        public static void TraceDbClearCmdExecuted(this ILogger? logger, string grainType, long milliseconds)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
+            if (logger is not null && logger.IsEnabled(LogLevel.Trace))
             {
                 _dbClearCmdExecutedTrace(logger, grainType, milliseconds, null);
             }
         }
-        public static void TraceShardReadCmdExecuted(this ILogger logger, short shardId, string grainType, long milliseconds)
+        public static void TraceShardReadCmdExecuted(this ILogger? logger, short shardId, string grainType, long milliseconds)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
+            if (logger is not null && logger.IsEnabled(LogLevel.Trace))
             {
                 _shardReadCmdExecutedTrace(logger, shardId, grainType, milliseconds, null);
             }
         }
-        public static void TraceShardWriteCmdExecuted(this ILogger logger, short shardId, string grainType, long milliseconds)
+        public static void TraceShardWriteCmdExecuted(this ILogger? logger, short shardId, string grainType, long milliseconds)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
+            if (logger is not null && logger.IsEnabled(LogLevel.Trace))
             {
                 _shardWriteCmdExecutedTrace(logger, shardId, grainType, milliseconds, null);
             }
         }
-        public static void TraceShardClearCmdExecuted(this ILogger logger, short shardId, string grainType, long milliseconds)
+        public static void TraceShardClearCmdExecuted(this ILogger? logger, short shardId, string grainType, long milliseconds)
         {
-            if (logger.IsEnabled(LogLevel.Trace))
+            if (logger is not null && logger.IsEnabled(LogLevel.Trace))
             {
                 _shardClearCmdExecutedTrace(logger, shardId, grainType, milliseconds, null);
             }

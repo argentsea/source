@@ -6,7 +6,7 @@
     "name": "SpanParser primary-key span conversion family",
     "kind": "Library",
     "language": "text",
-    "contract": "SpanParser provides one in-place serialization and sequential deserialization family for delimiter-separated UTF-8 key values. Append writes a value at the caller's current buffer position, prefixes every noninitial value with ASCII '+', and returns the first unwritten position. The family accepts Guid; signed and unsigned 64-, 32-, 16-, and 8-bit integers; decimal; string; and ReadOnlySpan<byte>. Guid values use 32 hexadecimal digits; numeric values use hexadecimal text; text and raw bytes substitute byte 0x1D for embedded '+'. Extract consumes the next '+'-delimited segment from a ReadOnlySpan<byte>, populates the requested supported type, and returns the unconsumed suffix. GetDbGrainId<TModel> returns the IdSpan created for a non-null database model's generic type."
+    "contract": "SpanParser provides one in-place serialization and sequential deserialization family for delimiter-separated UTF-8 key values. Append writes a value at the caller's current buffer position, prefixes every noninitial value with ASCII '+', and returns the first unwritten position. Append accepts 12 types: Guid; signed and unsigned 64-, 32-, 16-, and 8-bit integers; decimal; string; and ReadOnlySpan<byte>. Guid values use 32 hexadecimal digits; numeric values use hexadecimal text; text and raw bytes substitute byte 0x1D for embedded '+'. Extract consumes the next '+'-delimited segment from a ReadOnlySpan<byte>, populates the requested type, and returns the unconsumed suffix. Extract supports 10 of Append's 12 types — the same list minus decimal and ReadOnlySpan<byte>, which Append can write into a key but Extract cannot read back out; the two halves are therefore not mirror images. GetDbGrainId<TModel> returns the IdSpan created for a non-null database model's generic type."
   },
   "metadata": {
     "status": "Draft",
@@ -31,7 +31,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-span-parser",
+    "sectionId": "grain-key-marshalling",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

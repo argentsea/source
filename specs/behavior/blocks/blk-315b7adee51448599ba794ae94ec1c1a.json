@@ -1,0 +1,50 @@
+{
+  "id": "blk-315b7adee51448599ba794ae94ec1c1a",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Resilient Command Execution",
+    "trigger": "the three-value output-parameter-or-column read finds a matching output parameter for one of the up to three requested value names, and that parameter's value is null or DBNull",
+    "response": "return null (default) for that value when its requested type can hold null (a reference type or Nullable<T>); otherwise, for a non-nullable value type, throw an UnexpectedSqlResultException whose message names the query and the missing value's requested name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "395-521",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedSqlResultException.cs",
+        "lines": "26-29",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

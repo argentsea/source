@@ -1,0 +1,95 @@
+{
+  "id": "blk-394f8651b5054f4bb5d45b35b49a667c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Shard Set Fan-Out",
+    "trigger": "one or more of the per-shard write tasks dispatched concurrently to every targeted shard fail while a write-all call (RunAsync, a shard-set batch, or a result-returning write-all query) awaits them together through ShardFanOut.WhenAllSurfaceAllFailuresAsync",
+    "response": "once every dispatched task has settled, the entire write-all call faults with every shard failure: a single failure is rethrown as-is, with its original exception type and its original stack preserved through ExceptionDispatchInfo, and two or more failures are thrown together as one AggregateException whose InnerExceptions hold each failed shard's exception, so no shard's failure is lost; this is how the write-all form enforces that every targeted shard must succeed",
+    "postcondition": "there is no compensating rollback of shards whose writes already completed; the call does not fault until every dispatched write task has completed, including any still in flight at the moment the first one failed. By design the write-all call cancels none of the other dispatched write tasks: unlike the read fan-outs it passes the caller's cancellationToken unchanged to every per-shard task rather than a linked one, because cancelling a sibling's in-flight write would leave that shard's outcome unknown, so an individual task ends cancelled only when the caller's own token is cancelled; when no shard failed but a task was cancelled, the call surfaces OperationCanceledException. A shard-set batch really is dispatched to every targeted shard; it is skipped without reaching any shard only when the caller has obtained the shard set's MockResults dictionary (which may be empty)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "535-574",
+        "label": "RunAllAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "576-611",
+        "label": "BatchAllAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "613-661",
+        "label": "WriteQueryAllAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "62-94",
+        "label": "WhenAllSurfaceAllFailuresAsync and ThrowFailures"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/ShardFanOutTests.cs",
+        "lines": "173-231",
+        "label": "write-all failure surfacing tests",
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-770111626c0545f3a50ccdec9618572b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-a7029785ab434c9fb4c8832d2a705845",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

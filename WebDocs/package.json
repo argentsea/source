@@ -1,0 +1,17 @@
+{
+  "name": "argentsea-webdocs",
+  "version": "2.0.0",
+  "private": true,
+  "description": "ArgentSea documentation site (VitePress)",
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "glossary": "node scripts/build-glossary.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "1.6.4",
+    "vue": "3.5.44"
+  }
+}

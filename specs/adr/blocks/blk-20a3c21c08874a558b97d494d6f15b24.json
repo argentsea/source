@@ -3,17 +3,29 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Use inheritable configuration properties instead of traditional connection strings",
-    "decision": "Configure connection attributes as discrete properties in the Hereditary Configuration Hierarchy; allow a child to inherit a parent value and override it at a lower level.",
-    "context": "Applications can need many database and shard connections, with separate read and write endpoints and many repeated values. Repeating complete connection strings makes that fleet difficult to manage.",
+    "title": "Configure connections as an inheritable property hierarchy bound through .NET Options, not as connection strings",
+    "status": "Accepted",
+    "decision": "Every connection attribute (server, database, credentials, timeouts, pooling, and resilience settings) is a discrete property bound from .NET configuration through strongly typed Options classes. The properties form the Hereditary Configuration Hierarchy, in which each level inherits its parent's values and may override them. For a non-sharded database the levels are global, database, and read/write endpoint. For a shard set they are global, shard set, the shard set's Read/Write section, shard, and read/write endpoint. Each endpoint's connection string is derived from the resolved properties. The provider's `AddSqlServices` or `AddPgServices` registration builds the Databases and ShardSets collections once at startup. Their layout is then fixed, but property values stay updatable at run time and changes propagate to inheriting children.",
+    "context": "A sharded application with read scale-out may need hundreds of connections. Every shard has a read and a write endpoint, and every environment (dev, test, staging, several production regions) needs a different variant. Most of those values are shared: one login for every shard's write connection, one database name across shards, one packet size everywhere. Secrets must stay out of source control, and environment-specific values must be injectable without transforming files at deployment. The .NET configuration system can merge values from many providers, such as JSON files, user secrets, environment variables and key vaults, into one dictionary, but only if the shape being bound is a property tree rather than opaque strings.",
     "alternatives": [
       {
-        "option": "Traditional connection strings configured independently for every connection.",
-        "whyRejected": "They repeat common values across a large connection fleet; the document adopts inheritance specifically to reduce that redundancy and make many connections manageable."
+        "option": "One full connection string per connection, as in standard ADO.NET.",
+        "whyRejected": "Every shared value is repeated in every string, so a password rotation or a server rename touches hundreds of entries. A secret cannot be supplied separately from the rest of a string by a different configuration provider."
+      },
+      {
+        "option": "Connection strings with token substitution or per-environment config transforms.",
+        "whyRejected": "Keeps the redundancy, moves the complexity into deployment tooling, and still embeds secrets in a templated artifact."
+      },
+      {
+        "option": "A flat property list per connection without inheritance.",
+        "whyRejected": "Separates secrets, but every shard still restates the same login, database and tuning values. The shard set's Read/Write sections exist because a strict parent-child chain would force every shard's read endpoint to repeat the read login."
+      },
+      {
+        "option": "A fully mutable hierarchy where shards and databases can be added or removed at run time.",
+        "whyRejected": "The collections are shared, concurrently used singletons. Fixing the layout keeps lookups lock-free and immutable, while still allowing failover-style changes to endpoint properties."
       }
     ],
-    "consequences": "A global, database, shard-set, shard, or endpoint setting can supply a value; read/write-specific values can differ only where necessary. Secrets can remain outside source through the .NET configuration system.",
-    "status": "Accepted"
+    "consequences": "Configuration volume scales with what differs rather than with the number of connections. Passwords can live in a secrets store addressed by a short key such as `SqlShardSets:0:Password`. Each kind of value can come from whichever provider manages it best. Costs: a mis-shaped configuration section binds to a null or partially empty Options object with no error, which is hard to diagnose. Options arrays are positional, so a configuration file's ordering matters and the index is not the key. Adding or removing a shard requires a restart. Run-time property updates are not fully thread-safe; in-flight queries are unaffected, and later connections use the new values."
   },
   "metadata": {
     "status": "Draft",

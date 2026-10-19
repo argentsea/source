@@ -21,11 +21,13 @@ namespace ArgentSea.Pg
 
 		internal static string NormalizePgParameterName(string parameterName)
 		{
-            return parameterName;//.ToLower();
+            // Deliberately unchanged: PostgreSQL parameter names need no normalization, and adding a ':' prefix broke parameter binding.
+            return parameterName;
 		}
         internal static string NormalizePgColumnName(string parameterName)
         {
-            return parameterName;//.ToLower();
+            // Deliberately unchanged: column names are matched exactly as given.
+            return parameterName;
         }
 
         #region String types
@@ -34,13 +36,13 @@ namespace ArgentSea.Pg
         /// Creates parameter for providing a string or a DBNull value to a stored procedure.
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-        /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
+        /// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
         /// <param name="value">An empty string will be saved as a zero-length string; a null string will be saved as a database null value.</param>
         /// <param name="maxLength">This should match the size of the parameter, not the size of the input string (and certainly not the number of bytes).
         /// For nvarchar(max) parameters, specify -1. 
         /// Setting the value correctly will help avoid plan cache pollution (when not using stored procedures) and minimize memory buffer allocations.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddPgVarcharInputParameter(this DbParameterCollection prms, string parameterName, string value, int maxLength)
+        public static DbParameterCollection AddPgVarcharInputParameter(this DbParameterCollection prms, string parameterName, string? value, int maxLength)
 		{
 			var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Varchar, maxLength)
 			{
@@ -54,7 +56,7 @@ namespace ArgentSea.Pg
 		/// Creates parameter for obtaining a string from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="length">Specifies the number of characters in the string. If the original string value is smaller than this length, the returned value will be padded with spaces.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgVarcharOutputParameter(this DbParameterCollection prms, string parameterName, int maxLength)
@@ -71,11 +73,11 @@ namespace ArgentSea.Pg
 		/// Creates parameter for providing a fixed-length string or a DBNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An empty string will be saved as a zero-length string; a null string will be saved as a database null value.</param>
 		/// <param name="length">Specifies the number of characters in the string. If the original string value is smaller than this length, the returned value will be padded with spaces.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgCharInputParameter(this DbParameterCollection prms, string parameterName, string value, int length)
+		public static DbParameterCollection AddPgCharInputParameter(this DbParameterCollection prms, string parameterName, string? value, int length)
 		{
 			var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Char, length)
 			{
@@ -89,7 +91,7 @@ namespace ArgentSea.Pg
 		/// Creates parameter for obtaining a fixed-length string from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="length">Specifies the number of characters in the string. If the original string value is smaller than this length, the returned value will be padded with spaces.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgCharOutputParameter(this DbParameterCollection prms, string parameterName, int length)
@@ -106,10 +108,10 @@ namespace ArgentSea.Pg
 		/// Creates parameter for providing a string or a DBNull value to a stored procedure, which is converted to the target ANSI code page (if possible).
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An empty string will be saved as a zero-length string; a null string will be saved as a database null value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgTextInputParameter(this DbParameterCollection prms, string parameterName, string value)
+		public static DbParameterCollection AddPgTextInputParameter(this DbParameterCollection prms, string parameterName, string? value)
 		{
 			var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Text)
 			{
@@ -123,7 +125,7 @@ namespace ArgentSea.Pg
 		/// Creates parameter for obtaining a string from a stored procedure, which has been converted from the source ANSI code page.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTextOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -141,7 +143,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 64-bit signed integer (long) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 64-bit signed integer value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgBigintInputParameter(this DbParameterCollection prms, string parameterName, long value)
@@ -158,7 +160,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 64-bit signed integer (long) or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 64-bit signed integer value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgBigintInputParameter(this DbParameterCollection prms, string parameterName, long? value)
@@ -187,7 +189,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a 64-bit signed integer (long) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgBigintOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -203,7 +205,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 32-bit signed integer (int) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 32-bit signed integer value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgIntegerInputParameter(this DbParameterCollection prms, string parameterName, int value)
@@ -220,7 +222,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 32-bit signed integer (int) or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 32-bit signed integer value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgIntegerInputParameter(this DbParameterCollection prms, string parameterName, int? value)
@@ -249,7 +251,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a 32-bit signed integer (int) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgIntegerOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -266,7 +268,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 16-bit signed integer (short) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 16-bit signed integer value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgSmallintInputParameter(this DbParameterCollection prms, string parameterName, short value)
@@ -283,7 +285,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 16-bit signed integer (short) or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 16-bit signed integer value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgSmallintInputParameter(this DbParameterCollection prms, string parameterName, short? value)
@@ -312,7 +314,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a 32-bit signed integer (short) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgSmallintOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -328,7 +330,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 8-bit unsigned integer (byte) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An unsigned 8-bit integer value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgInternalCharInputParameter(this DbParameterCollection prms, string parameterName, byte value)
@@ -345,7 +347,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 8-bit unsigned integer (byte) or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An unsigned 8-bit integer value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgInternalCharInputParameter(this DbParameterCollection prms, string parameterName, byte? value)
@@ -374,7 +376,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a 32-bit signed integer (byte) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgInternalCharOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -390,7 +392,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a boolean value (bool) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A boolean value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgBooleanInputParameter(this DbParameterCollection prms, string parameterName, bool value)
@@ -407,7 +409,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a boolean value (bool) or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A boolean value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgBooleanInputParameter(this DbParameterCollection prms, string parameterName, bool? value)
@@ -436,7 +438,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a boolean value (bool) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgBooleanOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -452,7 +454,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a decmial value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A decmial value .</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgNumericInputParameter(this DbParameterCollection prms, string parameterName, decimal value, byte precision, byte scale)
@@ -471,7 +473,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a decmial value or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A decmial value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgNumericInputParameter(this DbParameterCollection prms, string parameterName, decimal? value, byte precision, byte scale)
@@ -504,7 +506,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a decmial value from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="precision">Specifies the maximum number of digits used to store the number (inclusive of both sides of the decimal point).</param>
 		/// <param name="scale">Specifies the number of digits used in the fractional portion of the number (i.e. digits to the right of the decimal point).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
@@ -524,7 +526,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a decmial value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A decmial value .</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgMoneyInputParameter(this DbParameterCollection prms, string parameterName, decimal value)
@@ -541,7 +543,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a decmial value or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A decmial value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgMoneyInputParameter(this DbParameterCollection prms, string parameterName, decimal? value)
@@ -570,7 +572,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a decmial value from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="precision">Specifies the maximum number of digits used to store the number (inclusive of both sides of the decimal point).</param>
 		/// <param name="scale">Specifies the number of digits used in the fractional portion of the number (i.e. digits to the right of the decimal point).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
@@ -587,8 +589,12 @@ namespace ArgentSea.Pg
 		/// <summary>
 		/// Creates a parameter for providing a 64-bit floating-point value (double) to a stored procedure. NaN will be converted to DbNull.
 		/// </summary>
+		/// <remarks>
+		/// By design, double.NaN is sent as a database null, mirroring GetDouble, which returns NaN for a database null.
+		/// A caller that must send a NaN value should use the Nullable&lt;double&gt; overload, which maps only null to a database null.
+		/// </remarks>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 64-bit floating-point value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgDoubleInputParameter(this DbParameterCollection prms, string parameterName, double value)
@@ -617,7 +623,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 64-bit floating-point value (double) or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 64-bit floating-point value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgDoubleInputParameter(this DbParameterCollection prms, string parameterName, double? value)
@@ -646,7 +652,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a 64-bit floating-point value (double) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgDoubleOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -662,7 +668,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 32-bit floating-point value (float) to a stored procedure. NaN will be converted to DbNull.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 32-bit floating point value (float).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgRealInputParameter(this DbParameterCollection prms, string parameterName, float value)
@@ -691,7 +697,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a 32-bit floating-point value (float) or DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A 32-bit floating point value (float) or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgRealInputParameter(this DbParameterCollection prms, string parameterName, float? value)
@@ -720,7 +726,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a 32-bit floating-point value (float) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgRealOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -738,7 +744,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a date and time value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A date and time value .</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimestampInputParameter(this DbParameterCollection prms, string parameterName, DateTime value)
@@ -755,7 +761,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a date and time value or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A date and time value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimestampInputParameter(this DbParameterCollection prms, string parameterName, DateTime? value)
@@ -784,7 +790,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a date and time value from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimestampOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -800,7 +806,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a DateTimeOffset value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A DateTimeOffset value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimestampTzInputParameter(this DbParameterCollection prms, string parameterName, DateTimeOffset value)
@@ -817,7 +823,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a DateTimeOffset or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A DateTimeOffset value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimestampTzInputParameter(this DbParameterCollection prms, string parameterName, DateTimeOffset? value)
@@ -846,7 +852,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a DateTimeOffset from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimestampTzOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -862,7 +868,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a date (sans time) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A DateTime value.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgDateInputParameter(this DbParameterCollection prms, string parameterName, DateTime value)
@@ -879,7 +885,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a date (sans time) or DbNull to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A DateTime value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgDateInputParameter(this DbParameterCollection prms, string parameterName, DateTime? value)
@@ -908,7 +914,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a date (sans time) from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgDateOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -924,7 +930,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a time value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A time value .</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimeInputParameter(this DbParameterCollection prms, string parameterName, TimeSpan value)
@@ -941,7 +947,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a time value or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A time value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimeInputParameter(this DbParameterCollection prms, string parameterName, TimeSpan? value)
@@ -970,7 +976,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a time value from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimeOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -986,7 +992,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a time value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A time value .</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgIntervalInputParameter(this DbParameterCollection prms, string parameterName, TimeSpan value)
@@ -1004,7 +1010,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a time value or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A time value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgIntervalInputParameter(this DbParameterCollection prms, string parameterName, TimeSpan? value)
@@ -1034,7 +1040,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a time value from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgIntervalOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -1050,24 +1056,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a time value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
-		/// <param name="value">A time value .</param>
-		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgTimeTzInputParameter(this DbParameterCollection prms, string parameterName, TimeSpan value)
-		{
-			var prm = new NpgsqlParameter<TimeSpan>(NormalizePgParameterName(parameterName), NpgsqlDbType.TimeTz)
-			{
-				TypedValue = value,
-				Direction = ParameterDirection.Input
-			};
-			prms.Add(prm);
-			return prms;
-		}
-		/// <summary>
-		/// Creates a parameter for providing a time value to a stored procedure.
-		/// </summary>
-		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A time value .</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimeTzInputParameter(this DbParameterCollection prms, string parameterName, DateTimeOffset value)
@@ -1084,36 +1073,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a time value or a DbNull value to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
-		/// <param name="value">A time value or null.</param>
-		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgTimeTzInputParameter(this DbParameterCollection prms, string parameterName, TimeSpan? value)
-		{
-			if (value.HasValue)
-			{
-				var prm = new NpgsqlParameter<TimeSpan>(NormalizePgParameterName(parameterName), NpgsqlDbType.TimeTz)
-				{
-					TypedValue = value.Value,
-					Direction = ParameterDirection.Input
-				};
-				prms.Add(prm);
-			}
-			else
-			{
-				var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.TimeTz)
-				{
-					Value = System.DBNull.Value,
-					Direction = ParameterDirection.Input
-				};
-				prms.Add(prm);
-			}
-			return prms;
-		}
-		/// <summary>
-		/// Creates a parameter for providing a time value or a DbNull value to a stored procedure.
-		/// </summary>
-		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">A time value or null.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimeTzInputParameter(this DbParameterCollection prms, string parameterName, DateTimeOffset? value)
@@ -1142,7 +1102,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a time value from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgTimeTzOutputParameter(this DbParameterCollection prms, string parameterName)
 		{
@@ -1160,11 +1120,11 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a variable-sized byte array to a stored procedure. A null reference will save DBNull.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An array, or null.</param>
 		/// <param name="length">The maximum allowable number of bytes in the database column. Use -1 for varbinary(max).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgArrayInputParameter(this DbParameterCollection prms, string parameterName, Array value, NpgsqlDbType npgsqlDbType)
+		public static DbParameterCollection AddPgArrayInputParameter(this DbParameterCollection prms, string parameterName, Array? value, NpgsqlDbType npgsqlDbType)
 		{
 			var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Array | npgsqlDbType)
 			{
@@ -1178,7 +1138,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for obtaining a variable-sized byte array from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="length">The maximum allowable number of bytes in the database column. Use -1 for varbinary(max).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgArrayOutputParameter(this DbParameterCollection prms, string parameterName, NpgsqlDbType npgsqlDbType)
@@ -1195,11 +1155,11 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a variable-sized byte array to a stored procedure. A null reference will save DBNull.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An array of bytes, or null.</param>
 		/// <param name="length">This is NOT used by PostgreSQL to limit the input size, but it is used by Npgsql to determine buffer size. If this value is known, setting it may help performance.</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgByteaInputParameter(this DbParameterCollection prms, string parameterName, byte[] value, int length)
+		public static DbParameterCollection AddPgByteaInputParameter(this DbParameterCollection prms, string parameterName, byte[]? value, int length)
 		{
 			var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Bytea, length)
 			{
@@ -1213,10 +1173,10 @@ namespace ArgentSea.Pg
         /// Creates a parameter for providing a variable-sized byte array to a stored procedure. A null reference will save DBNull.
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-        /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+        /// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
         /// <param name="value">An array of bytes, or null.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddPgByteaInputParameter(this DbParameterCollection prms, string parameterName, byte[] value)
+        public static DbParameterCollection AddPgByteaInputParameter(this DbParameterCollection prms, string parameterName, byte[]? value)
         {
             var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Bytea)
             {
@@ -1230,7 +1190,7 @@ namespace ArgentSea.Pg
         /// Creates a parameter for obtaining a variable-sized byte array from a stored procedure.
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-        /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+        /// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
         /// <param name="length">The maximum allowable number of bytes in the database column. Use -1 for varbinary(max).</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
         public static DbParameterCollection AddPgByteaOutputParameter(this DbParameterCollection prms, string parameterName, int length)
@@ -1247,11 +1207,11 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a variable-sized byte array to a stored procedure. A null reference will save DBNull.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="value">An array of bytes, or null.</param>
 		/// <param name="length">The maximum allowable number of bytes in the database column. Use -1 for varbinary(max).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-		public static DbParameterCollection AddPgHstoreInputParameter(this DbParameterCollection prms, string parameterName, IDictionary<string, string> value)
+		public static DbParameterCollection AddPgHstoreInputParameter(this DbParameterCollection prms, string parameterName, IDictionary<string, string>? value)
 		{
 			var prm = new NpgsqlParameter(NormalizePgParameterName(parameterName), NpgsqlDbType.Hstore)
 			{
@@ -1265,7 +1225,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for obtaining a variable-sized byte array from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <param name="length">The maximum allowable number of bytes in the database column. Use -1 for varbinary(max).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgHstoreOutputParameter(this DbParameterCollection prms, string parameterName)
@@ -1282,8 +1242,12 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Creates a parameter for providing a Guid or DBNull (via Guid.Empty) to a stored procedure.
         /// </summary>
+        /// <remarks>
+        /// By design, Guid.Empty is sent as a database null, mirroring GetGuid, which returns Guid.Empty for a database null.
+        /// A caller that must send an empty Guid value should use the Nullable&lt;Guid&gt; overload, which maps only null to a database null.
+        /// </remarks>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-        /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+        /// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
         /// <param name="value">A Guid value. Will convert Guild.Empty to DBNull.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
         public static DbParameterCollection AddPgUuidInputParameter(this DbParameterCollection prms, string parameterName, Guid value)
@@ -1312,7 +1276,7 @@ namespace ArgentSea.Pg
 		/// Creates a parameter for providing a Guid or DBNull (via null value) to a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgUuidInputParameter(this DbParameterCollection prms, string parameterName, Guid? value)
 		{
@@ -1340,7 +1304,7 @@ namespace ArgentSea.Pg
 		/// Creates an output parameter for retrieving a Guid from a stored procedure.
 		/// </summary>
 		/// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
-		/// <param name="parameterName">The name of the parameter. If the name doesn’t start with “:”, it will be automatically pre-pended.</param>
+		/// <param name="parameterName">The name of the parameter. The name is used exactly as given; PostgreSQL parameter names are not normalized (no prefix is added).</param>
 		/// <returns>The DbParameterCollection to which the parameter was appended.</returns>
 		public static DbParameterCollection AddPgUuidOutputParameter(this DbParameterCollection prms, string parameterName)
 		{

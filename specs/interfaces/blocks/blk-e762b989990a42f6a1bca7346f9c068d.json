@@ -1,0 +1,76 @@
+{
+  "id": "blk-e762b989990a42f6a1bca7346f9c068d",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "DataConnectionConfigurationBase",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "DataConnectionConfigurationBase is the abstract shape that declares the discrete connection settings a hierarchy level may hold: three credential properties (UserName, Password, WindowsAuth) and five resilience properties (RetryCount, RetryInterval, RetryLengthening, CircuitBreakerFailureCount, CircuitBreakerTestInterval). IDataConnection.SetAmbientConfiguration(DataConnectionConfigurationBase globalProperties, DataConnectionConfigurationBase shardSetProperties, DataConnectionConfigurationBase readWriteProperties, DataConnectionConfigurationBase shardProperties) takes four such instances — global, shard set, shard-set read/write, and shard (or database) — any of which may be null; this parameter order is the one every implementation and caller uses. The provider connection types (SqlConnectionConfiguration, PgConnectionConfiguration) derive from DataConnectionConfigurationBase and register those levels for resilience inheritance through its protected SetAmbientResilience method. A connection then resolves each resilience setting with the same precedence as its connection string: its own value, then the shard (or database), then the shard-set read/write settings, then the shard set, then global; a setting unset at every level resolves to null so the consumer's built-in default applies. The levels are read on every access, so a later change to any level takes effect without re-registration. IDataConnection's RetryCount, CircuitBreakerFailureCount and CircuitBreakerTestInterval report these resolved (inherited) values — the provider connections implement them explicitly from the protected InheritedRetryCount, InheritedCircuitBreakerFailureCount and InheritedCircuitBreakerTestInterval accessors — while the public properties of the same names keep only the instance's own bound configuration value. GetRetryTimespan(attempt) resolves RetryInterval (default 250 ms when unset at every level) and RetryLengthening (default Lengthening, the odd-number progression 1, 3, 5, 7… × interval, when unset at every level) through the same inheritance into the wait before the given retry attempt; for an instance with no registered levels this is just its own values. UserName, Password and WindowsAuth each raise the PropertyChanged event, naming themselves as the event's property name, whenever assigned a value different from the one already held; WindowsAuth and the five resilience settings are declared nullable so an unset value at one level can be distinguished from an explicit one."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "51-182",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataConnection.cs",
+        "lines": "8-30",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

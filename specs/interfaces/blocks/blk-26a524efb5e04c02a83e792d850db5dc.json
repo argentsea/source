@@ -6,7 +6,7 @@
     "name": "QueryStatement.Create factory family",
     "kind": "Library",
     "language": "csharp",
-    "contract": "QueryStatement.Create returns Lazy<QueryStatement> so command text is not read until Value is requested. Every overload accepts a statement name; callers may omit parameter names, supply parameter names, select a folder and extension, or supply a full file path. When materialized, the result is a QueryStatement query contract whose name and parameter names are the supplied values and whose command type is Text."
+    "contract": "QueryStatement.Create returns Lazy<QueryStatement> so command text is not read until Value is requested. Every overload accepts a statement name; callers may omit parameter names, supply parameter names, select a folder and extension, or supply a full file path. When materialized, the result is a QueryStatement query contract whose name and parameter names are the supplied values and whose command type is Text. For the three overloads that do not take a full file path, the file location is computed at the moment Value is first evaluated (not when Create is called) from the statement name, a folder, and an extension: when the name itself is a rooted path, the folder is ignored and the path is taken from the name directly; otherwise, when the folder is a rooted path, the folder and name are combined directly; otherwise, the folder and name are combined relative to the application's base directory; in every case the extension is appended to the resulting file name whenever a non-null extension was supplied. The Create(name) and Create(name, parameterNames) overloads source the folder and extension from QueryStatement.Folder (default \"SQL\") and QueryStatement.Extension (default \"sql\") — static properties shared by the whole process, read at Value-evaluation time rather than at Create-call time, so a later reassignment can still change which file a previously-created Lazy<QueryStatement> loads. The four-argument overload instead takes an explicit folder and extension, bypassing those static defaults."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
-        "lines": "34-72",
+        "lines": "34-79",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-statement",
+    "sectionId": "query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

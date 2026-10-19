@@ -3,8 +3,8 @@
   "specId": "schemas",
   "type": "Schema",
   "fields": {
-    "name": "PgDbConnectionOptions.PgDbConnectionConfiguration data shape",
-    "description": "The configurable database key and read/write connection pair exposed by PgDbConnectionOptions.PgDbConnectionConfiguration.",
+    "name": "PgDbConnectionConfiguration data shape",
+    "description": "The configurable database key and read/write connection pair exposed by PgDbConnectionConfiguration.",
     "members": [
       {
         "name": "DatabaseKey",
@@ -45,14 +45,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgDbConnectionOptions.cs",
-        "lines": "38-46",
+        "lines": "40-48",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-db-connection-options-pg-db-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

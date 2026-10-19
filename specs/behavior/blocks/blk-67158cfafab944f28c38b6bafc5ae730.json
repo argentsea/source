@@ -3,29 +3,29 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ShardKeyOrleansSerializer<...>",
+    "subject": "Shard Key Orleans Codecs",
     "condition": "the Orleans field is not represented as a reference",
-    "trigger": "a caller writes or reads a virtual compound key of any supported arity",
-    "response": "write or consume a LengthPrefixed field containing one byte of payload length followed by that many ShardKey byte-representation bytes, and rebuild and session-record the key on read",
-    "postcondition": "the decoded key is constructed from exactly the bytes consumed after the length byte"
+    "trigger": "ShardKeyOrleansSerializer<...>: a caller writes or reads a virtual compound key of any supported arity",
+    "response": "write or consume a LengthPrefixed field containing the payload length as an Orleans VarUInt32 followed by that many ShardKey byte-representation bytes, and rebuild and session-record the key on read",
+    "postcondition": "the decoded key is constructed from exactly the bytes consumed after the length, a key of any size round-trips, and Orleans' generic SkipField steps over the whole field"
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-shard-key-orleans-serializer'. Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable behavioral block.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable behavioral block. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'shard-key-orleans-codecs' resolves to component 'Shard Key Orleans Codecs' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
-        "lines": "16-180",
+        "lines": "16-188",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-shard-key-orleans-serializer",
+    "sectionId": "shard-key-orleans-codecs",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,42 @@
+{
+  "id": "blk-8c6a35420c6640b28bcdb57e50419e7c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "DatabasesBase<TConfiguration>.DataConnection",
+    "trigger": "a caller invokes MapListAsync<TModel> or ListAsync<TValue>",
+    "response": "shall, for MapListAsync<TModel>, return the Task<List<TModel>> obtained directly from DataConnectionManager.ListAsync<TModel>; shall, for ListAsync<TValue>, absent a matching MockResults entry, forward the given columnName to DataConnectionManager.ListAsync<TValue, object, object> and return a List<TValue> built by projecting the Item1 value from each item the manager returns"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "176-201",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "databases-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c924ca65ef8a4fe3892a468b60b70b77",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -6,7 +6,7 @@
     "name": "ArgentSeaGrainStorageFactory grain-storage factory",
     "kind": "Library",
     "language": "text",
-    "contract": "ArgentSeaGrainStorageFactory exposes two static creation modes for callers registering Orleans storage: CreateDb returns an IGrainStorage backed by database persistence using the services' database-persistence options, while CreateShards returns an IGrainStorage backed by sharded persistence using options selected by the supplied provider name. Both modes obtain their required storage and cluster services from the supplied IServiceProvider."
+    "contract": "ArgentSeaGrainStorageFactory exposes two static creation modes for callers registering Orleans storage: CreateDb returns an IGrainStorage backed by database persistence using the OrleansDbPersistenceOptions selected by the supplied provider name, while CreateShards returns an IGrainStorage backed by sharded persistence using the OrleansShardPersistenceOptions selected by the supplied provider name. Both modes obtain their required storage and cluster services from the supplied IServiceProvider."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-grain-storage-factory",
+    "sectionId": "orleans-grain-storage-hosting",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "orleans-sql-grain-storage-factory",
+      "blockId": "orleans-grain-storage-hosting",
       "blobHash": null,
       "label": null,
       "relation": "references"

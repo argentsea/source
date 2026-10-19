@@ -1,0 +1,68 @@
+{
+  "id": "shard-key",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Shard Key",
+    "responsibility": "Represents a record's identity as the shard that holds it combined with one to four of the record's own key columns, so that an identity unique only within a shard becomes unique across the whole set. It owns how two such identities compare and hash, how a collection of them is merged or diffed against another, and how the set of foreign shards a collection refers to is derived. It also declares how a model exposes the identity it carries.",
+    "parent": "sharding"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/IShardKey.cs",
+        "lines": "8-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/IKeyedModel.cs",
+        "lines": "11-29",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "14-448",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardChild.cs",
+        "lines": "18-514",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGrandChild.cs",
+        "lines": "18-561",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardGreatGrandChild.cs",
+        "lines": "18-605",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidShardArgumentsException.cs",
+        "lines": "16-44",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

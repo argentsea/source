@@ -1,0 +1,62 @@
+{
+  "id": "blk-8cc0d157123145c488c9b2cae55023af",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls one of the six CreatedExpressionTreeFor* wrapper methods (SetInParameters, SetOutParameters, ReadOutParameters, ReaderOrdinals, ReaderRowData, or Model) with a newly compiled expression tree for a model type",
+    "response": "check logger.IsEnabled(LogLevel.Debug) and, only when Debug is enabled, render the compiled expression tree as a debug-view string and log it at Debug under event id ExpressionTreeCreation, through that method's own delegate and event name — so CreatedExpressionTreeForReaderOrdinals emits a CreatedExpressionTreeForReaderOrdinals event with its ordinals message, distinct from CreatedExpressionTreeForReaderRowData",
+    "postcondition": "no rendering work is done when Debug logging is disabled"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "114-119,239-304",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-6565dc6a77354ba8a2692ce5e2955f78",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

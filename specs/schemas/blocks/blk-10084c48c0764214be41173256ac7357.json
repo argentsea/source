@@ -1,0 +1,96 @@
+{
+  "id": "blk-10084c48c0764214be41173256ac7357",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSea.Orleans package dependency set",
+    "description": "The external and internal dependencies ArgentSea.Orleans.csproj declares: three Microsoft Orleans packages pinned to one version, a single project reference to ArgentSea core, the packed non-code files (each with its own pack flag and package path), and the internal-visibility grant that lets the package's Test project see its internal types. The set names Orleans and ArgentSea core and no database-platform package or project (no SqlClient, Npgsql, ArgentSea.Sql, or ArgentSea.Pg reference) — see the companion Invariant.",
+    "members": [
+      {
+        "name": "PackageReference[Microsoft.Orleans.Reminders]",
+        "type": "nvarchar(20)",
+        "description": "Version of the Orleans reminder-service package referenced.",
+        "required": true,
+        "notes": "10.3.1"
+      },
+      {
+        "name": "PackageReference[Microsoft.Orleans.Runtime]",
+        "type": "nvarchar(20)",
+        "description": "Version of the Orleans runtime package referenced.",
+        "required": true,
+        "notes": "10.3.1"
+      },
+      {
+        "name": "PackageReference[Microsoft.Orleans.Sdk]",
+        "type": "nvarchar(20)",
+        "description": "Version of the Orleans SDK package referenced.",
+        "required": true,
+        "notes": "10.3.1, same pin as the other two Orleans packages"
+      },
+      {
+        "name": "ProjectReference",
+        "type": "nvarchar(260)",
+        "description": "Path to the ArgentSea core project this package builds against. The only ProjectReference in the file.",
+        "required": true,
+        "notes": "..\\..\\ArgentSea.Shared\\src\\ArgentSea.csproj"
+      },
+      {
+        "name": "None[readme.md].Pack",
+        "type": "bit",
+        "description": "Whether the readme file is packed into the NuGet package.",
+        "required": true,
+        "notes": "true"
+      },
+      {
+        "name": "None[readme.md].PackagePath",
+        "type": "nvarchar(10)",
+        "description": "NuGet package-relative path the readme is packed to.",
+        "required": true,
+        "notes": "\\ (package root)"
+      },
+      {
+        "name": "None[argentsea-logo.png].Pack",
+        "type": "bit",
+        "description": "Whether the package icon file is packed into the NuGet package.",
+        "required": true,
+        "notes": "true"
+      },
+      {
+        "name": "None[argentsea-logo.png].PackagePath",
+        "type": "nvarchar(10)",
+        "description": "NuGet package-relative path the icon file is packed to.",
+        "required": true,
+        "notes": "\\ (package root)"
+      },
+      {
+        "name": "InternalsVisibleTo",
+        "type": "nvarchar(100)",
+        "description": "The assembly granted visibility into this package's internal types.",
+        "required": true,
+        "notes": "$(MSBuildProjectName).Test, i.e. ArgentSea.Orleans.Test"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/ArgentSea.Orleans.csproj",
+        "lines": "24-37",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -20,11 +20,17 @@
         "lines": "14-63",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/ShardSetBatch.cs",
+        "lines": "65-94",
+        "label": "ShardSetBatchQuery.ExecuteAsync executes the query and returns null, establishing the no-result claim"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-set-batch",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
-        "lines": "159-176",
+        "lines": "177-194",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-membership-table",
+    "sectionId": "orleans-cluster-providers",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

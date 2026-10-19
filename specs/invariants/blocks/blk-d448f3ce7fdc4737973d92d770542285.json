@@ -1,0 +1,31 @@
+{
+  "id": "blk-d448f3ce7fdc4737973d92d770542285",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Within the ArgentSea solution's build graph, ArgentSea.Orleans.Sql is the only project declaring explicit BuildDependency edges, on ArgentSea.Orleans and ArgentSea.Sql; the Release BuildType is declared for all five product projects plus ArgentSea.Shared's test project (ArgentSea.Test), and is never declared for the other four test projects (ArgentSea.Orleans.Test, ArgentSea.Orleans.Sql.Test, ArgentSea.Pg.Test, ArgentSea.Sql.Test).",
+    "scope": "Per-project BuildDependency and BuildType declarations in the ArgentSea.slnx solution file."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.slnx",
+        "lines": "2-25",
+        "label": "Solution file listing every project in the tree"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "argent-sea",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

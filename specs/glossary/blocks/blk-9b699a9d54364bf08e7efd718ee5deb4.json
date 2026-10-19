@@ -3,10 +3,12 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
-    "name": "Two-phase query execution",
-    "definition": "The query organization that separates single-threaded parameter setup from result construction that may run on multiple threads.",
+    "name": "Query paradigm",
+    "definition": "ArgentSea's pattern for coding data access, which splits it into two parts. The caller builds the parameters on a single thread and invokes a query method. The result handler converts each connection's results into a model and may run concurrently on many threads, one per shard. The split exists because one parameter set must be copied to, and its results collected from, many connections at once. It is applied to non-sharded databases as well, so that sharded and non-sharded code look the same and the Mapper serves both.",
     "synonyms": [
-      "ArgentSea Query Paradigm"
+      "ArgentSea Query Paradigm",
+      "caller/handler pattern",
+      "two-phase query execution"
     ]
   },
   "metadata": {

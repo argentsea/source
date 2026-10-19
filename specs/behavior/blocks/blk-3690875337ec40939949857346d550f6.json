@@ -1,0 +1,42 @@
+{
+  "id": "blk-3690875337ec40939949857346d550f6",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a property is declared as Nullable<ShardKey<short, int>> and carries a MapShardKeyAttribute",
+      "when": "ExpressionHelpers calls GetMapShardKeyAttribute for that property",
+      "then": "it reports isNullable = true and isShardChild = true, with isShardKey, isShardGrandChild and isShardGreatGrandChild all false, and returns the MapShardKeyAttribute instance"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-c010ddd73d7646ee971aab78a71a7147"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "625-657",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

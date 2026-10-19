@@ -1,0 +1,34 @@
+{
+  "id": "blk-c986c1ae849b478b8708afd317cb78f5",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ShardDataConnection<TConfiguration> RunAsync(ShardBatch) transactional family",
+    "kind": "Library",
+    "language": "text",
+    "contract": "For a ShardBatch<TResult> composed of multiple commands, RunAsync executes that batch's commands against this single shard within one transaction and returns the batch's declared TResult. This is the single-shard execution path for a ShardBatch assembled elsewhere in the shard-set API; unlike the Query-based RunAsync overloads, it takes the batch and a cancellation token only, with no separate parameters or shardParameterName argument of its own."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "638-646",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-addressing",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -1,0 +1,31 @@
+{
+  "id": "blk-ecbfacfeb1d3474f9b4e87e093282ae9",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Each reader-column fragment builder call (ReaderStringExpressions, ReaderEnumXIntExpressions, ReaderSimpleValueExpressions, ReaderNullableValueTypeExpressions) appends exactly one column-ordinal lookup to columnLookupExpressions, reads its own ordinal back from the ordinals array at the current value of the shared ref propIndex counter, and increments that counter by exactly one: within a single call, the lookup append and the counter increment always occur together, and neither happens without the other.",
+    "scope": "ExpressionHelpers reader-column fragment builders, within a single compiled reader-mapping delegate build"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "294-501",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

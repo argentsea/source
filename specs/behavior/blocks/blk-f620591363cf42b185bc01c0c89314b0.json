@@ -1,0 +1,50 @@
+{
+  "id": "blk-f620591363cf42b185bc01c0c89314b0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" is configured with a Query contract, the supplied grain state has State = null when ReadStateAsync begins, and the configured read query returns no row for the supplied key",
+      "when": "ArgentSeaShardGrainPersistence<TShardOptions>.ReadStateAsync is invoked for \"orders\"",
+      "then": "the read query maps into a new default TModel instance (because State was null), and since no row is returned grainState.State is replaced with a new instance — created by TModel's static IActivator<TModel> factory when TModel implements IActivator<TModel>, otherwise a default TModel whose shard key is set from the grain id through the shard-setting delegate cached for the state name \"orders\" and the state type TModel — and RecordExists is set to false"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-4feff7c4f860482aad1b10303a45f512"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "74-114",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "1-49",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

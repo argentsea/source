@@ -1,0 +1,48 @@
+{
+  "id": "blk-83a60b038c0d418bb56e8bec9eb59607",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" has no query contract registered, and the supplied grain state has State = null",
+      "when": "ArgentSeaDbGrainPersistence<TDatabaseOptions>.WriteStateAsync is invoked for \"orders\"",
+      "then": "it throws NoNullAllowedException, not OrleansQueryNotProvidedException, because the null-state check runs before the query-registration check"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-32b362ab7a0647eca1e54b12d08f7564"
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ea747f3d72834d758567f1684fcd03f6"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "122-129",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

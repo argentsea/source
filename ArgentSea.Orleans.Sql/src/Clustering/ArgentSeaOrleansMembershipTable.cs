@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Data.Common;
+using System.Net;
 using ArgentSea;
 using ArgentSea.Sql;
 using Microsoft.Extensions.Logging;
@@ -20,7 +21,6 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
     private readonly string _clusterId;
     private readonly ILogger<ArgentSeaOrleansMembershipTable> _logger;
     private readonly string _dbKey;
-    private static TableVersion _unIinitTableVersion = new(0, "0");
 
     public ArgentSeaOrleansMembershipTable(SqlDatabases dbs, IOptions<ClusterOptions> clusterOptions, IOptions<OrleansDbPersistenceOptions> dbOptions, ILogger<ArgentSeaOrleansMembershipTable> logger)
     {
@@ -132,14 +132,32 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
         try
         {
             await _db.Write.RunAsync(Queries.OrleansClusterInsertMemberKey, prms, CancellationToken.None);
+            return true;
+        }
+        catch (Exception ex) when (IsConcurrencyConflict(ex))
+        {
+            // The procedure raises error 51000 when the TableVersion etag does not match or the silo row already exists.
+            _logger.LogWarning(ex, "Membership insert conflict for host:{Host} on Port:{Port}", entry.HostName, entry.SiloAddress.Endpoint.Port);
+            return false;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error inserting row for host:{Host} on Port:{Port}", entry.HostName, entry.SiloAddress.Endpoint.Port);
             throw;
         }
-        return true;
     }
+
+    /// <summary>
+    /// The SQL error number the membership write procedures THROW to signal a TableVersion/row etag conflict
+    /// (or, for inserts, an already-existing silo row). Orleans expects such conflicts to be reported as a false result.
+    /// </summary>
+    internal const int ConcurrencyConflictErrorNumber = 51000;
+
+    /// <summary>
+    /// True only for the procedure-raised concurrency signal; transient, connection and timeout failures are not conflicts.
+    /// </summary>
+    internal static bool IsConcurrencyConflict(Exception ex)
+        => ex is SqlException sqlEx && sqlEx.Number == ConcurrencyConflictErrorNumber;
 
 
     /// <summary>
@@ -156,78 +174,83 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
         {
             using var cnn = new SqlConnection(_db.Read.ConnectionString);
             using var cmd = new SqlCommand(Queries.OrleansClusterMemberReadAllKey.Sql, cnn);
-            var list = new List<Tuple<MembershipEntry, string>>();
-            var tv = _unIinitTableVersion;
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddSqlNVarCharInputParameter("@ClusterId", _clusterId, 150);
             await cnn.OpenAsync();
-            using (var rdr = await cmd.ExecuteReaderAsync())
-            {
-                if (!rdr.Read())
-                {
-                    throw new OrleansException("The membership version table was not found.");
-                }
-                var versionETagNo = rdr.GetInt32(1);
-                tv = new TableVersion(rdr.GetInt32(2), versionETagNo.ToString(CultureInfo.InvariantCulture));
-                if (!rdr.NextResult())
-                {
-                    _logger.LogError("Member table query did not result expected Members result.");
-                    return new MembershipTableData(tv);
-                }
-
-                var members = new Dictionary<int, MembershipEntry>();
-                while (rdr.Read())
-                {
-                    int memberETagNo = -1;
-                    int memberVersion = int.MaxValue;
-                    var me = new MembershipEntry()
-                    {
-                        SiloAddress = SiloAddress.New(new IPEndPoint(new IPAddress(rdr.GetSqlBinary(1).Value), rdr.GetInt32(2)), rdr.GetInt32(3)),
-                        SiloName = rdr.GetString(4),
-                        HostName = rdr.GetString(5),
-                        Status = (SiloStatus)rdr.GetInt16(6),
-                        ProxyPort = rdr.GetInt32(7),
-                        StartTime = rdr.GetDateTime(8),
-                        IAmAliveTime = rdr.GetDateTime(9)
-                    };
-                    memberETagNo = rdr.GetInt32(10);
-                    memberVersion = rdr.GetInt32(11);
-                    if (memberETagNo != versionETagNo)
-                    {
-                        _logger.LogError($"Member ETag {memberETagNo} does not match VersionTable ETag {versionETagNo}.");
-                    }
-                    if (memberVersion > tv.Version)
-                    {
-                        _logger.LogError($"Member Version {memberVersion} is greater than VersionTable version number {tv.Version}. This may indicate data corruption.");
-                    }
-                    members.Add(rdr.GetInt32(0), me);
-                    list.Add(new Tuple<MembershipEntry, string>(me, memberETagNo.ToString(CultureInfo.InvariantCulture)));
-                }
-                if (!rdr.NextResult())
-                {
-                    _logger.LogError("Member table query did not result expected Suspects result.");
-                    return new MembershipTableData(list, tv);
-                }
-                while (rdr.Read())
-                {
-                    if (!members.TryGetValue(rdr.GetInt32(0), out var member))
-                    {
-                        _logger.LogError($"Member Suspect record (id: {rdr.GetInt32(0)}) refers to a member record which doesn't exist (members collection count:{members.Count}).");
-                    }
-                    else
-                    {
-                        member.AddSuspector(SiloAddress.New(new IPEndPoint(new IPAddress(rdr.GetSqlBinary(1).Value), rdr.GetInt32(2)), rdr.GetInt32(3)), rdr.GetDateTime(4));
-                    }
-                }
-            }
-
-            return new MembershipTableData(list, tv);
+            using var rdr = await cmd.ExecuteReaderAsync();
+            return ReadAllFromReader(rdr, _logger);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error reading all membership entries.");
             throw;
         }
+    }
+
+    /// <summary>
+    /// Maps the three result sets of rdr.OrleansClusterMemberReadAllKeyV1 (version row; member rows; suspect rows) to membership-table data.
+    /// </summary>
+    internal static MembershipTableData ReadAllFromReader(DbDataReader rdr, ILogger logger)
+    {
+        var list = new List<Tuple<MembershipEntry, string>>();
+        if (!rdr.Read())
+        {
+            throw new OrleansException("The membership version table was not found.");
+        }
+        var versionETagNo = rdr.GetInt32(1);
+        var tv = new TableVersion(rdr.GetInt32(2), versionETagNo.ToString(CultureInfo.InvariantCulture));
+        if (!rdr.NextResult())
+        {
+            logger.LogError("Member table query did not result expected Members result.");
+            return new MembershipTableData(tv);
+        }
+
+        var members = new Dictionary<int, MembershipEntry>();
+        while (rdr.Read())
+        {
+            int memberETagNo = -1;
+            int memberVersion = int.MaxValue;
+            var me = new MembershipEntry()
+            {
+                SiloAddress = SiloAddress.New(new IPEndPoint(new IPAddress((byte[])rdr.GetValue(1)), rdr.GetInt32(2)), rdr.GetInt32(3)),
+                SiloName = rdr.GetString(4),
+                HostName = rdr.GetString(5),
+                Status = (SiloStatus)rdr.GetInt16(6),
+                ProxyPort = rdr.GetInt32(7),
+                StartTime = rdr.GetDateTime(8),
+                IAmAliveTime = rdr.GetDateTime(9)
+            };
+            memberETagNo = rdr.GetInt32(10);
+            memberVersion = rdr.GetInt32(11);
+            if (memberETagNo != versionETagNo)
+            {
+                logger.LogError($"Member ETag {memberETagNo} does not match VersionTable ETag {versionETagNo}.");
+            }
+            if (memberVersion > tv.Version)
+            {
+                logger.LogError($"Member Version {memberVersion} is greater than VersionTable version number {tv.Version}. This may indicate data corruption.");
+            }
+            members.Add(rdr.GetInt32(0), me);
+            list.Add(new Tuple<MembershipEntry, string>(me, memberETagNo.ToString(CultureInfo.InvariantCulture)));
+        }
+        if (!rdr.NextResult())
+        {
+            logger.LogError("Member table query did not result expected Suspects result.");
+            return new MembershipTableData(list, tv);
+        }
+        while (rdr.Read())
+        {
+            if (!members.TryGetValue(rdr.GetInt32(0), out var member))
+            {
+                logger.LogError($"Member Suspect record (id: {rdr.GetInt32(0)}) refers to a member record which doesn't exist (members collection count:{members.Count}).");
+            }
+            else
+            {
+                member.AddSuspector(SiloAddress.New(new IPEndPoint(new IPAddress((byte[])rdr.GetValue(1)), rdr.GetInt32(2)), rdr.GetInt32(3)), rdr.GetDateTime(4));
+            }
+        }
+
+        return new MembershipTableData(list, tv);
     }
 
     /// <summary>
@@ -246,54 +269,59 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
         using var cmd = new SqlCommand(Queries.OrleansClusterMemberReadRowKey.Sql, cnn);
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddSqlNVarCharInputParameter("@ClusterId", _clusterId, 150)
-            .AddSqlNVarCharInputParameter("@ClusterId", _clusterId, 150)
             .AddSqlVarBinaryInputParameter("@Address", key.Endpoint.Address.GetAddressBytes(), 16)
             .AddSqlIntInputParameter("@Port", key.Endpoint.Port)
             .AddSqlIntInputParameter("@Generation", key.Generation);
 
-        var list = new List<Tuple<MembershipEntry, string>>();
-        var tv = _unIinitTableVersion;
         await cnn.OpenAsync();
-        using (var rdr = await cmd.ExecuteReaderAsync())
+        using var rdr = await cmd.ExecuteReaderAsync();
+        return ReadRowFromReader(key, rdr, _logger);
+    }
+
+    /// <summary>
+    /// Maps the two result sets of rdr.OrleansClusterMemberReadRowKeyV1 (the addressed member row joined to the version row; its suspect rows) to membership-table data.
+    /// </summary>
+    internal static MembershipTableData ReadRowFromReader(SiloAddress key, DbDataReader rdr, ILogger logger)
+    {
+        var list = new List<Tuple<MembershipEntry, string>>();
+        if (!rdr.Read())
         {
-            if (!rdr.Read())
-            {
-                throw new OrleansException("The requested membership record was not found.");
-            }
-            var versionETagNo = rdr.GetInt32(9);
-            tv = new TableVersion(rdr.GetInt32(10), versionETagNo.ToString(CultureInfo.InvariantCulture));
+            throw new OrleansException("The requested membership record was not found.");
+        }
+        var versionETagNo = rdr.GetInt32(9);
+        var tv = new TableVersion(rdr.GetInt32(10), versionETagNo.ToString(CultureInfo.InvariantCulture));
 
-            var me = new MembershipEntry()
-            {
-                SiloAddress = key, // SiloAddress.New(new IPEndPoint(new IPAddress(rdr.GetSqlBinary(1).Value), rdr.GetInt32(2)), rdr.GetInt32(3)),
-                SiloName = rdr.GetString(0),
-                HostName = rdr.GetString(1),
-                Status = (SiloStatus)rdr.GetInt32(2),
-                ProxyPort = rdr.GetInt32(3),
-                StartTime = rdr.GetDateTime(4),
-                IAmAliveTime = rdr.GetDateTime(5)
-            };
-            var memberETagNo = rdr.GetInt32(6);
-            var memberVersion = rdr.GetInt32(7);
-            if (memberETagNo != versionETagNo)
-            {
-                _logger.LogError($"Member ETag {memberETagNo} does not match VersionTable ETag {versionETagNo}.");
-            }
-            if (memberVersion > tv.Version)
-            {
-                _logger.LogError($"Member Version {memberVersion} is greater than VersionTable version number {tv.Version}. This may indicate data corruption.");
-            }
-            list.Add(new Tuple<MembershipEntry, string>(me, memberETagNo.ToString(CultureInfo.InvariantCulture)));
+        var me = new MembershipEntry()
+        {
+            SiloAddress = key,
+            SiloName = rdr.GetString(0),
+            HostName = rdr.GetString(1),
+            Status = (SiloStatus)rdr.GetInt16(2), // Status is smallint, as in ReadAll.
+            ProxyPort = rdr.GetInt32(3),
+            StartTime = rdr.GetDateTime(4),
+            IAmAliveTime = rdr.GetDateTime(5)
+        };
+        // Ordinal 6 is OrleansClusterMemberVersion.Timestamp; the member etag and version follow it.
+        var memberETagNo = rdr.GetInt32(7);
+        var memberVersion = rdr.GetInt32(8);
+        if (memberETagNo != versionETagNo)
+        {
+            logger.LogError($"Member ETag {memberETagNo} does not match VersionTable ETag {versionETagNo}.");
+        }
+        if (memberVersion > tv.Version)
+        {
+            logger.LogError($"Member Version {memberVersion} is greater than VersionTable version number {tv.Version}. This may indicate data corruption.");
+        }
+        list.Add(new Tuple<MembershipEntry, string>(me, memberETagNo.ToString(CultureInfo.InvariantCulture)));
 
-            if (!rdr.NextResult())
-            {
-                _logger.LogError("Member table query did not result expected Suspects result.");
-                return new MembershipTableData(list, tv);
-            }
-            while (rdr.Read())
-            {
-                me.AddSuspector(SiloAddress.New(new IPEndPoint(new IPAddress(rdr.GetSqlBinary(0).Value), rdr.GetInt32(1)), rdr.GetInt32(2)), rdr.GetDateTime(3));
-            }
+        if (!rdr.NextResult())
+        {
+            logger.LogError("Member table query did not result expected Suspects result.");
+            return new MembershipTableData(list, tv);
+        }
+        while (rdr.Read())
+        {
+            me.AddSuspector(SiloAddress.New(new IPEndPoint(new IPAddress((byte[])rdr.GetValue(0)), rdr.GetInt32(1)), rdr.GetInt32(2)), rdr.GetDateTime(3));
         }
         return new MembershipTableData(list, tv);
     }
@@ -347,34 +375,7 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
         ArgumentNullException.ThrowIfNull(etag, nameof(etag));
         ArgumentNullException.ThrowIfNull(tableVersion, nameof(tableVersion));
 
-        //var usualSuspects = new List<SqlDataRecord>();
-        var usualSuspects = new Dictionary<byte[], SqlDataRecord>();
-        Span<byte> key = stackalloc byte[24]; // IPv6 (16 byte) + int + int = 24 bytes.
-
-        foreach (var susp in entry.SuspectTimes ?? [])
-        {
-            ReadOnlySpan<byte> addr = susp.Item1.Endpoint.Address.GetAddressBytes();
-            var port = susp.Item1.Endpoint.Port;
-            var gen = susp.Item1.Generation;
-            var pos = key.Append(0, addr);
-            pos = key.Append(pos, port);
-            pos = key.Append(pos, gen);
-            var aKey = key.Slice(pos).ToArray();
-            if (usualSuspects.TryGetValue(aKey, out var dup))
-            {
-                if (dup.GetSqlDateTime(3).Value < susp.Item2) // take the earliest report as the most dispositive
-                {
-                    dup.SetSqlDateTime(3, susp.Item2);
-                }
-                continue;
-            }
-            var row = new SqlDataRecord(SuspectTableColumns);
-            row.SetValue(0, addr.ToArray());
-            row.SetInt32(1, port);
-            row.SetInt32(2, gen);
-            row.SetSqlDateTime(3, susp.Item2);
-            usualSuspects.Add(aKey, row);
-        }
+        var usualSuspects = BuildSuspectRecords(entry.SuspectTimes);
 
         var prms = new ParameterCollection()
             .AddSqlNVarCharInputParameter("@ClusterId", _clusterId, 150)
@@ -384,7 +385,7 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
             .AddSqlVarBinaryInputParameter("Address", entry.SiloAddress.Endpoint.Address.GetAddressBytes(), 16)
             .AddSqlIntInputParameter("@Port", entry.SiloAddress.Endpoint.Port)
             .AddSqlIntInputParameter("@Generation", entry.SiloAddress.Generation)
-            .AddSqlTableValuedParameter("@SuspectTimes", usualSuspects.Count > 0 ? usualSuspects.Values : null)
+            .AddSqlTableValuedParameter("@SuspectTimes", usualSuspects.Count > 0 ? usualSuspects : null)
             .AddSqlIntInputParameter("@ETagNo", int.Parse(tableVersion.VersionEtag, CultureInfo.InvariantCulture))
             .AddSqlIntInputParameter("@Version", tableVersion.Version);
 
@@ -393,11 +394,53 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
             await _db.Write.RunAsync(Queries.OrleansClusterUpdateMemberKey, prms, CancellationToken.None);
             return true;
         }
-        catch (Exception ex)
+        catch (Exception ex) when (IsConcurrencyConflict(ex))
         {
-            _logger.LogError(ex, "Error updating row for entry: {Entry}", entry);
+            // The procedure raises error 51000 when the member row is missing or its etag/the TableVersion does not match.
+            _logger.LogWarning(ex, "Membership update conflict for entry: {Entry}", entry);
             return false;
         }
+        catch (Exception ex)
+        {
+            // Connection, timeout and other failures are not concurrency conflicts; Orleans must see them as faults.
+            _logger.LogError(ex, "Error updating row for entry: {Entry}", entry);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Collapses the suspect list to one table-valued-parameter row per suspecting silo (Address, Port, Generation),
+    /// which is the primary key of the SuspicionType TVP and of the suspicion table.
+    /// When the same silo reported more than once, the LATEST report wins: Orleans counts a suspicion vote only while it is
+    /// fresh (younger than the death-vote expiration), and a silo that re-votes replaces its earlier vote, so the most recent
+    /// timestamp is the one that represents the suspector's current vote.
+    /// </summary>
+    internal static List<SqlDataRecord> BuildSuspectRecords(IEnumerable<Tuple<SiloAddress, DateTime>>? suspectTimes)
+    {
+        var usualSuspects = new Dictionary<string, SqlDataRecord>(StringComparer.Ordinal);
+        foreach (var susp in suspectTimes ?? [])
+        {
+            var addr = susp.Item1.Endpoint.Address.GetAddressBytes();
+            var port = susp.Item1.Endpoint.Port;
+            var gen = susp.Item1.Generation;
+            // Content-equality key over the same (Address, Port, Generation) triple the TVP is keyed on.
+            var aKey = string.Concat(Convert.ToHexString(addr), ":", port.ToString(CultureInfo.InvariantCulture), ":", gen.ToString(CultureInfo.InvariantCulture));
+            if (usualSuspects.TryGetValue(aKey, out var dup))
+            {
+                if (dup.GetDateTime(3) < susp.Item2) // keep the latest report: it is the suspector's current, freshest vote
+                {
+                    dup.SetDateTime(3, susp.Item2);
+                }
+                continue;
+            }
+            var row = new SqlDataRecord(SuspectTableColumns);
+            row.SetValue(0, addr);
+            row.SetInt32(1, port);
+            row.SetInt32(2, gen);
+            row.SetDateTime(3, susp.Item2);
+            usualSuspects.Add(aKey, row);
+        }
+        return [.. usualSuspects.Values];
     }
 
 }

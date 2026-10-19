@@ -1,0 +1,31 @@
+{
+  "id": "argent-sea",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "ArgentSea",
+    "responsibility": "Holds the whole ArgentSea solution: a provider-neutral data-access core and the packages that bind it to a database platform or to an Orleans silo. They belong together because every package is a thin adapter over the same core abstractions — connection configuration, query definition, model mapping and shard addressing — and none of them re-implements those concerns."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.slnx",
+        "lines": "1-26",
+        "label": "Solution file listing every project in the tree"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

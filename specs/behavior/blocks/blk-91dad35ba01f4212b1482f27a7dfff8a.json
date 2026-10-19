@@ -1,0 +1,42 @@
+{
+  "id": "blk-91dad35ba01f4212b1482f27a7dfff8a",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Status of enum type OrderStatus is mapped to input parameter \"status\" with length 20",
+      "when": "ExpressionHelpers builds the input string parameter expression for Status holding OrderStatus.Shipped",
+      "then": "the generated expression calls the provider's add-parameter method with the string \"Shipped\", not the enum's numeric value"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-591fd4f0b5014359b62012a80836bc31"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "85-114",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

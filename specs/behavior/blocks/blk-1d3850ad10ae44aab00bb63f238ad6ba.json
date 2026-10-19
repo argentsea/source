@@ -1,0 +1,44 @@
+{
+  "id": "blk-1d3850ad10ae44aab00bb63f238ad6ba",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "a mapped reader-column value is DBNull and the target property type is not Nullable<T>",
+    "trigger": "ExpressionHelpers builds the reader-column expression for that property via ReaderNullableValueTypeExpressions",
+    "response": "assign the caller-supplied null-sentinel constant (expNullResult) to the property instead of the database value",
+    "postcondition": "when the target property type is Nullable<T> instead, a DBNull column assigns a null constant of that nullable type rather than the sentinel"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "447-499",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-75d86a819deb4554a3ce58936d019b3b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

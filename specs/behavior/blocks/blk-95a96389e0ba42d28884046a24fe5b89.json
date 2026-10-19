@@ -1,0 +1,43 @@
+{
+  "id": "blk-95a96389e0ba42d28884046a24fe5b89",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property of type Guid? (nullable Guid) whose value is Guid.Empty",
+      "when": "the caller invokes the nullable-Guid scalar input-parameter helper of SqlParameterCollectionExtensions for that property",
+      "then": "the appended SQL Server parameter's Value is Guid.Empty, not DBNull.Value, because the nullable value's HasValue is true; by design only the non-nullable overload treats Guid.Empty as the database-null sentinel, since a nullable caller has a real null to express database null"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ddff8ceba2ae42999cbc87880bd1a92c",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1020-1029",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

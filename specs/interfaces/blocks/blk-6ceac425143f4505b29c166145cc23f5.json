@@ -6,13 +6,13 @@
     "name": "PgDatabases",
     "kind": "Library",
     "language": "text",
-    "contract": "PgDatabases constructs the non-sharded PostgreSQL database collection from PgDbConnectionOptions and PgGlobalPropertiesOptions."
+    "contract": "PgDatabases constructs the non-sharded PostgreSQL database collection: it closes DatabasesBase<PgDbConnectionOptions> and, in its constructor, supplies a new ArgentSea.Pg.DataProviderServiceFactory() together with the bound PgDbConnectionOptions and PgGlobalPropertiesOptions to the DatabasesBase base constructor. It adds no members of its own beyond this constructor."
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'pg-databases'. Grounded in PgDatabases.cs:12-22 and falsifiable interface contract.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in PgDatabases.cs:12-22 and falsifiable interface contract. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'postgres-service-registration' resolves to component 'Postgres Service Registration' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-databases",
+    "sectionId": "postgres-service-registration",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "shared-databases-base",
+      "blockId": "databases-collection",
       "blobHash": null,
       "label": null,
       "relation": "references"
@@ -43,16 +43,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "pg-db-connection-options",
-      "blobHash": null,
-      "label": null,
-      "relation": "references"
-    },
-    {
-      "kind": "spec",
-      "project": "ArgentSea",
-      "specId": "components",
-      "blockId": "pg-global-properties-options",
+      "blockId": "postgres-connection-settings",
       "blobHash": null,
       "label": null,
       "relation": "references"

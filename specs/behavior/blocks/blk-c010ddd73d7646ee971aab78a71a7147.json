@@ -1,0 +1,53 @@
+{
+  "id": "blk-c010ddd73d7646ee971aab78a71a7147",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Mapping Expression Builders",
+    "condition": "a property's declared type, after unwrapping Nullable<>, is one of the four generic ShardKey<...> arities and the property carries a MapShardKeyAttribute",
+    "trigger": "ExpressionHelpers determines the property's shard-key role via GetMapShardKeyAttribute",
+    "response": "report the property's arity as shard key, child, grandchild or great-grandchild according to the ShardKey<> generic-argument count, and report the property as nullable when its declared type was Nullable<>",
+    "postcondition": "a property whose declared type is not generic, or that is a ShardKey<...> type without a MapShardKeyAttribute, is reported as none of the four arities and yields a null attribute"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "625-667",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

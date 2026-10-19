@@ -3,8 +3,8 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "PgParameters must never materialize a missing nullable input value as a .NET null; it materializes System.DBNull.Value and marks the appended parameter as Input.",
-    "scope": "All PgParameters nullable input helper overloads that branch on the presence of a nullable value."
+    "statement": "PgParameterCollectionExtensions must never materialize a missing nullable input value as a .NET null; it materializes System.DBNull.Value and marks the appended parameter as Input.",
+    "scope": "All PgParameterCollectionExtensions nullable input helper overloads that branch on the presence of a nullable value."
   },
   "metadata": {
     "status": "Draft",
@@ -15,21 +15,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "164-184",
+        "lines": "166-186",
         "label": "nullable Bigint input enforcement",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "477-505",
+        "lines": "479-507",
         "label": "nullable Numeric input enforcement",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "1317-1337",
+        "lines": "1281-1301",
         "label": "nullable UUID input enforcement",
         "relation": "grounds"
       },
@@ -43,7 +43,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameters",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"

@@ -1,0 +1,46 @@
+{
+  "id": "copy-load",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Copy Load",
+    "parent": "postgres-provider-package",
+    "responsibility": "Streams a list of models into a PostgreSQL table or temporary table over the binary COPY protocol — the PostgreSQL answer to saving many records in one round trip. It compiles and caches, per model type, both the writer that pushes each model's columns into the COPY stream and the table and column text the load runs against, validates the target table name, and reports the statements it generated and whether the writer was cached. It presents the load as one more step in a batch, so a COPY can be sequenced alongside ordinary batch work and share its transaction and result handling.",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "batch-execution"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "23-760",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgLoggingExtensions.cs",
+        "lines": "14-61",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

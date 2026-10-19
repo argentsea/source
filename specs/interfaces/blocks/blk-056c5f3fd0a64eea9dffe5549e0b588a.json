@@ -1,0 +1,49 @@
+{
+  "id": "blk-056c5f3fd0a64eea9dffe5549e0b588a",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "StringExtensions internal checksum-embedded external key codec",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "SerializeToExternalString prepends a 2-character checksum to the URL-safe encoding of the input bytes. It accumulates a 12-bit running sum of the original byte values, then XOR-obfuscates each byte with a 6-byte repeating mask (119, 78, 180, 92, 83, 77 selected by byte position modulo 6) before URL-safe-encoding the obfuscated bytes via EncodeToString; the two checksum characters encode the high 6 bits and low 6 bits of the accumulated sum. SerializeFromExternalString reverses this: it reads the leading 2 characters as the expected checksum, URL-safe-decodes the remaining characters, XOR-deobfuscates each byte with the same repeating mask while recomputing the 12-bit sum over the de-obfuscated bytes, and throws a System.Exception ('External key string is not valid.') when the recomputed sum does not equal the leading checksum; it also throws a System.Exception ('External key string has been corrupted.') if either checksum character falls outside the encoding alphabet."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "95-157",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "158-253",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

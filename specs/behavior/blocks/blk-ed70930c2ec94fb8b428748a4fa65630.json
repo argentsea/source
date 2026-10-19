@@ -3,11 +3,11 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ShardSetsBase<TConfiguration>.ShardSetReadFirst",
+    "subject": "Shard Set Fan-Out",
     "condition": "a query contract targets either every shard in a shard set or the shard entries supplied by ShardsValues",
-    "trigger": "a caller invokes QueryAsync, MapReaderAsync, or MapOutputAsync with its parameters",
-    "response": "start a read for every target shard and complete with the first non-null TModel produced by any target shard",
-    "postcondition": "after a non-null result is obtained, remaining target reads are cancelled; an empty target selection or an all-null set of completed reads yields default(TModel)"
+    "trigger": "ShardSetsBase<TConfiguration>.ShardSetReadFirst: a caller invokes QueryAsync, MapReaderAsync, or MapOutputAsync with its parameters",
+    "response": "start a read for every target shard, passing each one a cancellation token linked to the caller-supplied token, and complete with the first non-null TModel produced by any target shard",
+    "postcondition": "once a non-null result is chosen, the remaining (losing) target reads are cancelled through that linked token, and their outcomes, including any late failure, are observed and never surfaced to the caller; a shard read that failed or was cancelled is ignored whenever another shard produces a result. When no target read produces a non-null result: if the caller's token was cancelled the call throws OperationCanceledException; otherwise, if any shard read failed, that failure is rethrown (a single failure as-is, several together as an AggregateException); otherwise the call returns default(TModel). An empty target selection yields default(TModel) without reaching any shard."
   },
   "metadata": {
     "status": "Draft",
@@ -25,14 +25,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardSet.cs",
-        "lines": "151-220",
+        "lines": "149-191",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "83-151",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-sets-base-shard-set-read-first",
+    "sectionId": "shard-set-fan-out",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

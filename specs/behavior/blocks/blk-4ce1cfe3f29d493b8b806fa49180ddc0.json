@@ -26,14 +26,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
-        "lines": "29-43,67-72",
+        "lines": "29-50,74-79",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-query-statement",
+    "sectionId": "query-definitions",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

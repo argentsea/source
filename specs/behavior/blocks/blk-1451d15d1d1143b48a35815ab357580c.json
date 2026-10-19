@@ -1,0 +1,44 @@
+{
+  "id": "blk-1451d15d1d1143b48a35815ab357580c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SpanParser",
+    "condition": "GetDbGrainId has not previously cached a grain-id-building delegate for the model's runtime type",
+    "trigger": "a caller invokes GetDbGrainId with a non-null model",
+    "response": "compile the grain-id-building delegate for that model type via OrleansExpressionHelper.BuildGrainIdFromDbModel, cache it keyed by the model's runtime type, and invoke it to produce the returned IdSpan",
+    "postcondition": "a later GetDbGrainId call for the same model type reuses the cached delegate instead of recompiling it"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/SpanParser.cs",
+        "lines": "453-473",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

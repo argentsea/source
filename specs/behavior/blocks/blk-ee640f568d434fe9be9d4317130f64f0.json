@@ -1,0 +1,52 @@
+{
+  "id": "blk-ee640f568d434fe9be9d4317130f64f0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Orleans Runtime Query Catalog",
+    "trigger": "a consumer retrieves Queries.orleansDbQueryDefinitions",
+    "response": "compose a Grain query definitions value keyed by the empty string as its grain type, with OrleansReminderReadRowKey as its read query pinned to ResultSet result format, OrleansReminderUpsertRowKey as its write query, and OrleansReminderDeleteRowKey as its clear query",
+    "postcondition": "the composed value is the single reminder-storage registration shape returned by this property"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "63",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-runtime-query-catalog",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-8719cd5fac1c4f36885a754d2ed2abb7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-0d4ca4935e0a4dc2ac95690d5a9e64f8",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

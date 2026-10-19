@@ -1,0 +1,53 @@
+{
+  "id": "blk-0cfffb849a1844d884112eb51625d35e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a batch executing step index 2 on connection \"ShardMap01\"",
+      "when": "BatchStepEnd(logger, 2, \"ShardMap01\") is called to mark the end of that step",
+      "then": "the logger receives a Debug-level event under event id BatchStep (12), event name BatchStepEnd, whose message begins \"Completed batch step 2 on connection\" and names \"ShardMap01\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-6cf8bb8f39a441549df1df52a8f40372"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "75-76,121-122,307-310",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-5ac10e97a55d4b65823a1e2e4d68bc99",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,31 @@
+{
+  "id": "blk-10f9b8096ab847a6aeef176265cc5056",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea Core is published as a single NuGet package (id ArgentSea, Title \"ArgentSea core library\") licensed MIT, built for .NET 10.0 only. Its NuGet package version (currently 2.0.4) is tracked independently of its assembly/file version, which is pinned at 2.0.0.0 regardless of the package version. A consumer that needs to identify a specific build at the loaded-assembly level must key off the assembly version, not the NuGet package version, since the two do not move together.",
+    "scope": "ArgentSea Core package manifest (ArgentSea.Shared/src/ArgentSea.csproj PropertyGroup)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ArgentSea.csproj",
+        "lines": "3-23",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "argent-sea-core",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

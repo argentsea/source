@@ -4,9 +4,10 @@
   "type": "Term",
   "fields": {
     "name": "Virtual compound key",
-    "definition": "A key that identifies a sharded record across a shard set by combining its shard identifier with its record identity and, where needed, subordinate identities.",
+    "definition": "A record identity formed by combining the shard id of the shard that holds a record with the record's own key of one to four columns. The combination is unique across a shard set even though each database assigns its keys independently, and it carries the information needed to route a request to the right shard. It is \"virtual\" because no database stores or enforces it as one key. ShardKey is ArgentSea's implementation.",
     "synonyms": [
-      "shard key"
+      "compound key",
+      "shard-qualified key"
     ]
   },
   "metadata": {

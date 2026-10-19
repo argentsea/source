@@ -1,0 +1,50 @@
+{
+  "id": "blk-aa4b5e2417884c8596bb5d00f88d4a5e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "WriteField is called for a ShardKey<int> value for which ReferenceCodec.TryWriteReferenceField(ref writer, fieldIdDelta, expectedType, value) returns true, and separately ReadValue is called for a field whose WireType already equals WireType.Reference",
+      "when": "ShardKeyOrleansSerializer<int> executes WriteField for the first case and ReadValue for the second",
+      "then": "WriteField returns immediately after TryWriteReferenceField without writing a field header, a length, or key bytes for that occurrence; ReadValue takes the WireType.Reference branch and returns the value produced by ReferenceCodec.ReadReference<ShardKey<int>, TInput> without calling EnsureWireType, ReadVarUInt32, or ReadBytes"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-958c2a7e32b640f8a62cda0d194fadbf"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "23-27",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ShardKeyOrleansSerializer.cs",
+        "lines": "39-44",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-orleans-codecs",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

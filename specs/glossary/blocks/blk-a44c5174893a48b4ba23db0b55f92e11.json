@@ -1,0 +1,43 @@
+{
+  "id": "blk-a44c5174893a48b4ba23db0b55f92e11",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Shard sets collection",
+    "definition": "The injectable singleton (`SqlShardSets`, `PgShardSets`; base `ShardSetsBase`) that holds every configured shard set, keyed by its exact `ShardSetName`. Its membership, and each shard set's set of shards, is fixed when it is built from configuration.",
+    "synonyms": [
+      "ShardSets",
+      "SqlShardSets",
+      "PgShardSets",
+      "ShardSetsBase"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSetsBase.cs",
+        "lines": "19-85",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "1-30",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

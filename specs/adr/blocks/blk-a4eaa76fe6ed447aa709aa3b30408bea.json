@@ -1,0 +1,112 @@
+{
+  "id": "blk-a4eaa76fe6ed447aa709aa3b30408bea",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Own resilience in the client with Polly: per-endpoint retry and circuit breaker, with driver retries disabled",
+    "status": "Accepted",
+    "decision": "Every data connection (each read or write endpoint) owns its own Polly policy: a wait-and-retry policy that retries only transient errors, as classified by the provider's data provider services, wrapped by a circuit breaker. Retry count, base interval and lengthening sequence, and the breaker's failure count and test interval, are configuration-hierarchy properties with built-in defaults, so resilience is on even when nothing is configured. The policy is built from the endpoint's settings and rebuilt when its retry count or breaker settings change. The SQL Server driver's own connection retry is disabled, so every retry happens in the policy and is logged: a Warning on each retry, Critical when the breaker opens, and Information on breaker tests and recovery. Setting the breaker failure count below 1 disables the breaker.",
+    "context": "Transient faults such as network blips, failovers, deadlocks and in-memory OLTP conflicts are routine at scale, and an unavailable database can cascade: callers queue behind connection timeouts until the whole system stalls. Drivers offer their own retry, but it is invisible, and the operators of a sharded fleet need to see which endpoints are degrading.",
+    "alternatives": [
+      {
+        "option": "Rely on the driver's built-in connection retry.",
+        "whyRejected": "Retries are invisible to logs and cover connection opening only, not command execution, and there is no circuit breaker."
+      },
+      {
+        "option": "Leave resilience entirely to the application.",
+        "whyRejected": "Every consumer would re-implement it inconsistently, and the defaults would be no protection at all (principle p6: resilient by default)."
+      },
+      {
+        "option": "One global policy shared by all connections.",
+        "whyRejected": "One failing shard would trip the breaker for healthy shards too; per-endpoint policies isolate faults."
+      }
+    ],
+    "consequences": "Each endpoint degrades and recovers independently. Retry and breaker activity is visible in logs. The default connect timeout is lowered from ADO.NET's 15 seconds so failures surface quickly. A high retry count combined with a long timeout can still produce long waits before a caller sees the failure. Run-time changes to an endpoint's resilience settings take effect without a restart: before each command the connection compares its retry count and breaker settings with those its policy was built from and rebuilds the policy only when they differ, which resets the breaker's state, while the retry interval and lengthening are read on every retry. (As first built, the policy was created once with the connection object, so such changes were ignored until restart; that defect has been corrected.) The default lengthening sequence waits (2n−1)×interval (1, 3, 5, 7… × interval); it was first named 'Fibonacci' although it never was one, and is now named 'Lengthening', with 'Fibonacci' kept as an obsolete alias so existing configuration still binds. 'Linear' waits n×interval. The default retry interval is 250 ms."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "29-137",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "154-157",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "1-80",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "146-175",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": "Resilience strategy",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": "Circuit breaker",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": "Retry backoff",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": "Transient error",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p6-resilient-by-default",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

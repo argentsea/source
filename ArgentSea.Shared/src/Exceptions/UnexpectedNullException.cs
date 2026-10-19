@@ -10,7 +10,7 @@ namespace ArgentSea
     /// <summary>
     /// This exception is thrown when a parameter or record column unexpectedly contains a Db Null and cannot be assigned to a non-nullable property.
     /// </summary>
-    class UnexpectedNullException : ApplicationException
+    public class UnexpectedNullException : ApplicationException
     {
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnexpectedNullException" /> class with no error message.
@@ -50,8 +50,14 @@ namespace ArgentSea
             this.ExpectedType = expectedType;
             this.ColumnName = columnName;
 		}
-        public Type ExpectedType { get; }
+        /// <summary>
+        /// The type of the target property or value that could not accept the null; null when the exception was created without one.
+        /// </summary>
+        public Type? ExpectedType { get; }
 
-        public string ColumnName { get;  }
+        /// <summary>
+        /// The name of the column or parameter that unexpectedly returned a null; null when the exception was created without one.
+        /// </summary>
+        public string? ColumnName { get;  }
 	}
 }

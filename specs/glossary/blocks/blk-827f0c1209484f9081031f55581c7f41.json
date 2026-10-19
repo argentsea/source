@@ -1,0 +1,44 @@
+{
+  "id": "blk-827f0c1209484f9081031f55581c7f41",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Ghost shard key",
+    "definition": "A holder for serialized shard-key data whose generic key types are not known where it is handled. On request, it reads the embedded shard key type metadata and reconstructs the matching ShardKey instance. Construction is deliberately cheap, so a key can be carried, for example through logging, without paying for deserialization unless it is actually used.",
+    "synonyms": [
+      "GhostShardKey"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "1-60",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": "Shard key type metadata",
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

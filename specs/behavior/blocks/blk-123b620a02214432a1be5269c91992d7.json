@@ -4,12 +4,13 @@
   "type": "Behavioral",
   "fields": {
     "subject": "ShardsValues",
-    "trigger": "ShardListForeign is called with an excluded shard identifier and virtual compound keys or keyed models",
+    "where": "the invoked ShardListForeign overload declares a records parameter whose ShardKey/model key arity matches its own generic type parameters — true for 14 of the 16 overloads; the two List<> overloads at ShardsValues.cs lines 255 and 324 instead declare a narrower key arity than their own generic parameters and cast to a wider IList<> type before forwarding, so this clause does not establish their behavior for those two. Their forwarding-cast outcome is specced separately by the runtime type of a non-null argument: blk-13f8387fc2284958aed58b9ead46e21b for a non-null records argument whose runtime type does not implement the wider interface the cast targets (cast fails), blk-d0117b5f90c5473bbf4433154243312c for a non-null records argument whose runtime type does implement it (cast succeeds, forwards normally), and blk-4310c95d9050496b9c2a484b6c7fb357 for a null records argument.",
+    "trigger": "ShardListForeign is called with an excluded shard identifier and a collection of virtual compound keys or keyed models",
     "response": "return one empty shard entry for each distinct input shard identifier that differs from the excluded identifier",
     "postcondition": "the result contains neither the excluded identifier nor duplicate remaining identifiers"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -17,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "156-414",
+        "lines": "156-429",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -53,6 +54,33 @@
       "project": "ArgentSea",
       "specId": "glossary",
       "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-13f8387fc2284958aed58b9ead46e21b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-d0117b5f90c5473bbf4433154243312c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-4310c95d9050496b9c2a484b6c7fb357",
       "blobHash": null,
       "label": null,
       "relation": "references"

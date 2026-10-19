@@ -1,0 +1,53 @@
+{
+  "id": "blk-e6b2448d351a47e6b17d152202f47d05",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model type Customer and a host logger whose minimum level is configured to Information, so Debug-level events are disabled",
+      "when": "CreatedExpressionTreeForSetInParameters(logger, typeof(Customer), codeBlock) is called after the Mapper compiles a new input-parameter expression tree for Customer",
+      "then": "the logger.IsEnabled(LogLevel.Debug) check fails, so the expression tree is not rendered and no ExpressionTreeCreation event is logged"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-8cc0d157123145c488c9b2cae55023af"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "114,239-249",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-6565dc6a77354ba8a2692ce5e2955f78",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

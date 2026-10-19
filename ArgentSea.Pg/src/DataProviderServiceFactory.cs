@@ -17,10 +17,9 @@ namespace ArgentSea.Pg
 	{
 		public bool GetIsErrorTransient(Exception exception)
         {
-            if (exception is NpgsqlException)
+            if (exception is NpgsqlException ex)
             {
-                var ex = exception as NpgsqlException;
-                return ex.IsTransient; 
+                return ex.IsTransient;
             }
             return false;
         }
@@ -31,7 +30,7 @@ namespace ArgentSea.Pg
             {
                 return new NpgsqlCommand(storedProcedureName, (NpgsqlConnection)connection);
             }
-            throw new ArgumentException(nameof(connection));
+            throw new ArgumentException("The connection must be an NpgsqlConnection.", nameof(connection));
         }
 
         public DbConnection NewConnection(string connectionString)
@@ -39,19 +38,17 @@ namespace ArgentSea.Pg
             return new NpgsqlConnection(connectionString);
         }
 
-        public void SetParameters(DbCommand cmd, string[] queryParameterNames, DbParameterCollection parameters, IDictionary<string, object> parameterValues)
+        public void SetParameters(DbCommand cmd, string[]? queryParameterNames, DbParameterCollection parameters, IDictionary<string, object>? parameterValues)
         {
-            int[] ordinals;
-
+            // Each target parameter is a clone of its source parameter, so it carries the source value;
+            // an entry in parameterValues (keyed by parameter name) replaces that value.
             if (queryParameterNames is null || queryParameterNames.Length == 0)
             {
-                ordinals = new int[parameters.Count];
                 for (int i = 0; i < parameters.Count; i++)
                 {
-                    ordinals[i] = i;
                     var npgSourcePrm = (NpgsqlParameter)parameters[i];
                     var targetPrm = npgSourcePrm.Clone();
-                    if (!(parameterValues is null))
+                    if (parameterValues is not null)
                     {
                         if (parameterValues.TryGetValue(targetPrm.ParameterName, out var prmValue))
                         {
@@ -63,7 +60,6 @@ namespace ArgentSea.Pg
             }
             else
             {
-                ordinals = new int[queryParameterNames.Length];
                 for (int i = 0; i < queryParameterNames.Length; i++)
                 {
                     var found = false;
@@ -71,11 +67,10 @@ namespace ArgentSea.Pg
                     {
                         if (queryParameterNames[i] == parameters[j].ParameterName)
                         {
-                            ordinals[i] = j;
                             found = true;
                             var npgSourcePrm = (NpgsqlParameter)parameters[j];
                             var targetPrm = npgSourcePrm.Clone();
-                            if (!(parameterValues is null))
+                            if (parameterValues is not null)
                             {
                                 if (parameterValues.TryGetValue(queryParameterNames[i], out var prmValue))
                                 {
@@ -83,6 +78,8 @@ namespace ArgentSea.Pg
                                 }
                             }
                             cmd.Parameters.Add(targetPrm);
+                            // First source parameter with a matching name wins; duplicates are ignored.
+                            break;
                         }
                     }
                     if (!found)
@@ -91,14 +88,23 @@ namespace ArgentSea.Pg
                     }
                 }
             }
-            if (!cmd.Connection.ConnectionString.ToLowerInvariant().Contains("multiplexing=true"))
+            if (!IsMultiplexing(cmd.Connection!.ConnectionString)) // NewCommand always binds the command to its connection
             {
                 ((NpgsqlCommand)cmd).Prepare();
             }
-            for (var i = 0; i < cmd.Parameters.Count; i++)
+        }
+
+        /// <summary>
+        /// Returns true when the connection string enables Npgsql multiplexing (explicit command preparation is not supported with multiplexing).
+        /// Parsing uses NpgsqlConnectionStringBuilder, so key spelling, casing, and whitespace follow Npgsql's own rules.
+        /// </summary>
+        internal static bool IsMultiplexing(string connectionString)
+        {
+            if (string.IsNullOrEmpty(connectionString))
             {
-                cmd.Parameters[i].Value = parameters[ordinals[i]].Value;
+                return false;
             }
+            return new NpgsqlConnectionStringBuilder(connectionString).Multiplexing;
         }
     }
 }

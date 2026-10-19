@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "PgParameters typed PostgreSQL parameter materialization",
+    "name": "PgParameterCollectionExtensions typed PostgreSQL parameter materialization",
     "kind": "Library",
-    "language": "text",
-    "contract": "PgParameters materializes the typed-parameter portion of a Query contract by appending exactly one Npgsql parameter to the supplied DbParameterCollection and returning that same collection. The operation family varies by PostgreSQL type and direction: input operations carry a supplied value and set Input; output operations reserve the declared PostgreSQL type and set Output. Supported type families are Varchar, Char, Text, Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real, Timestamp, TimestampTz, Date, Time, Interval, TimeTz, Array, Bytea, Hstore, and Uuid. String and Bytea variants may specify Size; Numeric variants specify Precision and Scale; Array variants specify the element PostgreSQL type; TimeTz input variants accept either TimeSpan or DateTimeOffset."
+    "language": "csharp",
+    "contract": "PgParameterCollectionExtensions extends a DbParameterCollection with the AddPg*Parameter family, which materializes the typed-parameter portion of a Query contract: every member appends exactly one Npgsql parameter (NpgsqlParameter or NpgsqlParameter<T>) for its named PostgreSQL type to the supplied DbParameterCollection and returns that same collection. The parameter name is used exactly as given: NormalizePgParameterName deliberately returns it unchanged, so no ':' (or '@') prefix is added and its casing is not changed. The family varies by PostgreSQL type and direction: input members carry a supplied value (database null for an absent nullable or reference value) and set Input; output members reserve the declared PostgreSQL type and set Output. Supported types are Varchar, Char, Text, Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real, Timestamp, TimestampTz, Date, Time, Interval, TimeTz, Array, Bytea, Hstore, and Uuid. Only where applicable does a member also take a size (Varchar, Char, and the sized Bytea members), a precision and scale (Numeric), or an Array element PostgreSQL type (Array). Overload census: every one of the 22 types has exactly one Output overload (22 Output overloads). Varchar, Char, Text, Array, and Hstore have exactly one Input overload each. Bytea has exactly two Input overloads, both accepting a non-nullable byte[] value — one with an explicit length argument and one without — not a nullable/reference pair. The sixteen types Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real, Timestamp, TimestampTz, Date, Time, Interval, TimeTz, and Uuid have exactly two Input overloads each — a non-nullable value overload and a nullable-accepting overload; for TimeTz these accept DateTimeOffset and DateTimeOffset? only (no TimeSpan overloads, since Npgsql maps time with time zone only to DateTimeOffset). The family totals 61 overloads: 22 Output plus 39 Input."
   },
   "metadata": {
     "status": "Draft",
@@ -17,21 +17,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "43-1352",
-        "label": "parameter helper family",
+        "lines": "19-1320",
+        "label": "parameter helper family and name pass-through",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
-        "lines": "63-67",
+        "lines": "96-100",
         "label": "query mapping invocation",
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameters",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

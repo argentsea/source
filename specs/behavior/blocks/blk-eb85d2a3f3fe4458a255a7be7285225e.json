@@ -1,0 +1,60 @@
+{
+  "id": "blk-eb85d2a3f3fe4458a255a7be7285225e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a Databases collection constructed with the SQL Server data provider services and a Query whose ParameterNames are [\"@CustomerId\"]",
+      "when": "the application lists models from that query on a database's Read connection, passing a parameter collection containing @CustomerId",
+      "then": "the connection object comes from NewConnection with the Read endpoint's resolved connection string, the command from NewCommand with the query text on that connection, and the command's parameters are populated by SetParameters from the query's parameter names and the supplied collection; the core code path names no SqlClient type"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-a58adcb590fd42adb06ca2df142b4f29"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "321-329",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "data-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

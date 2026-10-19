@@ -1,0 +1,38 @@
+{
+  "id": "shard-set-fan-out",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Shard Set Fan-Out",
+    "responsibility": "Holds every configured shard set keyed by name and runs one query concurrently on each targeted shard, combining the per-shard results under three distinct forms: wait for all shards and concatenate every non-null result, take the first non-null result and abandon the rest, or write to every shard and require all of them to succeed. It owns which shards are reached, on which endpoint, and how their separate results become one answer.",
+    "parent": "sharding"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "19-670",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "12-153",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

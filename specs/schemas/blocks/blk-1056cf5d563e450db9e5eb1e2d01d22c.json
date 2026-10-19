@@ -3,38 +3,38 @@
   "specId": "schemas",
   "type": "Schema",
   "fields": {
-    "name": "PgParameters materialized Npgsql parameter",
-    "description": "The parameter record PgParameters appends to a DbParameterCollection. Its direction and PostgreSQL type determine whether it carries an input value or reserves an output value; Size, Precision, Scale, and element type are supplied only by applicable type families.",
+    "name": "PgParameterCollectionExtensions materialized Npgsql parameter",
+    "description": "The parameter record PgParameterCollectionExtensions appends to a DbParameterCollection for a Query contract. The AddPg*Parameter member selected fixes its PostgreSQL type and direction, which determine whether it carries an input value or reserves an output value; size, precision, scale, and element type are supplied only by the applicable type families.",
     "members": [
       {
         "name": "name",
         "type": "nvarchar(max)",
         "required": true,
-        "description": "The caller-supplied parameter name after PgParameters normalization."
+        "description": "The caller-supplied parameter name, used exactly as given: PgParameterCollectionExtensions.NormalizePgParameterName deliberately returns it unchanged, so no ':' (or '@') prefix is added and casing is not changed."
       },
       {
         "name": "direction",
         "type": "enum<input|output>",
         "required": true,
-        "description": "Input for value-bearing helpers and output for retrieval helpers."
+        "description": "Input for value-bearing (AddPg*InputParameter) members, which send a supplied value; output for retrieval (AddPg*OutputParameter) members, which reserve a returned value."
       },
       {
         "name": "postgresType",
         "type": "nvarchar(64)",
         "required": true,
-        "description": "The Npgsql PostgreSQL type selected by the helper family."
+        "description": "The Npgsql PostgreSQL type selected by the AddPg*Parameter member: one of Varchar, Char, Text, Bigint, Integer, Smallint, InternalChar, Boolean, Numeric, Money, Double, Real, Timestamp, TimestampTz, Date, Time, Interval, TimeTz, Array, Bytea, Hstore, or Uuid."
       },
       {
         "name": "value",
         "type": "json",
         "required": false,
-        "description": "The supplied typed input value, or System.DBNull.Value for an absent nullable input; output parameters do not receive an input value."
+        "description": "The supplied typed input value, or System.DBNull.Value for an absent nullable or reference input (and, by design, for NaN on the non-nullable Double/Real overloads and Guid.Empty on the non-nullable Uuid overload); output parameters do not receive an input value."
       },
       {
         "name": "size",
         "type": "int",
         "required": false,
-        "description": "The declared length for applicable Varchar, Char, and Bytea variants."
+        "description": "The declared length for applicable Varchar, Char, and sized Bytea variants."
       },
       {
         "name": "precision",
@@ -52,7 +52,7 @@
         "name": "elementPostgresType",
         "type": "nvarchar(64)",
         "required": false,
-        "description": "The array element PostgreSQL type for Array variants."
+        "description": "The array element PostgreSQL type, required by Array variants: one of the non-Array types listed for postgresType."
       }
     ],
     "representations": {
@@ -69,8 +69,8 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "43-1352",
-        "label": "materialized parameter construction",
+        "lines": "19-1320",
+        "label": "materialized parameter construction and name pass-through",
         "relation": "grounds"
       },
       {
@@ -90,7 +90,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameters",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

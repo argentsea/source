@@ -53,6 +53,6 @@ namespace ArgentSea
             this.Property = property;
 		}
 
-        public PropertyInfo Property { get; }
+        public PropertyInfo? Property { get; }
 	}
 }

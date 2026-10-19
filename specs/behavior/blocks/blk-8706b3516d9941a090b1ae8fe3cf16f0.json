@@ -1,0 +1,42 @@
+{
+  "id": "blk-8706b3516d9941a090b1ae8fe3cf16f0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "DataConnectionManager.ReturnAsync<int, object, object> returns a result whose Item1 is 150, for a query named \"GetOrderTotal\", with no matching MockResults entry.",
+      "when": "The caller invokes ReturnValueAsync<int>(query, parameters, \"Total\", cancellationToken).",
+      "then": "The operation returns 150."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b9b01b19da18481dadf48870b9bdfead"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "157-166",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "databases-collection",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

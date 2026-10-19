@@ -1,0 +1,64 @@
+{
+  "id": "sql-server-connection-settings",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "SQL Server Connection Settings",
+    "responsibility": "Declares every SqlClient connection attribute as a discrete setting that may be given globally, per database, per shard set or per shard, and resolves those levels into the connection string one SQL Server read or write endpoint opens — rebuilding the string when any level it inherited from changes. It is the SQL Server end of the configuration hierarchy and the reason a SQL Server deployment needs no connection strings in configuration.",
+    "parent": "sql-server-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "connection-configuration-hierarchy"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "9-387",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlGlobalPropertiesOptions.cs",
+        "lines": "10-13",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "15-292",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "32-47",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlShardConnectionOptions.cs",
+        "lines": "13-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

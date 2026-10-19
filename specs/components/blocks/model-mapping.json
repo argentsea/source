@@ -1,0 +1,86 @@
+{
+  "id": "model-mapping",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Model Mapping",
+    "responsibility": "Turns the mapping attributes a model type declares into a compiled, cached delegate that moves values between that model's properties and a command's input parameters, its output parameters, or a data reader's columns — including nested models, list properties filled from additional result sets, required values that make a missing row mean an absent record, and properties whose value is a record identity assembled from several columns. It owns the attribute vocabulary a model author writes against and the failures raised when a model's declarations are missing, duplicated or wrong for the property's type.",
+    "parent": "mapping"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "25-4190",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapToModel.cs",
+        "lines": "11-14",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ParameterMapAttributeBase.cs",
+        "lines": "14-70",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "14-66",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/CollectionMapAttributeBase.cs",
+        "lines": "18-39",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidMapTypeException.cs",
+        "lines": "17-100",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "7-66",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MultipleAttributeException.cs",
+        "lines": "17-57",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/NoMappingAttributesFoundException.cs",
+        "lines": "7-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedMultiRowResultException.cs",
+        "lines": "10-45",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

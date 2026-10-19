@@ -1,0 +1,56 @@
+{
+  "id": "blk-087089d4ef9d4940a3623d13bd21a497",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "When rendering a binary or unary operand, DebugViewWriter must wrap the operand in parentheses in exactly these cases, and must never add parentheses in any other case: (a) always, when the parent node is an Increment, Decrement, IsTrue, IsFalse, or Unbox node; (b) when the parent's operator precedence is strictly higher than the operand's operator precedence; (c) when the parent and operand have equal operator precedence and the parent is a Subtract, SubtractChecked, Divide, or Modulo node, but only for its right operand; (d) when the operand is a ConstantExpression and the parent is a Negate or NegateChecked node, so the negation is not read as a negative literal; and (e) when the parent and operand have equal operator precedence and the parent is NOT one of AndAlso, OrElse, And, Or, ExclusiveOr, Add, AddChecked, Multiply, MultiplyChecked, Subtract, SubtractChecked, Divide, or Modulo (for example an Equal parent with a NotEqual operand). In particular, operands of equal precedence are left unparenthesized under AndAlso, OrElse, And, Or, ExclusiveOr, Add, AddChecked, Multiply, and MultiplyChecked, and for the left operand of Subtract, SubtractChecked, Divide, or Modulo.",
+    "scope": "Parenthesization of binary and unary operands during DebugViewWriter's rendering of an expression tree."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "409-504",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "700-913",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "1028-1115",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-1e46588e666949c4bf6be6d042bf06df",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

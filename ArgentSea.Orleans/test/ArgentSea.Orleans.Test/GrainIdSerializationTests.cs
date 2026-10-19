@@ -5,6 +5,8 @@ namespace ArgentSea.Orleans.Test
     public class GrainIdSerializationTests
     {
         [Fact]
+        [Trait("Spec", "blk-9370ebac48704ec4876e2f184f028139")]
+        [Trait("Spec", "blk-e45646b846444943904345e272f161aa")]
         public void TestGuid()
         {
             var position = 0;
@@ -16,6 +18,9 @@ namespace ArgentSea.Orleans.Test
             result.Should().Be(guidTest);
         }
         [Fact]
+        [Trait("Spec", "blk-9370ebac48704ec4876e2f184f028139")]
+        [Trait("Spec", "blk-e45646b846444943904345e272f161aa")]
+        [Trait("Spec", "blk-23cff734d95b4b12bfd076fb06999603")]
         public void TestGuids()
         {
             var position = 0;
@@ -31,6 +36,8 @@ namespace ArgentSea.Orleans.Test
             result2.Should().Be(guidTest2);
         }
         [Fact]
+        [Trait("Spec", "blk-9370ebac48704ec4876e2f184f028139")]
+        [Trait("Spec", "blk-e45646b846444943904345e272f161aa")]
         public void TestLong()
         {
             var position = 0;
@@ -42,6 +49,8 @@ namespace ArgentSea.Orleans.Test
             result.Should().Be(lngTest);
         }
         [Fact]
+        [Trait("Spec", "blk-9370ebac48704ec4876e2f184f028139")]
+        [Trait("Spec", "blk-e45646b846444943904345e272f161aa")]
         public void TestLongs()
         {
             var position = 0;
@@ -57,6 +66,8 @@ namespace ArgentSea.Orleans.Test
             result2.Should().Be(lngTest2);
         }
         [Fact]
+        [Trait("Spec", "blk-f1fc490b84124413b27a81dae7774e68")]
+        [Trait("Spec", "blk-8ef360077bef4801952eaacd6a438b9e")]
         public void TestLots()
         {
             var position = 0;

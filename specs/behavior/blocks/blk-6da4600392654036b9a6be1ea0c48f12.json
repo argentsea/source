@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgConnectionConfiguration",
+    "subject": "Postgres Connection Settings",
     "trigger": "a caller requests a connection string after ambient sources have been supplied",
     "response": "resolve every non-null PostgreSQL connection property through the Configuration hierarchy in the order global, shard set, read/write, shard, then local; later values shall override earlier values in the returned connection string"
   },
@@ -16,7 +16,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
-        "lines": "258-280",
+        "lines": "262-284",
         "label": null,
         "relation": "grounds"
       },
@@ -30,7 +30,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-connection-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

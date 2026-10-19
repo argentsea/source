@@ -6,7 +6,7 @@
     "name": "DatabasesBase<TConfiguration>.DataConnection data-access operations",
     "kind": "Library",
     "language": "text",
-    "contract": "DatabasesBase<TConfiguration>.DataConnection accepts a Query contract and its parameter collection, executes asynchronously with caller cancellation, and exposes these result families: scalar return values; typed lists; model mapping from output parameters and/or zero through eight reader result sets; caller-supplied result handling; non-result command execution; and Batch execution. Generic mapping may create a model or populate a caller-supplied model. A Batch executes its commands as one transaction and returns its optional final result. Callers can inspect the resolved connection string and provide named mock results for these operations."
+    "contract": "DatabasesBase<TConfiguration>.DataConnection exposes these operations, each accepting a Query and its DbParameterCollection and a CancellationToken, and returning a Task:\n\n- ReturnValueAsync (2 overloads): the no-type-parameter overload forwards directly to DataConnectionManager.ReturnAsync and returns its Task<int> result. The TValue-typed overload, given a dataName, first checks MockResults for an entry keyed by the query name and, absent one, forwards dataName to DataConnectionManager.ReturnAsync<TValue, object, object> and returns its Item1 as the Task<TValue> result.\n- MapListAsync<TModel> forwards to DataConnectionManager.ListAsync<TModel> and returns its Task<List<TModel>> result directly. ListAsync<TValue> forwards the given columnName and, absent a MockResults entry for the query name, forwards to DataConnectionManager.ListAsync<TValue, object, object> and builds its Task<List<TValue>> result by projecting the Item1 value from each item the manager returns.\n- MapOutputAsync (18 overloads): selects the Mapper.ModelFromOutResultsHandler<TModel, TReaderResult...> delegate matching the declared 0 to 8 TReaderResult type parameters (the no-TReaderResult form, the single-TReaderResult form, then TReaderResult0..TReaderResult7) and forwards it, with isTopOne=false, to DataConnectionManager.QueryAsync.\n- MapReaderAsync (16 overloads): the single-type-parameter overloads declare only TModel and select Mapper.ModelFromReaderResultsHandler<TModel>; the remaining overloads declare TModel plus 2 to 8 TReaderResult positions (TReaderResult0..TReaderResult7) and select the correspondingly-aritied Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, ...> delegate — so these multi-type overloads cover 2 to 8 total mapped result-set positions, not 2 to 8 positions in addition to TModel. One of those TReaderResult positions is documented, in the method's XML doc comments, to repeat TModel's type, with that position's result set documented to contain exactly one record; DatabasesBase<TConfiguration>.DataConnection does not itself enforce this constraint, since the result sets are read and matched to positions by the delegate inside DataConnectionManager.QueryAsync, not by this type. All MapReaderAsync overloads forward isTopOne=false to DataConnectionManager.QueryAsync.\n- MapReaderWithCollectionsAsync (2 overloads): selects the Mapper.ModelFromReaderWithCollectionsHandler<TModel> delegate and forwards it, with isTopOne=false, to DataConnectionManager.QueryAsync.\n- QueryAsync (4 overloads): forwards the caller-supplied QueryResultModelHandler<TArg, TModel> delegate and the caller-supplied isTopOne flag to DataConnectionManager.QueryAsync; the TArg-typed overloads also forward an optional TArg value as the handler's optional argument.\n- RunAsync (2 overloads): the no-type-parameter overload forwards the query to DataConnectionManager.RunAsync and returns its Task. The DatabaseBatch<TResult> overload forwards the batch to DataConnectionManager.RunBatchAsync<TResult> and returns its Task<TResult> result.\n\nAcross all Map* and QueryAsync families, an overload accepting an existing TModel instance forwards that instance to DataConnectionManager as the hydration target and returns the Task<TModel> that DataConnectionManager.QueryAsync produces; an overload with no instance parameter constructs a new TModel() instead and is constrained to TModel : new(). Whether the value the returned Task resolves to is that same forwarded instance is determined by DataConnectionManager's execution, not by DatabasesBase<TConfiguration>.DataConnection itself. Callers can inspect the resolved ConnectionString and provide named mock results via MockResults."
   },
   "metadata": {
     "status": "Draft",
@@ -20,11 +20,18 @@
         "lines": "109-1012",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "1013-1047",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-databases-base-data-connection",
+    "sectionId": "databases-collection",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -44,6 +51,15 @@
       "project": "ArgentSea",
       "specId": "glossary",
       "blockId": "blk-17f9ae72cabf4497ae250c51cd0009fc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c924ca65ef8a4fe3892a468b60b70b77",
       "blobHash": null,
       "label": null,
       "relation": "references"

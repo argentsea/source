@@ -6,7 +6,7 @@
     "name": "MapAttributeMissingException.ShardElement",
     "kind": "Library",
     "language": "csharp",
-    "contract": "MapAttributeMissingException.ShardElement exposes one finite element-category selection. A caller may select exactly ShardId, RecordId, ChildId, GrandChildId, or GreatGrandChildId; no other named category is part of this public type."
+    "contract": "MapAttributeMissingException.ShardElement exposes one finite element-category selection. A caller may select exactly ShardId, RecordId, ChildId, GrandChildId, or GreatGrandChildId; no other named category is part of this public type. These five categories correspond one-for-one, in the same declared order, to MapShardKeyAttribute's five name properties — ShardId to ShardIdName, RecordId to RecordIdName, ChildId to ChildIdName, GrandChildId to GrandChildIdName, and GreatGrandChildId to GreatGrandChildIdName — so the enum and the attribute's property set encode the same shard-key identity ladder in two different forms."
   },
   "metadata": {
     "status": "Draft",
@@ -20,11 +20,18 @@
         "lines": "9-15",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "46-58",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-map-attribute-missing-exception-shard-element",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

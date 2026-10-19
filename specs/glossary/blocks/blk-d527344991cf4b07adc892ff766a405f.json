@@ -4,7 +4,7 @@
   "type": "Term",
   "fields": {
     "name": "Sharding",
-    "definition": "Partitioning a dataset across multiple database servers so that each server owns a segment of the data.",
+    "definition": "Partitioning one dataset across multiple databases (shards) so that each owns a distinct segment. It is used for incremental scale, for active-active disaster recovery in which each data center owns a segment, for regional data residency, and for tenant isolation. In exchange, the database engine can no longer enforce uniqueness or foreign keys across segments; that responsibility moves to the application's key design.",
     "synonyms": [
       "data sharding"
     ]

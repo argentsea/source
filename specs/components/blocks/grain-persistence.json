@@ -1,0 +1,92 @@
+{
+  "id": "grain-persistence",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Grain Persistence",
+    "responsibility": "Reads, writes and clears an Orleans grain's state through the queries registered for its grain type, against either a database chosen by key or the shard identified by the grain's own key, mapping the state to and from ordinary query parameters and result sets rather than an opaque blob. It owns what happens when a read finds no row, how a stale write is detected, and the refusal at silo start of a configuration whose store is not reachable.",
+    "parent": "orleans-grain-storage-package"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "23-189",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "15-207",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/IActivator.cs",
+        "lines": "15-25",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "8-48",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansDbPersistenceOptions.cs",
+        "lines": "12-46",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "13-50",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbPersistenceOptionsValidator.cs",
+        "lines": "16-68",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardPersistenceOptionsValidator.cs",
+        "lines": "16-75",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/ArgentSeaGrainPersistenceException.cs",
+        "lines": "14-47",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/FakeGrainStorageSerializer.cs",
+        "lines": "5-15",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Extensions/LoggingExtensions.cs",
+        "lines": "13-161",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

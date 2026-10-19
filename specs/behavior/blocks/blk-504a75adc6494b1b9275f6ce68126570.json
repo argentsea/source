@@ -1,0 +1,78 @@
+{
+  "id": "blk-504a75adc6494b1b9275f6ce68126570",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls RetryingDbConnection, CiruitBreakingDbConnection, CiruitBreakingDbCommand, CiruitBrokenDbConnectionTest, CiruitBrokenDbCommandTest, CiruitBrokenDbConnectionRestored, or CiruitBrokenDbCommandRestored on the logger",
+    "response": "log the call via the corresponding wrapper: RetryingDbConnection (Warning, event id ConnectRetry), CiruitBreakingDbConnection/CiruitBreakingDbCommand (Critical, event id CircuitBreaker), CiruitBrokenDbConnectionTest/CiruitBrokenDbCommandTest (Information, event id CircuitBreaker), or CiruitBrokenDbConnectionRestored/CiruitBrokenDbCommandRestored (Information, event id CircuitBreaker), naming the connection or command and, for a retry, the attempt number"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "55-62,102-109,201-223",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-5340d35b9eb3497c87d01ced6700bd3e",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

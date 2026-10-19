@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
-        "lines": "55-1325",
+        "lines": "55-1334",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-map-to-sql-attribute-family",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

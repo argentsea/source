@@ -14,10 +14,10 @@ namespace ArgentSea.Pg.Test
         public int ArgentSeaTestDataId { get; set; }
 
         [MapToPgVarchar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToPgChar("Iso3166", 2)]
-        public string Iso3166 { get; set; }
+        public string? Iso3166 { get; set; }
 
         [MapToPgBigint("BigCount")]
         public long? BigCount { get; set; }
@@ -71,13 +71,13 @@ namespace ArgentSea.Pg.Test
         public float? Temperature { get; set; }
 
         [MapToPgText("LongStory")]
-        public string LongStory { get; set; }
+        public string? LongStory { get; set; }
 
         [MapToPgArray("Numbers", NpgsqlTypes.NpgsqlDbType.Integer)]
-        public int[] Numbers { get; set; }
+        public int[]? Numbers { get; set; }
 
         [MapToPgBytea("MissingBits", 12)]
-        public byte[] MissingBits { get; set; }
+        public byte[]? MissingBits { get; set; }
 
         //[MapToPgVarBinary("Blob", -1)]
         //public byte[] Blob { get; set; }
@@ -98,7 +98,7 @@ namespace ArgentSea.Pg.Test
         //public DayOfWeek? DayOfTheWeek { get; set; }
 
         [MapToPgHstore("KeyValues")]
-        public IDictionary<string, string> KeyValues { get; set; }
+        public IDictionary<string, string>? KeyValues { get; set; }
 
         [MapToPgInterval("CleanOut")]
         public TimeSpan CleanOutStuff { get; set; }

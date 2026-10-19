@@ -1,0 +1,44 @@
+{
+  "id": "query-definitions",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Query Definitions",
+    "responsibility": "Names the SQL a data method is to execute and how it is to be invoked — as a stored procedure or function held in the database, or as parameterised statement text deployed as a file beside the application and loaded on first use — together with the optional list of parameter names that restricts which of a caller's parameters reach the command. Keeping the SQL named rather than inline is what lets one prepared parameter set serve several queries.",
+    "parent": "querying"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/Query.cs",
+        "lines": "8-27",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryProcedure.cs",
+        "lines": "9-22",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "15-118",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

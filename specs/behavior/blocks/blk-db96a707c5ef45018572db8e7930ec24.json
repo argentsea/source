@@ -1,0 +1,42 @@
+{
+  "id": "blk-db96a707c5ef45018572db8e7930ec24",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Payload of type byte[] holds the bytes {0x01, 0x02}",
+      "when": "the input binary parameter expression is built for Payload via InParameterBinaryBuilder",
+      "then": "the byte[] value is passed to the provider's add-parameter method unchanged, without calling ToArray()"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-c3374db5eda5474b951a1d35559cfd30",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "152-157",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

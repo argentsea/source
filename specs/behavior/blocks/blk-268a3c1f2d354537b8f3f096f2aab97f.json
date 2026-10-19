@@ -1,0 +1,52 @@
+{
+  "id": "blk-268a3c1f2d354537b8f3f096f2aab97f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardsValues \"target\" has shard identifier 4 mapped to {\"limit\": 5}, and a second ShardsValues \"source\" has shard identifier 7 mapped to {\"region\": \"west\"} and shard identifier 4 mapped to {\"limit\": 10}.",
+      "when": "target.Merge(source) is called.",
+      "then": "The call throws a System.ArgumentException because the parameter name \"limit\" already exists for shard identifier 4 in target, and target is unchanged: it still has only shard identifier 4, mapped to {\"limit\": 5}."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-c5d7812becb44134bbe4b5066eca86f0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "146-166",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

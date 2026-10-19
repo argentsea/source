@@ -8,10 +8,10 @@ namespace ArgentSea
     public abstract class Query
     {
         private readonly string _sql;
-        private readonly string[] _parameterNames;
+        private readonly string[]? _parameterNames;
         private readonly string _name;
 
-        public Query(string sql, string name, string[] parameterNames)
+        public Query(string sql, string name, string[]? parameterNames)
         {
             _sql = sql;
             _parameterNames = parameterNames;
@@ -21,7 +21,7 @@ namespace ArgentSea
 
         public string Name { get => _name; }
 
-        public string[] ParameterNames { get => _parameterNames;  }
+        public string[]? ParameterNames { get => _parameterNames;  }
 
         public abstract CommandType Type { get; }
     }

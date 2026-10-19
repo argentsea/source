@@ -1,0 +1,89 @@
+{
+  "id": "blk-db9c113ffe1649229c350b59e6d29460",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Batch Execution",
+    "where": "a key-producing or child-key-producing step was added without a shard-identifier column name",
+    "trigger": "the step maps a returned row into its ShardKey result",
+    "response": "use the shardId value supplied to that execution as the record's shard identifier instead of reading a shard-identifier column from the row; a ShardBatch supplies the shard id of the shard it runs on, while a DatabaseBatch always supplies 0, because it runs only on a non-sharded database connection, whose shard id is always 0",
+    "postcondition": "the resulting ShardKey's shard id equals the execution's shardId parameter, which is 0 for every step of a DatabaseBatch"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "254-284",
+        "label": "KeyStep.ExecuteAsync shard-id fallback"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "303-335",
+        "label": "ChildStep.ExecuteAsync shard-id fallback"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "416-448",
+        "label": "KeyListStep.ExecuteAsync shard-id fallback"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "467-501",
+        "label": "ChildListStep.ExecuteAsync shard-id fallback"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "16-31",
+        "label": "DatabaseBatch passes shard id 0 to each step"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "116-116",
+        "label": "database connections are built with shard id 0"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "1039-1040",
+        "label": "DatabaseBatch runs only on a database connection"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": "ShardKey",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": "Shard id",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,54 @@
+{
+  "id": "blk-0eb07a4f476d4b2b8ed9b1c814c31d6b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Query Parameters",
+    "condition": "a caller extracts a required Guid value from a Query contract parameter whose value is DBNull",
+    "trigger": "DbParameterExtensions: the caller invokes GetGuid",
+    "response": "return Guid.Empty as the null marker, by design, instead of throwing",
+    "postcondition": "no exception is thrown; a caller that must distinguish a database null from a stored empty Guid uses GetNullableGuid, which returns null for DBNull"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "184-214",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-75d86a819deb4554a3ce58936d019b3b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-9ce8b34127d84677bb26fd63d9cee0e0",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

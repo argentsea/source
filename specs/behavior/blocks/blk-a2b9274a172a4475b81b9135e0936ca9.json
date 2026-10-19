@@ -3,8 +3,8 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ShardParameterValue",
-    "trigger": "a caller constructs it with a shard identifier, parameter name, and parameter value",
+    "subject": "Shard Targeting Values",
+    "trigger": "ShardParameterValue: a caller constructs it with a shard identifier, parameter name, and parameter value",
     "response": "expose those three supplied values through its mutable ShardId, ParameterName, and ParameterValue properties"
   },
   "metadata": {
@@ -23,7 +23,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-parameter-value",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

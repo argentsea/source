@@ -1,0 +1,52 @@
+{
+  "id": "blk-9d7c0004be194159bd72d6e2a8ceb718",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "QueryStatement",
+    "trigger": "QueryStatement.Create resolves a statement file's location for an overload that was not given a full file path directly",
+    "response": "compute the file path from the statement name, a folder, and an extension: when the name itself is a rooted path, use the name directly and ignore the folder; otherwise, when the folder is a rooted path, combine the folder and the name directly; otherwise, combine the application's base directory, the folder, and the name; in every case, append the extension to the resulting file name whenever a non-null extension was supplied",
+    "postcondition": "the computed path is the one read to obtain the statement's SQL text"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query/QueryStatement.cs",
+        "lines": "47-117",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-26a524efb5e04c02a83e792d850db5dc",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

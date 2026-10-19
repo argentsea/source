@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "ShardDataConnection<TConfiguration> RunAsync family",
+    "name": "ShardDataConnection<TConfiguration> RunAsync(Query) family",
     "kind": "Library",
     "language": "text",
-    "contract": "RunAsync executes a Query contract and returns its integer completion result. Variants execute with an empty parameter set, supplied parameters, or supplied parameters with one named parameter bound to the endpoint's current shard identifier."
+    "contract": "For a Query contract that returns no data result, RunAsync executes it against this shard and completes, or throws on failure. Variants select whether a named parameter is bound to the endpoint's current shard identifier before execution. The sibling RunAsync(ShardBatch<TResult>, CancellationToken) overload is a separate family: it executes a multi-command ShardBatch within one transaction and returns the batch's declared TResult."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-data-connection",
+    "sectionId": "shard-addressing",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

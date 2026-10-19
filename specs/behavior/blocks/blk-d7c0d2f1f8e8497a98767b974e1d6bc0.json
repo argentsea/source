@@ -1,0 +1,42 @@
+{
+  "id": "blk-d7c0d2f1f8e8497a98767b974e1d6bc0",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A model's collection property is typed ImmutableArray<TElement>, is marked MapToSqlTableValuedParameterAttribute, and its current value is a default (uninitialized) ImmutableArray<TElement> rather than ImmutableArray<TElement>.Empty",
+      "when": "the attribute builds the table-valued-parameter expression for that property",
+      "then": "the attribute substitutes ImmutableArray<TElement>.Empty for the default value before enumerating it, avoiding the InvalidOperationException that enumerating a default (uninitialized) ImmutableArray would otherwise throw"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b4e0ec89a80e4a8098bbb175a16a3743"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1377-1388",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

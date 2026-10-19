@@ -1,0 +1,70 @@
+{
+  "id": "blk-ff10d09381b749af81072215d4e6275c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Type Mapping",
+    "trigger": "a property is configured with a MapSqlShardKeyAttribute constructor overload",
+    "response": "represent a supplied shardIdName as a SQL SmallInt column mapping with isRequired false and forward recordIdName to the base shard-key-mapping configuration; the three-argument (shardIdName, recordIdName, childIdName) overload forwards childIdName as the child, grandchild, and great-grandchild identifier name, while every overload that accepts grandChildIdName or greatGrandChildIdName as its own parameter forwards each supplied name only to its own corresponding identifier slot, leaving a deeper slot null when no name is supplied for it",
+    "postcondition": "an overload that omits isRecordIdentifier configures it as true, and an overload that supplies isRecordIdentifier preserves the given value"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "23-217",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-816d8a3a410b46aab981dfbce5db1cb3",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-87b4d12511b44bee81eac88cd493c36d",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -48,7 +48,7 @@ namespace ArgentSea.Sql
         /// For nvarchar(max) parameters, specify -1. 
         /// Setting the value correctly will help avoid plan cache pollution (when not using stored procedures) and minimize memory buffer allocations.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlNVarCharInputParameter(this DbParameterCollection prms, string parameterName, string value, int maxLength)
+        public static DbParameterCollection AddSqlNVarCharInputParameter(this DbParameterCollection prms, string parameterName, string? value, int maxLength)
         {
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.NVarChar, maxLength)
             {
@@ -83,7 +83,7 @@ namespace ArgentSea.Sql
         /// <param name="value">An empty string will be saved as a zero-length string; a null string will be saved as a database null value.</param>
         /// <param name="length">Specifies the number of characters in the string. If the original string value is smaller than this length, the returned value will be padded with spaces.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlNCharInputParameter(this DbParameterCollection prms, string parameterName, string value, int length)
+        public static DbParameterCollection AddSqlNCharInputParameter(this DbParameterCollection prms, string parameterName, string? value, int length)
         {
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.NChar, length)
             {
@@ -121,7 +121,7 @@ namespace ArgentSea.Sql
         /// Setting the value correctly will help avoid plan cache pollution (when not using stored procedures) and minimize memory buffer allocations.</param>
         /// <param name="localeId">Specify the code page for ANSI conversions. For example, the value 1033 is U.S. English.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlVarCharInputParameter(this DbParameterCollection prms, string parameterName, string value, int maxLength, int localeId)
+        public static DbParameterCollection AddSqlVarCharInputParameter(this DbParameterCollection prms, string parameterName, string? value, int maxLength, int localeId)
         {
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.VarChar, maxLength)
             {
@@ -162,7 +162,7 @@ namespace ArgentSea.Sql
         /// <param name="value">An empty string will be saved as a zero-length string; a null string will be saved as a database null value.</param>
         /// <param name="localeId">Specify the code page for ANSI conversions. For example, the value 1033 is U.S. English.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlCharInputParameter(this DbParameterCollection prms, string parameterName, string value, int length, int localeId)
+        public static DbParameterCollection AddSqlCharInputParameter(this DbParameterCollection prms, string parameterName, string? value, int length, int localeId)
         {
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Char, length)
             {
@@ -400,6 +400,10 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Creates a parameter for providing a 64-bit floating-point value (double) to a stored procedure. NaN will be converted to DbNull.
         /// </summary>
+        /// <remarks>
+        /// By design, double.NaN is sent as a database null, mirroring GetDouble, which returns NaN for a database null.
+        /// A caller that must send a NaN value should use the Nullable&lt;double&gt; overload, which maps only null to a database null.
+        /// </remarks>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
         /// <param name="value">A 64-bit floating-point value.</param>
@@ -450,6 +454,10 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Creates a parameter for providing a 32-bit floating-point value (float) to a stored procedure. NaN will be converted to DbNull.
         /// </summary>
+        /// <remarks>
+        /// By design, float.NaN is sent as a database null, mirroring GetFloat, which returns NaN for a database null.
+        /// A caller that must send a NaN value should use the Nullable&lt;float&gt; overload, which maps only null to a database null.
+        /// </remarks>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
         /// <param name="value">A 32-bit floating point value (float).</param>
@@ -897,6 +905,24 @@ namespace ArgentSea.Sql
             return prms;
         }
         /// <summary>
+        /// Creates a parameter for providing a time-of-day value to a stored procedure. The value is sent as the TimeSpan equivalent.
+        /// </summary>
+        /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
+        /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
+        /// <param name="value">A time-of-day value.</param>
+        /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
+        public static DbParameterCollection AddSqlTimeInputParameter(this DbParameterCollection prms, string parameterName, TimeOnly value)
+            => prms.AddSqlTimeInputParameter(parameterName, value.ToTimeSpan());
+        /// <summary>
+        /// Creates a parameter for providing a time-of-day value or a DbNull value to a stored procedure. The value is sent as the TimeSpan equivalent.
+        /// </summary>
+        /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
+        /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
+        /// <param name="value">A time-of-day value or null.</param>
+        /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
+        public static DbParameterCollection AddSqlTimeInputParameter(this DbParameterCollection prms, string parameterName, TimeOnly? value)
+            => prms.AddSqlTimeInputParameter(parameterName, value.HasValue ? value.Value.ToTimeSpan() : (TimeSpan?)null);
+        /// <summary>
         /// Creates an output parameter for retrieving a time value from a stored procedure.
         /// </summary>
         /// <param name="prms">The existing parameter collection to which this output parameter should be added.</param>
@@ -967,6 +993,10 @@ namespace ArgentSea.Sql
         /// <summary>
         /// Creates a parameter for providing a Guid or DBNull (via Guid.Empty) to a stored procedure.
         /// </summary>
+        /// <remarks>
+        /// By design, Guid.Empty is sent as a database null, mirroring GetGuid, which returns Guid.Empty for a database null.
+        /// A caller that must send an empty Guid value should use the Nullable&lt;Guid&gt; overload, which maps only null to a database null.
+        /// </remarks>
         /// <param name="prms">The existing parameter collection to which this parameter should be added.</param>
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
         /// <param name="value">A Guid value. Will convert Guild.Empty to DBNull.</param>
@@ -1021,7 +1051,7 @@ namespace ArgentSea.Sql
         /// <param name="value">An array of bytes, or null.</param>
         /// <param name="length">The maximum allowable number of bytes in the database column. Use -1 for varbinary(max).</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlVarBinaryInputParameter(this DbParameterCollection prms, string parameterName, byte[] value, int length)
+        public static DbParameterCollection AddSqlVarBinaryInputParameter(this DbParameterCollection prms, string parameterName, byte[]? value, int length)
         {
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.VarBinary, length)
             {
@@ -1056,7 +1086,7 @@ namespace ArgentSea.Sql
         /// <param name="value">An array of bytes, or null.</param>
         /// <param name="length">The fixed number of bytes in the database column.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlBinaryInputParameter(this DbParameterCollection prms, string parameterName, byte[] value, int length)
+        public static DbParameterCollection AddSqlBinaryInputParameter(this DbParameterCollection prms, string parameterName, byte[]? value, int length)
 		{
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Binary, length)
             {
@@ -1092,7 +1122,7 @@ namespace ArgentSea.Sql
         /// <param name="parameterName">The name of the parameter. If the name doesn’t start with “@”, it will be automatically pre-pended.</param>
         /// <param name="value">A JSON document, or null.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlJsonInputParameter(this DbParameterCollection prms, string parameterName, JsonDocument value)
+        public static DbParameterCollection AddSqlJsonInputParameter(this DbParameterCollection prms, string parameterName, JsonDocument? value)
         {
             var prm = new SqlParameter(NormalizeSqlParameterName(parameterName), SqlDbType.Json)
             {
@@ -1126,7 +1156,7 @@ namespace ArgentSea.Sql
         /// for a Structured parameter; a null reference is the driver-defined representation of a table-valued
         /// parameter with no rows.
         /// </summary>
-        private static object ToTvpValue(List<SqlDataRecord> rows) => rows.Count > 0 ? rows : null;
+        private static object? ToTvpValue(List<SqlDataRecord> rows) => rows.Count > 0 ? rows : null;
 
         /// <summary>
         /// Creates a parameter for providing a user-defined table to a stored procedure.
@@ -1138,11 +1168,11 @@ namespace ArgentSea.Sql
         /// with no rows (a null parameter value). A lazy sequence is passed through as-is and is never enumerated to
         /// determine its length; a lazily-produced empty sequence is therefore still rejected by the driver.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlTableValuedParameter(this DbParameterCollection prms, string parameterName, IEnumerable<SqlDataRecord> value)
+        public static DbParameterCollection AddSqlTableValuedParameter(this DbParameterCollection prms, string parameterName, IEnumerable<SqlDataRecord>? value)
         {
             // Microsoft.Data.SqlClient rejects both DBNull and a zero-record enumeration for a Structured parameter;
             // a null reference is the driver-defined representation of a table-valued parameter with no rows.
-            object tvpValue = value switch
+            object? tvpValue = value switch
             {
                 null => null,
                 ICollection<SqlDataRecord> collection when collection.Count == 0 => null,
@@ -1167,7 +1197,7 @@ namespace ArgentSea.Sql
         /// (a null parameter value).</param>
         /// <param name="logger">The logger instance used to record mapping diagnostics.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, ILogger logger) where TModel: new()
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel>? values, ILogger? logger) where TModel: new()
         {
             var tvp = new List<SqlDataRecord>();
             if (values is not null)
@@ -1192,7 +1222,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
         /// sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType)
             where TModel : IKeyedModel<TRecord>
             where TRecord : IComparable
         {
@@ -1220,7 +1250,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
         /// sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType)
             where TModel : IKeyedModel<TRecord, TChild>
             where TRecord : IComparable
             where TChild : IComparable
@@ -1250,7 +1280,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
         /// sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType)
             where TModel : IKeyedModel<TRecord, TChild, TGrandChild>
             where TRecord : IComparable
             where TChild : IComparable
@@ -1283,7 +1313,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of keyed model objects. An empty or null collection is
         /// sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild, TGreatGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType, string greatGrandChildIdName, SqlDbType greatGrandChildIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel, TRecord, TChild, TGrandChild, TGreatGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType, string greatGrandChildIdName, SqlDbType greatGrandChildIdType)
             where TModel : IKeyedModel<TRecord, TChild, TGrandChild, TGreatGrandChild>
             where TRecord : IComparable
             where TChild : IComparable
@@ -1318,7 +1348,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of <see cref="ShardKey{TRecord}"/> values. An empty or
         /// null collection is sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TRecord>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord>>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType)
             where TRecord : IComparable
         {
             var tvp = new List<SqlDataRecord>();
@@ -1345,7 +1375,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of <see cref="ShardKey{TRecord, TChild}"/> values. An
         /// empty or null collection is sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild>>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType)
             where TRecord : IComparable
             where TChild : IComparable
         {
@@ -1375,7 +1405,7 @@ namespace ArgentSea.Sql
         /// Creates a table-valued parameter from a sequence of <see cref="ShardKey{TRecord, TChild, TGrandChild}"/>
         /// values. An empty or null collection is sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild, TGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild, TGrandChild>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild, TGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild, TGrandChild>>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType)
             where TRecord : IComparable
             where TChild : IComparable
             where TGrandChild : IComparable
@@ -1407,7 +1437,7 @@ namespace ArgentSea.Sql
         /// <see cref="ShardKey{TRecord, TChild, TGrandChild, TGreatGrandChild}"/> values. An empty or null collection
         /// is sent as a table-valued parameter with no rows (a null parameter value).
         /// </summary>
-        public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild, TGrandChild, TGreatGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>> values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType, string greatGrandChildIdName, SqlDbType greatGrandChildIdType)
+        public static DbParameterCollection AddSqlTableValuedParameter<TRecord, TChild, TGrandChild, TGreatGrandChild>(this DbParameterCollection prms, string parameterName, IEnumerable<ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>>? values, string shardIdName, SqlDbType shardIdType, string recordIdName, SqlDbType recordIdType, string childIdName, SqlDbType childIdType, string grandChildIdName, SqlDbType grandChildIdType, string greatGrandChildIdName, SqlDbType greatGrandChildIdType)
             where TRecord : IComparable
             where TChild : IComparable
             where TGrandChild : IComparable
@@ -1449,7 +1479,7 @@ namespace ArgentSea.Sql
         /// <param name="columnList">The subset of mapped columns to include in each row.</param>
         /// <param name="logger">The logger instance used to record mapping diagnostics.</param>
         /// <returns>The DbParameterCollection to which the parameter was appended.</returns>
-        public static DbParameterCollection AddSqlTableValuedParameter<TModel>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel> values, IList<string> columnList, ILogger logger) where TModel : new()
+        public static DbParameterCollection AddSqlTableValuedParameter<TModel>(this DbParameterCollection prms, string parameterName, IEnumerable<TModel>? values, IList<string> columnList, ILogger? logger) where TModel : new()
         {
             var tvp = new List<SqlDataRecord>();
             if (values is not null)

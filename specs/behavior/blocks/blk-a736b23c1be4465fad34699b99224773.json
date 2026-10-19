@@ -9,7 +9,7 @@
     "response": "emit a structured diagnostic containing the connection name and, for a retry, its attempt number; report retry at Warning, circuit opening at Critical, and circuit testing or restoration at Information"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-logging-extensions'. Grounded in ArgentSea.Shared/src/LoggerExtensions.cs:102-109 and falsifiable, but without sectionId equal to component ID 'shared-logging-extensions', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-logging-extensions",
+    "sectionId": "core-log-events",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

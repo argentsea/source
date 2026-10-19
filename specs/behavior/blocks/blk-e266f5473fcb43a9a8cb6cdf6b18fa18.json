@@ -1,0 +1,58 @@
+{
+  "id": "blk-e266f5473fcb43a9a8cb6cdf6b18fa18",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Model Mapping",
+    "condition": "Mapper.ModelFromReaderWithCollectionsHandler is hydrating a model's CollectionMapAttributeBase properties and the data reader has fewer remaining result sets than the model type has such properties still to hydrate",
+    "response": "ModelFromReaderWithCollectionsHandler shall throw ArgentSea.UnexpectedSqlResultException naming the property and the result-set position it expected, instead of assigning that property an empty list",
+    "postcondition": "no CollectionMapAttributeBase property is silently left at an empty or default value because its backing result set was missing. This is stricter than the typed-result handlers (ModelFromOutResultsHandler and ModelFromReaderResultsHandler with explicit TReaderResult type arguments), which use an empty list for an absent dependent result set: a CollectionMapAttributeBase property is the read-side counterpart of a table-valued parameter written back on save, so an empty list substituted for a missing result set would read as 'this record has no children' and could destructively overwrite the real child rows on the next save, whereas the typed handlers' lists are not bound to a write-back. A result set that is present but empty still hydrates an empty collection."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2598-2618",
+        "label": "ModelFromReaderWithCollectionsHandler"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "2620-2678",
+        "label": "BuildCollectionHydrationDelegate: missing result set throws UnexpectedSqlResultException, with the write-back rationale"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

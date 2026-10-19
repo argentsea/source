@@ -3,8 +3,8 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ShardsValues",
-    "trigger": "Add is called with a shard identifier, with or without a named value",
+    "subject": "Shard Targeting Values",
+    "trigger": "ShardsValues: Add is called with a shard identifier, with or without a named value",
     "response": "create the shard when it is absent, preserve it when it is already present, and associate the supplied name and value only for the three-argument form",
     "postcondition": "the call returns the same ShardsValues collection"
   },
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "32-59",
+        "lines": "37-64",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

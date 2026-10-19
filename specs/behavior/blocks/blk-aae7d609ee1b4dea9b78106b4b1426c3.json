@@ -1,0 +1,67 @@
+{
+  "id": "blk-aae7d609ee1b4dea9b78106b4b1426c3",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Type Mapping",
+    "trigger": "a compiled table-valued-parameter row mapper builds the row-expression for a property mapped with MapToSqlJsonAttribute",
+    "response": "throw a NotImplementedException reporting that the Json data type is not implemented in ADO.NET for table-valued functions",
+    "postcondition": "no table-valued-parameter row expression is produced for a Json-mapped property; every other MapToSql*Attribute variant contributes a row expression instead"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1317-1319",
+        "label": "MapToSqlJsonAttribute.AppendTvpExpressions throws NotImplementedException"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "88-1266",
+        "label": "every other MapToSql*Attribute variant's AppendTvpExpressions delegates to a TvpExpressionHelpers builder instead of throwing (22 overrides spanning this range; only the Json variant at 1308-1310 throws)"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-8ae1f2c04b204c4ab567842590ff387d",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,57 @@
+{
+  "id": "blk-146e902a0cdc45359d947c46debb5bf8",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "records is null and shardId = (short)1.",
+      "when": "The caller calls ShardsValues.ShardListForeign<int, string>((short)1, (List<ShardKey<int>>)null) — the explicit cast on the null literal is required because an untyped null is ambiguous between this overload's List<ShardKey<int>> parameter (line 255) and the same-arity IList<ShardKey<int,string>> overload (line 265), and would otherwise fail to compile.",
+      "then": "The null passes through the overload's forwarding cast unchanged and is forwarded to ShardListForeign<int, string>(short, IList<ShardKey<int, string>>) at line 265, whose foreach (var record in records) throws a System.NullReferenceException; no ShardsValues is returned."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-4310c95d9050496b9c2a484b6c7fb357"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "255-256",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "265-276",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-4310c95d9050496b9c2a484b6c7fb357",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

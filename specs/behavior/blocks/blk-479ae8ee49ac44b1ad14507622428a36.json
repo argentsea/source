@@ -26,7 +26,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
-        "lines": "146-180",
+        "lines": "150-184",
         "label": null,
         "relation": "grounds"
       },
@@ -40,7 +40,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-connection-configuration",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,69 @@
+{
+  "id": "blk-e859e8caf37f46719126b310f327e711",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A ShardsValues instance was constructed via ShardsValues(IList<short> list) with an empty list, so its Shards property is null.",
+      "when": "The caller calls CopyTo(new ShardParameterValue[0], 0) on that instance.",
+      "then": "The call throws a System.NullReferenceException before any enumeration of the collection's elements occurs: CopyTo first evaluates this.Count to size its temporary result array, and the Count getter's foreach (var shd in Shards) dereferences the null Shards dictionary immediately — CopyTo never reaches its own foreach over ((IEnumerable<ShardParameterValue>)this), so the enumerator for that sequence is never created and its MoveNext is never called."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "24-30",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "84-93",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "97-113",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardsValues.cs",
+        "lines": "61-78",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-targeting-values",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-3f8c71b2508d4f1e943b0ae6b752cbe7",
+      "blobHash": null,
+      "label": null
+    }
+  ],
+  "evidenceLinks": []
+}

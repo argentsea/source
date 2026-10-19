@@ -1,0 +1,52 @@
+{
+  "id": "blk-a3d535a43b884796b1d266713a679aba",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model class maps one property with MapToSqlJsonAttribute, and that model's rows are being compiled into a table-valued-parameter mapper",
+      "when": "the compiler builds the table-valued-parameter row expression for the Json-mapped property (AppendTvpExpressions executes on the MapToSqlJsonAttribute instance)",
+      "then": "construction throws a NotImplementedException whose message is \"Json data type is not implemented in ADO.NET for table-valued functions.\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-aae7d609ee1b4dea9b78106b4b1426c3"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1317-1319",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-aae7d609ee1b4dea9b78106b4b1426c3",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

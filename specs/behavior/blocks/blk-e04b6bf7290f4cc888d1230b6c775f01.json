@@ -7,24 +7,21 @@
     "illustrates": [
       {
         "kind": "spec",
-        "project": "ArgentSea",
+        "project": "argentsea",
         "specId": "behavior",
-        "blockId": "blk-0bf207dc0f1848e2b89a180338d82543",
-        "relation": "illustrates"
+        "blockId": "blk-0bf207dc0f1848e2b89a180338d82543"
       },
       {
         "kind": "spec",
-        "project": "ArgentSea",
+        "project": "argentsea",
         "specId": "behavior",
-        "blockId": "blk-fc9cd525b2644a1daf53f6a2f8a8b495",
-        "relation": "illustrates"
+        "blockId": "blk-fc9cd525b2644a1daf53f6a2f8a8b495"
       },
       {
         "kind": "spec",
-        "project": "ArgentSea",
+        "project": "argentsea",
         "specId": "behavior",
-        "blockId": "blk-123b620a02214432a1be5269c91992d7",
-        "relation": "illustrates"
+        "blockId": "blk-0bc088d3e242465c94c6ff7ddd5057a4"
       }
     ]
   },
@@ -37,28 +34,28 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "32-59",
+        "lines": "37-64",
         "label": null,
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "61-114",
+        "lines": "66-130",
         "label": null,
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardsValues.cs",
-        "lines": "187-214",
+        "lines": "204-232",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shards-values",
+    "sectionId": "shard-targeting-values",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"
@@ -86,7 +83,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "behavior",
-      "blockId": "blk-123b620a02214432a1be5269c91992d7",
+      "blockId": "blk-0bc088d3e242465c94c6ff7ddd5057a4",
       "blobHash": null,
       "label": null,
       "relation": "illustrates"

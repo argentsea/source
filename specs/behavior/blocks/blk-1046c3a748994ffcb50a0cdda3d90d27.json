@@ -1,0 +1,48 @@
+{
+  "id": "blk-1046c3a748994ffcb50a0cdda3d90d27",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a ConditionalExpression whose Test is a BinaryExpression with NodeType Equal whose Left and Right are both ParameterExpressions named 'x' and 'y' (so IsSimpleExpression treats the test as simple, since neither operand is itself a BinaryExpression), IfTrue is a ConstantExpression 1, and IfFalse is a ConstantExpression 2",
+      "when": "DebugViewWriter visits the node",
+      "then": "it renders the token sequence \".If ($x == $y) {\", then \"1\" indented one level deeper, then \"} .Else {\", then \"2\" indented one level deeper, then \"}\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-a61d1b7131564fa8969944e46ec6199c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "550-586",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "610-614",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

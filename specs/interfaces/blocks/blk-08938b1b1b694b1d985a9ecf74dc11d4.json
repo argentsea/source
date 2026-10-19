@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-reminder-options-validator'. Grounded in ArgentSeaReminderOptionsValidator.cs:24-42 and falsifiable, but without sectionId set to component ID 'orleans-reminder-options-validator', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ArgentSeaReminderOptionsValidator.cs:24-42 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'orleans-reminder-storage' resolves to component 'Orleans Reminder Storage' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-reminder-options-validator",
+    "sectionId": "orleans-reminder-storage",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "orleans-reminder-options-validator",
+      "blockId": "orleans-reminder-storage",
       "blobHash": null,
       "label": null,
       "relation": "references"

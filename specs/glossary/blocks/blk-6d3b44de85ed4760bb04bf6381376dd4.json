@@ -4,9 +4,10 @@
   "type": "Term",
   "fields": {
     "name": "Read scale-out",
-    "definition": "Routing read-only traffic to separate replica or clone instances while write traffic remains on the write-capable endpoint.",
+    "definition": "A deployment in which a write-capable primary handles writes while replica endpoints serve read-only traffic. Examples of such replicas are readable secondaries, hot standbys, read replicas and reader endpoints. ArgentSea supports it through the read/write connection pair. Replication latency, where a just-written record is not yet visible on the read endpoint, is the application's concern; ArgentSea does not retry on the write connection automatically.",
     "synonyms": [
-      "read replica scale-out"
+      "read replica scale-out",
+      "read/write splitting"
     ]
   },
   "metadata": {

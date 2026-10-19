@@ -26,7 +26,7 @@ namespace ArgentSea.Sql.Test
         public bool IsInfoEnabled => true;
         public bool IsWarnEnabled => true;
 
-        public IDisposable BeginScope<TState>(TState state) where TState : notnull
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
         {
             return new Disposee();
         }
@@ -66,7 +66,7 @@ namespace ArgentSea.Sql.Test
             return true;
         }
 
-        public void Log<TState>(Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter) => this.stringBuilder.AppendLine(exception?.Message);
+        public void Log<TState>(Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) => this.stringBuilder.AppendLine(exception?.Message);
 
         public void Trace(string message) => this.stringBuilder.AppendLine(message);
         public void Trace(Func<string> messageFactory) => this.stringBuilder.AppendLine(messageFactory());

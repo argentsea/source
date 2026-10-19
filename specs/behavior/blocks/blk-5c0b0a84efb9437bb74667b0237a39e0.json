@@ -1,0 +1,107 @@
+{
+  "id": "blk-5c0b0a84efb9437bb74667b0237a39e0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Model Mapping",
+    "trigger": "while compiling a shard-key mapped property's output-parameter delegate (a one- through four-part ShardKey property carrying a MapShardKeyAttribute), no mapping attribute on that property has the name the shard-key attribute declared for RecordIdName, ChildIdName, GrandChildIdName, or GreatGrandChildIdName, as required by the key's arity",
+    "response": "throw MapAttributeMissingException carrying the corresponding ShardElement (RecordId, ChildId, GrandChildId, or GreatGrandChildId) and the attribute name the shard-key attribute declared",
+    "postcondition": "there is deliberately no equivalent presence check for the ShardId: the shard id's parameter mapping is not a separate attribute looked up by name but is carried inside the MapShardKeyAttribute itself (the provider attribute's shardIdName constructor argument builds that parameter definition, exposed as ShardParameter), so it can never be missing while its name is declared. When the shard-key attribute declares no shard id, ShardParameter is null, no shard-id output parameter is created, and when the key is read back its ShardId is taken from the shard identifier of the connection that ran the query; a ShardKey without a declared shard id is therefore a valid mapping, not a missing attribute."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "792-900",
+        "label": "IterateSetOutParameters: shard parameter taken from the attribute, RecordId..GreatGrandChildId presence checks"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "43-47",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "63-65",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "36-66",
+        "label": "the shard id parameter definition is carried by the attribute itself (ShardParameter)"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "23-42",
+        "label": "no shardIdName passes a null shard parameter; a shardIdName builds it"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1182-1197",
+        "label": "with no shard parameter, the key's ShardId comes from the connection's shard identifier"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/ShardKeyArityMappingTests.cs",
+        "lines": "31-107",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-816d8a3a410b46aab981dfbce5db1cb3",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-a857d513c2e14b0e8fd45eb322b61cbd",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

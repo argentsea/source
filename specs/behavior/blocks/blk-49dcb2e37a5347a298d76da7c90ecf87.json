@@ -1,0 +1,64 @@
+{
+  "id": "blk-49dcb2e37a5347a298d76da7c90ecf87",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardKeySerialization",
+    "trigger": "a key column whose .NET type is an enum is encoded via GetKeyDataType and later reconstructed via GetArgType",
+    "response": "recover only the enum's underlying primitive type (int, byte, short, or long) -- not the original enum type",
+    "postcondition": "GhostShardKey.GetInstance resolves that same GetArgType mapping when it selects the generic type argument for a reflective ShardKey<...> construction, so for a key whose stored metadata code is one of the four *Enum codes, the Type argument it supplies to Activator.CreateInstance is always the underlying primitive, never the original enum type; this records only which Type argument GhostShardKey selects, not that the resulting Activator.CreateInstance call succeeds or that the constructed object is otherwise usable"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "95-114",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "381-388",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs",
+        "lines": "67-104",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-827f0c1209484f9081031f55581c7f41",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

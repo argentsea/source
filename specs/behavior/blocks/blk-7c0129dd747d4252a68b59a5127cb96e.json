@@ -1,0 +1,47 @@
+{
+  "id": "blk-7c0129dd747d4252a68b59a5127cb96e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "on a little-endian runtime, a single-part key of type Guid (KeyDataType.Guid = 1)",
+      "when": "TryEncodeTypeMetadata(typeof(Guid), out result) is invoked",
+      "then": "it returns true and result is the single byte 0x04 -- the code 1 packed into the top 6 bits of a 1-byte result (1 << 2)"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-c3ba6c6f80be402d9ad69ee801b3b3f1"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "203-209",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "253-261",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

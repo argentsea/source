@@ -4,9 +4,12 @@
   "type": "Term",
   "fields": {
     "name": "Batch",
-    "definition": "A group of database commands that execute within one transaction on the same connection.",
+    "definition": "An ordered list of batch steps that ArgentSea executes on one connection inside one client-managed ADO.NET transaction, committed only when every step succeeds. There are three kinds. A database batch runs on a non-sharded connection; a shard batch runs on one shard. Both may return a result: a value, a list of values, a model, or one or more shard keys. A shard-set batch runs the same steps on every targeted shard, each shard in its own transaction, and returns no result. The batch is the only place ArgentSea enlists a client-side transaction. Its main purpose is to combine non-query work, such as a bulk load, with queries in one transaction.",
     "synonyms": [
-      "query batch"
+      "query batch",
+      "DatabaseBatch",
+      "ShardBatch",
+      "ShardSetBatch"
     ]
   },
   "metadata": {

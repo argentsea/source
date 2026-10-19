@@ -1,0 +1,52 @@
+{
+  "id": "blk-443cd4af7fba42939b63655493f30aa7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a DbConnection instance that is not an NpgsqlConnection (for example a Microsoft.Data.SqlClient.SqlConnection), and procedure name \"get_account\"",
+      "when": "the Postgres DataProviderServiceFactory.NewCommand is invoked with that connection",
+      "then": "it throws System.ArgumentException with ParamName \"connection\" and a message stating that the connection must be an NpgsqlConnection, and no command is created"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b2890a643c89423c915c34524985b919"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "28-35",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b2890a643c89423c915c34524985b919",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -1,0 +1,42 @@
+{
+  "id": "blk-e282009861f047988f2d77daf2c6058f",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Tags of type int[] maps to an output parameter whose resolved DbParameter is present",
+      "when": "the output-parameter read expression for Tags executes via ReadOutParameterArrayExpressions",
+      "then": "Tags is assigned the array returned by invoking the provider's get-method, made generic over int, on that parameter"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-81682c1abddc4a46b87f0c35772d060c",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "275-291",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

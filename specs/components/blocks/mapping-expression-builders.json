@@ -1,0 +1,32 @@
+{
+  "id": "mapping-expression-builders",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Mapping Expression Builders",
+    "responsibility": "Builds the expression-tree fragments that set, read and convert a single parameter or a single result column for each data shape the library supports — strings, enums backed by an integral type, simple value types, nullable value types, binary values and arrays — including the null-sentinel and required-value checks each shape needs. It is the shared fragment library every compiled mapping delegate is assembled from, which is why it is reached directly by the mapper, by every provider mapping attribute and by the Orleans key marshalling, rather than sitting inside any one of them.",
+    "parent": "mapping"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "20-843",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

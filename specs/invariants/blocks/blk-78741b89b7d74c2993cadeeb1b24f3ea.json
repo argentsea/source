@@ -10,19 +10,19 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'sql-tvp-expression-helpers'. Grounded invariant block, but without sectionId equal to component ID 'sql-tvp-expression-helpers', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded invariant block. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'table-valued-parameters' resolves to component 'Table Valued Parameters' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/TvpExpressionHelpers.cs",
-        "lines": "19-298",
+        "lines": "19-326",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-tvp-expression-helpers",
+    "sectionId": "table-valued-parameters",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"

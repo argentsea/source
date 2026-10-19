@@ -1,0 +1,25 @@
+{
+  "id": "reminder-configuration-validation",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Reminder Configuration Validation",
+    "responsibility": "Holds the bounds ArgentSea's reminder storage can actually honour — the shortest reminder period, the list-refresh period and the initialisation timeout — and refuses a silo's reminder configuration at start-up when it falls outside them, so a misconfiguration surfaces before reminders are silently missed at runtime.",
+    "parent": "orleans-grain-storage-package"
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

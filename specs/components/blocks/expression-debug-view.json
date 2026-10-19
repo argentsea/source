@@ -1,0 +1,32 @@
+{
+  "id": "expression-debug-view",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Expression Debug View",
+    "responsibility": "Renders a compiled expression tree as indented, source-like text so that the delegate the library generated for a model type can be read in a trace log and compared against what the model's attributes said. It exists so a mapping that compiled successfully but behaves wrongly can still be inspected, which no other part of the library provides.",
+    "parent": "mapping"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "36-1394",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

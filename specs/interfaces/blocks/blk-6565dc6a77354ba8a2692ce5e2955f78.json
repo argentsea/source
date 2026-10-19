@@ -1,0 +1,34 @@
+{
+  "id": "blk-6565dc6a77354ba8a2692ce5e2955f78",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "LoggingExtensions.ExpressionTreeCreatedEvents",
+    "kind": "Library",
+    "language": "csharp",
+    "contract": "The compiled-delegate reporting family, six public wrapper methods all logging at Debug under event id ExpressionTreeCreation (1): CreatedExpressionTreeForSetInParameters, CreatedExpressionTreeForSetOutParameters, CreatedExpressionTreeForReadOutParameters, CreatedExpressionTreeForReaderOrdinals, CreatedExpressionTreeForReaderRowData each take (this ILogger logger, Type model, Expression codeBlock); CreatedExpressionTreeForModel additionally takes a string procedureName. Each guards the expensive DebugViewWriter rendering with `if (logger.IsEnabled(LogLevel.Debug))`, matching its delegate's own level, so no rendering happens when Debug is disabled; when enabled it renders codeBlock into a human-readable expression-tree listing and logs it together with the model type (and, for the Model variant, the procedure name). Each method invokes its own delegate, whose EventId.Name equals the method name: CreatedExpressionTreeForReaderOrdinals reports under \"CreatedExpressionTreeForReaderOrdinals\" with an \"...ordinals to data reader values...\" message, distinct from CreatedExpressionTreeForReaderRowData's \"...to data reader row values...\" message."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "114-119,239-304",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

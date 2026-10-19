@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ShardSetsBase<TConfiguration>.ShardSetWrite",
-    "trigger": "a caller invokes MapReaderAsync for a query contract with an optional shard selection or shard-identifier parameter",
-    "response": "construct each returned model from mapping attributes and one to eight data-reader result sets for every targeted write shard",
+    "subject": "Shard Set Fan-Out",
+    "trigger": "ShardSetsBase<TConfiguration>.ShardSetWrite: a caller invokes MapReaderAsync for a query contract with an optional shard selection or shard-identifier parameter",
+    "response": "construct each returned model from mapping attributes and the data reader's primary result set alone or together with one to eight additional result sets (two through nine in total), for every targeted write shard",
     "postcondition": "the returned list contains the non-null models from the participating shards"
   },
   "metadata": {
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/ShardSetWrite.cs",
-        "lines": "211-901",
+        "lines": "211-961",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-sets-base-shard-set-write",
+    "sectionId": "shard-set-fan-out",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

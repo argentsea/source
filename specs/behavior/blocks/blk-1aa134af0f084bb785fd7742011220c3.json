@@ -1,0 +1,69 @@
+{
+  "id": "blk-1aa134af0f084bb785fd7742011220c3",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Copy Load",
+    "trigger": "the COPY row-writer delegate for a model type is compiled on first use of that type",
+    "response": "when the host logger has Debug enabled, render the compiled expression tree as a debug-view listing and log it with the model type through CreatedExpressionTreeForCopy at Debug under event id ExpressionTreeCreation (1), with a message saying the model is mapped to Pg COPY row values; and embed into the compiled writer a TraceCopyMapperProperty call per mapped property, so that every row written emits a Trace-level event under event id MapperProcessTrace (5) naming each property as it is written",
+    "postcondition": "with Debug disabled no rendering occurs"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgLoggingExtensions.cs",
+        "lines": "19-20,27-28,41-55",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "505,513,537,660",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "copy-load",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b2f1ecbf8fdc46818abe840ed7750aa2",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

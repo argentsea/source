@@ -1,0 +1,52 @@
+{
+  "id": "blk-335b328a794c47a0b650e504c88e0109",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an input parameter collection that already contains a parameter named '@ExistingId', and an ignoreParameters set that does not contain '@ExistingId'",
+      "when": "CreateInputParameters<TModel> is called on that collection, passing that ignoreParameters set and a model instance",
+      "then": "after the call returns, the ignoreParameters set contains '@ExistingId' even though the caller never added it — every parameter name already present in the incoming collection is merged into ignoreParameters before the model's mapping delegate is invoked, and the same parameter collection is returned"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-39b5f4e3d08a457e9bbdbab3d455030a"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "66-92",
+        "label": "CreateInputParameters merges pre-existing parameter names into ignoreParameters"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

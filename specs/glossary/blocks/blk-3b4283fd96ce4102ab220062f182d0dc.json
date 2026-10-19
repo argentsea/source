@@ -1,0 +1,40 @@
+{
+  "id": "blk-3b4283fd96ce4102ab220062f182d0dc",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Keyed model",
+    "definition": "A model that exposes its shard key through a `Key` property by implementing `IKeyedModel<TRecord>` (or the two-, three- or four-column variants). Implementing it unlocks shard-key utilities that operate on model lists: merging two lists by key, finding the foreign shards they reference, and building a shards values argument from them.",
+    "synonyms": [
+      "IKeyedModel"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/IKeyedModel.cs",
+        "lines": "1-30",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "161-169",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

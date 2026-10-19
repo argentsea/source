@@ -1,0 +1,42 @@
+{
+  "id": "blk-02f1281b198e42019b5557a70c4ec5b5",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Thumbnail of type byte[] maps to an output parameter whose resolved DbParameter is present",
+      "when": "the output-parameter read expression for Thumbnail executes via ReadOutParameterBinaryExpressions",
+      "then": "Thumbnail is assigned the value returned by calling the provider's configured get-method on that parameter"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-81682c1abddc4a46b87f0c35772d060c",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "264-273",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

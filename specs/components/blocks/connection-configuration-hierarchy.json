@@ -1,0 +1,74 @@
+{
+  "id": "connection-configuration-hierarchy",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Connection Configuration Hierarchy",
+    "responsibility": "Declares every connection attribute as a discrete setting that may be set at any level of an inheritable hierarchy, resolves the levels into the settings one read or write endpoint actually uses, and raises a change notification so a dependent endpoint re-resolves rather than serving a stale connection string. It also fixes what a resolved endpoint must be able to answer: its description, its connection string, and the retry and circuit-breaker limits that govern it.",
+    "parent": "configuration"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "15-182",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardConnectionConfiguration.cs",
+        "lines": "13-20",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetConnectionsConfiguration.cs",
+        "lines": "13-21",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataConnection.cs",
+        "lines": "8-30",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/SimpleConnection.cs",
+        "lines": "11-67",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

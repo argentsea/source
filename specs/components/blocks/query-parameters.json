@@ -1,0 +1,44 @@
+{
+  "id": "query-parameters",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Query Parameters",
+    "responsibility": "Holds a command's parameters in a collection that exists without a command object, so a caller can build a parameter set on its own thread and hand the finished set to a data method. It also reads typed values back out of a parameter after execution, deciding for each .NET type whether a database null becomes a null, a sentinel value, or a refusal.",
+    "parent": "querying"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ParameterCollection.cs",
+        "lines": "15-204",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
+        "lines": "19-330",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/UnexpectedNullException.cs",
+        "lines": "13-56",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

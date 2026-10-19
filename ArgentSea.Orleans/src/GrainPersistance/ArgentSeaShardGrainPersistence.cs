@@ -22,11 +22,16 @@ namespace ArgentSea.Orleans
         //private readonly int initStage;
         private readonly bool validateGrainKeys;
 
-        private static readonly ConcurrentDictionary<string, Lazy<Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger?, short>>> _readLambda = new();
-        private static readonly ConcurrentDictionary<string, Lazy<Delegate>> _writeLambda = new();
+        // The caches are keyed by the Orleans state name AND the state type, as Orleans keys its own storage bridges:
+        // the state name is not unique to a state type (every Grain<TState> uses "state", and [PersistentState] names
+        // may repeat across grains and providers), while each compiled lambda is specific to the state type.
+        private static readonly ConcurrentDictionary<(string StateName, Type StateType), Lazy<Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger?, short>>> _readLambda = new();
+        // Also keyed by the ValidateGrainKeys setting: the compiled lambda bakes that setting in, so two
+        // providers with different settings must not share one.
+        private static readonly ConcurrentDictionary<(string StateName, Type StateType, bool ValidateGrainKeys), Lazy<Delegate>> _writeLambda = new();
         //private static readonly ConcurrentDictionary<string, Lazy<Func<ReadOnlyMemory<byte>, object, ParameterCollection, ILogger?, short>>> _clearLambda = new();
-        private static readonly ConcurrentDictionary<string, Lazy<Delegate>> _clearLambda = new();
-        private static readonly ConcurrentDictionary<string, Lazy<Delegate>> _setShardLambda = new();
+        private static readonly ConcurrentDictionary<(string StateName, Type StateType, bool ValidateGrainKeys), Lazy<Delegate>> _clearLambda = new();
+        private static readonly ConcurrentDictionary<(string StateName, Type StateType), Lazy<Delegate>> _setShardLambda = new();
 
         public ArgentSeaShardGrainPersistence(
             ShardSetsBase<TShardOptions> shards,
@@ -55,12 +60,12 @@ namespace ArgentSea.Orleans
             var startTimestamp = Stopwatch.GetTimestamp();
             if (!this.queryDefinitions.TryGetValue(grainType, out var queries))
             {
-                throw new OrleansQueryNotProvidedException(grainType);
+                throw new OrleansQueryNotProvidedException(grainType, nameof(ReadStateAsync));
             }
             var prms = new ParameterCollection();
 
 
-            var lazyShardIdAndParams = _readLambda.GetOrAdd(grainType, new Lazy<Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger?, short>>(() => OrleansExpressionHelper.BuildShardReadLambda<TModel>(grainType, this.logger), LazyThreadSafetyMode.ExecutionAndPublication));
+            var lazyShardIdAndParams = _readLambda.GetOrAdd((grainType, typeof(TModel)), new Lazy<Func<ReadOnlyMemory<byte>, ParameterCollection, ILogger?, short>>(() => OrleansExpressionHelper.BuildShardReadLambda<TModel>(grainType, this.logger), LazyThreadSafetyMode.ExecutionAndPublication));
             if (lazyShardIdAndParams.IsValueCreated)
             {
                 logger?.OrleansShardCacheHit(grainType);
@@ -71,72 +76,50 @@ namespace ArgentSea.Orleans
             }
             var shardId = lazyShardIdAndParams.Value(grainId.Key.Value, prms, this.logger);
 
-            if (grainState.State is null)
-            {
-                if (grainState.State is IActivator<TModel>)
-                {
-                    var miActivate = typeof(TModel).GetMethod(nameof(IActivator<TModel>.Activatate), BindingFlags.Static | BindingFlags.Public)!;
-                    grainState.State = (TModel)miActivate.Invoke(null, [grainType, grainId.Key.Value])!;
-                }
-                else
-                {
-                    grainState.State = Activator.CreateInstance<TModel>();
-                    var lazySetShard = _setShardLambda.GetOrAdd(grainType, new Lazy<Delegate>(() => OrleansExpressionHelper.BuildSetShardLambda<TModel>(grainType, this.logger), LazyThreadSafetyMode.ExecutionAndPublication));
-                    if (lazySetShard.IsValueCreated)
-                    {
-                        logger?.OrleansDbCacheHit(grainType);
-                    }
-                    else
-                    {
-                        logger?.OrleansDbCacheMiss(grainType);
-                    }
-                    ((Action<ReadOnlyMemory<byte>, TModel, ILogger?>)lazySetShard.Value)(grainId.Key.Value, grainState.State!, this.logger);
-                }
+            var instance = grainState.State ?? Activator.CreateInstance<TModel>();
 
-                grainState.RecordExists = false;
-            }
-            else
-            {
-                grainState.RecordExists = true;
-            }
-
-            if (grainState.State is null)
-            {
-                grainState.State = Activator.CreateInstance<TModel>();
-            }
-
+            // Every mapping branch returns null (default) when the database returns no result, so the result is always kept.
+            TModel? result;
             if (queries.ResultFormat == QueryResultFormat.ResultSet)
             {
                 if (Mapper.HasCollectionMapProperties(typeof(TModel)))
                 {
-                    grainState.State = await this.shards[shardId].Read.MapReaderWithCollectionsAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                    result = await this.shards[shardId].Read.MapReaderWithCollectionsAsync<TModel>(instance, queries.ReadQuery, prms, CancellationToken.None);
                 }
                 else
                 {
-                    await this.shards[shardId].Read.MapReaderAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                    result = await this.shards[shardId].Read.MapReaderAsync<TModel>(instance, queries.ReadQuery, prms, CancellationToken.None);
                 }
             }
             else
             {
-                await this.shards[shardId].Read.MapOutputAsync<TModel>(grainState.State, queries.ReadQuery, prms, CancellationToken.None);
+                // The key parameters are already present as inputs; declare the remaining mapped properties as output parameters so the procedure can return them.
+                prms.CreateOutputParameters<TModel>(this.logger);
+                result = await this.shards[shardId].Read.MapOutputAsync<TModel>(instance, queries.ReadQuery, prms, CancellationToken.None);
             }
-            if (grainState.State is null)
+            if (result is null)
             {
-                if (grainState.State is IActivator<TModel>)
+                // No record: use the type’s IActivator factory, if any; otherwise create a default instance and set its shard key from the grain id.
+                if (!GrainStateActivator.TryActivate<TModel>(grainType, grainId.Key.Value, out var activated))
                 {
-                    var miActivate = typeof(TModel).GetMethod(nameof(IActivator<TModel>.Activatate), BindingFlags.Static | BindingFlags.Public)!;
-                    grainState.State = (TModel)miActivate.Invoke(null, [grainType, grainId.Key.Value])!;
+                    activated = Activator.CreateInstance<TModel>();
+                    var lazySetShard = _setShardLambda.GetOrAdd((grainType, typeof(TModel)), new Lazy<Delegate>(() => OrleansExpressionHelper.BuildSetShardLambda<TModel>(grainType, this.logger), LazyThreadSafetyMode.ExecutionAndPublication));
+                    if (lazySetShard.IsValueCreated)
+                    {
+                        logger?.OrleansShardCacheHit(grainType);
+                    }
+                    else
+                    {
+                        logger?.OrleansShardCacheMiss(grainType);
+                    }
+                    ((Action<ReadOnlyMemory<byte>, TModel, ILogger?>)lazySetShard.Value)(grainId.Key.Value, activated, this.logger);
                 }
-                else
-                {
-                    grainState.State = Activator.CreateInstance<TModel>();
-                    // todo: set properties
-                }
-
+                grainState.State = activated;
                 grainState.RecordExists = false;
             }
             else
             {
+                grainState.State = result;
                 grainState.RecordExists = true;
             }
             var elapsedMS = (long)((Stopwatch.GetTimestamp() - startTimestamp) * TimestampToMilliseconds);
@@ -153,13 +136,13 @@ namespace ArgentSea.Orleans
             }
             if (!this.queryDefinitions.TryGetValue(grainType, out var queries))
             {
-                throw new OrleansQueryNotProvidedException($"The grain type {grainType} is not defined in the configuration.");
+                throw new OrleansQueryNotProvidedException(grainType, nameof(WriteStateAsync));
             }
             var prms = new ParameterCollection()
                 .CreateInputParameters<TModel>(grainState.State, this.logger);
 
 
-            var lazyShardId = _writeLambda.GetOrAdd(grainType, new Lazy<Delegate>(() => OrleansExpressionHelper.BuildShardWriteLambda<TModel>(grainType, this.validateGrainKeys), LazyThreadSafetyMode.ExecutionAndPublication));
+            var lazyShardId = _writeLambda.GetOrAdd((grainType, typeof(TModel), this.validateGrainKeys), new Lazy<Delegate>(() => OrleansExpressionHelper.BuildShardWriteLambda<TModel>(grainType, this.validateGrainKeys), LazyThreadSafetyMode.ExecutionAndPublication));
             if (lazyShardId.IsValueCreated)
             {
                 logger?.OrleansShardCacheHit(grainType);
@@ -187,11 +170,11 @@ namespace ArgentSea.Orleans
             }
             if (!this.queryDefinitions.TryGetValue(grainType, out var queries))
             {
-                throw new OrleansQueryNotProvidedException($"The grain type {grainType} is not defined in the configuration.");
+                throw new OrleansQueryNotProvidedException(grainType, nameof(ClearStateAsync));
             }
             var prms = new ParameterCollection();
 
-            var lazyShardIdAndParams = _clearLambda.GetOrAdd(grainType, new Lazy<Delegate>(() => OrleansExpressionHelper.BuildShardClearLambda<TModel>(grainType, this.validateGrainKeys, this.logger), LazyThreadSafetyMode.ExecutionAndPublication));
+            var lazyShardIdAndParams = _clearLambda.GetOrAdd((grainType, typeof(TModel), this.validateGrainKeys), new Lazy<Delegate>(() => OrleansExpressionHelper.BuildShardClearLambda<TModel>(grainType, this.validateGrainKeys, this.logger), LazyThreadSafetyMode.ExecutionAndPublication));
             if (lazyShardIdAndParams.IsValueCreated)
             {
                 logger?.OrleansShardCacheHit(grainType);
@@ -206,7 +189,7 @@ namespace ArgentSea.Orleans
             await this.shards[shardId].Write.RunAsync(queries.ClearQuery, prms, CancellationToken.None);
             grainState.RecordExists = false;
             var elapsedMS = (long)((Stopwatch.GetTimestamp() - startTimestamp) * TimestampToMilliseconds);
-            this.logger?.TraceDbClearCmdExecuted(grainType, elapsedMS);
+            this.logger?.TraceShardClearCmdExecuted(shardId, grainType, elapsedMS);
         }
 
         private static readonly double TimestampToMilliseconds = (double)TimeSpan.TicksPerSecond / (Stopwatch.Frequency * TimeSpan.TicksPerMillisecond);

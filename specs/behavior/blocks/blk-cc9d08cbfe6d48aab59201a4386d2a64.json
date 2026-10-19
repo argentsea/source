@@ -1,0 +1,42 @@
+{
+  "id": "blk-cc9d08cbfe6d48aab59201a4386d2a64",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "ReminderOptions.MinimumReminderPeriod is 00:00:30 (0.5 minutes), below the default floor ReminderOptionsDefaults.MinimumReminderPeriodMinutes = 1.",
+      "when": "ArgentSeaReminderOptionsValidator.ValidateConfiguration is called.",
+      "then": "ValidateConfiguration returns without throwing, and a warning is logged under RSErrorCode.RS_FastReminderInterval whose message states the configured period as 0:00:30 against the default minimum formatted as 1 — TimeSpan's \"g\" format, which renders 30 seconds as 0:00:30 rather than zero-padded 00:00:30."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-98e320e2ec3b49189c8c00be74a679b3"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ArgentSeaReminderOptionsValidator.cs",
+        "lines": "31-43",
+        "label": "The negative-period guard (31-36) that would otherwise throw, the below-floor if-block, the exact log format string, and the method's control reaching its end without a throw"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-storage",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

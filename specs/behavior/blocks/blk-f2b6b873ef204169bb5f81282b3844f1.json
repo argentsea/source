@@ -1,0 +1,60 @@
+{
+  "id": "blk-f2b6b873ef204169bb5f81282b3844f1",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "SQL Server Connection Settings",
+    "trigger": "the host binds the SqlDbConnections configuration array to SqlDbConnectionOptions",
+    "response": "represent each array entry as a SqlDbConnectionConfiguration that carries its DatabaseKey, accepts SqlClient connection settings directly on the entry (the database level, inherited from SqlConnectionPropertiesBase), and holds a ReadConnection and a WriteConnection that default to two distinct new SqlConnectionConfiguration instances when the entry does not configure them; and expose the same SqlDbConnections array, uncopied, as IDatabaseConfigurationOptions.DbConnectionsInternal with each entry's endpoints visible as ReadConnectionInternal and WriteConnectionInternal",
+    "postcondition": "the provider-neutral Databases collection reads every configured SQL Server database, with its database-level settings and its read/write connection pair, through the shared configuration interfaces"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "32-47",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IDatabaseConfigurationOptions.cs",
+        "lines": "15-18",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

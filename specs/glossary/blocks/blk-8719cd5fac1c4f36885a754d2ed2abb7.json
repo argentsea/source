@@ -1,0 +1,42 @@
+{
+  "id": "blk-8719cd5fac1c4f36885a754d2ed2abb7",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Grain query definitions",
+    "definition": "The per-grain-type registration (`OrleansDbQueryDefinitions`, `OrleansShardQueryDefinitions`) of the read, write and clear Query objects that grain persistence uses for that grain type. It also specifies whether the read query returns state as output parameters or as a result set. It is registered in the persistence options keyed by grain type; a grain type with no registration fails on first use.",
+    "synonyms": [
+      "OrleansDbQueryDefinitions",
+      "OrleansShardQueryDefinitions",
+      "QueryResultFormat"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "16-291",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "25-40",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

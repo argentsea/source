@@ -4,7 +4,7 @@
   "type": "Schema",
   "fields": {
     "name": "MapToSql*Attribute target-type matrix",
-    "description": "The target SQL Server type and accepted CLR property-shape dimensions for the MapToSql*Attribute family.",
+    "description": "The target SQL Server type (the SqlDbType each variant's constructor passes to SqlParameterMapAttribute) and the CLR property shapes its IsValidType override accepts, for the 23 MapToSql*Attribute variants. Nullable forms are accepted only where listed; enum acceptance is limited to the string-family and integer variants. Every accepted shape works through input parameters, output parameters, data-reader reads and table-valued-parameter rows; any other shape is rejected with InvalidMapTypeException when the mapping is first built.",
     "members": [
       {
         "name": "NVarChar",
@@ -29,22 +29,22 @@
       {
         "name": "BigInt",
         "type": "bigint",
-        "description": "long"
+        "description": "long, enum, nullable long (Nullable<long>); a nullable enum is NOT accepted"
       },
       {
         "name": "Int",
         "type": "int",
-        "description": "int"
+        "description": "int, enum, nullable int (Nullable<int>), nullable enum"
       },
       {
         "name": "SmallInt",
         "type": "smallint",
-        "description": "short"
+        "description": "short, enum, nullable short (Nullable<short>), nullable enum"
       },
       {
         "name": "TinyInt",
         "type": "tinyint",
-        "description": "byte"
+        "description": "byte, enum, nullable byte (Nullable<byte>), nullable enum"
       },
       {
         "name": "Bit",
@@ -89,12 +89,12 @@
       {
         "name": "Date",
         "type": "date",
-        "description": "DateOnly or nullable DateOnly"
+        "description": "DateOnly or nullable DateOnly (DateTime is NOT accepted); a date output parameter returned as DateTime is read back as its DateOnly date part"
       },
       {
         "name": "Time",
         "type": "time",
-        "description": "TimeSpan, TimeOnly, or nullable form"
+        "description": "TimeSpan, TimeOnly, nullable TimeSpan, or nullable TimeOnly; a TimeOnly value is sent (input parameter and table-valued-parameter row) as its TimeSpan equivalent and read back from the TimeSpan or TimeOnly value the provider returns"
       },
       {
         "name": "DateTimeOffset",
@@ -104,12 +104,12 @@
       {
         "name": "VarBinary",
         "type": "varbinary(n)",
-        "description": "byte[], ReadOnlySpan<byte>, ReadOnlyMemory<byte>, Span<byte>, or Memory<byte>; length -1 selects varbinary(max)"
+        "description": "byte[] only (no nullable wrapper; ReadOnlySpan<byte>, Span<byte>, ReadOnlyMemory<byte> and Memory<byte> are rejected); length -1 selects varbinary(max)"
       },
       {
         "name": "Binary",
         "type": "binary(n)",
-        "description": "byte[]; length"
+        "description": "byte[] only; length"
       },
       {
         "name": "UniqueIdentifier",
@@ -119,7 +119,7 @@
       {
         "name": "Json",
         "type": "json",
-        "description": "JsonDocument"
+        "description": "System.Text.Json.JsonDocument only (no nullable wrapper)"
       }
     ],
     "representations": {
@@ -135,14 +135,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
-        "lines": "55-1325",
+        "lines": "53-1336",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-map-to-sql-attribute-family",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

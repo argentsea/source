@@ -1,0 +1,126 @@
+{
+  "id": "blk-94614e41ce874ded97b9ffd09b398796",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "DataConnectionConfigurationBase settable property shape",
+    "description": "The settable property shape of one level of the configuration hierarchy: credential properties that signal their own staleness via PropertyChanged, and resilience properties that do not.",
+    "members": [
+      {
+        "name": "UserName",
+        "type": "string",
+        "required": false,
+        "description": "Database login account, used when Windows (Kerberos) auth is not used.",
+        "notes": "C# declaration: string (no NRT annotation in source); explicit property body, not an auto-property — assigning a different value raises PropertyChanged."
+      },
+      {
+        "name": "Password",
+        "type": "string",
+        "required": false,
+        "description": "Database login password, used when Windows (Kerberos) auth is not used.",
+        "notes": "C# declaration: string; explicit property body — assigning a different value raises PropertyChanged."
+      },
+      {
+        "name": "WindowsAuth",
+        "type": "bool?",
+        "required": false,
+        "description": "Whether Windows (Kerberos) auth should be used instead of UserName/Password.",
+        "notes": "C# declaration: Nullable<bool>; explicit property body — assigning a different value raises PropertyChanged."
+      },
+      {
+        "name": "RetryCount",
+        "type": "int?",
+        "required": false,
+        "description": "Number of times to automatically retry when a transient connection or command error is encountered.",
+        "notes": "C# declaration: Nullable<int>; auto-property — does not raise PropertyChanged. This base class defines no resolution, fallback or consuming logic for an unset value (its XML doc comment states an intended default of 6, but no code here enforces it)."
+      },
+      {
+        "name": "RetryInterval",
+        "type": "int?",
+        "required": false,
+        "description": "Milliseconds to wait before retrying a retry-able connection or command error; extended on later retries per RetryLengthening.",
+        "notes": "C# declaration: Nullable<int>; auto-property — does not raise PropertyChanged. GetRetryTimespan on this same instance substitutes 250 ms when this is unset."
+      },
+      {
+        "name": "RetryLengthening",
+        "type": "SequenceLengthening?",
+        "required": false,
+        "description": "How much each subsequent retry's delay is extended beyond RetryInterval.",
+        "notes": "C# declaration: Nullable<SequenceLengthening>; auto-property — does not raise PropertyChanged. SequenceLengthening is the enum declared at DataConnectionConfigurationBase.cs lines 15-46 with members Linear, Lengthening, HalfSquare, Squaring, plus the [Obsolete] alias Fibonacci = Lengthening. GetRetryTimespan on this same instance substitutes Lengthening (1, 3, 5, 7… × interval) when this is unset."
+      },
+      {
+        "name": "CircuitBreakerFailureCount",
+        "type": "int?",
+        "required": false,
+        "description": "Number of failures, after retries, before the circuit breaker blocks further connections.",
+        "notes": "C# declaration: Nullable<int>; auto-property — does not raise PropertyChanged. This base class defines no resolution, fallback or consuming logic for an unset value."
+      },
+      {
+        "name": "CircuitBreakerTestInterval",
+        "type": "int?",
+        "required": false,
+        "description": "Milliseconds to wait after the circuit breaker trips before allowing a periodic test connection.",
+        "notes": "C# declaration: Nullable<int>; auto-property — does not raise PropertyChanged. This base class defines no resolution, fallback or consuming logic for an unset value."
+      }
+    ],
+    "representations": {
+      "C#": "public string UserName { get; set; } public string Password { get; set; } public bool? WindowsAuth { get; set; } public int? RetryCount { get; set; } public int? RetryInterval { get; set; } public SequenceLengthening? RetryLengthening { get; set; } public int? CircuitBreakerFailureCount { get; set; } public int? CircuitBreakerTestInterval { get; set; }"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "66-143",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "15-46",
+        "label": "SequenceLengthening enum declaration"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-e762b989990a42f6a1bca7346f9c068d",
+      "blobHash": null,
+      "label": "DataConnectionConfigurationBase library contract",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -3,5 +3,6 @@
   "packs": [
     "software",
     "brief"
-  ]
+  ],
+  "types": []
 }

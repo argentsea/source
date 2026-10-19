@@ -1,0 +1,137 @@
+{
+  "id": "blk-d408f46971a040e292e8898732234253",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Connection Configuration Hierarchy",
+    "condition": "a credential property — UserName, Password, or WindowsAuth — is assigned a value different from the one it currently holds",
+    "trigger": "DataConnectionConfigurationBase: the property's setter executes",
+    "response": "raise the PropertyChanged event, naming the changed property as the event's property name",
+    "postcondition": "a Data connection holding this configuration level recomputes its resolved connection settings rather than reusing the ones resolved before the change. The resilience settings (RetryCount, RetryInterval, RetryLengthening, CircuitBreakerFailureCount, CircuitBreakerTestInterval) raise no PropertyChanged; a change to them reaches the connection's resilience policy on its next execution instead."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "51-56",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "66-109",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "240-243",
+        "label": null
+      },
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "glossary",
+        "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+        "blobHash": null,
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "111-143",
+        "label": "resilience settings, which raise no PropertyChanged"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "79-94",
+        "label": "resilience setting changes are picked up on the next execution"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "27-38",
+        "label": "Postgres connection subscribes to its own PropertyChanged; the handler clears the cached connection string and description",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "298-347",
+        "label": "Postgres connection subscribes to the ambient (global, shard-set, read/write, shard) layers' PropertyChanged and clears its caches when the chain is set",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgConnectionConfiguration.cs",
+        "lines": "262-296",
+        "label": "Postgres connection string is rebuilt when the cache is empty",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "27-38",
+        "label": "SQL Server connection subscribes to its own PropertyChanged; the handler clears the cached connection string and description",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "187-236",
+        "label": "SQL Server connection subscribes to the ambient (global, shard-set, read/write, shard) layers' PropertyChanged and clears its caches when the chain is set",
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "150-185",
+        "label": "SQL Server connection string is rebuilt when the cache is empty",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-e762b989990a42f6a1bca7346f9c068d",
+      "blobHash": null,
+      "label": "DataConnectionConfigurationBase library contract",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

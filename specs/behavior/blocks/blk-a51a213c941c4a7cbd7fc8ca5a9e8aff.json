@@ -1,0 +1,59 @@
+{
+  "id": "blk-a51a213c941c4a7cbd7fc8ca5a9e8aff",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a command's source DbParameterCollection contains one NpgsqlParameter \"@id\" whose Value is 7, and SetParameters is called with queryParameterNames null and a parameterValues dictionary containing {\"@id\": 99}",
+      "when": "the Postgres DataProviderServiceFactory.SetParameters applies parameters to the command",
+      "then": "the command's \"@id\" parameter ends up with Value 99 — the parameterValues entry replaces the cloned source value and is the value bound on the command — while the source collection's \"@id\" parameter still holds 7"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-2a2a41ac73944646b18322571471bb18"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "46-61",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ProviderServicesTests.cs",
+        "lines": "31-44",
+        "label": null,
+        "relation": "verifies"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-2a2a41ac73944646b18322571471bb18",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

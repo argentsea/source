@@ -4,9 +4,10 @@
   "type": "Term",
   "fields": {
     "name": "Default shard",
-    "definition": "The shard selected as the destination for newly inserted records for a client context.",
+    "definition": "The shard, named by a shard set's `DefaultShardId` setting, that a client uses as the destination for new records. It is reached through the shard set's `DefaultShard` property. Because the setting is per client configuration, different clients (for example, different regions) can default to different shards.",
     "synonyms": [
-      "default shard destination"
+      "DefaultShard",
+      "DefaultShardId"
     ]
   },
   "metadata": {

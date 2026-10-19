@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "PostgreSqlProvider.DataProviderServiceFactory",
+    "name": "ArgentSea.Pg.DataProviderServiceFactory",
     "kind": "Library",
     "language": "text",
-    "contract": "Provides the PostgreSQL realization of IDataProviderServiceFactory: it creates a PostgreSQL connection from supplied connection text; creates a command for a supplied procedure name only when given a PostgreSQL connection; and materializes independent PostgreSQL command parameters from a source collection, either all source entries or the requested named entries in request order."
+    "contract": "Provides the PostgreSQL realization of IDataProviderServiceFactory: it reports whether a given exception is a transient failure by delegating to NpgsqlException.IsTransient when the exception is an NpgsqlException, and reporting not transient for every other exception type; it creates a PostgreSQL connection from supplied connection text; it creates a command for a supplied procedure name only when given an NpgsqlConnection, otherwise throwing System.ArgumentException with ParamName \"connection\"; and it materializes independent PostgreSQL command parameters (clones) from a source collection, either all source entries or, for each requested name in request order, the first source entry with that name (throwing ArgentSea.ParameterNotFoundException for any requested name absent from the source collection), replacing a clone's value with the parameterValues entry of the same name when one is supplied, then preparing the command unless its connection string enables multiplexing (judged by NpgsqlConnectionStringBuilder.Multiplexing)."
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
-        "lines": "16-103",
+        "lines": "16-110",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-data-provider-service-factory",
+    "sectionId": "postgres-provider-services",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -34,7 +34,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "shared-i-data-provider-service-factory",
+      "blockId": "data-provider-services",
       "blobHash": null,
       "label": null,
       "relation": "references"

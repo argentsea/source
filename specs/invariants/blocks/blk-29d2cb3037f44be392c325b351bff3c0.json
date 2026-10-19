@@ -1,0 +1,41 @@
+{
+  "id": "blk-29d2cb3037f44be392c325b351bff3c0",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Pg.DataProviderServiceFactory.NewCommand must never return a command built against a connection that is not an NpgsqlConnection; the type check guards every call and rejects any other DbConnection before a command is constructed",
+    "scope": "ArgentSea.Pg/src/DataProviderServiceFactory.cs NewCommand(string, DbConnection)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "28-35",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b2890a643c89423c915c34524985b919",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -59,7 +59,7 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 16)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a UInt64.");
             }
@@ -83,7 +83,7 @@ namespace ArgentSea.Orleans
                 valueSpan = span;
             }
 
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'N') && len == 32)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'N'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a Guid.");
             }
@@ -106,7 +106,7 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 8)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a Int32.");
             }
@@ -129,7 +129,7 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 8)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a UInt32.");
             }
@@ -152,7 +152,7 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 4)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a Int16.");
             }
@@ -175,7 +175,7 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 4)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a UInt16.");
             }
@@ -198,7 +198,7 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 2)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a Byte.");
             }
@@ -221,9 +221,33 @@ namespace ArgentSea.Orleans
             {
                 valueSpan = span;
             }
-            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X') && len == 2)
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len, 'X'))
             {
                 throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a signed byte.");
+            }
+            if (delimiter == -1)
+            {
+                delimiter = len - 1;
+            }
+            return span[(delimiter + 1)..];
+        }
+
+        public static ReadOnlySpan<byte> Extract(this ReadOnlySpan<byte> span, out decimal result)
+        {
+            ReadOnlySpan<byte> valueSpan;
+            var delimiter = span.IndexOf(cDELIMITER);
+            if (delimiter > -1)
+            {
+                valueSpan = span[..delimiter];
+            }
+            else
+            {
+                valueSpan = span;
+            }
+            // Decimal segments are invariant general-format text (see Append), not hexadecimal.
+            if (!Utf8Parser.TryParse(valueSpan, out result, out var len) || len != valueSpan.Length)
+            {
+                throw new InvalidCastException($"Unable to parse key of “{Encoding.UTF8.GetString(valueSpan)}” to a decimal.");
             }
             if (delimiter == -1)
             {
@@ -246,11 +270,11 @@ namespace ArgentSea.Orleans
                 valueSpan = span;
             }
             result = Encoding.UTF8.GetString(valueSpan);
-            result.Replace((char)cDELIMITER_REPLACE, (char)cDELIMITER);
+            result = result.Replace((char)cDELIMITER_REPLACE, (char)cDELIMITER);
 
             if (delimiter == -1)
             {
-                delimiter = result.Length - 1;
+                delimiter = valueSpan.Length - 1;
             }
             return span[(delimiter + 1)..];
         }
@@ -400,8 +424,10 @@ namespace ArgentSea.Orleans
 
         public static int Append(this Span<byte> buffer, int currentPosition, decimal value)
         {
+            // Utf8Formatter has no hexadecimal form for decimal; the general format is invariant, round-trips exactly
+            // (Extract parses it back) and never contains the '+' delimiter. Its longest rendering is 31 bytes.
             Span<byte> buf = stackalloc byte[32];
-            if (!Utf8Formatter.TryFormat(value, buf, out var len, 'X'))
+            if (!Utf8Formatter.TryFormat(value, buf, out var len, 'G'))
             {
                 throw new FormatException($"Could not write decimal {value.ToString()} to stream.");
             }
@@ -454,10 +480,7 @@ namespace ArgentSea.Orleans
 
         public static IdSpan GetDbGrainId<TModel>(TModel model, ILogger logger)
         {
-            if (model is null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
+            ArgumentNullException.ThrowIfNull(model);
             var tModel = typeof(TModel);
             var lazyIdSpanCreator = _getIdSpan.GetOrAdd(tModel, (key) => new Lazy<Delegate>(() => OrleansExpressionHelper.BuildGrainIdFromDbModel<TModel>(logger), LazyThreadSafetyMode.ExecutionAndPublication));
             if (lazyIdSpanCreator.IsValueCreated)

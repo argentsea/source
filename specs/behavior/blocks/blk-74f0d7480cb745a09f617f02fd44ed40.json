@@ -1,0 +1,92 @@
+{
+  "id": "blk-74f0d7480cb745a09f617f02fd44ed40",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Model Mapping",
+    "trigger": "a MapAttributeMissingException is constructed with a ShardElement and the shard-key attribute's declared name",
+    "response": "record the element and name on the exception's Element and AttributeName properties and choose its message by element: ShardId says the shard attribute named a ShardId argument attribute that was not found and to remove the argument if there is no shard id parameter or column; RecordId says the named RecordId argument attribute was not found; ChildId says the ShardChild attribute's named child id attribute was not found; GrandChildId and GreatGrandChildId share one generic message saying the shard attribute's named child id attribute was not found",
+    "postcondition": "every message quotes the declared attribute name and tells the author to make it exactly match the mapping attribute's name; the GrandChildId and GreatGrandChildId messages do not say which of the two elements was missing, so a caller distinguishes them only through the Element property. The ShardId message exists but no library code path raises it, because a shard id's parameter is carried inside the shard-key mapping attribute itself"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/MapAttributeMissingException.cs",
+        "lines": "43-62",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "886-898",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "222-234",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "633-645",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9769efb608b4429aad2e706848541e2b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-a857d513c2e14b0e8fd45eb322b61cbd",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-24b13dadb4864807854d811fe54b0fe5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

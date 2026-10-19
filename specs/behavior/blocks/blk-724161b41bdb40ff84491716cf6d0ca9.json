@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgShardConnectionOptions",
-    "trigger": "a consumer reads the shared shard-set configuration view",
-    "response": "return the current PgShardSets collection as IShardSetConnectionsConfiguration[]",
-    "postcondition": "the shared view contains the configured shard-set entries"
+    "subject": "Postgres Connection Settings",
+    "trigger": "a consumer reads PgShardConnectionOptions.ShardSetsConfigInternal through IShardSetsConfigurationOptions",
+    "response": "return the configured PgShardSets array itself as IShardSetConnectionsConfiguration[], without copying, replacing, filtering, or reordering its elements",
+    "postcondition": "the shared view is the same array instance as PgShardSets, so the consumer observes the configured shard-set entries in their configured order"
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
-        "lines": "13-17",
+        "lines": "13-16",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/IShardSetsConfigurationOptions.cs",
+        "lines": "15-18",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

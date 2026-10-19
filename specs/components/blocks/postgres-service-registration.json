@@ -1,0 +1,64 @@
+{
+  "id": "postgres-service-registration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Postgres Service Registration",
+    "responsibility": "Stands ArgentSea up in a host for PostgreSQL: binds the configuration sections to the PostgreSQL settings objects and registers, as injectable singletons, the collection of configured databases and the collection of configured shard sets — each already wired to the Npgsql provider services. It also fixes the file extension under which statement-file queries are looked up, which is process-wide rather than per-provider state.",
+    "parent": "postgres-provider-package",
+    "inherits": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "databases-collection"
+      },
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "components",
+        "blockId": "shard-set-fan-out"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "17-42",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDatabases.cs",
+        "lines": "12-22",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardSets.cs",
+        "lines": "14-24",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgQueryStatement.cs",
+        "lines": "17-38",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -24,7 +24,7 @@ namespace ArgentSea
     {
         internal readonly DataConnectionManager _manager;
         private readonly short _shardId;
-        private Dictionary<string, object> _mockResult = null;
+        private Dictionary<string, object>? _mockResult;
 
         internal ShardDataConnection(ShardSetsBase<TConfiguration> parent, short shardId, IDataConnection config)
         {
@@ -47,11 +47,11 @@ namespace ArgentSea
         {
             get
             {
-                if (this._mockResult is null)
-                {
-                    this._mockResult = new Dictionary<string, object>();
-                }
-                return this._mockResult;
+                // Thread-safe lazy creation: when several threads touch this property first at the same time,
+                // exactly one dictionary is published and every caller receives that same instance. A plain
+                // null-check-then-assign could hand a caller a dictionary that is later overwritten, silently
+                // discarding the mocks it registered.
+                return LazyInitializer.EnsureInitialized(ref this._mockResult, () => new Dictionary<string, object>());
             }
         }
 
@@ -98,9 +98,9 @@ namespace ArgentSea
         /// <param name="shardParameterName">The name of the parameter who value should be set to the shard Id.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public async Task<TValue> ReturnValueAsync<TValue>(Query query, string dataName, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+        public async Task<TValue?> ReturnValueAsync<TValue>(Query query, string dataName, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (TValue)this.MockResults[query.Name];
             }
@@ -118,9 +118,9 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters. If “dataName” argument matches an output parameter name, this will be the value returned.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public async Task<TValue> ReturnValueAsync<TValue>(Query query, string dataName, DbParameterCollection parameters, CancellationToken cancellationToken)
+        public async Task<TValue?> ReturnValueAsync<TValue>(Query query, string dataName, DbParameterCollection parameters, CancellationToken cancellationToken)
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (TValue)this.MockResults[query.Name];
             }
@@ -142,12 +142,12 @@ namespace ArgentSea
         public async Task<ShardKey<TRecord>> ReturnValueAsync<TRecord>(Query query, string shardDataName, string recordDataName, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TRecord : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (ShardKey<TRecord>)this.MockResults[query.Name];
             }
             var result = await _manager.ReturnAsync<short, TRecord, object>(query, shardDataName, recordDataName, null, parameters, null, parameters.GetParameterOrdinal(shardParameterName), cancellationToken);
-            return new ShardKey<TRecord>(result.Item1, result.Item2);
+            return new ShardKey<TRecord>(result.Item1, result.Item2!); // a no-row result leaves the ids at their defaults
         }
 
         /// <summary>
@@ -165,12 +165,12 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (ShardKey<TRecord, TChild>)this.MockResults[query.Name];
             }
             var result = await _manager.ReturnAsync<TRecord, TChild, object>(query, recordDataName, childDataName, null, parameters, null, parameters.GetParameterOrdinal(shardParameterName), cancellationToken);
-            return new ShardKey<TRecord, TChild>(_shardId, result.Item1, result.Item2);
+            return new ShardKey<TRecord, TChild>(_shardId, result.Item1!, result.Item2!); // a no-row result leaves the ids at their defaults
         }
 
         /// <summary>
@@ -190,12 +190,12 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (ShardKey<TRecord, TChild>)this.MockResults[query.Name];
             }
             var result = await _manager.ReturnAsync<short, TRecord, TChild>(query, shardDataName, recordDataName, childDataName, parameters, null, parameters.GetParameterOrdinal(shardParameterName), cancellationToken);
-            return new ShardKey<TRecord, TChild>(result.Item1, result.Item2, result.Item3);
+            return new ShardKey<TRecord, TChild>(result.Item1, result.Item2!, result.Item3!); // a no-row result leaves the ids at their defaults
         }
 
         /// <summary>
@@ -211,12 +211,12 @@ namespace ArgentSea
         public async Task<ShardKey<TRecord>> ReturnValueAsync<TRecord>(Query query, string shardDataName, string recordDataName, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TRecord : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (ShardKey<TRecord>)this.MockResults[query.Name];
             }
             var result = await _manager.ReturnAsync<short, TRecord, object>(query, shardDataName, recordDataName, null, parameters, null, -1, cancellationToken);
-            return new ShardKey<TRecord>(result.Item1, result.Item2);
+            return new ShardKey<TRecord>(result.Item1, result.Item2!); // a no-row result leaves the ids at their defaults
         }
 
         /// <summary>
@@ -233,12 +233,12 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (ShardKey<TRecord, TChild>)this.MockResults[query.Name];
             }
             var result = await _manager.ReturnAsync<TRecord, TChild, object>(query, recordDataName, childDataName, null, parameters, null, -1, cancellationToken);
-            return new ShardKey<TRecord, TChild>(_shardId, result.Item1, result.Item2);
+            return new ShardKey<TRecord, TChild>(_shardId, result.Item1!, result.Item2!); // a no-row result leaves the ids at their defaults
         }
 
         /// <summary>
@@ -257,12 +257,12 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (ShardKey<TRecord, TChild>)this.MockResults[query.Name];
             }
             var result = await _manager.ReturnAsync<short, TRecord, TChild>(query, shardDataName, recordDataName, childDataName, parameters, null, -1, cancellationToken);
-            return new ShardKey<TRecord, TChild>(result.Item1, result.Item2, result.Item3);
+            return new ShardKey<TRecord, TChild>(result.Item1, result.Item2!, result.Item3!); // a no-row result leaves the ids at their defaults
         }
 
 
@@ -301,7 +301,7 @@ namespace ArgentSea
         /// <returns>A list containing an object for each data row.</returns>
         public async Task<List<TValue>> ListAsync<TValue>(Query query, DbParameterCollection parameters, string columnName, string shardParameterName, CancellationToken cancellationToken)
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<TValue>)this.MockResults[query.Name];
             }
@@ -325,7 +325,7 @@ namespace ArgentSea
         /// <returns>A list containing an object for each data row.</returns>
         public async Task<List<TValue>> ListAsync<TValue>(Query query, DbParameterCollection parameters, string columnName, CancellationToken cancellationToken)
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<TValue>)this.MockResults[query.Name];
             }
@@ -351,7 +351,7 @@ namespace ArgentSea
         public async Task<List<ShardKey<TRecord>>> ListAsync<TRecord>(Query query, string recordColumnName, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TRecord : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord>>)this.MockResults[query.Name];
             }
@@ -376,7 +376,7 @@ namespace ArgentSea
         public async Task<List<ShardKey<TRecord>>> ListAsync<TRecord>(Query query, string recordColumnName, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TRecord : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord>>)this.MockResults[query.Name];
             }
@@ -403,7 +403,7 @@ namespace ArgentSea
         public async Task<List<ShardKey<TRecord>>> ListAsync<TRecord>(Query query, string shardColumnName, string recordColumnName, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TRecord : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord>>)this.MockResults[query.Name];
             }
@@ -429,7 +429,7 @@ namespace ArgentSea
         public async Task<List<ShardKey<TRecord>>> ListAsync<TRecord>(Query query, string shardColumnName, string recordColumnName, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TRecord : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord>>)this.MockResults[query.Name];
             }
@@ -457,7 +457,7 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord, TChild>>)this.MockResults[query.Name];
             }
@@ -485,7 +485,7 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord, TChild>>)this.MockResults[query.Name];
             }
@@ -514,7 +514,7 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord, TChild>>)this.MockResults[query.Name];
             }
@@ -542,7 +542,7 @@ namespace ArgentSea
             where TRecord : IComparable
             where TChild : IComparable
         {
-            if (!(this.MockResults is null) && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
+            if (this.MockResults is not null && this.MockResults.Count > 0 && this.MockResults.ContainsKey(query.Name))
             {
                 return (List<ShardKey<TRecord, TChild>>)this.MockResults[query.Name];
             }
@@ -567,8 +567,8 @@ namespace ArgentSea
         /// <param name="isTopOne">If the procedure or function is expected to return only one record, setting this to True provides a minor optimization.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns>An object of type TModel, as created and populated by the provided delegate.</returns>
-        public Task<TModel> QueryAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, QueryResultModelHandler<object, TModel> resultHandler, bool isTopOne, CancellationToken cancellationToken)
-            => _manager.QueryAsync<object, TModel>(default(TModel), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, resultHandler, isTopOne, null, this.MockResults, cancellationToken);
+        public Task<TModel?> QueryAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, QueryResultModelHandler<object?, TModel> resultHandler, bool isTopOne, CancellationToken cancellationToken)
+            => _manager.QueryAsync<object?, TModel>(default(TModel), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, resultHandler, isTopOne, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return the TModel object returned by the delegate.
@@ -580,8 +580,8 @@ namespace ArgentSea
         /// <param name="isTopOne">If the procedure or function is expected to return only one record, setting this to True provides a minor optimization.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns>An object of type TModel, as created and populated by the provided delegate.</returns>
-		public Task<TModel> QueryAsync<TModel>(Query query, DbParameterCollection parameters, QueryResultModelHandler<object, TModel> resultHandler, bool isTopOne, CancellationToken cancellationToken)
-            => _manager.QueryAsync<object, TModel>(default(TModel), query, parameters, -1, null, resultHandler, isTopOne, null, this.MockResults, cancellationToken);
+		public Task<TModel?> QueryAsync<TModel>(Query query, DbParameterCollection parameters, QueryResultModelHandler<object?, TModel> resultHandler, bool isTopOne, CancellationToken cancellationToken)
+            => _manager.QueryAsync<object?, TModel>(default(TModel), query, parameters, -1, null, resultHandler, isTopOne, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return the TModel object returned by the delegate.
@@ -596,7 +596,7 @@ namespace ArgentSea
         /// <param name="optionalArgument">An object of type TArg which can be used to pass non-datatabase data to the result-generating delegate.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns>An object of type TModel, as created and populated by the provided delegate.</returns>
-		public Task<TModel> QueryAsync<TArg, TModel>(Query query, DbParameterCollection parameters, string shardParameterName, QueryResultModelHandler<TArg, TModel> resultHandler, bool isTopOne, TArg optionalArgument, CancellationToken cancellationToken)
+		public Task<TModel?> QueryAsync<TArg, TModel>(Query query, DbParameterCollection parameters, string shardParameterName, QueryResultModelHandler<TArg, TModel> resultHandler, bool isTopOne, TArg optionalArgument, CancellationToken cancellationToken)
             => _manager.QueryAsync<TArg, TModel>(default(TModel), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, resultHandler, isTopOne, optionalArgument, this.MockResults, cancellationToken);
 
         /// <summary>
@@ -611,7 +611,7 @@ namespace ArgentSea
         /// <param name="optionalArgument">An object of type TArg which can be used to pass non-datatabase data to the result-generating delegate.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns>An object of type TModel, as created and populated by the provided delegate.</returns>
-		public Task<TModel> QueryAsync<TArg, TModel>(Query query, DbParameterCollection parameters, QueryResultModelHandler<TArg, TModel> resultHandler, bool isTopOne, TArg optionalArgument, CancellationToken cancellationToken)
+		public Task<TModel?> QueryAsync<TArg, TModel>(Query query, DbParameterCollection parameters, QueryResultModelHandler<TArg, TModel> resultHandler, bool isTopOne, TArg optionalArgument, CancellationToken cancellationToken)
             => _manager.QueryAsync<TArg, TModel>(default(TModel), query, parameters, -1, null, resultHandler, isTopOne, optionalArgument, this.MockResults, cancellationToken);
 
 
@@ -642,7 +642,7 @@ namespace ArgentSea
         /// <param name="batch">The QueryBatch object.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns>The last valid TResult type returned by the collection of commands.</returns>
-        public Task<TResult> RunAsync<TResult>(ShardBatch<TResult> batch, CancellationToken cancellationToken)
+        public Task<TResult?> RunAsync<TResult>(ShardBatch<TResult> batch, CancellationToken cancellationToken)
             => _manager.RunBatchAsync<TResult>(batch, this.MockResults, cancellationToken);
 
         #endregion
@@ -655,9 +655,9 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel>(Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
+        public Task<TModel?> MapOutputAsync<TModel>(Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -668,11 +668,11 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -684,12 +684,12 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -702,13 +702,13 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -722,14 +722,14 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -744,7 +744,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -752,7 +752,7 @@ namespace ArgentSea
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -768,7 +768,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -777,7 +777,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -794,7 +794,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -804,7 +804,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -822,7 +822,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -833,7 +833,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -844,9 +844,9 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to null or empty.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+        public Task<TModel?> MapOutputAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -858,11 +858,11 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to null or empty.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -875,12 +875,12 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to null or empty.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -894,13 +894,13 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -915,14 +915,14 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -938,7 +938,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -946,7 +946,7 @@ namespace ArgentSea
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -963,7 +963,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -972,7 +972,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -990,7 +990,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1000,7 +1000,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1019,7 +1019,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1030,7 +1030,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
 
         #endregion
         #region MapOutput (instance) overloads
@@ -1043,8 +1043,8 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+        public Task<TModel?> MapOutputAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1056,10 +1056,10 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1072,11 +1072,11 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1090,12 +1090,12 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1110,13 +1110,13 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1132,14 +1132,14 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1156,7 +1156,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1164,7 +1164,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1182,7 +1182,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1191,7 +1191,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1210,7 +1210,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1220,7 +1220,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1231,8 +1231,8 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to null or empty.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+        public Task<TModel?> MapOutputAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1245,10 +1245,10 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to null or empty.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1262,11 +1262,11 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to null or empty.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1281,12 +1281,12 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1302,13 +1302,13 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1325,14 +1325,14 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1350,7 +1350,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1358,7 +1358,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1377,7 +1377,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1386,7 +1386,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results and output parameters.
@@ -1406,7 +1406,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapOutputAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1416,7 +1416,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromOutResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
 
         #endregion
         #region MapReader (no instance) overloads
@@ -1428,9 +1428,9 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel>(Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
+        public Task<TModel?> MapReaderAsync<TModel>(Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type, mapping its scalar properties from the first
@@ -1442,9 +1442,9 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderWithCollectionsAsync<TModel>(Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
+        public Task<TModel?> MapReaderWithCollectionsAsync<TModel>(Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1455,11 +1455,11 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1471,12 +1471,12 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1489,13 +1489,13 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1509,14 +1509,14 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1531,7 +1531,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1539,7 +1539,7 @@ namespace ArgentSea
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1555,7 +1555,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1564,7 +1564,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1581,7 +1581,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1591,7 +1591,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1609,7 +1609,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1620,7 +1620,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results parameters.
@@ -1631,9 +1631,9 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+        public Task<TModel?> MapReaderAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type, mapping its scalar properties from the first
@@ -1646,9 +1646,9 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderWithCollectionsAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+        public Task<TModel?> MapReaderWithCollectionsAsync<TModel>(Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1660,11 +1660,11 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1677,12 +1677,12 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1696,13 +1696,13 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1717,14 +1717,14 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1740,7 +1740,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1748,7 +1748,7 @@ namespace ArgentSea
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1765,7 +1765,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1774,7 +1774,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1792,7 +1792,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1802,7 +1802,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1821,7 +1821,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
             where TReaderResult0 : new()
@@ -1832,7 +1832,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(new TModel(), query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
         #endregion
         #region MapReader (instance) overloads
         /// <summary>
@@ -1844,8 +1844,8 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+        public Task<TModel?> MapReaderAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type, mapping its scalar properties from the first
@@ -1858,8 +1858,8 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderWithCollectionsAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+        public Task<TModel?> MapReaderWithCollectionsAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1871,10 +1871,10 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1887,11 +1887,11 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1905,12 +1905,12 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1925,13 +1925,13 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1947,14 +1947,14 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1971,7 +1971,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -1979,7 +1979,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -1997,7 +1997,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2006,7 +2006,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2025,7 +2025,7 @@ namespace ArgentSea
         /// <param name="parameters">The query parameters.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (TModel instance, Query query, DbParameterCollection parameters, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2035,7 +2035,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, -1, null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results parameters.
@@ -2047,9 +2047,9 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+        public Task<TModel?> MapReaderAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type, mapping its scalar properties from the first
@@ -2063,9 +2063,9 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderWithCollectionsAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
+        public Task<TModel?> MapReaderWithCollectionsAsync<TModel>(TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TModel : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderWithCollectionsHandler<TModel>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2078,10 +2078,10 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2095,11 +2095,11 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2114,12 +2114,12 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2135,13 +2135,13 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2158,14 +2158,14 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
             where TReaderResult2 : new()
             where TReaderResult3 : new()
             where TReaderResult4 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2183,7 +2183,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2191,7 +2191,7 @@ namespace ArgentSea
             where TReaderResult3 : new()
             where TReaderResult4 : new()
             where TReaderResult5 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2210,7 +2210,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2219,7 +2219,7 @@ namespace ArgentSea
             where TReaderResult4 : new()
             where TReaderResult5 : new()
             where TReaderResult6 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6>, false, null, this.MockResults, cancellationToken);
 
         /// <summary>
         /// Connect to the database and return an object of the specified type built from the corresponding data reader results.
@@ -2239,7 +2239,7 @@ namespace ArgentSea
         /// <param name="shardParameterName">The ordinal position of a parameter that should be automatically set to the current shard number value. If there is no such parameter, set to -1.</param>
         /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
         /// <returns></returns>
-        public Task<TModel> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
+        public Task<TModel?> MapReaderAsync<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>
             (TModel instance, Query query, DbParameterCollection parameters, string shardParameterName, CancellationToken cancellationToken)
             where TReaderResult0 : new()
             where TReaderResult1 : new()
@@ -2249,7 +2249,7 @@ namespace ArgentSea
             where TReaderResult5 : new()
             where TReaderResult6 : new()
             where TReaderResult7 : new()
-            => _manager.QueryAsync<object, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
+            => _manager.QueryAsync<object?, TModel>(instance, query, parameters, parameters.GetParameterOrdinal(shardParameterName), null, Mapper.ModelFromReaderResultsHandler<TModel, TReaderResult0, TReaderResult1, TReaderResult2, TReaderResult3, TReaderResult4, TReaderResult5, TReaderResult6, TReaderResult7>, false, null, this.MockResults, cancellationToken);
         #endregion
     }
 }

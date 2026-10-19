@@ -15,7 +15,7 @@ namespace ArgentSea.Sql.Test
         public int ChildId { get; set; }
 
         [MapToSqlNVarChar("ChildName", 100)]
-        public string ChildName { get; set; }
+        public string? ChildName { get; set; }
     }
 
     internal class CollectionWriteParent
@@ -24,10 +24,10 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlTableValuedParameter("@Children", "ChildTableType")]
-        public List<CollectionWriteChild> Children { get; set; }
+        public List<CollectionWriteChild>? Children { get; set; }
     }
 
     internal class CollectionWriteParentImmutableArray
@@ -36,7 +36,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlTableValuedParameter("@Children", "ChildTableType")]
         public ImmutableArray<CollectionWriteChild> Children { get; set; }
@@ -104,6 +104,10 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+        [Trait("Spec", "blk-48f70a8f347b4bb8aa4490079567c4c9")]
+        [Trait("Spec", "blk-0539e7af93cc455ba620a90d60dd1467")]
+        [Trait("Spec", "blk-49e115d193124835b2d157144da977ec")]
         public void AddSqlTableValuedParameter_EmptyCollection_ProducesNullReferenceNotAnEmptyEnumeration()
         {
             // Arrange
@@ -167,6 +171,8 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+        [Trait("Spec", "blk-b4e0ec89a80e4a8098bbb175a16a3743")]
         public void CreateInputParameters_EmptyCollectionProperty_SendsNullTvpValue()
         {
             // Arrange
@@ -240,6 +246,8 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-d7c0d2f1f8e8497a98767b974e1d6bc0")]
+        [Trait("Spec", "blk-b4e0ec89a80e4a8098bbb175a16a3743")]
         public void CreateInputParameters_DefaultImmutableArrayCollectionProperty_DoesNotThrowAndSendsNullTvpValue()
         {
             // Arrange
@@ -422,6 +430,7 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
+        [Trait("Spec", "blk-48f70a8f347b4bb8aa4490079567c4c9")]
         public void AddSqlTableValuedParameter_RawOverload_LazySequence_PassesThroughWithoutEnumerating()
         {
             // Arrange

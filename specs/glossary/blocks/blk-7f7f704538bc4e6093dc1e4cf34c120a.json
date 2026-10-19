@@ -1,0 +1,35 @@
+{
+  "id": "blk-7f7f704538bc4e6093dc1e4cf34c120a",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Nested model",
+    "definition": "A model property marked `[MapToModel]` whose type is itself a mapped model, such as a shared Address model inside Customer, Store and Vendor. Its mapping attributes extend the parent's parameter and column set: they are flattened into the same parameters or row, not read from a separate result. Nested models may chain to any depth. The Mapper instantiates the nested object when the property is null, settable and default-constructible.",
+    "synonyms": [
+      "MapToModel",
+      "MapToModel property"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/complexattributes.md",
+        "lines": "12-154",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

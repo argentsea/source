@@ -3,8 +3,8 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgParameters",
-    "where": "a Query contract uses PgParameters to materialize an input value",
+    "subject": "Postgres Type Mapping",
+    "where": "a Query contract uses PgParameterCollectionExtensions to materialize an input value",
     "trigger": "a typed input helper receives a nullable value with no value",
     "response": "append an Input Npgsql parameter whose Value is System.DBNull.Value",
     "postcondition": "the supplied DbParameterCollection contains the database-null input parameter"
@@ -18,21 +18,21 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgMapAttributes.cs",
-        "lines": "63-67",
+        "lines": "96-100",
         "label": "query mapping invokes parameter helpers",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "164-184",
+        "lines": "166-186",
         "label": "nullable Bigint input materialization",
         "relation": "grounds"
       },
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "477-505",
+        "lines": "479-507",
         "label": "nullable Numeric input materialization",
         "relation": "grounds"
       },
@@ -46,7 +46,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameters",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

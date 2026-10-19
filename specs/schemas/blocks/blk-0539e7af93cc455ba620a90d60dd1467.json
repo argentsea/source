@@ -28,7 +28,7 @@
         "name": "rows",
         "type": "array<object<SqlDataRecord>>",
         "required": false,
-        "description": "Rows supplied directly or materialized from models, keyed models, or virtual compound keys. Absent (a null parameter Value) when the source collection is null or yields zero rows; never System.DBNull.Value and never an empty enumeration, which the driver rejects."
+        "description": "Absent (a null parameter Value) when the source is null; for the model-based, keyed-model, and virtual-compound-key overloads, also absent whenever the source yields zero rows, since those overloads materialize rows into a List<SqlDataRecord> before assignment. The raw SqlDataRecord overload instead nulls the Value only when the source is an ICollection<SqlDataRecord>/IReadOnlyCollection<SqlDataRecord> whose Count is zero; any other (lazy) sequence is passed through unenumerated, so a lazily-produced empty sequence still reaches the driver as a non-null, zero-record enumeration. Never System.DBNull.Value; both DBNull and an empty SqlDataRecord enumeration are rejected by Microsoft.Data.SqlClient client-side."
       },
       {
         "name": "columns",
@@ -38,7 +38,7 @@
       }
     ],
     "representations": {
-      "csharp": "SqlParameter(SqlDbType.Structured) whose Value is the supplied SqlDataRecord rows or a list constructed in the source iteration order, or a null reference when there are no rows."
+      "csharp": "SqlParameter(SqlDbType.Structured) whose Value is the supplied SqlDataRecord rows or a list constructed in the source iteration order, or a null reference when there are no rows (model-based/keyed/virtual-key overloads only; the raw overload nulls only a null or countable-empty source)."
     }
   },
   "metadata": {
@@ -50,14 +50,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "1130-1381",
+        "lines": "1160-1411",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

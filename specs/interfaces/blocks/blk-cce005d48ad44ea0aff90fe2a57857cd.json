@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-i-keyed-model",
+    "sectionId": "shard-key",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

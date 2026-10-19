@@ -8,27 +8,27 @@ namespace ArgentSea.Pg
     public abstract class PgConnectionPropertiesBase : DataConnectionConfigurationBase
     {
 
-        private string _applicationName = null;
+        private string? _applicationName;
         private int? _autoPrepareMinUsages = null;
         private int? _cancellationTimeout = null;
         private bool? _checkCertificateRevocation = null;
-        private string _clientCertificate = null;
-        private string _clientCertificateKey = null;
-        private string _clientEncoding = null;
+        private string? _clientCertificate;
+        private string? _clientCertificateKey;
+        private string? _clientEncoding;
         private int? _commandTimeout = null;
         private int? _connectionIdleLifetime = null;
         private int? _connectionLifetime = null;
         private int? _connectionPruningInterval = null;
         private bool? _convertInfinityDateTime = null;
-        private string _database = null;
-        private string _encoding = null;
+        private string? _database;
+        private string? _encoding;
         private bool? _enlist = null;
-        private string _host = null;
+        private string? _host;
         private bool? _includeErrorDetails = null;
         private bool? _includeRealm = null;
         private int? _internalCommandTimeout = null;
         private int? _keepAlive = null;
-        private string _kerberosServiceName = null;
+        private string? _kerberosServiceName;
         private bool? _logParameters = null;
         private bool? _loadTableComposites = null;
         private int? _maxAutoPrepare = null;
@@ -36,14 +36,14 @@ namespace ArgentSea.Pg
         private int? _minPoolSize = null;
         private bool? _multiplexing = null;
         private bool? _noResetOnClose = null;
-        private string _options = null;
-        private string _passfile = null;
+        private string? _options;
+        private string? _passfile;
         private bool? _persistSecurityInfo = null;
         private bool? _pooling = null;
         private int? _port = null;
         private int? _readBufferSize = null;
-        private string _rootCertificate = null;
-        private string _searchPath = null;
+        private string? _rootCertificate;
+        private string? _searchPath;
         private ServerCompatibilityMode? _serverCompatibilityMode = null;
         private int? _socketReceiveBufferSize = null;
         private int? _socketSendBufferSize = null;
@@ -52,7 +52,7 @@ namespace ArgentSea.Pg
         private int? _tcpKeepAliveInterval = null;
         private int? _tcpKeepAliveTime = null;
         private int? _timeout = null;
-        private string _timezone = null;
+        private string? _timezone;
         private bool? _trustServerCertificate = null;
         //private bool? _usePerfCounters = null;
         //private bool? _useSslStream = null;
@@ -64,7 +64,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// The optional application name parameter to be sent to the backend during connection initiation.
         /// </summary>
-        public string ApplicationName
+        public string? ApplicationName
         {
             get => _applicationName;
             set
@@ -128,7 +128,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Location of a client certificate to be sent to the server.
         /// </summary>
-        public string ClientCertificate
+        public string? ClientCertificate
         {
             get => _clientCertificate;
             set
@@ -144,7 +144,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Key for the client certificate to be sent to the server.
         /// </summary>
-        public string ClientCertificateKey
+        public string? ClientCertificateKey
         {
             get => _clientCertificateKey;
             set
@@ -161,7 +161,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Gets or sets the client_encoding parameter.
         /// </summary>
-        public string ClientEncoding
+        public string? ClientEncoding
         {
             get => _clientEncoding;
             set
@@ -258,7 +258,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// The PostgreSQL database to connect to.
         /// </summary>
-        public string Database
+        public string? Database
         {
             get => _database;
             set
@@ -274,7 +274,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Gets or sets the .NET encoding that will be used to encode/decode PostgreSQL string data.
         /// </summary>
-        public string Encoding
+        public string? Encoding
         {
             get => _encoding;
             set
@@ -306,7 +306,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// The hostname or IP address of the PostgreSQL server to connect to.
         /// </summary>
-        public string Host
+        public string? Host
         {
             get => _host;
             set
@@ -387,7 +387,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// The Kerberos service name to be used for authentication.
         /// </summary>
-        public string KerberosServiceName
+        public string? KerberosServiceName
         {
             get => _kerberosServiceName;
             set
@@ -516,7 +516,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Set PostgreSQL configuration parameter default values for the connection.
         /// </summary>
-        public string Options
+        public string? Options
         {
             get => _options;
             set
@@ -532,7 +532,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Path to a PostgreSQL password file (PGPASSFILE), from which the password would be taken.
         /// </summary>
-        public string Passfile
+        public string? Passfile
         {
             get => _passfile;
             set
@@ -612,7 +612,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Location of a CA certificate used to validate the server certificate.
         /// </summary>
-        public string RootCertificate
+        public string? RootCertificate
         {
             get => _rootCertificate;
             set
@@ -628,7 +628,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Gets or sets the schema search path.
         /// </summary>
-        public string SearchPath
+        public string? SearchPath
         {
             get => _searchPath;
             set
@@ -773,7 +773,7 @@ namespace ArgentSea.Pg
         /// <summary>
         /// Gets or sets the session timezone, PGTZ environment variable can be used instead.
         /// </summary>
-        public string Timezone
+        public string? Timezone
         {
             get => _timezone;
             set

@@ -6,7 +6,7 @@
     "name": "ShardDataConnection<TConfiguration> MapListAsync family",
     "kind": "Library",
     "language": "text",
-    "contract": "For a Query contract that yields rows, MapListAsync returns one newly constructed model per row. Its variants either leave all supplied parameters unchanged or set the named shard parameter to the endpoint's current shard identifier before execution."
+    "contract": "For a Query contract that yields rows, MapListAsync returns one newly constructed model per row. Its variants either send the supplied parameters as they are or also bind the named shard parameter to the endpoint's current shard identifier in the executed command. In both cases the caller's parameter collection is left unchanged."
   },
   "metadata": {
     "status": "Draft",
@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-data-connection",
+    "sectionId": "shard-addressing",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,52 @@
+{
+  "id": "blk-81f7015bc0f442c6bd0226f0e1fa87ed",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a PostgreSQL connection whose connection string is \"Host=db;Database=app\" (no Multiplexing key, so NpgsqlConnectionStringBuilder reports Multiplexing = false)",
+      "when": "the Postgres DataProviderServiceFactory.SetParameters applies parameters to a command on that connection",
+      "then": "the command IS prepared — NpgsqlCommand.Prepare() is called — after its parameters (with any parameterValues overrides already applied) have been added"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b196c063278a4942b872c563c3803816"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "92-95, 98-109",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b196c063278a4942b872c563c3803816",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

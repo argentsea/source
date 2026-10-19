@@ -32,14 +32,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
-        "lines": "30-34",
+        "lines": "32-36",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-db-connection-options",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"
@@ -58,7 +58,7 @@
       "kind": "spec",
       "project": "ArgentSea",
       "specId": "components",
-      "blockId": "shared-i-database-configuration-options",
+      "blockId": "connection-configuration-hierarchy",
       "blobHash": null,
       "label": null,
       "relation": "references"

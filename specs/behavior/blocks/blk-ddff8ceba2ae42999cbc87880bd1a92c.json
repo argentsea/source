@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "SqlParameterCollectionExtensions",
+    "subject": "SQL Server Type Mapping",
     "trigger": "a caller invokes a scalar input or output helper for a query contract",
     "response": "append one SQL Server parameter to the supplied collection using the helper's selected SQL type and direction, then return that collection",
-    "postcondition": "the parameter name is @-prefixed; input helpers preserve supplied values except that null reference or nullable values, NaN floating-point values, and an empty Guid are represented as database null; output helpers omit an input value and retain requested size, ANSI locale, or decimal precision and scale where their type requires it"
+    "postcondition": "the parameter name is @-prefixed; input helpers preserve supplied values except that a null reference value is represented as database null, and specifically for the non-nullable double, float and Guid input overloads, double.NaN, float.NaN and Guid.Empty are likewise represented as database null; the corresponding nullable double?, float? and Guid? input overloads instead preserve the value as-is whenever HasValue is true — including a NaN or Guid.Empty value — and represent only a HasValue-false nullable as database null. This split is deliberate (by design, not a defect): a non-nullable value has no other way to express database null, so its sentinel mirrors the read side (GetDouble/GetFloat return NaN and GetGuid returns Guid.Empty for a database null), whereas a caller holding a nullable type has a real null and so can send NaN or Guid.Empty as a value; the XML documentation of the non-nullable overloads states this in a remarks section. Output helpers omit an input value and retain requested size, ANSI locale, or decimal precision and scale where their type requires it"
   },
   "metadata": {
     "status": "Draft",
@@ -17,14 +17,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
-        "lines": "20-1117",
+        "lines": "20-1147",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": "sql-server-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

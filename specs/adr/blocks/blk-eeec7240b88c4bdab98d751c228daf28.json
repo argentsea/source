@@ -3,17 +3,25 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Keep SQL static, consolidated, and segregated from application binaries",
-    "decision": "Use static, parameterized SQL that is consolidated and kept separate from application binaries; discourage dynamic SQL generated from C# object models.",
-    "context": "Application code coupled to table and column implementation inhibits database changes and makes queries difficult to understand and improve as data changes.",
+    "title": "Keep SQL static, consolidated and segregated from application binaries",
+    "status": "Accepted",
+    "decision": "Every ArgentSea data method takes a Query object that names SQL living outside the compiled application. A QueryProcedure names a stored procedure or function in the database, the preferred form for SQL Server. A QueryStatement names a parameterized SQL file deployed beside the application and loaded lazily, the preferred form for PostgreSQL. ArgentSea never generates SQL. Applications are expected to declare every Query in one static `Queries` class, so usage is discoverable by reference count. The query contract, meaning the parameters accepted and results returned, is the only coupling between application and database.",
+    "context": "SQL that performs well on day one often needs rewriting as data volume and cardinality change, and the people best able to tune it frequently do not work in the C# build. SQL generated from an object model is hard to read, review and optimize, and invites injection. Large applications also accumulate orphaned procedures that no one can safely drop without knowing who calls them. An application with only EXECUTE permission makes the database's access surface fully auditable.",
     "alternatives": [
       {
-        "option": "Generate dynamic SQL from a C# object model or compile SQL into application binaries.",
-        "whyRejected": "It adds SQL compilation and injection risks, obscures SQL for optimization, and tightly couples application code to database implementation details."
+        "option": "Dynamic SQL generated from the object model, as in a full ORM.",
+        "whyRejected": "It couples application code to table structure, hides the actual SQL from DBAs, complicates plan tuning, and widens the injection surface."
+      },
+      {
+        "option": "Inline SQL string literals compiled into the application.",
+        "whyRejected": "Any query change needs a rebuild and redeploy, and SQL experts must work inside the C# toolchain."
+      },
+      {
+        "option": "Stored procedures only, for every provider.",
+        "whyRejected": "PostgreSQL's Npgsql treats procedure-type commands as function calls, and some teams cannot create procedures in a database they do not own, so file-based statements are needed as well."
       }
     ],
-    "consequences": "Parameters and returned results remain the query contract while database implementation can be rewritten, partitioned, hinted, or otherwise optimized without breaking consumers; SQL experts can work on data-domain changes independently.",
-    "status": "Accepted"
+    "consequences": "The database can be refactored, re-indexed, hinted or partitioned without application changes, as long as each query contract holds. DBAs can review every data access and grant EXECUTE-only permissions. Dead queries show up as zero references. Costs: SQL files must be deployed with the application, and a missing file fails only at first use. Parameter and result names form a contract the Mapper relies on, so database and model naming must stay consistent. Applications that genuinely need dynamic SQL must build it themselves."
   },
   "metadata": {
     "status": "Draft",

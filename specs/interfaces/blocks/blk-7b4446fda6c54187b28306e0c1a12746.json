@@ -24,7 +24,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
-        "lines": "9-384",
+        "lines": "9-387",
         "label": null,
         "relation": "grounds"
       },
@@ -38,7 +38,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-global-properties-options",
+    "sectionId": "sql-server-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

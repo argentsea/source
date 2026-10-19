@@ -1,0 +1,56 @@
+{
+  "id": "blk-ae1b6c75740c4fce8cdf7b5301550d2a",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "On SqlConnectionPropertiesBase, every declared setting (ApplicationIntent, ApplicationName, ConnectTimeout, CurrentLanguage, DataSource, Encrypt, FailoverPartner, InitialCatalog, LoadBalanceTimeout, MaxPoolSize, MinPoolSize, MultipleActiveResultSets, MultiSubnetFailover, PacketSize, PersistSecurityInfo, Pooling, Replication, TransactionBinding, TrustServerCertificate, TypeSystemVersion, UserInstance, WorkstationID) raises PropertyChanged only when the assigned value differs from the current value; assigning the current value raises nothing.",
+    "scope": "SqlConnectionPropertiesBase (ArgentSea.Sql)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "37-48",
+        "label": "ApplicationIntent setter, guarded by an equality check"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "53-385",
+        "label": "Every other setting's setter, guarded by an equality check"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-9eb49adea69742b8bec908a4cd124aa2",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

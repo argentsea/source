@@ -1,0 +1,58 @@
+{
+  "id": "blk-6d1a973b8c8e4edaa14880033059c7ea",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A shard set contains shard ids 7 and 11; ShardSetsBase<TConfiguration>.ShardSetWrite.RunAsync is invoked against every shard, shard 7's write completes successfully, and shard 11's write throws.",
+      "when": "the combined RunAsync call awaits both per-shard write tasks together.",
+      "then": "the call faults with shard 11's exception; shard 7's write is not rolled back, and the caller cannot tell from the RunAsync call alone that shard 7's write succeeded."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-394f8651b5054f4bb5d45b35b49a667c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "535-574",
+        "label": "RunAllAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "69-94",
+        "label": "a single shard failure is rethrown as-is once every write has settled"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-394f8651b5054f4bb5d45b35b49a667c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

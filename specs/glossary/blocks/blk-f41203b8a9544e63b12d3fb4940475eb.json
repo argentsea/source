@@ -1,0 +1,41 @@
+{
+  "id": "blk-f41203b8a9544e63b12d3fb4940475eb",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Result-set list property",
+    "definition": "A settable `List<Model>` or `IList<Model>` property of a model that the Mapper fills from an additional data-reader result set, expressing a one-to-many relationship (an order and its items). No attribute is needed: the generic arguments of a MapReader or MapOutput call give the expected order of result sets, and each set is assigned to the property whose element type matches. A model therefore cannot have two list properties of the same element type. Lists inside listed models are not populated.",
+    "synonyms": [
+      "list property",
+      "child list"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/complexattributes.md",
+        "lines": "155-166",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "102-137",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

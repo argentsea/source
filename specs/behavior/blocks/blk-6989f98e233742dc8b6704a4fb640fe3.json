@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "PgShardConnectionOptions.PgShardConnectionsConfiguration",
-    "condition": "the shard collection or a read/write configuration has been assigned",
-    "trigger": "a consumer reads ShardsConfigInternal, ReadConfigInternal, or WriteConfigInternal",
+    "subject": "Postgres Connection Settings",
+    "condition": "the shard collection or a read/write configuration has been assigned on a PgShardConnectionOptions.PgShardConnectionsConfiguration",
+    "trigger": "a consumer reads ShardsConfigInternal, ReadConfigInternal, or WriteConfigInternal on that PgShardConnectionOptions.PgShardConnectionsConfiguration",
     "response": "expose Shards, Read, or Write respectively through the corresponding IShardSetConnectionsConfiguration view without substituting or copying the configured object or collection",
     "postcondition": "the returned view has the same object identity as the corresponding concrete configuration value"
   },
@@ -25,7 +25,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options-pg-shard-connections-configuration",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

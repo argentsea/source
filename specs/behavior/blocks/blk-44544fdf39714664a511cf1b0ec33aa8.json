@@ -1,0 +1,50 @@
+{
+  "id": "blk-44544fdf39714664a511cf1b0ec33aa8",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "grainType = \"orders\" has a query contract with ResultFormat = ResultSet and the configured read query returns no rows for the supplied key",
+      "when": "ArgentSeaDbGrainPersistence<TDatabaseOptions>.ReadStateAsync is invoked for \"orders\"",
+      "then": "grainState.State is replaced with a new instance — created by TModel's static IActivator<TModel> factory when TModel implements IActivator<TModel>, otherwise a default TModel whose key values are set from the grain id — and RecordExists is set to false"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-06f6df1901f441ac99c743bb9c22dfbe"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
+        "lines": "97-108",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "1-49",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

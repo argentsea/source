@@ -1,0 +1,41 @@
+{
+  "id": "blk-7ec3c28d2a3d479d95b283d8a4a61e0e",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "A DataConnectionManager must never execute its circuit breaker policy and retry policy independently of their composed form: GetConnectionResiliencePolicy always builds the circuit breaker as the outer policy and the retry policy as the inner policy — circuitBreakerPolicy.WrapAsync(retryPolicy), never the reverse — for every connection where the circuit breaker is not disabled, and only the resulting single composed policy is ever stored as the connection's current resilience policy (built at construction, and rebuilt whenever the configured retry count or circuit-breaker settings differ from those it was built from). Every one of DataConnectionManager's seven execution methods calls ResiliencePolicy.ExecuteAsync (the current composed policy) exclusively; none holds or invokes the unwrapped retryPolicy or circuitBreakerPolicy local variables, which are never exposed outside GetConnectionResiliencePolicy.",
+    "scope": "Every DataConnectionManager instance whose CircuitBreakerFailureCount is left unset or is explicitly configured to 1 or more; the circuit breaker is skipped only when it is explicitly configured to a value below 1, since the nullable comparison deciding this (CircuitBreakerFailureCount < 1) evaluates false for both an unset value and any value >= 1."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "79-137",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

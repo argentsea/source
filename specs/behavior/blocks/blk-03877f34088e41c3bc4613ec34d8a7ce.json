@@ -1,0 +1,51 @@
+{
+  "id": "blk-03877f34088e41c3bc4613ec34d8a7ce",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Table Valued Parameters",
+    "trigger": "a model property marked MapToModel is encountered while building a table-valued-record projection",
+    "response": "shall flatten that nested model's own mapped properties into the same row being built, continuing the same column ordinal sequence, rather than treating the nested model as a separate row or result"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "258-261",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-7f7f704538bc4e6093dc1e4cf34c120a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

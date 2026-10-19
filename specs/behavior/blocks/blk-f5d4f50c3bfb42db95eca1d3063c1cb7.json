@@ -1,0 +1,52 @@
+{
+  "id": "blk-f5d4f50c3bfb42db95eca1d3063c1cb7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a property is annotated with MapSqlShardKeyAttribute(\"ShardId\", \"RecordId\", \"ChildId\") — the three-argument shardIdName/recordIdName/childIdName overload",
+      "when": "the attribute's configuration is read",
+      "then": "ChildIdName, GrandChildIdName, and GreatGrandChildIdName are all \"ChildId\"; RecordIdName is \"RecordId\"; ShardIdName resolves to \"ShardId\" through a SQL SmallInt column mapping with IsRequired false; and IsRecordIdentifier is true"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ff10d09381b749af81072215d4e6275c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "97-98",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ff10d09381b749af81072215d4e6275c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

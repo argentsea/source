@@ -1,0 +1,41 @@
+{
+  "id": "blk-05cd1742ecda4c8a9ff1a414d2542829",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "on a little-endian runtime, metadata [0x04], previously produced by encoding a single-part Guid-typed key",
+      "when": "ThrowIfMetadataMismatch(metadata, typeof(string)) is invoked",
+      "then": "it throws InvalidShardKeyMetadataException naming System.String, because the recomputed metadata for string (KeyDataType.String = 13, packed as 0x34) differs from the stored byte 0x04"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-3a6dab58d93b47819bc21fe537907f0b"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "263-278",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

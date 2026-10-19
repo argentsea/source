@@ -88,6 +88,7 @@ namespace ArgentSea.Sql
                     // (provider: TCP Provider, error: 0 - The specified network name is no longer available.) 
                     case 64:
                     // The instance of SQL Server you attempted to connect to does not support encryption.
+                    // Treated as transient by design: Microsoft.Data.SqlClient's own configurable-retry transient error list includes error 20.
                     case 20:
                     //Deadlock victum
                     case 1205:
@@ -108,7 +109,7 @@ namespace ArgentSea.Sql
             {
                 return new SqlCommand(storedProcedureName, (SqlConnection)connection);
             }
-            throw new ArgumentException(nameof(connection));
+            throw new ArgumentException("The connection must be a SqlConnection.", nameof(connection));
         }
 
         public DbConnection NewConnection(string connectionString)
@@ -116,7 +117,7 @@ namespace ArgentSea.Sql
             return new SqlConnection(connectionString);
         }
 
-        public void SetParameters(DbCommand cmd, string[] queryParameterNames, DbParameterCollection parameters, IDictionary<string, object> parameterValues)
+        public void SetParameters(DbCommand cmd, string[]? queryParameterNames, DbParameterCollection parameters, IDictionary<string, object>? parameterValues)
         {
             if (queryParameterNames is null || queryParameterNames.Length == 0)
             {
@@ -142,7 +143,7 @@ namespace ArgentSea.Sql
                         TypeName = prmSource.TypeName,
                         Value = prmSource.Value
                     };
-                    if (!(parameterValues is null))
+                    if (parameterValues is not null)
                     {
                         if (parameterValues.TryGetValue(prmTarget.ParameterName, out var prmValue))
                         {
@@ -183,7 +184,7 @@ namespace ArgentSea.Sql
                                 TypeName = prmSource.TypeName,
                                 Value = prmSource.Value
                             };
-                            if (!(parameterValues is null))
+                            if (parameterValues is not null)
                             {
                                 if (parameterValues.TryGetValue(prmTarget.ParameterName, out var prmValue))
                                 {
@@ -191,6 +192,8 @@ namespace ArgentSea.Sql
                                 }
                             }
                             cmd.Parameters.Add(prmTarget);
+                            // First source parameter with a matching name wins; duplicates are ignored.
+                            break;
                         }
                     }
                     if (!found)

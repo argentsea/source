@@ -14,14 +14,14 @@ namespace ArgentSea
     public class ShardSetBatch : BatchBase<object>
     {
 
-        internal protected override async Task<object> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellationToken)
+        internal protected override async Task<object?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellationToken)
         {
             for (var i = 0; i < _processes.Count; i++)
             {
                 var process = _processes[i];
-                logger.BatchStepStart(i, connectionName);
+                logger?.BatchStepStart(i, connectionName);
                 await process.ExecuteAsync(shardId, connection, transaction, connectionName, services, logger, cancellationToken);
-                logger.BatchStepStart(i, connectionName);
+                logger?.BatchStepEnd(i, connectionName);
             }
             return null;
         }
@@ -77,7 +77,7 @@ namespace ArgentSea
                 _parameters = new ParameterCollection();
             }
 
-            protected internal override async Task<object> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellationToken)
+            protected internal override async Task<object?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellationToken)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 using (var cmd = services.NewCommand(_query.Sql, connection))
@@ -85,7 +85,7 @@ namespace ArgentSea
                     cmd.CommandType = _query.Type;
                     cmd.Transaction = transaction;
                     services.SetParameters(cmd, _query.ParameterNames, _parameters, null);
-                    await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    await cmd.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
                     return null;
                 }
             }

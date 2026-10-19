@@ -131,7 +131,7 @@ namespace ArgentSea
             }
             var metadataSpan = metadata.Span;
             var saved = data.Slice(1, metaLen);
-            if (metadataSpan.Length != 2 && saved.Length != 2 && metadataSpan[0] != saved[0] && metadataSpan[1] != saved[1])
+            if (metadataSpan.Length != saved.Length || !metadataSpan.SequenceEqual(saved))
             {
                 return false;
             }
@@ -157,7 +157,7 @@ namespace ArgentSea
 
 		public TRecord RecordId { get => _recordId;  }
 
-        public bool IsEmpty {  get => _recordId.CompareTo(default(TRecord)) == 0 && _shardId == 0 && _childId.CompareTo(default(TChild)) == 0; }
+        public bool IsEmpty {  get => _shardId == 0 && ShardKeyEmptyValue<TRecord>.IsEmpty(_recordId) && ShardKeyEmptyValue<TChild>.IsEmpty(_childId); }
 
         /// <summary>
         /// Given a list of Models with ShardKChild keys, returns a distinct list of shard Ids, except for the shard Id specified.
@@ -254,14 +254,8 @@ namespace ArgentSea
         /// <returns>Merged list.</returns>
         public static List<TModel> Merge<TModel>(IList<TModel> master, IList<TModel> replacements, bool appendUnmatchedReplacements = false) where TModel : IKeyedModel<TRecord, TChild>
         {
-            if (master is null)
-            {
-                throw new ArgumentNullException(nameof(master));
-            }
-            if (replacements is null)
-            {
-                throw new ArgumentNullException(nameof(replacements));
-            }
+            ArgumentNullException.ThrowIfNull(master);
+            ArgumentNullException.ThrowIfNull(replacements);
             var result = new List<TModel>(master);
             var matched = new bool[replacements.Count];
             for (var i = 0; i < result.Count; i++)
@@ -326,7 +320,7 @@ namespace ArgentSea
         {
             return ((other.ShardId.CompareTo(_shardId) == 0) && ShardKeySerialization.IsEqualWithNulls<TRecord>(_recordId, other.RecordId) && ShardKeySerialization.IsEqualWithNulls<TChild>(_childId, other.ChildId));
         }
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null || GetType() != obj.GetType())
             {
@@ -338,83 +332,8 @@ namespace ArgentSea
 
         public override int GetHashCode()
         {
-            var aShd = ShardKeySerialization.GetValueBytes(this._shardId);
-            var aRec = ShardKeySerialization.GetValueBytes(this._recordId);
-            byte[] aDtm = null;
-
-            var result1 = 0;
-            var result2 = 0;
-            var result3 = 0;
-            var result4 = 0;
-            if (!(aShd is null))
-            {
-                if (aShd.Length > 0)
-                {
-                    result1 |= aShd[0];
-                }
-                if (aShd.Length > 1)
-                {
-                    result2 |= aShd[1];
-                }
-                if (aShd.Length > 2)
-                {
-                    result3 |= aShd[2];
-                }
-                if (aShd.Length > 3)
-                {
-                    result4 |= aShd[3];
-                }
-            }
-            if (!(aRec is null))
-            {
-                if (aRec.Length > 0)
-                {
-                    result1 |= aRec[0];
-                }
-                if (aRec.Length > 1)
-                {
-                    result2 |= aRec[1];
-                }
-                if (aRec.Length > 2)
-                {
-                    result3 |= aRec[2];
-                }
-                if (aRec.Length > 3)
-                {
-                    result4 |= aRec[3];
-                }
-            }
-            if (!(aDtm is null))
-            {
-                result1 |= aRec[0];
-                result2 |= aRec[1];
-                result3 |= aRec[2];
-                result4 |= aRec[3];
-            }
-
-            var aSChd = ShardKeySerialization.GetValueBytes(this._childId);
-            var aResult = new byte[4];
-            if (!(aSChd is null))
-            {
-                if (aSChd.Length > 0)
-                {
-                    aResult[0] = aSChd[0];
-                }
-                if (aSChd.Length > 1)
-                {
-                    aResult[1] = aSChd[1];
-                }
-                if (aSChd.Length > 2)
-                {
-                    aResult[2] = aSChd[2];
-                }
-                if (aSChd.Length > 3)
-                {
-                    aResult[3] = aSChd[3];
-                }
-            }
-
-            return BitConverter.ToInt32(new byte[] { (byte)result1, (byte)result2, (byte)result3, (byte)result4 }, 0);
+            // Combines every key part (null parts hash as zero), consistent with Equals.
+            return HashCode.Combine(_shardId, _recordId, _childId);
         }
 
         public ReadOnlyMemory<byte> ToArray()
@@ -448,7 +367,7 @@ namespace ArgentSea
         }
         public override string ToString()
         {
-            return $"\"shard\": {_shardId.ToString()}, \"ids\": [\"{_recordId.ToString()}\", \"{_childId.ToString()}\"";
+            return $"\"shard\": {_shardId.ToString()}, \"ids\": [\"{_recordId?.ToString()}\", \"{_childId?.ToString()}\"]";
         }
 
         /// <summary>
@@ -502,7 +421,7 @@ namespace ArgentSea
         }
  
         private static Lazy<ShardKey<TRecord, TChild>> _lazyEmpty = new Lazy<ShardKey<TRecord, TChild>>(() 
-            => new ShardKey<TRecord, TChild>(0, default(TRecord), default(TChild)));
+            => new ShardKey<TRecord, TChild>(0, ShardKeyEmptyValue<TRecord>.Value, ShardKeyEmptyValue<TChild>.Value));
 
         public static ShardKey<TRecord, TChild> Empty
         {

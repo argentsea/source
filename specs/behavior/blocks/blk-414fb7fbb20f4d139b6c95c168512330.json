@@ -1,0 +1,42 @@
+{
+  "id": "blk-414fb7fbb20f4d139b6c95c168512330",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "ArgentSea.Pg.csproj sets GeneratePackageOnBuild=true, IncludeSymbols=true, and SymbolPackageFormat=snupkg",
+      "when": "the project's packaging configuration is evaluated for a NuGet pack operation",
+      "then": "the configuration designates snupkg as the symbol-package format and specifies that symbols be packaged separately from the main package, rather than embedded within it"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-2376ac2a538d42b790c174ea0935a68f"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/ArgentSea.Pg.csproj",
+        "lines": "7,21-24",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

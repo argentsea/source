@@ -1,0 +1,31 @@
+{
+  "id": "blk-7735af9d14c0425ea32608e2c51bcbc3",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj declares each of its NuGet identity and licensing properties (Title, Copyright, Description, PackageIcon, PackageLicenseExpression) and each of its symbol-package build properties (GeneratePackageOnBuild, IncludeSymbols, SymbolPackageFormat) exactly once, as an unconditioned literal value; no PropertyGroup in the file redeclares, conditions, or overrides any of these eight properties.",
+    "scope": "ArgentSea.Orleans.Sql.csproj PropertyGroup: Title, Copyright, Description, PackageIcon, PackageLicenseExpression, GeneratePackageOnBuild, IncludeSymbols, and SymbolPackageFormat settings."
+  },
+  "metadata": {
+    "status": "Superseded",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-33",
+        "label": "Full file: both PropertyGroups (lines 3-14, 16-19) establish the eight properties as unconditioned and establish no other PropertyGroup in the file redeclares them"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

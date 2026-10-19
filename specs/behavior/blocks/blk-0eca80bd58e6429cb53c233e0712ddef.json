@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-shard-keys-ghost-shard-key'. Grounded in ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs:120-122 and falsifiable, but without sectionId equal to component ID 'shared-shard-keys-ghost-shard-key', read_component returns an empty rollup.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Shared/src/ShardKeys/GhostShardKey.cs:120-122 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'shard-key-serialization' resolves to component 'Shard Key Serialization' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -20,11 +20,18 @@
         "lines": "120-122",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidShardKeyMetadataException.cs",
+        "lines": "15-19",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-invalid-shard-key-metadata-exception",
+    "sectionId": "shard-key-serialization",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

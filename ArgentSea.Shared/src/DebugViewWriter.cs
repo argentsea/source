@@ -57,22 +57,22 @@ namespace System.Linq.Expressions {
 
 			// All the unique lambda expressions in the ET, will be used for displaying all
 			// the lambda definitions.
-			private Queue<LambdaExpression> _lambdas;
+			private Queue<LambdaExpression>? _lambdas;
 
 			// Associate every unique anonymous LambdaExpression in the tree with an integer.
 			// The id is used to create a name for the anonymous lambda.
 			//
-			private Dictionary<LambdaExpression, int> _lambdaIds;
+			private Dictionary<LambdaExpression, int>? _lambdaIds;
 
 			// Associate every unique anonymous parameter or variable in the tree with an integer.
 			// The id is used to create a name for the anonymous parameter or variable.
 			//
-			private Dictionary<ParameterExpression, int> _paramIds;
+			private Dictionary<ParameterExpression, int>? _paramIds;
 
 			// Associate every unique anonymous LabelTarget in the tree with an integer.
 			// The id is used to create a name for the anonymous LabelTarget.
 			//
-			private Dictionary<LabelTarget, int> _labelIds;
+			private Dictionary<LabelTarget, int>? _labelIds;
 
 			private DebugViewWriter(TextWriter file)
 			{
@@ -111,7 +111,7 @@ namespace System.Linq.Expressions {
 				_flow = Flow.NewLine;
 			}
 
-			private static int GetId<T>(T e, ref Dictionary<T, int> ids)
+			private static int GetId<T>(T e, ref Dictionary<T, int>? ids) where T : notnull
 			{
 				if (ids == null)
 				{
@@ -266,27 +266,19 @@ namespace System.Linq.Expressions {
 			// More proper would be to make this a virtual method on Action
 			private static string FormatBinder(CallSiteBinder binder)
 			{
-				ConvertBinder convert;
-				GetMemberBinder getMember;
-				SetMemberBinder setMember;
-				DeleteMemberBinder deleteMember;
-				InvokeMemberBinder call;
-				UnaryOperationBinder unary;
-				BinaryOperationBinder binary;
-
-				if ((convert = binder as ConvertBinder) != null)
+				if (binder is ConvertBinder convert)
 				{
 					return "Convert " + convert.Type.ToString();
 				}
-				else if ((getMember = binder as GetMemberBinder) != null)
+				else if (binder is GetMemberBinder getMember)
 				{
 					return "GetMember " + getMember.Name;
 				}
-				else if ((setMember = binder as SetMemberBinder) != null)
+				else if (binder is SetMemberBinder setMember)
 				{
 					return "SetMember " + setMember.Name;
 				}
-				else if ((deleteMember = binder as DeleteMemberBinder) != null)
+				else if (binder is DeleteMemberBinder deleteMember)
 				{
 					return "DeleteMember " + deleteMember.Name;
 				}
@@ -302,7 +294,7 @@ namespace System.Linq.Expressions {
 				{
 					return "DeleteIndex";
 				}
-				else if ((call = binder as InvokeMemberBinder) != null)
+				else if (binder is InvokeMemberBinder call)
 				{
 					return "Call " + call.Name;
 				}
@@ -314,17 +306,17 @@ namespace System.Linq.Expressions {
 				{
 					return "Create";
 				}
-				else if ((unary = binder as UnaryOperationBinder) != null)
+				else if (binder is UnaryOperationBinder unary)
 				{
 					return "UnaryOperation " + unary.Operation;
 				}
-				else if ((binary = binder as BinaryOperationBinder) != null)
+				else if (binder is BinaryOperationBinder binary)
 				{
 					return "BinaryOperation " + binary.Operation;
 				}
 				else
 				{
-					return binder.ToString();
+					return binder.ToString() ?? string.Empty;
 				}
 			}
 
@@ -587,7 +579,7 @@ namespace System.Linq.Expressions {
 
 			protected override Expression VisitConstant(ConstantExpression node)
 			{
-				object value = node.Value;
+				object? value = node.Value;
 
 				if (value == null)
 				{
@@ -610,14 +602,14 @@ namespace System.Linq.Expressions {
 				else if ((value is int) && node.Type == typeof(int)
 				  || (value is bool) && node.Type == typeof(bool))
 				{
-					Out(value.ToString());
+					Out(value.ToString() ?? string.Empty);
 				}
 				else
 				{
-					string suffix = GetConstantValueSuffix(node.Type);
+					string? suffix = GetConstantValueSuffix(node.Type);
 					if (suffix != null)
 					{
-						Out(value.ToString());
+						Out(value.ToString() ?? string.Empty);
 						Out(suffix);
 					}
 					else
@@ -632,7 +624,7 @@ namespace System.Linq.Expressions {
 				return node;
 			}
 
-			private static string GetConstantValueSuffix(Type type)
+			private static string? GetConstantValueSuffix(Type type)
 			{
 				if (type == typeof(UInt32))
 				{
@@ -669,7 +661,7 @@ namespace System.Linq.Expressions {
 			}
 
 			// Prints ".instanceField" or "declaringType.staticField"
-			private void OutMember(Expression node, Expression instance, MemberInfo member)
+			private void OutMember(Expression node, Expression? instance, MemberInfo member)
 			{
 				if (instance != null)
 				{
@@ -679,7 +671,7 @@ namespace System.Linq.Expressions {
 				else
 				{
 					// For static members, include the type name
-					Out(member.DeclaringType.ToString() + "." + member.Name);
+					Out(member.DeclaringType?.ToString() + "." + member.Name);
 				}
 			}
 
@@ -698,7 +690,7 @@ namespace System.Linq.Expressions {
 			}
 
 			[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-			private static bool NeedsParentheses(Expression parent, Expression child)
+			private static bool NeedsParentheses(Expression parent, Expression? child)
 			{
 				Debug.Assert(parent != null);
 				if (child == null)
@@ -755,7 +747,7 @@ namespace System.Linq.Expressions {
 						case ExpressionType.SubtractChecked:
 						case ExpressionType.Divide:
 						case ExpressionType.Modulo:
-							BinaryExpression binary = parent as BinaryExpression;
+							BinaryExpression? binary = parent as BinaryExpression;
 							Debug.Assert(binary != null);
 							// Need to have parenthesis for the right operand.
 							return child == binary.Right;
@@ -898,7 +890,7 @@ namespace System.Linq.Expressions {
 				}
 			}
 
-			private void ParenthesizedVisit(Expression parent, Expression nodeToVisit)
+			private void ParenthesizedVisit(Expression parent, Expression? nodeToVisit)
 			{
 				if (NeedsParentheses(parent, nodeToVisit))
 				{
@@ -938,7 +930,7 @@ namespace System.Linq.Expressions {
 				if (node.NodeType == ExpressionType.NewArrayBounds)
 				{
 					// .NewArray MyType[expr1, expr2]
-					Out(".NewArray " + node.Type.GetElementType().ToString());
+					Out(".NewArray " + node.Type.GetElementType()!.ToString()); // a NewArray node always has an array type
 					VisitExpressions('[', node.Expressions);
 				}
 				else

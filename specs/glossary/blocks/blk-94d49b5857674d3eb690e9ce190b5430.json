@@ -4,7 +4,7 @@
   "type": "Term",
   "fields": {
     "name": "Configuration hierarchy",
-    "definition": "A hierarchy in which a setting may be supplied globally or at shard-set, database, or connection level, and a child inherits its parent setting unless it overrides it.",
+    "definition": "ArgentSea's replacement for connection strings. Every connection attribute is a discrete property that can be set at any level of the hierarchy and is inherited by the levels below unless overridden there. A non-sharded database inherits global → database → read/write endpoint. A shard set inherits global → shard set → the shard set's `Read` or `Write` section → shard → read/write endpoint. This lets one value, such as a password, a login or a packet size, serve many connections, and lets different configuration providers supply different properties. The layout of the hierarchy is fixed once it is built, but property values remain updatable at run time and changes propagate to inheriting children.",
     "synonyms": [
       "Hereditary Configuration Hierarchy",
       "global settings"

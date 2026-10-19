@@ -1,0 +1,68 @@
+{
+  "id": "blk-0065a202e5464441ba6e78fee28cbee0",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Copy Load",
+    "trigger": "a COPY load batch step has resolved its destination table text for the current table name, just before creating the table",
+    "response": "log the CREATE TABLE (or CREATE TEMP TABLE ... ON COMMIT DROP) statement and the COPY ... FROM STDIN import statement it is about to run through CopySqlStatements at Debug under event id CmdExecuted (8), on every execution, for both the model-list load and the shard-key/record-id list loads"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgLoggingExtensions.cs",
+        "lines": "21,29,56-59",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "157-169,224,282,344,393-408",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "copy-load",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-4d8e45de1ad74ec7b0d1f43b176992b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b2f1ecbf8fdc46818abe840ed7750aa2",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

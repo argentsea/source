@@ -1,0 +1,52 @@
+{
+  "id": "blk-7ca48d1f21e8404a97d157ece788421b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a property is annotated with MapSqlShardKeyAttribute(\"ShardId\", \"RecordId\", \"ChildId\", \"GrandChildId\") — the four-argument overload supplying a distinct grandChildIdName",
+      "when": "the attribute's configuration is read",
+      "then": "ChildIdName is \"ChildId\", GrandChildIdName is \"GrandChildId\", GreatGrandChildIdName is null, and IsRecordIdentifier is true — contrasting with the three-argument overload, each subordinate name here reaches only its own slot"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-ff10d09381b749af81072215d4e6275c"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/MapSqlShardKeyAttribute.cs",
+        "lines": "140-141",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-ff10d09381b749af81072215d4e6275c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

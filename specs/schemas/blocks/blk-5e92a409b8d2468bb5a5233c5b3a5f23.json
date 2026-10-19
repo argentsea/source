@@ -32,14 +32,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgShardConnectionOptions.cs",
-        "lines": "13-17",
+        "lines": "13-16",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-shard-connection-options",
+    "sectionId": "postgres-connection-settings",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

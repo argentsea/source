@@ -1,0 +1,32 @@
+{
+  "id": "orleans-grain-storage-package",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans Grain Storage Package",
+    "responsibility": "Holds the database-platform-neutral half of ArgentSea's Orleans support: persisting grain state through ArgentSea queries, translating between an Orleans grain id and a model's key, and teaching Orleans' serializer about shard keys. They belong together because each one adapts an Orleans runtime contract to an ArgentSea concept without naming a database platform.",
+    "parent": "argent-sea"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/ArgentSea.Orleans.csproj",
+        "lines": "1-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

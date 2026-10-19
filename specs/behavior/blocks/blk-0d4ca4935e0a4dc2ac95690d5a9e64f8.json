@@ -24,7 +24,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-queries",
+    "sectionId": "orleans-runtime-query-catalog",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

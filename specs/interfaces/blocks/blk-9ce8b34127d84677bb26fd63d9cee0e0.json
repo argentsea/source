@@ -6,7 +6,7 @@
     "name": "DbParameterExtensions typed output-value getters",
     "kind": "Library",
     "language": "text",
-    "contract": "DbParameterExtensions reads a populated DbParameter value through one typed getter family. For nullable and reference-value targets (string, byte[], JsonDocument, and nullable Int64, Int32, Int16, Byte, Boolean, Decimal, Double, Single, Guid, DateTime, DateTimeOffset, TimeSpan, DateOnly, and TimeOnly), a DBNull value is represented as null. For required floating-point targets, a DBNull value is represented as NaN; for required Guid, it is represented as Guid.Empty. A non-DBNull value of the selected target type is returned without changing it, including Guid.Empty. Required integer, Boolean, Decimal, temporal, DateOnly, and TimeOnly targets have a separate required-value failure policy recorded for cross-cutting review."
+    "contract": "DbParameterExtensions reads a populated DbParameter value through one typed getter family. For nullable and reference-value targets (string, byte[], JsonDocument, and nullable Int64, Int32, Int16, Byte, Boolean, Decimal, Double, Single, Guid, DateTime, DateTimeOffset, TimeSpan, DateOnly, and TimeOnly), a DBNull value is represented as null. For required floating-point targets, a DBNull value is represented as NaN; for required Guid, it is represented as Guid.Empty. A non-DBNull value of the selected target type is returned without changing it, including Guid.Empty. The DateOnly and TimeOnly getters (GetDateOnly, GetNullableDateOnly, GetTimeOnly, GetNullableTimeOnly) additionally accept the representation providers return for date and time output parameters: a DateTime value is converted to its DateOnly date part and a TimeSpan value to the equivalent TimeOnly time of day. Required integer, Boolean, Decimal, temporal, DateOnly, and TimeOnly targets have a separate required-value failure policy recorded for cross-cutting review."
   },
   "metadata": {
     "status": "Draft",
@@ -17,7 +17,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/DbParameterExtensions.cs",
-        "lines": "19-292",
+        "lines": "19-324",
         "label": null,
         "relation": "grounds"
       },
@@ -38,7 +38,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-db-parameter-extensions",
+    "sectionId": "query-parameters",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

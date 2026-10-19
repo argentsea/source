@@ -1,0 +1,38 @@
+{
+  "id": "shard-addressing",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Shard Addressing",
+    "responsibility": "Exposes one named shard of a set as its own read and write endpoint pair and runs a query against that single shard instead of fanning out — the path a caller takes when it already knows which shard holds the record, typically from a shard key it is carrying. It offers the same data-method families as a non-sharded endpoint, plus the forms that return shard keys rather than bare record ids.",
+    "parent": "sharding"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardInstance.cs",
+        "lines": "22-44",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardDataConnection.cs",
+        "lines": "23-2255",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

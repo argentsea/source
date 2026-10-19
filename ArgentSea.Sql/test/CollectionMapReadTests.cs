@@ -13,7 +13,7 @@ namespace ArgentSea.Sql.Test
         public int ChildId { get; set; }
 
         [MapToSqlNVarChar("ChildName", 100)]
-        public string ChildName { get; set; }
+        public string? ChildName { get; set; }
     }
 
     internal class CollectionReadParentImmutableArray
@@ -22,7 +22,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlTableValuedParameter("@Children", "ChildTableType")]
         public ImmutableArray<CollectionReadChild> Children { get; set; }
@@ -46,10 +46,10 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MapToSqlTableValuedParameter("@Children", "ChildTableType")]
-        public List<CollectionReadChild> Children { get; set; }
+        public List<CollectionReadChild>? Children { get; set; }
     }
 
     internal class TwoCollectionsParent
@@ -58,10 +58,10 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlTableValuedParameter("@First", "FirstTableType")]
-        public List<CollectionReadChildA> FirstChildren { get; set; }
+        public List<CollectionReadChildA>? FirstChildren { get; set; }
 
         [MapToSqlTableValuedParameter("@Second", "SecondTableType")]
-        public List<CollectionReadChildB> SecondChildren { get; set; }
+        public List<CollectionReadChildB>? SecondChildren { get; set; }
     }
 
     internal class PlainNoCollectionModel
@@ -70,7 +70,7 @@ namespace ArgentSea.Sql.Test
         public int Id { get; set; }
 
         [MapToSqlNVarChar("Name", 255)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 
     public class CollectionMapReadTests
@@ -98,7 +98,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert
             result.Should().NotBeNull();
@@ -133,7 +133,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            var result = Mapper.ModelFromReaderWithCollectionsHandler<TwoCollectionsParent>(new TwoCollectionsParent(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            var result = Mapper.ModelFromReaderWithCollectionsHandler<TwoCollectionsParent>(new TwoCollectionsParent(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert
             result.Should().NotBeNull();
@@ -167,7 +167,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert
             result.Should().NotBeNull();
@@ -197,7 +197,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            Action act = () => Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            Action act = () => Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert: a missing result set is a contract violation between the model and its query, so this must
             // throw rather than silently produce an empty collection - which would look identical to "no children"
@@ -218,7 +218,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParent>(new CollectionReadParent(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert
             result.Should().BeNull("an empty first result set means the record does not exist");
@@ -245,7 +245,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            var result = Mapper.ModelFromReaderWithCollectionsHandler<PlainNoCollectionModel>(new PlainNoCollectionModel(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            var result = Mapper.ModelFromReaderWithCollectionsHandler<PlainNoCollectionModel>(new PlainNoCollectionModel(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert
             result.Should().NotBeNull();
@@ -279,7 +279,7 @@ namespace ArgentSea.Sql.Test
             var dbLogger = new DebugLogger();
 
             // Act
-            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParentImmutableArray>(new CollectionReadParentImmutableArray(), 0, "testSproc", null, rdr, null, "test connection", dbLogger);
+            var result = Mapper.ModelFromReaderWithCollectionsHandler<CollectionReadParentImmutableArray>(new CollectionReadParentImmutableArray(), 0, "testSproc", null, rdr, null!, "test connection", dbLogger);
 
             // Assert
             result.Should().NotBeNull();

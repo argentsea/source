@@ -1,0 +1,42 @@
+{
+  "id": "blk-96a312bb9e7f4f2d8f330eb5c83a212b",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a ShardKey<Guid, int> property's child-id element is mapped with a parameter-map attribute configured for a SQL type that does not accept .NET type int",
+      "when": "ShardKeyInMapProperties builds that element's parameter expression",
+      "then": "ExpressionHelpers throws InvalidMapTypeException naming the property, the attribute's SQL type, and its SQL type name, instead of emitting a parameter expression"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-6ff3b5bfc07e4a5192ce2394d9ddb31f"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "740-749",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

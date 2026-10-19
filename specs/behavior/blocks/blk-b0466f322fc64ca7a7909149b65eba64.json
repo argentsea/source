@@ -1,0 +1,52 @@
+{
+  "id": "blk-b0466f322fc64ca7a7909149b65eba64",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaOrleansMembershipTable",
+    "condition": "the insert-member query execution fails",
+    "trigger": "InsertRow is invoked",
+    "response": "return false when the failure is the procedure's concurrency signal (a SqlException with error number 51000, raised when the TableVersion etag does not match or a row for the silo already exists); otherwise log the exception and propagate it to the caller",
+    "postcondition": "InsertRow returns true when the insert query completes without throwing, false for an etag/version conflict or an already-existing silo row, and never converts a connection, timeout, or other non-conflict failure into a false result"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "113-161",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-providers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-38b686606e9c4870904ca712c505ff14",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

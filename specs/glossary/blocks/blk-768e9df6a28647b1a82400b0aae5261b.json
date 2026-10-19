@@ -1,0 +1,41 @@
+{
+  "id": "blk-768e9df6a28647b1a82400b0aae5261b",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Connection description",
+    "definition": "A human-readable identifier of a data connection that ArgentSea passes to result handlers and includes in its log events and errors. Because one query may run concurrently on many connections, it is the information that ties a failure or log line to the shard and endpoint that produced it.",
+    "synonyms": [
+      "connectionDescription",
+      "ConnectionDescription"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/handling.md",
+        "lines": "57-60",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "116",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

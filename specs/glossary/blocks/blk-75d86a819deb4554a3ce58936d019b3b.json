@@ -1,0 +1,41 @@
+{
+  "id": "blk-75d86a819deb4554a3ce58936d019b3b",
+  "specId": "glossary",
+  "type": "Term",
+  "fields": {
+    "name": "Null sentinel",
+    "definition": "A non-nullable .NET value that ArgentSea treats as database null when writing or reading a property that is not `Nullable<>`. `Guid.Empty`, `double.NaN` and `float.NaN` round-trip to database null. A property declared nullable stores these values literally instead. Null strings and arrays are database null, while empty strings are stored as zero-length strings. Nullable value types and nullable enums map null to database null directly.",
+    "synonyms": [
+      "NaN as null",
+      "Guid.Empty as null"
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/attributes.md",
+        "lines": "160-188",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/setparameters.md",
+        "lines": "102-105",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

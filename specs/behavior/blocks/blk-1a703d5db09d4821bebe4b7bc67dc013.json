@@ -1,0 +1,52 @@
+{
+  "id": "blk-1a703d5db09d4821bebe4b7bc67dc013",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSeaOrleansMembershipTable",
+    "condition": "the update-member query execution fails",
+    "trigger": "UpdateRow is invoked",
+    "response": "return false only when the failure is the procedure's concurrency signal (a SqlException with error number 51000, raised when the member row is missing or its etag or the TableVersion does not match); log and propagate every other exception",
+    "postcondition": "callers receive false only for a version/etag conflict, consistent with InsertRow; transient connection or timeout failures surface as exceptions and are never reported to Orleans as a concurrency conflict"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "362-399,150-161",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-providers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-38b686606e9c4870904ca712c505ff14",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

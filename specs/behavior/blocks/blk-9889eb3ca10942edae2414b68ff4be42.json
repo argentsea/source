@@ -1,0 +1,32 @@
+{
+  "id": "blk-9889eb3ca10942edae2414b68ff4be42",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "the ArgentSea.Pg assembly",
+    "response": "grants visibility of its internal (non-public) types and members to the assembly named by the MSBuild property expression $(MSBuildProjectName).Test — i.e. this project's own name with a \".Test\" suffix — via an InternalsVisibleTo item declared in this project file",
+    "postcondition": "so that this project's own test assembly can exercise ArgentSea.Pg's internal implementation details directly without those details being exposed as part of the package's public API"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/ArgentSea.Pg.csproj",
+        "lines": "37-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

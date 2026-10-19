@@ -1,0 +1,31 @@
+{
+  "id": "blk-89b829ce941b4af1a3d7a30af1a21dc0",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Sql.csproj declares no InternalsVisibleTo item in any ItemGroup; the project file configures no assembly, including a test assembly, as granted visibility into this package's internal members through this file's declarations.",
+    "scope": "ArgentSea.Orleans.Sql.csproj ItemGroup declarations: InternalsVisibleTo items present in this file."
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj",
+        "lines": "1-33",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-sql-server-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

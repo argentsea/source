@@ -15,7 +15,7 @@
     ]
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
@@ -23,7 +23,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
-        "lines": "55-1325",
+        "lines": "55-1334",
         "label": null,
         "relation": "grounds"
       }
@@ -35,6 +35,16 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "sql-server-type-mapping",
+      "blobHash": null,
+      "label": "successor",
+      "relation": "references"
+    }
+  ],
   "evidenceLinks": []
 }

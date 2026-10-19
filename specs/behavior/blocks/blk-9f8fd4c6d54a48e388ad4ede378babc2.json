@@ -4,10 +4,10 @@
   "type": "Behavioral",
   "fields": {
     "subject": "ArgentSeaOrleansMembershipTable",
-    "condition": "an update request contains two or more suspect reports",
+    "condition": "an update request's suspect list contains two or more reports from the same suspecting silo (same address bytes, port, and generation)",
     "trigger": "the caller requests replacement of a membership record",
-    "response": "send one suspect-report row in the membership update query contract, using the address, port, and generation from the first report and retaining the greatest timestamp among the reports",
-    "postcondition": "later reports do not add rows even when their address, port, or generation differs"
+    "response": "send one suspect-report row per distinct suspecting silo in the membership update query contract, keyed by its (address, port, generation) content, and for a suspector that reported more than once retain the latest (greatest) timestamp among its reports",
+    "postcondition": "reports from distinct suspecting silos (differing in address, port, or generation, IPv4 or IPv6) each yield their own row; repeated reports from one suspector never add rows; the retained timestamp is the suspector's most recent vote, matching Orleans' rule that a silo's re-vote replaces its earlier vote and only fresh votes count"
   },
   "metadata": {
     "status": "Draft",
@@ -18,14 +18,14 @@
       {
         "kind": "file",
         "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
-        "lines": "350-377",
+        "lines": "368-368,401-434",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-sql-orleans-membership-table",
+    "sectionId": "orleans-cluster-providers",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

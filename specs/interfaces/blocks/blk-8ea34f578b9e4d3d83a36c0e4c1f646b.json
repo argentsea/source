@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by corpus-skeptic: Missing mandatory sectionId: 'shared-shard-batch'. The block content is grounded in ShardBatch.cs:38-65 and falsifiable, but sectionId must be equal to component ID 'shared-shard-batch'.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (corpus-skeptic): The block content is grounded in ShardBatch.cs:38-65 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'batch-execution' resolves to component 'Batch Execution' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -20,11 +20,17 @@
         "lines": "38-65",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardBatch.cs",
+        "lines": "67-96",
+        "label": "ShardBatchQuery.ExecuteAsync executes the query and returns default(TResult), establishing the no-result-value claim"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-shard-batch",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

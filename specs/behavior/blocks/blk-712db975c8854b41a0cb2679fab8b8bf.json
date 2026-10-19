@@ -1,0 +1,42 @@
+{
+  "id": "blk-712db975c8854b41a0cb2679fab8b8bf",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a KeyStep<TRecord> was added to a batch via BatchExtensions.Add",
+      "when": "the step's query executes and matches zero rows",
+      "then": "the step returns ShardKey<TRecord>.Empty rather than throwing or returning null"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior",
+        "blockId": "blk-296b51f44f474f97b39436e356cf9e82"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "272-284",
+        "label": "KeyStep returns ShardKey<TRecord>.Empty when no row is read"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

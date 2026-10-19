@@ -49,7 +49,7 @@
     ],
     "owner": "agent",
     "orderKey": "mmmmmm",
-    "sectionId": "sql-parameter-collection-extensions",
+    "sectionId": "table-valued-parameters",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

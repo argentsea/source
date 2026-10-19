@@ -1,0 +1,73 @@
+{
+  "id": "blk-f8bd3bf6109449d9863f4016a9ff86cb",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Table Valued Parameters",
+    "trigger": "ToTvpRecord<TModel> is called for a model type",
+    "response": "shall compile that model type's table-valued-record projection delegate at most once behind a cached Lazy<Delegate>, reusing the compiled delegate for every later call for the same type, and shall report whether the projection was already materialized at the moment this call checked the cache (a cache hit) or had not yet been materialized (a cache miss) — because the cache check and the forced materialization are two separate steps, a concurrent caller can observe an entry that another caller already added but has not yet finished compiling, and will report a miss even though this call did not itself create the dictionary entry",
+    "postcondition": "repeated conversions of the same model type reuse one compiled projection instead of rebuilding it from reflection on every call"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "21-61",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/TvpMapper.cs",
+        "lines": "290-304",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlLoggingExtensions.cs",
+        "lines": "20-39",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

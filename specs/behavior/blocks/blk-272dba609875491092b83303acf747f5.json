@@ -4,8 +4,8 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "A Query contract uses PgParameters with an empty DbParameterCollection and a Varchar input named \"1\" whose value is null and declared size is -1.",
-      "when": "PgParameters adds the Varchar input parameter.",
+      "given": "A Query contract uses PgParameterCollectionExtensions with an empty DbParameterCollection and a Varchar input named \"1\" whose value is null and declared size is -1.",
+      "when": "PgParameterCollectionExtensions.AddPgVarcharInputParameter adds the Varchar input parameter.",
       "then": "The collection contains parameter \"1\" with Value equal to System.DBNull.Value and its nullable string interpretation is null."
     },
     "illustrates": [
@@ -26,7 +26,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/PgParameterCollectionExtensions.cs",
-        "lines": "43-51",
+        "lines": "45-53",
         "label": "Varchar null materialization",
         "relation": "grounds"
       },
@@ -40,7 +40,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "pg-parameters",
+    "sectionId": "postgres-type-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

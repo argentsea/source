@@ -2,7 +2,7 @@
   "PgGlobalSettings": {
     "RetryCount": 15,
     "RetryInterval": 10,
-    "RetryLengthening": "Fibonacci",
+    "RetryLengthening": "Lengthening",
     "CircuitBreakerFailureCount": 20,
     "CircuitBreakerTestInterval": 25,
     "ApplicationName": "MyApp",

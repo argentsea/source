@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -27,7 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\ArgentSea.Sql\src\ArgentSea.Sql.csproj" />
     <ProjectReference Include="..\..\src\ArgentSea.Orleans.csproj" />
-  </ItemGroup>
+    <ProjectReference Include="..\..\..\ArgentSea.TestKit\ArgentSea.TestKit.csproj" />  </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />

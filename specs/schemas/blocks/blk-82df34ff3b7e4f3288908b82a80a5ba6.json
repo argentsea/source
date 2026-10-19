@@ -105,7 +105,7 @@
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-logging-extensions-event-identifier",
+    "sectionId": "core-log-events",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

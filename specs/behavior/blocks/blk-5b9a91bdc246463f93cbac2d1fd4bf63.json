@@ -1,0 +1,42 @@
+{
+  "id": "blk-5b9a91bdc246463f93cbac2d1fd4bf63",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Expression Debug View",
+    "condition": "the visited expression node constructs an object, an array, or a member-initializer binding",
+    "response": "render a constructor call as `.New Type` followed by a parenthesized argument list; render an array node as `.NewArray ElementType` followed by a bracketed bound list for a bounds-specified array or as `.NewArray ArrayType` followed by a braced item list for an array literal; render a member-init node as the rendering of its `new` expression followed by a braced list of its bindings; render a list-init element as the rendering of its single argument or, for more than one argument, a braced argument list; and render a member assignment or a list/member sub-binding as `MemberName = ` followed by the rendering of its assigned value or, for a sub-binding, a braced list of its own bindings or initializers"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DebugViewWriter.cs",
+        "lines": "936-1009",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "expression-debug-view",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

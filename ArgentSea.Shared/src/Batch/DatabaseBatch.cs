@@ -13,15 +13,15 @@ namespace ArgentSea
 {
     public class DatabaseBatch<TResult> : BatchBase<TResult>
     {
-        internal protected override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellationToken)
+        internal protected override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellationToken)
         {
             var result = default(TResult);
             for (var i = 0; i < _processes.Count; i++)
             {
                 var process = _processes[i];
-                logger.BatchStepStart(i, connectionName);
+                logger?.BatchStepStart(i, connectionName);
                 var callResult = await process.ExecuteAsync(0, connection, transaction, connectionName, services, logger, cancellationToken);
-                logger.BatchStepEnd(i, connectionName);
+                logger?.BatchStepEnd(i, connectionName);
                 if (!EqualityComparer<TResult>.Default.Equals(callResult, default(TResult)))
                 {
                     result = callResult;
@@ -79,7 +79,7 @@ namespace ArgentSea
                 _parameters = new ParameterCollection();
             }
 
-            protected internal override async Task<TResult> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger logger, CancellationToken cancellationToken)
+            protected internal override async Task<TResult?> ExecuteAsync(short shardId, DbConnection connection, DbTransaction transaction, string connectionName, IDataProviderServiceFactory services, ILogger? logger, CancellationToken cancellationToken)
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 using (var cmd = services.NewCommand(_query.Sql, connection))
@@ -87,7 +87,7 @@ namespace ArgentSea
                     cmd.CommandType = _query.Type;
                     cmd.Transaction = transaction;
                     services.SetParameters(cmd, _query.ParameterNames, _parameters, null);
-                    await cmd.ExecuteNonQueryAsync().ConfigureAwait(false);
+                    await cmd.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
                     return default(TResult);
                 }
             }

@@ -1,0 +1,60 @@
+{
+  "id": "blk-3a6dab58d93b47819bc21fe537907f0b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ShardKeySerialization",
+    "trigger": "ThrowIfMetadataMismatch is invoked with the call-site key type(s) and previously-saved metadata bytes",
+    "response": "throw InvalidShardKeyMetadataException with no type argument when the recomputed metadata's length differs from the supplied metadata's length; throw InvalidShardKeyMetadataException naming only the single first-position call-site type (keyType) -- never the call-site type that actually failed to encode -- when any call-site type fails to encode to a KeyDataType; otherwise compare the recomputed packed bytes to the supplied bytes position by position and throw InvalidShardKeyMetadataException naming keyType for a position-0 mismatch, childType for position-1, or grandchildType for position-2; in the four-type overload the position-2 byte also carries the greatgrandchildType's full packed 6-bit code alongside grandchildType's two low bits, so a position-2 mismatch there is still reported as grandchildType regardless of which of the two co-located codes actually changed",
+    "postcondition": "it returns normally, without throwing, only when every recomputed packed byte -- for whichever subset of positions the invoked overload's arity defines -- exactly matches the supplied metadata"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "253-348",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidShardKeyMetadataException.cs",
+        "lines": "15-19,43-46",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "interfaces",
+      "blockId": "blk-e596ae1931fc4ac3a475fed5dec5f5ac",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

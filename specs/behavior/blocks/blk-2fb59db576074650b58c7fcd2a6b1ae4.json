@@ -1,0 +1,42 @@
+{
+  "id": "blk-2fb59db576074650b58c7fcd2a6b1ae4",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A connection has CircuitBreakerFailureCount 20 and CircuitBreakerTestInterval 5000 ms, and its resilience policy has just recorded its 20th consecutive execution failure.",
+      "when": "A caller invokes a 21st execution on that connection within the next 5000 ms.",
+      "then": "The execution fails immediately as a circuit-open failure and no command is attempted against the database for the remainder of that 5000 ms test interval."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-cb28eb3e0dae430dad77a57294d6b7c0"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "124-136",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

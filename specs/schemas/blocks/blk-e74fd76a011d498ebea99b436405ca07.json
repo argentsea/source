@@ -1,0 +1,79 @@
+{
+  "id": "blk-e74fd76a011d498ebea99b436405ca07",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "QueryResultFormat",
+    "description": "The shape in which a grain's read query returns its result: via stored-procedure/statement output parameters, or as a result set. Selected once per grain query-definition value (OrleansDbQueryDefinitions or OrleansShardQueryDefinitions) at construction and exposed unchanged via that value's ResultFormat member.",
+    "members": [
+      {
+        "name": "OutputArgs",
+        "type": "enum<OutputArgs|ResultSet>",
+        "required": true,
+        "description": "The read query's result is returned via output parameters rather than a result set."
+      },
+      {
+        "name": "ResultSet",
+        "type": "enum<OutputArgs|ResultSet>",
+        "required": true,
+        "description": "The read query's result is returned as a result set rather than via output parameters."
+      }
+    ],
+    "representations": {
+      "CSharp": "public enum QueryResultFormat { OutputArgs, ResultSet }"
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "16-21",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "32,155",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "167,290",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-51c59cfd430541c79b30bf9b23f07234",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "schemas",
+      "blockId": "blk-81c09807f0d04d49aa194824ffe80fa7",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

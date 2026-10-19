@@ -1,0 +1,52 @@
+{
+  "id": "blk-6d4eaff56bc24604a752e6ee80f771c8",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "query parameter names [\"@id\", \"@label\"] and a parameters collection containing only a parameter named \"@id\"",
+      "when": "ArgentSea.Pg.DataProviderServiceFactory.SetParameters executes for these query parameter names",
+      "then": "it throws ArgentSea.ParameterNotFoundException naming \"@label\" as the parameter that was not found, and no command parameter is added for \"@label\""
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-b918756788854fbe8f42b1dc1051afb3"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "62-90",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "behavior",
+      "blockId": "blk-b918756788854fbe8f42b1dc1051afb3",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

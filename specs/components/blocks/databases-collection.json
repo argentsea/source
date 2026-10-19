@@ -1,0 +1,32 @@
+{
+  "id": "databases-collection",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Databases Collection",
+    "responsibility": "Holds every configured non-sharded database as a collection keyed by its database key, exposes each one as a read endpoint and a write endpoint, and presents on each endpoint the full set of data methods a caller invokes — returning a scalar, a list, a mapped model, a model hydrated into a supplied instance, or the output of a caller-written result handler. Choosing read or write is the caller's; this owns the addressing and the method surface, not the execution.",
+    "parent": "querying"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Databases.cs",
+        "lines": "24-1047",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

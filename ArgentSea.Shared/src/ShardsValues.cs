@@ -15,17 +15,16 @@ namespace ArgentSea
         }
         public ShardsValues(Dictionary<short, IDictionary<string, object>> shards)
         {
-            if (shards is null)
-            {
-                throw new ArgumentNullException(nameof(shards));
-            }
+            ArgumentNullException.ThrowIfNull(shards);
             this.Shards = shards;
         }
         public ShardsValues(IList<short> list)
         {
+            ArgumentNullException.ThrowIfNull(list);
+            this.Shards = new Dictionary<short, IDictionary<string, object>>();
             foreach (var shd in list)
             {
-                this.Shards.Add(shd, new Dictionary<string, object>());
+                this.Add(shd);
             }
         }
 
@@ -77,17 +76,25 @@ namespace ArgentSea
             }
         }
 
-        public bool IsSynchronized => throw new NotImplementedException();
+        public bool IsSynchronized => false;
 
         public object SyncRoot => syncRoot;
 
         public void CopyTo(Array array, int index)
         {
-            var result = new ShardParameterValue[this.Count];
-            var i = 0;
+            ArgumentNullException.ThrowIfNull(array);
+            if (index < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+            if (array.Length - index < this.Count)
+            {
+                throw new ArgumentException("The destination array is not long enough to copy all the items in the collection.", nameof(array));
+            }
+            var i = index;
             foreach (var itm in ((IEnumerable<ShardParameterValue>)this))
             {
-                result[i] = itm;
+                array.SetValue(itm, i);
                 i++;
             }
         }
@@ -115,9 +122,10 @@ namespace ArgentSea
 
         public void Merge(IList<short> shardIds)
         {
+            ArgumentNullException.ThrowIfNull(shardIds);
             foreach (var shardId in shardIds)
             {
-                if (!Shards.Keys.Contains(shardId))
+                if (!Shards.ContainsKey(shardId))
                 {
                     Shards.Add(shardId, new Dictionary<string, object>());
                 }
@@ -125,22 +133,34 @@ namespace ArgentSea
         }
         public void Merge(ShardsValues values)
         {
+            ArgumentNullException.ThrowIfNull(values);
+            // Validate before changing anything, so a duplicate parameter name leaves this collection unchanged.
             foreach (var shd in values.Shards)
             {
-                if (!Shards.Keys.Contains(shd.Key))
+                if (shd.Value is not null && Shards.TryGetValue(shd.Key, out var existing) && existing is not null)
                 {
-                    var dtn = shd.Value;
-                    if (!(dtn is null))
+                    foreach (var kv in shd.Value)
                     {
-                        foreach (var kv in dtn)
+                        if (existing.ContainsKey(kv.Key))
                         {
-                            Shards[shd.Key].Add(kv);
+                            throw new ArgumentException($"Shard {shd.Key} already has a parameter named '{kv.Key}'.", nameof(values));
                         }
                     }
                 }
-                else
+            }
+            foreach (var shd in values.Shards)
+            {
+                if (!Shards.TryGetValue(shd.Key, out var prms) || prms is null)
                 {
-                    Shards.Add(shd.Key, new Dictionary<string, object>());
+                    prms = new Dictionary<string, object>();
+                    Shards[shd.Key] = prms;
+                }
+                if (shd.Value is not null)
+                {
+                    foreach (var kv in shd.Value)
+                    {
+                        prms.Add(kv);
+                    }
                 }
             }
         }
@@ -252,7 +272,7 @@ namespace ArgentSea
         /// <param name="shardId">The shard id of the shard to exclude. This is typically the current shard and this function is used to determine if any records are foreign to it.</param>
         /// <param name="records">The list of ShardKeys to evaluate.</param>
         /// <returns>A ShardsValues collection, with the shards listed. The values dictionary will be null.</returns>
-        public static ShardsValues ShardListForeign<TRecord, TChild>(short shardId, List<ShardKey<TRecord>> records) where TRecord : IComparable where TChild : IComparable
+        public static ShardsValues ShardListForeign<TRecord, TChild>(short shardId, List<ShardKey<TRecord, TChild>> records) where TRecord : IComparable where TChild : IComparable
             => ShardsValues.ShardListForeign<TRecord, TChild>(shardId, (IList<ShardKey<TRecord, TChild>>)records);
 
         /// <summary>
@@ -321,7 +341,7 @@ namespace ArgentSea
         /// <param name="shardId">The shard id of the shard to exclude. This is typically the current shard and this function is used to determine if any records are foreign to it.</param>
         /// <param name="records">The list of ShardKeys to evaluate.</param>
         /// <returns>A ShardsValues collection, with the shards listed. The values dictionary will be null.</returns>
-        public static ShardsValues ShardListForeign<TRecord, TChild, TGrandChild>(short shardId, List<ShardKey<TRecord>> records) 
+        public static ShardsValues ShardListForeign<TRecord, TChild, TGrandChild>(short shardId, List<ShardKey<TRecord, TChild, TGrandChild>> records) 
             where TRecord : IComparable 
             where TChild : IComparable
             where TGrandChild : IComparable

@@ -1,0 +1,50 @@
+{
+  "id": "orleans-reminder-storage",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans Reminder Storage",
+    "parent": "orleans-sql-server-package",
+    "responsibility": "Stores Orleans reminder rows across a configured shard set — upserting and removing a grain's reminder, reading one row, all of a grain's rows, or every row whose hash falls in a requested range — and publishes the reminder service to a silo builder. It also holds the reminder periods it can actually honour and polices the silo's reminder configuration against them as the silo starts: a negative minimum period is refused outright, a period shorter than the supported floor is admitted with a warning, so a misconfiguration surfaces before reminders are silently missed at runtime. Spreading reminders over a shard set rather than one database is what distinguishes it from the cluster tables and is why it is configured against a shard set."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaOrleansReminderTable.cs",
+        "lines": "14-229",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/SiloBuilderReminderExtensions.cs",
+        "lines": "6-47",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Reminders/ArgentSeaRemindersProviderBuilder.cs",
+        "lines": "11-18",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ArgentSeaReminderOptionsValidator.cs",
+        "lines": "10-62",
+        "label": "Reminder option bounds and the start-up validator, registered at SiloBuilderReminderExtensions.cs:43"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -3,29 +3,36 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "ArgentSeaDbGrainPersistence<TDatabaseOptions>",
+    "subject": "Grain Persistence",
     "condition": "a query contract is configured for the supplied grain type",
-    "trigger": "ReadStateAsync is invoked",
-    "response": "initialize a null grain state and dispatch the configured read query to result-set mapping or output-parameter mapping according to that query contract's result format",
-    "postcondition": "RecordExists reflects whether the mapped state is non-null."
+    "trigger": "ArgentSeaDbGrainPersistence<TDatabaseOptions>.ReadStateAsync is invoked",
+    "response": "map the configured read query's result into the supplied state, or into a new default TModel instance when the supplied state is null, using result-set mapping (with collections when TModel has collection map properties) or output-parameter mapping according to the query contract's result format, and keep the mapped result on every branch; when the mapping returns no result (null), create the state with TModel's static IActivator<TModel> factory when TModel implements IActivator<TModel>, otherwise as a default TModel instance whose key values are set from the grain id",
+    "postcondition": "when the read returned a record, State is the mapped result and RecordExists is true; when it returned none, State is the newly activated instance and RecordExists is false"
   },
   "metadata": {
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Missing mandatory sectionId: 'orleans-db-grain-persistence'. Grounded and falsifiable behavioral block citing committed Term.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable behavioral block citing committed Term. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
         "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaDbGrainPersistence.cs",
-        "lines": "56-110",
+        "lines": "57-116",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/GrainStateActivator.cs",
+        "lines": "8-48",
         "label": null,
         "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "orleans-db-grain-persistence",
+    "sectionId": "grain-persistence",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

@@ -1,0 +1,86 @@
+{
+  "id": "blk-425f912b5f334f3bb2e0a7f3031e5a5a",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Each of the Mapper's per-model-type delegate builders (BuildInMapDelegate, BuildOutSetDelegate, BuildOutGetDelegate, BuildReaderMapDelegate) must discover at least one usable mapping while traversing the model type's properties, including mappings found inside a nested MapToModel-decorated property at any depth; the input-parameter builder (BuildInMapDelegate) additionally counts a CollectionMapAttributeBase-decorated property as a usable mapping, while the output-parameter and reader builders do not. A builder that completes its traversal without finding any usable mapping throws NoMappingAttributesFoundException instead of compiling and caching a no-op delegate.",
+    "scope": "Mapper's BuildInMapDelegate, BuildOutSetDelegate, BuildOutGetDelegate and BuildReaderMapDelegate (ArgentSea.Shared/src/Mapping/Mapper.cs)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "412-417",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "424-481",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "774-776",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "784-934",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "979-981",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1438-1440",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "1461-1492",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

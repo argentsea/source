@@ -1,0 +1,49 @@
+{
+  "id": "blk-3f36d01b73e74bee9a8709de1cf5b555",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "An OrleansShardQueryDefinitions value has constructor-supplied grain type 'OrderGrain' and no QueryProcedure or Lazy<QueryStatement> for its clear role (only its read and write roles are supplied).",
+      "when": "A caller accesses ClearQuery.",
+      "then": "The access throws OrleansQueryNotProvidedException whose message is \"The Orleans Grain “OrderGrain” does not have a query defined for its ClearQuery method.\" — naming ClearQuery specifically, not ReadQuery or WriteQuery, because the accessor property name is captured via [CallerMemberName]."
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-d59cd454751f4f1d872725e2fde6fadc",
+        "relation": "illustrates"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansQueryDefinitions.cs",
+        "lines": "283-286",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/OrleansQueryNotProvidedException.cs",
+        "lines": "26-29",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

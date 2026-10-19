@@ -1,0 +1,60 @@
+{
+  "id": "blk-8d95011d2bc347b187c242ef3ca9804e",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "parmeterNames containing [\"@id\", \"@label\"], and a parameters collection / parameterValues dictionary supplying a value only for \"@id\"",
+      "when": "SetParameters executes for these parmeterNames",
+      "then": "it throws ParameterNotFoundException naming \"@label\" as the parameter that was not found, per the exception's own parameterName-taking constructor"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-f0cb5c3813754fd89f4d73c43a5c051a"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Rejected",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/IDataProviderServiceFactory.cs",
+        "lines": "15-25",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/ParameterNotFoundException.cs",
+        "lines": "10-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "data-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-cd30b9a1bb9c4534bd24c03b51474535",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

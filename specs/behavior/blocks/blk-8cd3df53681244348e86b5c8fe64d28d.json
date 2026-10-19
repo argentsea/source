@@ -1,0 +1,42 @@
+{
+  "id": "blk-8cd3df53681244348e86b5c8fe64d28d",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model property Tags of type string[] maps to a present reader column that is not DBNull",
+      "when": "ExpressionHelpers builds and executes Tags's reader-column expression via ReaderSimpleValueExpressions",
+      "then": "Tags is assigned the result of DbDataReader.GetFieldValue<string[]> on that column, reached after the IsDBNull guard finds the column not null"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "specId": "behavior",
+        "blockId": "blk-374b6c0991434c418060f0f7df97ab00",
+        "project": "ArgentSea"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/ExpressionHelpers.cs",
+        "lines": "410-434",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "mapping-expression-builders",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

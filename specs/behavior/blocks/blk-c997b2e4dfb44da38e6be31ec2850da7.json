@@ -1,0 +1,42 @@
+{
+  "id": "blk-c997b2e4dfb44da38e6be31ec2850da7",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a model type has a property decorated with a CollectionMapAttributeBase-derived attribute whose declared property type is not a recognized collection type (not ImmutableArray<T>, and does not implement IEnumerable<T>)",
+      "when": "Mapper.HasCollectionMapProperties(modelType) (or any other Mapper operation that first resolves the model's collection-map properties) is called for that model type",
+      "then": "the Mapper throws InvalidOperationException naming the offending property and the model type, instead of returning true or false"
+    },
+    "illustrates": [
+      {
+        "kind": "spec",
+        "project": "ArgentSea",
+        "specId": "behavior",
+        "blockId": "blk-265a9853d123482b881fe9a66e17e8eb"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "506-522",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

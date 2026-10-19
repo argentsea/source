@@ -1,0 +1,73 @@
+{
+  "id": "blk-e122ba8da15748819f880d902c63aeba",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "Shard Set Fan-Out",
+    "trigger": "while a read-first call is still waiting for a non-null result, one of the not-yet-resolved per-shard read tasks completes faulted or cancelled",
+    "response": "the failure is recorded and the wait continues with the remaining target shards; if another shard then produces a non-null result, that result is returned and every recorded or later shard failure is ignored",
+    "postcondition": "a shard failure surfaces only when no targeted shard produced a non-null result and the caller has not cancelled: a single recorded failure is rethrown as-is, with its original exception type, and several are rethrown together as an AggregateException; if the caller's token was cancelled, OperationCanceledException is thrown instead of any shard failure"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "96-151",
+        "label": "FirstNonNullAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "83-94",
+        "label": "ThrowFailures: one failure as-is, several as AggregateException"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "168-189",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-65e1328853a142eab6110f152e0236c5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-a7029785ab434c9fb4c8832d2a705845",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "ArgentSea",
+      "specId": "glossary",
+      "blockId": "blk-0c7f1d1042e34536b5946be87654eb82",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

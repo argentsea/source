@@ -3,7 +3,7 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
-    "subject": "the mapping layer",
+    "subject": "Model Mapping",
     "condition": "a model property is mapped to an incompatible database parameter type",
     "trigger": "the layer builds parameters or mapping expressions",
     "response": "throw InvalidMapTypeException with the mapped property's diagnostic context"
@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by merge-skeptic: Missing mandatory sectionId: 'shared-mapper' and subject string 'the mapping layer' drifted from component name 'Mapper'. Grounded in Mapper.cs, CopyMapper.cs, and TvpMapper.cs and falsifiable.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewer note (merge-skeptic): the subject string drift ('the mapping layer' vs the owning component) was resolved on 2026-10-12 — subject now matches the owning component name 'Model Mapping'. Grounded in Mapper.cs, CopyMapper.cs, and TvpMapper.cs and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'model-mapping' resolves to component 'Model Mapping' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
     "sources": [
       {
         "kind": "file",
@@ -24,7 +24,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Pg/src/CopyMapper.cs",
-        "lines": "545-593,637",
+        "lines": "572-620,664",
         "label": null,
         "relation": "grounds"
       },
@@ -34,11 +34,18 @@
         "lines": "117-198",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidMapTypeException.cs",
+        "lines": "49-55,87-99",
+        "label": null,
+        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-invalid-map-type-exception",
+    "sectionId": "model-mapping",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

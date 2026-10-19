@@ -1,0 +1,25 @@
+{
+  "id": "configuration",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Configuration",
+    "parent": "argent-sea-core",
+    "responsibility": "Holds how the platform-neutral core learns where and how to connect: the inheritable connection-setting hierarchy that resolves into each read and write endpoint, the provider seam through which every platform-specific connection, command and transient-failure judgement is obtained, and the events the core reports to a host's logger. These belong together because they are what a host configures and observes before any query runs; it mirrors the Configuration section of the documentation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}

@@ -18,18 +18,11 @@
         "lines": "24-85",
         "label": null,
         "relation": "grounds"
-      },
-      {
-        "kind": "file",
-        "path": "ArgentSea.Shared/src/Databases.cs",
-        "lines": "1013-1014",
-        "label": null,
-        "relation": "grounds"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-databases-base",
+    "sectionId": "databases-collection",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"

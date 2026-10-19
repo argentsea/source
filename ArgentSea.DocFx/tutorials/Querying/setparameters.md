@@ -13,7 +13,7 @@ ArgentSea provides a variety of extension methods to work with the parameters co
 * Methods to Map Models properties to parameters.
 
 > [!NOTE]
-> Parameter names are implicitly normalized. On SQL Server this means always ensuring a “@” prefix. On PostgreSQL, future versions might automatically convert to lowercase.
+> On SQL Server, parameter names are implicitly normalized to always include a “@” prefix. On PostgreSQL, parameter names are used exactly as given — no prefix is added and casing is not changed.
 
 ## Creating Parameters with Extension Methods
 

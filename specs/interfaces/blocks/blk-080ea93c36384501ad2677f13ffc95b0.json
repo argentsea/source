@@ -6,7 +6,7 @@
     "name": "BatchExtensions Add overload family",
     "kind": "Library",
     "language": "text",
-    "contract": "BatchExtensions exposes one Add extension family for composing a Batch from a Query contract. A ShardBatch<TResult> or DatabaseBatch<TResult> receiver selects the result shape: a comparable scalar record, a sequence of records, a virtual compound key or key sequence with optional child identity and optional shard-identifier column, or a model produced by a supplied QueryResultModelHandler. Every overload adds one matching result operation and returns the original receiver. Overloads either accept an explicit DbParameterCollection or use an empty parameter collection; record and key type arguments are comparable, and model type arguments have a public parameterless constructor."
+    "contract": "BatchExtensions exposes one Add extension family for composing a Batch from a Query contract. A ShardBatch<TResult> or DatabaseBatch<TResult> receiver selects the result shape: a comparable scalar record, a sequence of records, a virtual compound key or key sequence with optional child identity and optional shard-identifier column, or a model produced by a supplied QueryResultModelHandler. Every overload whose receiver type uses the receiver's own generically-typed Add(BatchStep<TResult>) adds one matching result operation and returns the original receiver; the List<TRecord> and List<ShardKey<...>> receiver overloads do not reach that outcome (see asymmetry 3). Overloads either accept an explicit DbParameterCollection or use an empty parameter collection; record and key type arguments are comparable, and model type arguments have a public parameterless constructor. Three asymmetries hold within the family: (1) when a model step needs no caller-supplied argument, the overload still constructs its step with all four arguments, supplying a QueryResultModelHandler<object,TModel> and passing null as the argument rather than omitting it; (2) among the data-column overloads, the IList<TRecord> and List<TRecord> list-result forms exist only with an explicit DbParameterCollection, while the TRecord scalar form offers both a parameterized overload and a parameterless overload that supplies an empty parameter collection; (3) the key-sequence result shape is duplicated across two distinct collection types — for every combination of key arity (ShardKey<TRecord> or ShardKey<TRecord,TChild>), parameter presence, and shard-identifier-column presence, a full, separately-declared overload exists for both an IList<ShardKey<...>> receiver and a List<ShardKey<...>> receiver, and the plain data-column family likewise duplicates its IList<TRecord> overload with a List<TRecord> receiver; every List<>-receiver overload in this family adds its step by casting the receiver to the non-generic System.Collections.IList rather than calling the receiver's own generically-typed Add. That cast does not succeed for any receiver this family can actually be called on: BatchBase<TResult> implements only ICollection and IEnumerable<BatchStep<TResult>>, and neither ShardBatch<TResult> nor DatabaseBatch<TResult> adds an IList implementation of its own, so no instance of either type satisfies IList. Calling any List<>-receiver overload therefore fails that cast before the step is registered, instead of adding the step and returning the receiver the way every other overload in the family does."
   },
   "metadata": {
     "status": "Draft",
@@ -20,11 +20,41 @@
         "lines": "14-233",
         "label": null,
         "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "81-164",
+        "label": "ShardKey list family duplicated across IList<> and List<> receivers; List<> forms add via an explicit (IList) cast"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchExtensions.cs",
+        "lines": "184-188,229-233",
+        "label": "Plain data-column List<TRecord> overloads also add via an explicit (IList) cast"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/BatchBase.cs",
+        "lines": "19",
+        "label": "BatchBase<TResult> implements only ICollection and IEnumerable<BatchStep<TResult>>, not IList"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardBatch.cs",
+        "lines": "14",
+        "label": "ShardBatch<TResult> derives from BatchBase<TResult> and adds no IList implementation"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Batch/DatabaseBatch.cs",
+        "lines": "14",
+        "label": "DatabaseBatch<TResult> derives from BatchBase<TResult> and adds no IList implementation"
       }
     ],
     "owner": "operator",
     "orderKey": "mmmmmm",
-    "sectionId": "shared-batch-extensions",
+    "sectionId": "batch-execution",
     "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "software"

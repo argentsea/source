@@ -1,0 +1,25 @@
+{
+  "id": "sharding",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Sharding",
+    "parent": "argent-sea-core",
+    "responsibility": "Holds how ArgentSea spreads one logical dataset across many databases: the record identity that combines a shard with the record's own key and its external encodings, choosing which shards a query reaches and what each contributes, running a query across shards and combining the results, and addressing a single known shard directly. These belong together because each depends on the shard-qualified identity and the shard-set topology; it mirrors the Sharding section of the documentation."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
