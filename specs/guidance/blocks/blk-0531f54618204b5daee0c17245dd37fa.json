@@ -1,0 +1,80 @@
+{
+  "id": "blk-0531f54618204b5daee0c17245dd37fa",
+  "specId": "guidance",
+  "type": "Guidance",
+  "fields": {
+    "appliesWhen": {
+      "fileGlobs": [
+        "*ShardKey*.cs",
+        "*StringExtensions*.cs"
+      ],
+      "semanticAnchor": "serializing and parsing ShardKey external strings with ToExternalString and FromExternalString, external key security boundaries, and supported ShardKey component types versus MapToSql unsigned integer types",
+      "symbols": [
+        "ToExternalString",
+        "FromExternalString",
+        "ShardKeySerialization"
+      ]
+    },
+    "body": "`ShardKey.ToExternalString()` and `FromExternalString()` apply bit-inversion, a 2-byte Fletcher checksum, and URL-safe Modified Base64 encoding to detect accidental corruption and deter casual tampering in URLs and JSON payloads. This encoding is not cryptographic authentication or encryption—callers must enforce authorization independently on every request. Additionally, although `ulong`, `uint`, `ushort`, and `sbyte` are supported by SQL Server `[MapToSql*]` attributes (via unchecked same-width integer and fixed-width big-endian binary mappings), they are not supported as `ShardKey` generic type arguments in `ShardKeySerialization`.",
+    "scope": "targeted",
+    "title": "ShardKey external string security boundary and supported key types"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "158-198",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "10-80",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-ae9ea07c82ba4984a2e4d0a4f9f792d5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-b7356047a30045c0abbf4068c032671b",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
