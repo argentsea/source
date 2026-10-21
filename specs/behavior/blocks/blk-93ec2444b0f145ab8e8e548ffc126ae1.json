@@ -1,0 +1,78 @@
+{
+  "id": "blk-93ec2444b0f145ab8e8e548ffc126ae1",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an empty DbParameterCollection and one ShardKey<int> whose ShardId is 7 and RecordId is 41, with SQL metadata columns `ShardId` and `RecordId`",
+      "then": "the returned collection contains one Input Structured parameter whose name is `@`-prefixed and whose only SQL data record has value 7 at column 0 and 41 at column 1.",
+      "when": "the caller invokes the two-dimension SqlParameterCollectionExtensions.AddSqlTableValuedParameter<TRecord>(IEnumerable<ShardKey<TRecord>>, shardIdName, shardIdType, recordIdName, recordIdType) overload"
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-48f70a8f347b4bb8aa4490079567c4c9",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "22-29",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1351-1373",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-48f70a8f347b4bb8aa4490079567c4c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "illustrates"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-187fdb8334744b06ba98b54cb51c5ae6",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
