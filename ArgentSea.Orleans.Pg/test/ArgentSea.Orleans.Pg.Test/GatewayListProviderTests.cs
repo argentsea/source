@@ -21,8 +21,8 @@ public class GatewayListProviderTests
             Options.Create(new ClusterOptions { ClusterId = "TestCluster" }), NullLogger<ArgentSeaGatewayListProvider>.Instance);
 
     [Fact]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-cbb4c09c00364a0cbf014fcf1c25a56e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-6965f0ed40724482a8ed7cdf8712ee5e")]
     public void TheReadConnectionOfTheConfiguredDatabaseKeyIsUsedWithGlobalSettingsApplied()
     {
         var dbOptions = new PgDbConnectionOptions
@@ -48,8 +48,8 @@ public class GatewayListProviderTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-cbb4c09c00364a0cbf014fcf1c25a56e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-6965f0ed40724482a8ed7cdf8712ee5e")]
     public void AnExplicitConnectionStringIsUsedVerbatimAndAnUnknownKeyFails()
     {
         var provider = Create(new PgDbConnectionOptions { PgDbConnections = [] }, new ClusterClientDbOptions { DatabaseKey = "Common", ConnectionString = "Host=explicit;Database=Explicit" });
@@ -60,8 +60,8 @@ public class GatewayListProviderTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-cbb4c09c00364a0cbf014fcf1c25a56e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-6965f0ed40724482a8ed7cdf8712ee5e")]
     public void WithoutAConfiguredQueryThePackagesGatewayListFunctionIsUsed()
     {
         var provider = Create(new PgDbConnectionOptions(), new ClusterClientDbOptions { DatabaseKey = "Common", ConnectionString = "Host=x", MaxRefreshInterval = TimeSpan.FromSeconds(42) });
@@ -76,8 +76,8 @@ public class GatewayListProviderTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-cbb4c09c00364a0cbf014fcf1c25a56e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-6965f0ed40724482a8ed7cdf8712ee5e")]
     public void GatewayUrisAreBuiltFromEveryAddressPortGenerationRowInOrder()
     {
         using var two = new FakeDbDataReader([new FakeResultSet(["address", "proxy_port", "generation"],

@@ -72,7 +72,7 @@ public class HostingTests
     #region Grain storage
 
     [Fact]
-    [Trait("Spec", "blk-f020d72a658c450fbdd1d9dcda0ad8bb")]
+    [Trait("Spec", "blk-8b4e6953a3b042338493b7f32c5fc76c")]
     public void TheDbAndShardGrainStorageExtensionsRegisterTheirFactoryUnderTheProviderName()
     {
         var (dbBuilder, dbServices) = SiloBuilder();
@@ -96,7 +96,7 @@ public class HostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-f020d72a658c450fbdd1d9dcda0ad8bb")]
+    [Trait("Spec", "blk-8b4e6953a3b042338493b7f32c5fc76c")]
     public async Task TheFactoryBuildsStorageFromTheOptionsNamedForTheProvider()
     {
         var dbs = FakePgDatabases.Create("Common");
@@ -124,7 +124,7 @@ public class HostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-e052491ad0d34fe6aa83076b5e6cef0b")]
+    [Trait("Spec", "blk-ed685b5c044a4fefa64793618389b10c")]
     public void TheProviderBuildersResolveTheirKeyFromTheProviderSectionThenOrleansDataThenDefault()
     {
         IConfiguration Config(Dictionary<string, string?> values) => new ConfigurationBuilder().AddInMemoryCollection(values).Build();
@@ -152,8 +152,8 @@ public class HostingTests
     #region Clustering and reminders
 
     [Fact]
-    [Trait("Spec", "blk-e052491ad0d34fe6aa83076b5e6cef0b")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-ed685b5c044a4fefa64793618389b10c")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void UseArgentSeaPgClusteringRegistersTheMembershipTableAndForClientsTheGatewayListProvider()
     {
         var config = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["ClusterId"] = "c1", ["ServiceId"] = "s1" }).Build();
@@ -170,8 +170,8 @@ public class HostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-e052491ad0d34fe6aa83076b5e6cef0b")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
+    [Trait("Spec", "blk-ed685b5c044a4fefa64793618389b10c")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
     public void UseArgentSeaPgReminderServiceRegistersTheTableTheValidatorAndAppliesTheOptions()
     {
         var services = new ServiceCollection();
@@ -198,8 +198,8 @@ public class HostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-f020d72a658c450fbdd1d9dcda0ad8bb")]
-    [Trait("Spec", "blk-e052491ad0d34fe6aa83076b5e6cef0b")]
+    [Trait("Spec", "blk-8b4e6953a3b042338493b7f32c5fc76c")]
+    [Trait("Spec", "blk-ed685b5c044a4fefa64793618389b10c")]
     public void ArgentSeaPgGrainStorageIsShardSetStorageAndArgentSeaPgDbIsSingleDatabaseStorage()
     {
         using var shard = Silo(new() { ["Orleans:GrainStorage:orders:ProviderType"] = "ArgentSeaPg", ["Orleans:GrainStorage:orders:ShardSetKey"] = "Orders" }).Services.BuildServiceProvider();
@@ -212,9 +212,9 @@ public class HostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-e052491ad0d34fe6aa83076b5e6cef0b")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-ed685b5c044a4fefa64793618389b10c")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void ArgentSeaPgClusteringAndRemindersInstallThisPackagesTables()
     {
         var builder = Silo(new() { ["Orleans:Clustering:ProviderType"] = "ArgentSeaPg", ["Orleans:Reminders:ProviderType"] = "ArgentSeaPg" });
@@ -224,8 +224,8 @@ public class HostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-99910d9a758d4a1c87bc8986ec5eb1e0")]
-    [Trait("Spec", "blk-e052491ad0d34fe6aa83076b5e6cef0b")]
+    [Trait("Spec", "blk-5308f769443c4483a1d48fcd5a377128")]
+    [Trait("Spec", "blk-ed685b5c044a4fefa64793618389b10c")]
     public void TheRegistrationsArePostgreSqlSpecificAndNoTwoShareAProviderKey()
     {
         var registrations = typeof(Queries).Assembly.GetCustomAttributesData()

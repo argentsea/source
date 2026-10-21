@@ -57,10 +57,10 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     };
 
     [SkippableFact]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task UpsertRowInsertsThenUpdatesAndReadRowReturnsTheStoredReminder()
     {
         _fixture.SkipUnlessAvailable();
@@ -85,10 +85,10 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task UpsertRowWithAStaleEtagFails()
     {
         _fixture.SkipUnlessAvailable();
@@ -103,10 +103,10 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task UpsertRowAcceptsAGrainHashAboveInt32MaxValue()
     {
         _fixture.SkipUnlessAvailable();
@@ -125,9 +125,9 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task ReadRowForAMissingReminderReturnsAnEntryBearingTheGrainId()
     {
         _fixture.SkipUnlessAvailable();
@@ -142,9 +142,9 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task ReadRowsByGrainReturnsEveryReminderOfThatGrainOnly()
     {
         _fixture.SkipUnlessAvailable();
@@ -161,9 +161,9 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task ReadRowsByHashRangeCollectsEveryMatchingReminderFromBothShards()
     {
         _fixture.SkipUnlessAvailable();
@@ -194,9 +194,9 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task RemoveRowIsConditionalOnTheVersionAndReportsWhetherARowWasFound()
     {
         _fixture.SkipUnlessAvailable();
@@ -215,9 +215,9 @@ public class PgReminderTableIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
     public async Task TestOnlyClearTableIsANoOp()
     {
         _fixture.SkipUnlessAvailable();

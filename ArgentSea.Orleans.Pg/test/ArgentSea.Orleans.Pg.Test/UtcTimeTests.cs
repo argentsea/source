@@ -8,7 +8,7 @@ public class UtcTimeTests
     private static readonly DateTime Utc = new(2026, 10, 18, 12, 0, 0, DateTimeKind.Utc);
 
     [Fact]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public void AUtcValueIsUnchanged()
     {
         UtcTime.ToUtc(Utc).Should().Be(Utc).And.Subject!.Value.Kind.Should().Be(DateTimeKind.Utc);
@@ -16,7 +16,7 @@ public class UtcTimeTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public void AnUnspecifiedValueKeepsItsClockReadingAndBecomesUtc()
     {
         var unspecified = DateTime.SpecifyKind(Utc, DateTimeKind.Unspecified);
@@ -28,7 +28,7 @@ public class UtcTimeTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public void ALocalValueIsConvertedToTheSameInstantInUtc()
     {
         // Use a time zone offset that is never zero, so the test means something whatever the machine's zone is.

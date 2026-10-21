@@ -375,7 +375,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-2c4d613b2b0443ffa64bf739405ec9a7")]
+        [Trait("Spec", "blk-6092f9837e7b4b4faf5153ab2cd54a96")]
         public void OrleansPgMatchesOrleansSqlVersionsAndDependsOnTheOrleansAndPgProjects()
         {
             var project = Load(OrleansPgProject);
@@ -387,7 +387,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-2c4d613b2b0443ffa64bf739405ec9a7")]
+        [Trait("Spec", "blk-6092f9837e7b4b4faf5153ab2cd54a96")]
         public void OrleansPgPacksItsIconReadmeAndBothSchemaScripts()
         {
             var project = Load(OrleansPgProject);

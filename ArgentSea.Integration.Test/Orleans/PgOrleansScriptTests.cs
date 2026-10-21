@@ -60,8 +60,8 @@ public class PgOrleansScriptTests : IAsyncLifetime
     private const string TenantTable = "SELECT * FROM orleans.orleans_reminder;";
 
     [SkippableFact]
-    [Trait("Spec", "blk-be88d6697209480ab2ada24eea222bb2")]
-    [Trait("Spec", "blk-61544e59f047498ea00638b916701600")]
+    [Trait("Spec", "blk-f281557d20c9483597c3002b971f632e")]
+    [Trait("Spec", "blk-8603d3bd15fe43e383af28d4a4c2fdd2")]
     public async Task TheReaderCanCallOnlyTheReadFunctions()
     {
         _fixture.SkipUnlessAvailable();
@@ -79,8 +79,8 @@ public class PgOrleansScriptTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be88d6697209480ab2ada24eea222bb2")]
-    [Trait("Spec", "blk-61544e59f047498ea00638b916701600")]
+    [Trait("Spec", "blk-f281557d20c9483597c3002b971f632e")]
+    [Trait("Spec", "blk-8603d3bd15fe43e383af28d4a4c2fdd2")]
     public async Task TheWriterCanCallTheReadAndWriteRoutinesButNotTheTables()
     {
         _fixture.SkipUnlessAvailable();
@@ -97,8 +97,8 @@ public class PgOrleansScriptTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be88d6697209480ab2ada24eea222bb2")]
-    [Trait("Spec", "blk-61544e59f047498ea00638b916701600")]
+    [Trait("Spec", "blk-f281557d20c9483597c3002b971f632e")]
+    [Trait("Spec", "blk-8603d3bd15fe43e383af28d4a4c2fdd2")]
     public async Task TheClientCanCallOnlyTheGatewayListFunction()
     {
         _fixture.SkipUnlessAvailable();
@@ -114,8 +114,8 @@ public class PgOrleansScriptTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-be88d6697209480ab2ada24eea222bb2")]
-    [Trait("Spec", "blk-61544e59f047498ea00638b916701600")]
+    [Trait("Spec", "blk-f281557d20c9483597c3002b971f632e")]
+    [Trait("Spec", "blk-8603d3bd15fe43e383af28d4a4c2fdd2")]
     public async Task EveryRoutineIsSecurityDefinerWithAPinnedSearchPathAndNoPublicExecuteRight()
     {
         _fixture.SkipUnlessAvailable();

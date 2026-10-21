@@ -96,7 +96,7 @@ public class PgGrainStorageIntegrationTests : IAsyncLifetime
 
     public Task DisposeAsync() => Task.CompletedTask;
     [SkippableFact]
-    [Trait("Spec", "blk-f020d72a658c450fbdd1d9dcda0ad8bb")]
+    [Trait("Spec", "blk-8b4e6953a3b042338493b7f32c5fc76c")]
     public async Task DatabaseGrainStateIsWrittenReadAndCleared()
     {
         _fixture.SkipUnlessAvailable();
@@ -139,7 +139,7 @@ public class PgGrainStorageIntegrationTests : IAsyncLifetime
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-f020d72a658c450fbdd1d9dcda0ad8bb")]
+    [Trait("Spec", "blk-8b4e6953a3b042338493b7f32c5fc76c")]
     public async Task ShardGrainStateIsWrittenReadAndClearedOnTheShardItsKeyNames()
     {
         _fixture.SkipUnlessAvailable();

@@ -36,7 +36,7 @@ public class QueryCatalogTests
         => (Query)typeof(Queries).GetProperty(name, BindingFlags.Public | BindingFlags.Static)!.GetValue(null)!;
 
     [Theory, MemberData(nameof(Procedures))]
-    [Trait("Spec", "blk-e78d9d562dd04174b86897f3d4243e45")]
+    [Trait("Spec", "blk-10658e9ad5854821a3781da0d2ef9fe4")]
     public void EveryWriteIsAVersionedWtrProcedure(string member, string procedure)
     {
         var query = Member(member);
@@ -48,7 +48,7 @@ public class QueryCatalogTests
     }
 
     [Theory, MemberData(nameof(Functions))]
-    [Trait("Spec", "blk-e78d9d562dd04174b86897f3d4243e45")]
+    [Trait("Spec", "blk-10658e9ad5854821a3781da0d2ef9fe4")]
     public void EveryReadIsATextCallOfVersionedRdrFunctionsOnePerResultSet(string member, string[] functions)
     {
         var query = Member(member);
@@ -65,7 +65,7 @@ public class QueryCatalogTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-e78d9d562dd04174b86897f3d4243e45")]
+    [Trait("Spec", "blk-10658e9ad5854821a3781da0d2ef9fe4")]
     public void TheCatalogueHasExactlyTheFourteenMembers()
     {
         typeof(Queries).GetProperties(BindingFlags.Public | BindingFlags.Static)

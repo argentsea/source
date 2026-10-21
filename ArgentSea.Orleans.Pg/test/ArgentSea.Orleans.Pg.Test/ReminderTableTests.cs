@@ -33,8 +33,8 @@ public class ReminderTableTests
         => [grainId.Key.Value.ToArray(), grainId.Type.ToString(), name, start ?? StartAt, periodTicks, version];
 
     [Fact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public void AMissingShardSetFailsConstruction()
     {
         var act = () => new ArgentSeaOrleansReminderTable(FakePgShardSets.Create("Other", 1),
@@ -44,9 +44,9 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public async Task ReadRowSelectsTheGrainShardAndDecodesTheMatchingRow()
     {
         var (table, shards) = Build();
@@ -71,9 +71,9 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public async Task ReadRowWithNoMatchingRowReturnsAnEntryBearingTheGrainId()
     {
         var (table, shards) = Build();
@@ -89,9 +89,9 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public async Task ReadRowsForAGrainReturnsEveryRowOfItsShardAndSkipsRowsWithoutAGrainType()
     {
         var (table, shards) = Build();
@@ -110,9 +110,9 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-d2e041c4703b4a5ab9ef5178f10688aa")]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-060cd2a91da94138872d087055030a18")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public async Task ReadRowsForAHashRangeReturnsEveryRowOfEveryShard()
     {
         var (table, shards) = Build();
@@ -131,8 +131,8 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public async Task RemoveRowSubmitsTheVersionToTheGrainShardAndReturnsTheInOutFoundFlag()
     {
         var (table, shards) = Build();
@@ -154,9 +154,9 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public async Task UpsertRowWritesTheEntryInUtcToTheGrainShardAndReturnsTheNewVersion()
     {
         var (table, shards) = Build();
@@ -184,8 +184,8 @@ public class ReminderTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-be4943a5cfd048578a53e790169e33bd")]
-    [Trait("Spec", "blk-a6a660767f734b97b189a4b178764a32")]
+    [Trait("Spec", "blk-948771504008464e998e76a2f11c4633")]
+    [Trait("Spec", "blk-6b523e98394546c7964f141550a40d4c")]
     public async Task TestOnlyClearTableCompletesWithoutInvokingAnyQuery()
     {
         var (table, shards) = Build();

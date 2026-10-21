@@ -47,7 +47,7 @@ public class MembershipTableTests
     #region Writes
 
     [Fact]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void AMissingDatabaseKeyFailsConstruction()
     {
         var act = () => new ArgentSeaOrleansMembershipTable(
@@ -60,8 +60,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public async Task InitializeMembershipTableCreatesTheVersionRecordOnlyWhenAsked()
     {
         var (table, dbs, _) = BuildTable("cluster-a");
@@ -80,9 +80,9 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public async Task InsertRowBindsTheMemberAndTableVersionInUtcAndReturnsTrueWhenTheProcedureCompletes()
     {
         var (table, dbs, _) = BuildTable();
@@ -110,8 +110,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public async Task InsertRowReturnsFalseOnTheConcurrencyConflictSqlStateAndRethrowsEverythingElse()
     {
         var (table, dbs, logger) = BuildTable();
@@ -131,8 +131,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public async Task UpdateRowBindsTheMemberItsOwnEtagTheTableVersionAndOneSuspectPerSuspector()
     {
         var (table, dbs, _) = BuildTable();
@@ -176,8 +176,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public async Task UpdateRowWithNoSuspectReportsSendsEmptyArrays()
     {
         var (table, dbs, _) = BuildTable();
@@ -189,8 +189,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public async Task UpdateRowReturnsFalseOnTheConcurrencyConflictSqlStateAndRethrowsEverythingElse()
     {
         var (table, dbs, logger) = BuildTable();
@@ -210,8 +210,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void OnlyTheConcurrencySqlStateIsAConflict()
     {
         ArgentSeaOrleansMembershipTable.IsConcurrencyConflict(PostgresExceptions.WithSqlState("AS001")).Should().BeTrue();
@@ -222,8 +222,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public async Task LivenessDefunctCleanupAndClusterDeleteBindTheirParametersToTheWriteEndpoint()
     {
         var (table, dbs, _) = BuildTable();
@@ -258,9 +258,9 @@ public class MembershipTableTests
         => [id, IPAddress.Parse(ip).GetAddressBytes(), port, generation, name, "host-" + name, (short)SiloStatus.Active, 30000, Start, Alive, etag, version];
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-9402c67a94344fe5a63790eb219c3ba6")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-e7566bc44d504db7875fff7333a3d53c")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void ReadAllMapsTheVersionRowEveryMemberRowAndAttachesSuspectsOnlyToTheirMember()
     {
         var logger = new RecordingLogger();
@@ -297,8 +297,8 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-9402c67a94344fe5a63790eb219c3ba6")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-e7566bc44d504db7875fff7333a3d53c")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void ReadAllWithoutAVersionRowThrowsAndWithoutLaterResultSetsReturnsWhatItHas()
     {
         var logger = new RecordingLogger();
@@ -323,9 +323,9 @@ public class MembershipTableTests
     private static readonly string[] RowSuspectColumns = ["address", "port", "generation", "suspicion_timestamp"];
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-9402c67a94344fe5a63790eb219c3ba6")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-e7566bc44d504db7875fff7333a3d53c")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void ReadRowMapsTheAddressedMemberItsEtagTheTableVersionAndItsSuspectsAndThrowsForAnUnknownSilo()
     {
         var key = Silo("10.0.0.1", 11111, 7);
@@ -353,9 +353,9 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-9402c67a94344fe5a63790eb219c3ba6")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-e7566bc44d504db7875fff7333a3d53c")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public void ReadMappersReturnUtcTimesEvenWhenTheReaderReturnsAnotherKind()
     {
         var unspecified = DateTime.SpecifyKind(Start, DateTimeKind.Unspecified);
@@ -377,8 +377,8 @@ public class MembershipTableTests
     #region Suspect arrays
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
     public void BuildSuspectArraysForNoReportsIsEmpty()
     {
         var none = ArgentSeaOrleansMembershipTable.BuildSuspectArrays(null);
@@ -390,9 +390,9 @@ public class MembershipTableTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-72228c3783af4a3495233be3754c956d")]
-    [Trait("Spec", "blk-ffa9b2fc0d09490da2c1470af1542cfb")]
-    [Trait("Spec", "blk-9b537eb07a79432ea036fb19f4304bf9")]
+    [Trait("Spec", "blk-1a9bf1257b894f9191d36ef2cc2e8f7e")]
+    [Trait("Spec", "blk-3734c298c721480daf472f5b8508d797")]
+    [Trait("Spec", "blk-21ed445a0be54d25921da2c9eb2d944c")]
     public void BuildSuspectArraysKeepsOneEntryPerSuspectorWithItsLatestReportInUtc()
     {
         var t = new DateTime(2026, 1, 1, 10, 0, 0, DateTimeKind.Utc);
