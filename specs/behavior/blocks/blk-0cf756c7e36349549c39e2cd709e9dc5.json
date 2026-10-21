@@ -4,16 +4,16 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "an output parameter collection that already contains a parameter named '@ExistingId', and an ignoreParameters set that does not contain '@ExistingId'",
-      "when": "CreateOutputParameters<TModel> is called on that collection, passing that ignoreParameters set",
-      "then": "after the call returns, the ignoreParameters set contains '@ExistingId' even though the caller never added it — every parameter name already present in the incoming collection is merged into ignoreParameters before the model's output-parameter delegate is invoked, and the same parameter collection is returned"
+      "given": "an output parameter collection that already contains a parameter named '@ExistingId', and an ignoreParameters exclusion set",
+      "then": "CreateOutputParameters<TModel> excludes both the parameter names in ignoreParameters and any parameter names already present in the incoming collection (such as '@ExistingId', matched case-insensitively) when appending output parameters for TModel, and returns the parameter collection",
+      "when": "CreateOutputParameters<TModel> is called on that collection, passing that ignoreParameters set"
     },
     "illustrates": [
       {
+        "blockId": "blk-fa098f31c5d548d789a47a63aa3cf838",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-fa098f31c5d548d789a47a63aa3cf838"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
