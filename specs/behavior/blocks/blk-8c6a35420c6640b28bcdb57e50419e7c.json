@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "response": "for MapListAsync<TModel>, execute the query and return the materialized List<TModel>; for ListAsync<TValue>, return the matching MockResults entry when configured, or otherwise execute the query and return a List<TValue> containing the values read from the specified columnName while honoring the caller's CancellationToken",
     "subject": "DatabasesBase<TConfiguration>.DataConnection",
-    "trigger": "a caller invokes MapListAsync<TModel> or ListAsync<TValue>",
-    "response": "shall, for MapListAsync<TModel>, return the Task<List<TModel>> obtained directly from DataConnectionManager.ListAsync<TModel>; shall, for ListAsync<TValue>, absent a matching MockResults entry, forward the given columnName to DataConnectionManager.ListAsync<TValue, object, object> and return a List<TValue> built by projecting the Item1 value from each item the manager returns"
+    "trigger": "a caller invokes MapListAsync<TModel> or ListAsync<TValue>"
   },
   "metadata": {
     "status": "Draft",
