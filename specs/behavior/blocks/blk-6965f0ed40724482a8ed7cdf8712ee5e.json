@@ -1,0 +1,36 @@
+{
+  "id": "blk-6965f0ed40724482a8ed7cdf8712ee5e",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSea.Orleans.Pg ArgentSeaGatewayListProvider",
+    "condition": "ClusterClientDbOptions.GatewayListQuery is unset or set",
+    "trigger": "GetGateways is invoked",
+    "response": "runs the configured query, or Queries.OrleansClusterGatewayList (rdr.orleans_cluster_gateway_list_v1) when none is configured, with p_cluster_id set to the cluster id, and maps every [address bytes, proxy port, generation] row to a gateway URI in result order",
+    "postcondition": "a client receives the gateways of the cluster's active silos; a login holding only orleans_client can run it"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-cbb4c09c00364a0cbf014fcf1c25a56e",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-76cdd2609e9d4c02880ca1bae609b4c2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
