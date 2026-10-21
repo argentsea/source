@@ -3,7 +3,7 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
-    "definition": "A provider-specific attribute on a model property, such as `MapToSqlNVarChar` or `MapToPgVarchar`. It declares the parameter or column name the property binds to, the database type, type options (length, precision, scale, locale), and the optional `Required` flag. Each attribute accepts a closed set of .NET property types: either the provider's native CLR type or an explicitly supported reversible conversion (such as `ulong`/`uint`/`ushort`/`sbyte` integer and big-endian binary representations on SQL Server, and enum underlying integer types), rejecting undeclared coercions at mapping construction time. Properties without a mapping attribute are ignored. The `Mapper` reads these attributes to build its cached compiled mapping delegates.",
+    "definition": "A provider-specific attribute on a model property, such as `MapToSqlNVarChar` or `MapToPgVarchar`. It declares the parameter or column name the property binds to, the database type, type options (length, precision, scale, locale), and the optional `Required` flag. Each attribute accepts a closed set of .NET property types: either the provider's native CLR type or an explicitly supported reversible conversion (such as `ulong`, `uint`, `ushort`, and `sbyte` integer and big-endian binary representations on SQL Server, and enum underlying integer types), rejecting undeclared coercions at mapping construction time. Properties without a mapping attribute are ignored. The `Mapper` reads these attributes to build its cached compiled mapping delegates.",
     "name": "Mapping attribute",
     "synonyms": [
       "MapTo attribute",
