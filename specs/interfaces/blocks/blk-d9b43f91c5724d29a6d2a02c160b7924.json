@@ -25,7 +25,7 @@
     "owner": "operator",
     "orderKey": "mmmmmm",
     "sectionId": "postgres-service-registration",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
@@ -48,5 +48,20 @@
       "label": "origin note"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Pg/tests/ConfigurationTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "PgDatabasesAndPgShardSetsCloseTheBaseCollectionsOverThePostgresProviderFactoryAndAddNoMembers passes at 85a10ff3; FakePgShardSets uses the protected constructor.",
+      "evidenceId": "evi-a153ef73460f46b99073878615a04cfa",
+      "verifiedContentHash": "fields-sha256-v1:5d7da404636b76e277d2cba42eccda39b331480ce4359ff8c662b2f3e2927fa6",
+      "recordedAt": "2026-10-21T04:59:44.6804548+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
