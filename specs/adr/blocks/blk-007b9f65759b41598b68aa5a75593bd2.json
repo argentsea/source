@@ -1,0 +1,105 @@
+{
+  "id": "blk-007b9f65759b41598b68aa5a75593bd2",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Embed an 8-bit `DataOrigin` character tag instead of key-type metadata.",
+        "whyRejected": "An origin tag does not identify the record-id and child-id CLR types needed to deserialize or validate a `ShardKey` when the generic type arguments are not known in advance."
+      },
+      {
+        "option": "Serialize `ShardKey` values without any type metadata header.",
+        "whyRejected": "Deserialization could not detect mismatched generic type arguments, and untyped diagnostic or grain-key consumers (`GhostShardKey`) could not inspect serialized keys without compile-time type knowledge."
+      }
+    ],
+    "consequences": "Deserializing a `ShardKey` with mismatched generic type arguments throws `InvalidShardKeyMetadataException`, and `GhostShardKey` can reconstruct and format a serialized key without compile-time type arguments. Equality comparisons (`Equals`, `GetHashCode`, `==`) compare only `ShardId` and the typed key values, ignoring the metadata header.",
+    "context": "Serialized `ShardKey` values flow through channels where the reader may not know the generic key-column types at compile time (such as structured logging and Orleans grain identity strings) or where mismatched generic type arguments must be detected on deserialization.",
+    "decision": "Every `ShardKey` carries compact `ShardKeyTypeMetadata` encoding the arity and .NET `ShardKeyType` of its record-id and child-id components. This metadata header is written at the front of every serialized representation (binary, UTF-8, and external string) and validated when deserializing into a typed `ShardKey<...>`. Equality compares only the `ShardId` and key component values.",
+    "status": "Accepted",
+    "title": "Embed key-type metadata in serialized shard keys"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "14-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "351-366",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "10-35",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/readme.md",
+        "lines": "7-13",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "18-33",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": "Shard key type metadata",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-827f0c1209484f9081031f55581c7f41",
+      "blobHash": null,
+      "label": "Ghost shard key",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": "ShardKey",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-8243ce77e46441c78253fb977de6d4be",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
