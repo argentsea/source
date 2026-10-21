@@ -1,0 +1,97 @@
+{
+  "id": "blk-c6aca41740c4406f9eb3b30d4cf725dd",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "response": "TraceDbCmdExecuted and TraceShardCmdExecuted each check logger.IsEnabled(LogLevel.Trace) and, only when Trace is enabled, invoke their compiled Trace-level delegate, logging the command name, connection or shard-set/shard identifiers, and elapsed milliseconds under event id CmdExecuted (8). BuildSqlResultsHandlerScope opens a disposable logging scope, compiled via LoggerMessage.DefineScope, carrying the stored-procedure name and result-model Type, until the caller disposes it.",
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library invokes TraceDbCmdExecuted(this ILogger logger, string commandName, string connectionName, long milliseconds), TraceShardCmdExecuted(this ILogger logger, string commandName, string shardSetKey, short shardId, long milliseconds), or BuildSqlResultsHandlerScope(this ILogger logger, string procedureName, Type model)"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "99-101,188-204",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-77f75023572c40f49f7208f421cf9d47",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5c84014bd0a845a28da4fe6331eed7fe",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-64c08c5b6cd742c393b1320b2bd16cf3",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

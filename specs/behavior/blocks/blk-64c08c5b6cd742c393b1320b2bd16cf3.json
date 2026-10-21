@@ -8,7 +8,7 @@
     "response": "TraceDbCmdExecuted and TraceShardCmdExecuted each check logger.IsEnabled(LogLevel.Trace) and, only when Trace is enabled, invoke their compiled Trace-level delegate, logging the command name, connection or shard-set/shard identifiers, and elapsed milliseconds under event id CmdExecuted (8). BuildSqlResultsHandlerScope opens a disposable logging scope, compiled via LoggerMessage.DefineScope, carrying the stored-procedure name and result-model Type, until the caller disposes it."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
