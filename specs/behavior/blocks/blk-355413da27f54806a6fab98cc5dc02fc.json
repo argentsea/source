@@ -39,7 +39,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "sql-server-provider-package",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
@@ -54,5 +54,20 @@
       "relation": "references"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "PackageInvariantTests pass against the 2.1.0 project files at commit ea8e9aa3 (ArgentSea.Test 623/623).",
+      "evidenceId": "evi-c5644c95b4564cd9870f64de558ebd73",
+      "verifiedContentHash": "fields-sha256-v1:1c2e194956567f935dc60dec5ae93200d01d3495c7bcbdd6f28e34c3e8f24c1c",
+      "recordedAt": "2026-10-21T05:30:41.439435+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
