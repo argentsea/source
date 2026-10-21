@@ -1,0 +1,36 @@
+{
+  "id": "blk-1a9bf1257b894f9191d36ef2cc2e8f7e",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSea.Orleans.Pg ArgentSeaOrleansMembershipTable writes",
+    "condition": "InsertRow or UpdateRow is invoked with a TableVersion (and, for UpdateRow, the member row's etag)",
+    "trigger": "the wtr.orleans_cluster_insert_member_v1 or wtr.orleans_cluster_update_member_v1 procedure runs",
+    "response": "the procedure compares the stored table etag with TableVersion.VersionEtag in the statement that advances it by one and stamps the new etag on the written member row; UpdateRow also requires the member row's stored etag to equal the etag argument and replaces the row's suspicions with the supplied list (one entry per suspecting silo, its latest report); any mismatch, a missing row on update or an existing row on insert raises SQLSTATE AS001, which the table reports as false; every other exception is logged and propagated",
+    "postcondition": "each write commits its version, member and suspicion changes entirely or not at all; of several writers starting from one read exactly one succeeds; a member etag may lag the table etag"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-72228c3783af4a3495233be3754c956d",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-76cdd2609e9d4c02880ca1bae609b4c2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
