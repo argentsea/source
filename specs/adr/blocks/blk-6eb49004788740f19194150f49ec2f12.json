@@ -20,7 +20,7 @@
     "consequences": "Operators can alert on stable event ids, such as breaker trips and retries, and trace any failure to a query and endpoint. Debug and Trace levels expose the Mapper's generated code and per-property progress for troubleshooting. Debug and Trace are expensive and should not run in production, so the log level is a performance setting. Every call site must have a logger available."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
