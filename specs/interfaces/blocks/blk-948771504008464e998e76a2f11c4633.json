@@ -1,0 +1,35 @@
+{
+  "id": "blk-948771504008464e998e76a2f11c4633",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSea.Orleans.Pg reminder table and reminder registration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSea.Orleans.Pg.ArgentSeaOrleansReminderTable implements IReminderTable over the PgShardSets entry named by OrleansShardPersistenceOptions.ShardSetKey (construction throws KeyNotFoundException when it is missing). ReadRow, ReadRows(GrainId), UpsertRow and RemoveRow run on the shard the grain key's ShardKey names; ReadRows(begin, end) runs on every shard and combines their rows; TestOnlyClearTable does nothing. PgSiloBuilderReminderExtensions.UseArgentSeaPgReminderService (silo builder or service collection) adds Orleans reminders, applies the ReminderOptions action and registers the table and ArgentSeaReminderOptionsValidator as singletons."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-be4943a5cfd048578a53e790169e33bd",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-2f7b9bee23ef42f389b5d20c6c021645",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
