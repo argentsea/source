@@ -3,11 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "the decoded or copied key across all four arities has the exact value represented by the key's byte payload, reference fields short-circuit through ReferenceCodec without emitting or reading payload bytes, and Orleans' generic SkipField steps over length-prefixed key fields",
+    "response": "across all four generic arities of ShardKeyOrleansSerializer<...> (ShardKey<TRecord>, ShardKey<TRecord, TChild>, ShardKey<TRecord, TChild, TGrandChild>, and ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>), WriteField first delegates to ReferenceCodec.TryWriteReferenceField and otherwise writes a LengthPrefixed field header followed by the key's ToArray() length as a VarUInt32 and the raw key bytes; ReadValue delegates WireType.Reference fields to ReferenceCodec.ReadReference and otherwise validates WireType.LengthPrefixed, reads the VarUInt32 byte length and payload bytes, reconstructs the same-arity ShardKey<...> from the bytes, and records the instance via ReferenceCodec.RecordObject; and DeepCopy reconstructs a new same-arity ShardKey<...> from input.ToArray()",
     "subject": "Shard Key Orleans Codecs",
-    "condition": "the Orleans field is not represented as a reference",
-    "trigger": "ShardKeyOrleansSerializer<...>: a caller writes or reads a virtual compound key of any supported arity",
-    "response": "write or consume a LengthPrefixed field containing the payload length as an Orleans VarUInt32 followed by that many ShardKey byte-representation bytes, and rebuild and session-record the key on read",
-    "postcondition": "the decoded key is constructed from exactly the bytes consumed after the length, a key of any size round-trips, and Orleans' generic SkipField steps over the whole field"
+    "trigger": "ShardKeyOrleansSerializer<...>: a caller invokes WriteField, ReadValue, or DeepCopy for a virtual compound key of any supported arity (1 to 4 key components)"
   },
   "metadata": {
     "status": "Draft",
