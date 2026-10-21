@@ -9,7 +9,7 @@
     "contract": "public static void SqlConnectionStringBuilt(this ILogger logger, string connectionString) — logs, at Debug level under event id ConnectionStringBuilt (0, event name \"SqlConnectionStringBuilt\"), the message template \"A new connection string was built with a value of {ConnectString}.\" with the given connectionString as its single logged argument. The backing delegate is compiled once by LoggerMessage.Define in the type's static constructor; the call site adds no IsEnabled guard, so when Debug is disabled the cost is only the compiled delegate's own internal level check. This method only reports a connection string the caller already built; LoggerExtensions.cs does not establish who builds it, from what source, or with what technology."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
