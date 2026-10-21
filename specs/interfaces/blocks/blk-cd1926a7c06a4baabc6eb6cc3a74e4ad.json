@@ -6,7 +6,7 @@
     "name": "Queries default Orleans SQL query catalogue",
     "kind": "Library",
     "language": "text",
-    "contract": "Queries exposes a static catalogue of fixed query contracts for Orleans cluster-membership and reminder operations. Each public query member identifies one versioned database procedure. Six members - OrleansClusterDelete and the five reminder members - additionally declare an ordered parameter-name array; the remaining eight cluster-membership members declare none, which the source records as unnecessary rather than as an absence of inputs, because MembershipEntry is sealed and cannot carry ArgentSea mapping attributes. The catalogue also exposes the reminder read/write/delete definition as a single composed default."
+    "contract": "Queries exposes a static catalogue of fixed query contracts for Orleans cluster-membership and reminder operations. Each public query member identifies one versioned database procedure. Seven members - OrleansClusterDelete, OrleansClusterGatewayList and the five reminder members - additionally declare an ordered parameter-name array; the remaining eight cluster-membership members declare none, which the source records as unnecessary rather than as an absence of inputs, because MembershipEntry is sealed and cannot carry ArgentSea mapping attributes. The catalogue also exposes the reminder read/write/delete definition as a single composed default."
   },
   "metadata": {
     "status": "Draft",
@@ -38,6 +38,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
