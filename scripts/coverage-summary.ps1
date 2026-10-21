@@ -28,7 +28,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$assemblies = 'ArgentSea', 'ArgentSea.Sql', 'ArgentSea.Pg', 'ArgentSea.Orleans', 'ArgentSea.Orleans.Sql'
+$assemblies = 'ArgentSea', 'ArgentSea.Sql', 'ArgentSea.Pg', 'ArgentSea.Orleans', 'ArgentSea.Orleans.Sql', 'ArgentSea.Orleans.Pg'
 
 if ($Collect) {
     if (Test-Path $ResultsDirectory) { Remove-Item $ResultsDirectory -Recurse -Force }

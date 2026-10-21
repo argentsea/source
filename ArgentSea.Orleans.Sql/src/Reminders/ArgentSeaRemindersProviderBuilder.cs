@@ -4,7 +4,7 @@ using Orleans.Configuration;
 using Orleans.Providers;
 
 
-[assembly: RegisterProvider("ArgentSea", "Reminders", "Silo", typeof(ArgentSea.Orleans.Sql.ArgentSeaRemindersProviderBuilder))]
+[assembly: RegisterProvider("ArgentSeaSql", "Reminders", "Silo", typeof(ArgentSea.Orleans.Sql.ArgentSeaRemindersProviderBuilder))]
 
 namespace ArgentSea.Orleans.Sql;
 

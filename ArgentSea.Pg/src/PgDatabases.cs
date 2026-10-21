@@ -15,9 +15,23 @@ namespace ArgentSea.Pg
 			IOptions<PgDbConnectionOptions> configOptions,
 			IOptions<PgGlobalPropertiesOptions>? globalOptions,
 			ILogger<PgDatabases>? logger
-			) : base(configOptions, (IDataProviderServiceFactory)new DataProviderServiceFactory(), globalOptions?.Value, logger)
+			) : this(configOptions, new DataProviderServiceFactory(), globalOptions, logger)
 		{
 
 		}
+
+        /// <summary>
+        /// Initializes the collection over a caller-supplied provider factory instead of the PostgreSQL <see cref="DataProviderServiceFactory"/>.
+        /// Intended for derived classes and tests that substitute an in-memory provider.
+        /// </summary>
+        protected PgDatabases(
+            IOptions<PgDbConnectionOptions> configOptions,
+            IDataProviderServiceFactory services,
+            IOptions<PgGlobalPropertiesOptions>? globalOptions,
+            ILogger<PgDatabases>? logger
+            ) : base(configOptions, services, globalOptions?.Value, logger)
+        {
+
+        }
 	}
 }

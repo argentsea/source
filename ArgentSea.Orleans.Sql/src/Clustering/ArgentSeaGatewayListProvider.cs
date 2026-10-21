@@ -48,7 +48,7 @@ public class ArgentSeaGatewayListProvider : IGatewayListProvider
         }
 
 
-        _query = clientDbOptions.Value.GatewayListQuery ?? throw new ArgumentException($"A query name for “{clientDbOptions.Value.DatabaseKey}” was not specified.");
+        _query = clientDbOptions.Value.GatewayListQuery ?? Queries.OrleansClusterGatewayList;
         _staleness = clientDbOptions.Value.MaxRefreshInterval;
         _clusterId = clusterOptions.Value.ClusterId ?? throw new ArgumentException($"The clusterId the persistance cluster using Db “{clientDbOptions.Value.DatabaseKey}” was not provided.");
         _logger = logger;

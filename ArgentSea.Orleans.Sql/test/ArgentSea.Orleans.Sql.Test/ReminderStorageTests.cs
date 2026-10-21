@@ -240,9 +240,9 @@ public class ReminderStorageTests
         var builder = Substitute.For<ISiloBuilder>();
         builder.Services.Returns(services);
         builder.Configuration.Returns(new ConfigurationBuilder().Build());
-        var section = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Orleans:Reminders:ProviderType"] = "ArgentSea" }).Build().GetSection("Orleans:Reminders");
+        var section = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> { ["Orleans:Reminders:ProviderType"] = "ArgentSeaSql" }).Build().GetSection("Orleans:Reminders");
 
-        new ArgentSeaRemindersProviderBuilder().Configure(builder, "ArgentSea", section);
+        new ArgentSeaRemindersProviderBuilder().Configure(builder, "ArgentSeaSql", section);
 
         services.Should().ContainSingle(d => d.ServiceType == typeof(IReminderTable) && d.ImplementationType == typeof(ArgentSeaOrleansReminderTable));
         services.Should().ContainSingle(d => d.ServiceType == typeof(IConfigurationValidator) && d.ImplementationType == typeof(ArgentSeaReminderOptionsValidator));
@@ -253,8 +253,8 @@ public class ReminderStorageTests
         typeof(ArgentSeaRemindersProviderBuilder).Assembly.GetCustomAttributesData()
             .Where(d => d.AttributeType.Name == "RegisterProviderAttribute")
             .Select(d => d.ConstructorArguments.Select(a => a.Value).ToArray())
-            .Should().ContainEquivalentOf(new object[] { "ArgentSea", "Reminders", "Silo", typeof(ArgentSeaRemindersProviderBuilder) },
-                "Orleans discovers the builder through the assembly-level (\"ArgentSea\", \"Reminders\", \"Silo\") registration");
+            .Should().ContainEquivalentOf(new object[] { "ArgentSeaSql", "Reminders", "Silo", typeof(ArgentSeaRemindersProviderBuilder) },
+                "Orleans discovers the builder through the assembly-level (\"ArgentSeaSql\", \"Reminders\", \"Silo\") registration");
     }
 
     #endregion

@@ -25,9 +25,9 @@ dotnet add package ArgentSea.Pg
 ```
 :::
 
-The current version is 2.0.4 and it targets **.NET 10**. Every package in the family (`ArgentSea`, `ArgentSea.Sql`, `ArgentSea.Pg`, `ArgentSea.Orleans`, `ArgentSea.Orleans.Sql`) is released at the same version number, so keep them aligned.
+The current version is 2.0.4 and it targets **.NET 10**. Every package in the family (`ArgentSea`, `ArgentSea.Sql`, `ArgentSea.Pg`, `ArgentSea.Orleans`, `ArgentSea.Orleans.Sql`, `ArgentSea.Orleans.Pg`) is released at the same version number, so keep them aligned.
 
-If you are hosting Microsoft Orleans grains, there are two further packages: `ArgentSea.Orleans` (the abstract provider) and `ArgentSea.Orleans.Sql` (the SQL Server implementation, which gives you grain persistence, clustering and reminders). They sit on top of `ArgentSea.Sql` and are covered in the [Orleans guide](/guides/orleans).
+If you are hosting Microsoft Orleans grains, there are three further packages: `ArgentSea.Orleans` (the abstract provider), and two implementations that give you grain persistence, clustering and reminders: `ArgentSea.Orleans.Sql` on top of `ArgentSea.Sql` and `ArgentSea.Orleans.Pg` on top of `ArgentSea.Pg`. They are covered in the [Orleans guide](/guides/orleans).
 
 ### One provider per project
 

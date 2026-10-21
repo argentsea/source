@@ -15,7 +15,7 @@ ArgentSea 2 runs on .NET 10 against SQL Server or PostgreSQL, on premises or in 
 
 In both cases the choice of read or write is explicit in your code; ArgentSea never routes a call based on its SQL, and failover is left to the database platform. See [Configuration](/guides/configuration) and [Resilience](/guides/resilience).
 
-**Microsoft Orleans** is supported on SQL Server through `ArgentSea.Orleans.Sql`. There is no PostgreSQL Orleans provider yet; `ArgentSea.Orleans` is the abstract layer a PostgreSQL implementation would build on. See [Orleans](/guides/orleans).
+**Microsoft Orleans** is supported on SQL Server through `ArgentSea.Orleans.Sql` and on PostgreSQL through `ArgentSea.Orleans.Pg`, both built on the abstract `ArgentSea.Orleans` layer. See [Orleans](/guides/orleans).
 
 ## Package matrix
 
@@ -28,8 +28,9 @@ All packages are version 2.0.4 and target `net10.0`.
 | `ArgentSea.Pg` | PostgreSQL provider | `ArgentSea`, Npgsql 10.0.3 | [ArgentSea.Pg](https://www.nuget.org/packages/ArgentSea.Pg/) |
 | `ArgentSea.Orleans` | Abstract Orleans grain storage, clustering and reminder support | `ArgentSea`, Microsoft.Orleans 10.3.1 | [ArgentSea.Orleans](https://www.nuget.org/packages/ArgentSea.Orleans/) |
 | `ArgentSea.Orleans.Sql` | Orleans providers for SQL Server | `ArgentSea.Orleans`, `ArgentSea.Sql`, Microsoft.Orleans 10.3.1 | [ArgentSea.Orleans.Sql](https://www.nuget.org/packages/ArgentSea.Orleans.Sql/) |
+| `ArgentSea.Orleans.Pg` | Orleans providers for PostgreSQL | `ArgentSea.Orleans`, `ArgentSea.Pg`, Microsoft.Orleans 10.3.1 | [ArgentSea.Orleans.Pg](https://www.nuget.org/packages/ArgentSea.Orleans.Pg/) |
 
-You install the provider package you need (`ArgentSea.Sql` or `ArgentSea.Pg`, and `ArgentSea.Orleans.Sql` for Orleans); the core and abstract packages come in transitively. See [Installation](/getting-started/installation).
+You install the provider package you need (`ArgentSea.Sql` or `ArgentSea.Pg`, and `ArgentSea.Orleans.Sql` or `ArgentSea.Orleans.Pg` for Orleans); the core and abstract packages come in transitively. See [Installation](/getting-started/installation).
 
 ## Runtime requirements
 

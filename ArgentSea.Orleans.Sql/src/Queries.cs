@@ -17,7 +17,11 @@ public static class Queries
 
     public static QueryProcedure OrleansClusterGatewayQueryKey => new("rdr.OrleansClusterGatewayQueryKeyV1");
 
-    public static QueryProcedure OrleansClusterInsertMemberKey => new("wtr.OrleansClusterInsertMemberKeyV1");
+    // The gateway list provider's default when ClusterClientDbOptions.GatewayListQuery is not set.
+    private static readonly string[] prmsOrleansClusterGatewayList = ["@ClusterId"];
+    public static QueryProcedure OrleansClusterGatewayList => new("rdr.OrleansClusterGatewayListV1", prmsOrleansClusterGatewayList);
+
+    public static QueryProcedure OrleansClusterInsertMemberKey => new("wtr.OrleansClusterInsertMemberKeyV2");
 
     public static QueryProcedure OrleansClusterInsertMemberVersionKey => new("wtr.OrleansClusterInsertMemberVersionKeyV1");
 
@@ -27,7 +31,7 @@ public static class Queries
 
     public static QueryProcedure OrleansClusterUpdateIAmAliveTimeKey => new("wtr.OrleansClusterUpdateIAmAliveTimeKeyV1");
 
-    public static QueryProcedure OrleansClusterUpdateMemberKey => new("wtr.OrleansClusterUpdateMemberKeyV1");
+    public static QueryProcedure OrleansClusterUpdateMemberKey => new("wtr.OrleansClusterUpdateMemberKeyV2");
 
     public static QueryProcedure OrleansClusterDeleteDefunctMembers => new("wtr.OrleansClusterDeleteDefunctMembersV1");
 

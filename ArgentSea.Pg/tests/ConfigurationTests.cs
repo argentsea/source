@@ -344,10 +344,15 @@ namespace ArgentSea.Pg.Test
             foreach (var facade in new[] { typeof(PgDatabases), typeof(PgShardSets) })
             {
                 var declared = facade.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly);
-                declared.Should().OnlyContain(m => m is ConstructorInfo, "{0} adds no members of its own beyond its constructor", facade.Name);
-                declared.OfType<ConstructorInfo>().Should().ContainSingle()
+                declared.Should().OnlyContain(m => m is ConstructorInfo, "{0} adds no members of its own beyond its constructors", facade.Name);
+                var constructors = declared.OfType<ConstructorInfo>().ToList();
+                constructors.Where(c => c.IsPublic).Should().ContainSingle()
                     .Which.GetParameters().Select(p => p.ParameterType).Should().NotContain(typeof(IDataProviderServiceFactory),
-                        "{0} supplies the provider factory itself instead of taking one", facade.Name);
+                        "{0}'s public constructor supplies the provider factory itself instead of taking one", facade.Name);
+                // As for SqlDatabases/SqlShardSets, a protected constructor lets derived classes and tests substitute the provider.
+                constructors.Where(c => !c.IsPublic).Should().ContainSingle()
+                    .Which.Should().Match<ConstructorInfo>(c => c.IsFamily && c.GetParameters().Any(p => p.ParameterType == typeof(IDataProviderServiceFactory)),
+                        "{0}'s only other constructor is the protected provider-substitution seam", facade.Name);
             }
 
             var config = LoadConfiguration();

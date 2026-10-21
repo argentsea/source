@@ -305,6 +305,120 @@ public class MembershipTableIntegrationTests : IAsyncLifetime
         (await other.ReadAll()).Version.Version.Should().Be(0, "other clusters are untouched");
     }
 
+    /// <summary>Everything a failed write must leave untouched: the table version, and each member row with its suspicions.</summary>
+    private static async Task<string> StateOf(ArgentSeaOrleansMembershipTable table)
+    {
+        var all = await table.ReadAll();
+        var members = all.Members
+            .OrderBy(m => m.Item1.SiloName, StringComparer.Ordinal)
+            .Select(m => $"{m.Item1.SiloAddress}|{m.Item1.Status}|{m.Item1.ProxyPort}|{m.Item1.IAmAliveTime:O}|etag={m.Item2}|suspects=" +
+                string.Join(",", (m.Item1.SuspectTimes ?? []).OrderBy(s => s.Item1.ToString(), StringComparer.Ordinal).Select(s => $"{s.Item1}@{s.Item2:O}")));
+        return $"v={all.Version.Version} etag={all.Version.VersionEtag}; " + string.Join("; ", members);
+    }
+
+    [SkippableFact]
+    [Trait("Spec", "blk-b0466f322fc64ca7a7909149b65eba64")]
+    [Trait("Spec", "blk-1a703d5db09d4821bebe4b7bc67dc013")]
+    public async Task EveryWriteAdvancesTheTableEtagSoASecondWriteFromTheSameReadFails()
+    {
+        _fixture.SkipUnlessAvailable();
+        var (table, initial) = await InitializedTable(Table(NewClusterId()));
+        var silo = Silo("10.1.0.1", 11111, 1);
+
+        (await table.InsertRow(Entry(silo, "first"), initial.Version.Next())).Should().BeTrue();
+        var afterInsert = await table.ReadAll();
+        (await table.InsertRow(Entry(Silo("10.1.0.2", 11111, 1), "second"), initial.Version.Next())).Should().BeFalse("the insert advanced the table etag, so the earlier read is stale");
+
+        afterInsert.Version.VersionEtag.Should().NotBe(initial.Version.VersionEtag, "a successful insert advances the table etag");
+        var (stored, rowEtag) = (await table.ReadRow(silo)).Members.Single();
+        stored.Status = SiloStatus.ShuttingDown;
+        (await table.UpdateRow(stored, rowEtag, afterInsert.Version.Next())).Should().BeTrue();
+        (await table.UpdateRow(stored, rowEtag, afterInsert.Version.Next())).Should().BeFalse("the update advanced the table etag and the member's own etag");
+        (await table.ReadAll()).Version.VersionEtag.Should().NotBe(afterInsert.Version.VersionEtag, "a successful update advances the table etag");
+    }
+
+    [SkippableFact]
+    [Trait("Spec", "blk-1a703d5db09d4821bebe4b7bc67dc013")]
+    public async Task UpdateRowChecksTheMemberRowsOwnEtagWhichMayLagTheTableEtag()
+    {
+        _fixture.SkipUnlessAvailable();
+        var (table, initial) = await InitializedTable(Table(NewClusterId()));
+        var a = Silo("10.2.0.1", 11111, 1);
+        (await table.InsertRow(Entry(a, "a"), initial.Version.Next())).Should().BeTrue();
+        var (_, aEtag) = (await table.ReadRow(a)).Members.Single();
+        (await table.InsertRow(Entry(Silo("10.2.0.2", 11111, 1), "b"), (await table.ReadAll()).Version.Next())).Should().BeTrue();
+        var current = await table.ReadAll();
+        current.Version.VersionEtag.Should().NotBe(aEtag, "inserting b advanced the table etag but did not touch a's row");
+        var aEntry = current.Members.Single(m => m.Item1.SiloName == "a").Item1;
+
+        var wrongMemberEtag = await table.UpdateRow(aEntry, "999", current.Version.Next());
+        var lagging = await table.UpdateRow(aEntry, aEtag, current.Version.Next());
+
+        wrongMemberEtag.Should().BeFalse("the member row's stored etag does not match the etag argument");
+        lagging.Should().BeTrue("a member etag that lags the table etag is the normal case and is accepted");
+    }
+
+    [SkippableFact]
+    [Trait("Spec", "blk-b0466f322fc64ca7a7909149b65eba64")]
+    [Trait("Spec", "blk-1a703d5db09d4821bebe4b7bc67dc013")]
+    public async Task OfSimultaneousWritersFromOneReadExactlyOneSucceeds()
+    {
+        _fixture.SkipUnlessAvailable();
+        var (table, initial) = await InitializedTable(Table(NewClusterId()));
+        var next = initial.Version.Next();
+
+        var inserts = await Task.WhenAll(Enumerable.Range(1, 8).Select(i => Task.Run(() => table.InsertRow(Entry(Silo($"10.3.0.{i}", 11111, 1), $"racer-{i}"), next))));
+
+        inserts.Count(r => r).Should().Be(1, "every insert started from the same read, so only the first to commit may succeed");
+        (await table.ReadAll()).Members.Should().ContainSingle();
+
+        var current = await table.ReadAll();
+        var (member, memberEtag) = current.Members.Single();
+        var updates = await Task.WhenAll(Enumerable.Range(1, 8).Select(i => Task.Run(() =>
+        {
+            var copy = new MembershipEntry
+            {
+                SiloAddress = member.SiloAddress, SiloName = member.SiloName, HostName = member.HostName, Status = SiloStatus.Active,
+                ProxyPort = 30000 + i, StartTime = member.StartTime, IAmAliveTime = member.IAmAliveTime,
+            };
+            return table.UpdateRow(copy, memberEtag, current.Version.Next());
+        })));
+
+        updates.Count(r => r).Should().Be(1, "every update started from the same read");
+    }
+
+    [SkippableFact]
+    [Trait("Spec", "blk-1a703d5db09d4821bebe4b7bc67dc013")]
+    [Trait("Spec", "blk-b0466f322fc64ca7a7909149b65eba64")]
+    public async Task AFailedWriteLeavesTheVersionMemberAndSuspicionRowsUnchanged()
+    {
+        _fixture.SkipUnlessAvailable();
+        var (table, initial) = await InitializedTable(Table(NewClusterId()));
+        var silo = Silo("10.4.0.1", 11111, 1);
+        (await table.InsertRow(Entry(silo, "subject"), initial.Version.Next())).Should().BeTrue();
+        var read = await table.ReadRow(silo);
+        var (stored, rowEtag) = read.Members.Single();
+        stored.SuspectTimes = [Tuple.Create(Silo("10.4.0.9", 1, 1), T0.AddMinutes(1))];
+        (await table.UpdateRow(stored, rowEtag, read.Version.Next())).Should().BeTrue();
+        var current = await table.ReadAll();
+        var (member, memberEtag) = current.Members.Single();
+        var before = await StateOf(table);
+
+        var changed = new MembershipEntry
+        {
+            SiloAddress = member.SiloAddress, SiloName = member.SiloName, HostName = member.HostName, Status = SiloStatus.Dead,
+            ProxyPort = 1, StartTime = member.StartTime, IAmAliveTime = T0.AddDays(1),
+            SuspectTimes = [Tuple.Create(Silo("10.4.0.8", 2, 2), T0.AddMinutes(2))],
+        };
+        var staleTable = await table.UpdateRow(changed, memberEtag, new TableVersion(current.Version.Version + 1, "999"));
+        var staleMember = await table.UpdateRow(changed, "999", current.Version.Next());
+        var missing = await table.UpdateRow(Entry(Silo("10.4.0.2", 1, 1), "ghost"), memberEtag, current.Version.Next());
+        var duplicate = await table.InsertRow(Entry(silo, "subject-again"), current.Version.Next());
+
+        new[] { staleTable, staleMember, missing, duplicate }.Should().AllBeEquivalentTo(false);
+        (await StateOf(table)).Should().Be(before, "a write that fails any check commits nothing, not even the table-version change it made first");
+    }
+
     [SkippableFact]
     [Trait("Spec", "blk-36e0b96ba78b469ca4d807da68da10bb")]
     [Trait("Spec", "blk-eda1b01aed3a4036bcb5c861cb3c61b9")]
@@ -321,7 +435,7 @@ public class MembershipTableIntegrationTests : IAsyncLifetime
         var provider = new ArgentSeaGatewayListProvider(
             Options.Create(new SqlDbConnectionOptions()),
             Options.Create(new SqlGlobalPropertiesOptions()),
-            Options.Create(new ClusterClientDbOptions { DatabaseKey = "Common", ConnectionString = _fixture.ConnectionStringFor(SqlServerFixture.CommonDatabaseName), GatewayListQuery = new QueryProcedure("rdr.OrleansClusterGatewayListV1", new[] { "@ClusterId" }) }),
+            Options.Create(new ClusterClientDbOptions { DatabaseKey = "Common", ConnectionString = _fixture.ConnectionStringFor(SqlServerFixture.CommonDatabaseName) }), // GatewayListQuery unset: the package default applies
             Options.Create(new ClusterOptions { ClusterId = clusterId, ServiceId = "it" }),
             NullLogger<ArgentSeaGatewayListProvider>.Instance);
 

@@ -31,6 +31,7 @@
     <ProjectReference Include="..\ArgentSea.Sql\src\ArgentSea.Sql.csproj" />
     <ProjectReference Include="..\ArgentSea.Pg\src\ArgentSea.Pg.csproj" />
     <ProjectReference Include="..\ArgentSea.Orleans.Sql\src\ArgentSea.Orleans.Sql.csproj" />
+    <ProjectReference Include="..\ArgentSea.Orleans.Pg\src\ArgentSea.Orleans.Pg.csproj" />
     <!-- Shares the numeric-mapping cases, models and DebugLogger with the SQL Server unit tests that the moved integration tests build on. -->
     <ProjectReference Include="..\ArgentSea.Sql\test\ArgentSea.Sql.Test.csproj" />
   </ItemGroup>
@@ -39,6 +40,9 @@
     <!-- The Orleans SQL Server scripts are deployed verbatim into the container by the Orleans script tests. -->
     <None Include="..\ArgentSea.Orleans.Sql\src\common.sql" Link="Scripts\common.sql" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\ArgentSea.Orleans.Sql\src\tenant.sql" Link="Scripts\tenant.sql" CopyToOutputDirectory="PreserveNewest" />
+    <!-- Likewise the Orleans PostgreSQL scripts. -->
+    <None Include="..\ArgentSea.Orleans.Pg\src\common.psql" Link="Scripts\common.psql" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\ArgentSea.Orleans.Pg\src\tenant.psql" Link="Scripts\tenant.psql" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>

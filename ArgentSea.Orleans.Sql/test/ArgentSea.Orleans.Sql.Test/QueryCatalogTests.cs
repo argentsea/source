@@ -6,7 +6,7 @@ using FluentAssertions;
 namespace ArgentSea.Orleans.Sql.Test;
 
 /// <summary>
-/// Spec section orleans-runtime-query-catalog: every member of the Queries catalogue resolves to its declared version-1
+/// Spec section orleans-runtime-query-catalog: every member of the Queries catalogue resolves to its declared versioned
 /// procedure name and ordered parameter list, read procedures are rdr.-qualified and write/delete procedures wtr.-qualified,
 /// and the composed reminder default definition.
 /// </summary>
@@ -16,12 +16,13 @@ public class QueryCatalogTests
     {
         { nameof(Queries.OrleansClusterDelete), "wtr.OrleansClusterDeleteV1", new[] { "@ClusterId" } },
         { nameof(Queries.OrleansClusterGatewayQueryKey), "rdr.OrleansClusterGatewayQueryKeyV1", Array.Empty<string>() },
-        { nameof(Queries.OrleansClusterInsertMemberKey), "wtr.OrleansClusterInsertMemberKeyV1", Array.Empty<string>() },
+        { nameof(Queries.OrleansClusterGatewayList), "rdr.OrleansClusterGatewayListV1", new[] { "@ClusterId" } },
+        { nameof(Queries.OrleansClusterInsertMemberKey), "wtr.OrleansClusterInsertMemberKeyV2", Array.Empty<string>() },
         { nameof(Queries.OrleansClusterInsertMemberVersionKey), "wtr.OrleansClusterInsertMemberVersionKeyV1", Array.Empty<string>() },
         { nameof(Queries.OrleansClusterMemberReadAllKey), "rdr.OrleansClusterMemberReadAllKeyV1", Array.Empty<string>() },
         { nameof(Queries.OrleansClusterMemberReadRowKey), "rdr.OrleansClusterMemberReadRowKeyV1", Array.Empty<string>() },
         { nameof(Queries.OrleansClusterUpdateIAmAliveTimeKey), "wtr.OrleansClusterUpdateIAmAliveTimeKeyV1", Array.Empty<string>() },
-        { nameof(Queries.OrleansClusterUpdateMemberKey), "wtr.OrleansClusterUpdateMemberKeyV1", Array.Empty<string>() },
+        { nameof(Queries.OrleansClusterUpdateMemberKey), "wtr.OrleansClusterUpdateMemberKeyV2", Array.Empty<string>() },
         { nameof(Queries.OrleansClusterDeleteDefunctMembers), "wtr.OrleansClusterDeleteDefunctMembersV1", Array.Empty<string>() },
         { nameof(Queries.OrleansReminderReadRowKey), "rdr.OrleansReminderReadRowKeyV1", new[] { "@GrainKey", "@GrainType", "@ReminderName" } },
         { nameof(Queries.OrleansReminderReadRowsKey), "rdr.OrleansReminderReadRowsKeyV1", new[] { "@GrainKey", "@GrainType" } },
@@ -47,8 +48,8 @@ public class QueryCatalogTests
         query.Sql.Should().Be(procedure);
         query.Name.Should().Be(procedure);
         query.Type.Should().Be(CommandType.StoredProcedure);
-        query.Sql.Should().EndWith("V1", "the catalogue pins version-1 procedures");
-        var reads = member.Contains("Read", StringComparison.Ordinal) || member.Contains("Query", StringComparison.Ordinal);
+        query.Sql.Should().MatchRegex("V[12]$", "the catalogue pins versioned procedures; the etag-advancing membership writes are version 2");
+        var reads = member.Contains("Read", StringComparison.Ordinal) || member.Contains("Query", StringComparison.Ordinal) || member.Contains("Gateway", StringComparison.Ordinal);
         query.Sql.Should().StartWith(reads ? "rdr." : "wtr.", "reads are rdr.-qualified and writes/deletes wtr.-qualified");
         if (parameters.Length == 0)
         {
@@ -64,15 +65,15 @@ public class QueryCatalogTests
     [Fact]
     [Trait("Spec", "blk-cd1926a7c06a4baabc6eb6cc3a74e4ad")]
     [Trait("Spec", "blk-66ec44ff62ab4862ac4b74735390a740")]
-    public void TheCatalogueHasExactlyTheFourteenProcedureMembersAndSixDeclareParameters()
+    public void TheCatalogueHasExactlyTheFifteenProcedureMembersAndSevenDeclareParameters()
     {
         var members = typeof(Queries).GetProperties(BindingFlags.Public | BindingFlags.Static)
             .Where(p => p.PropertyType == typeof(QueryProcedure))
             .Select(p => p.Name)
             .ToList();
 
-        members.Should().HaveCount(14).And.BeEquivalentTo(Catalogue.Select(row => (string)row[0]));
-        members.Count(m => Member(m).ParameterNames is { Length: > 0 }).Should().Be(6, "OrleansClusterDelete and the five reminder members declare parameters");
+        members.Should().HaveCount(15).And.BeEquivalentTo(Catalogue.Select(row => (string)row[0]));
+        members.Count(m => Member(m).ParameterNames is { Length: > 0 }).Should().Be(7, "OrleansClusterDelete, OrleansClusterGatewayList and the five reminder members declare parameters");
     }
 
     [Fact]

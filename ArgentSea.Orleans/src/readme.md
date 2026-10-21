@@ -2,7 +2,7 @@
 
 This library is the abstract implementation of ArgentSea for Microsoft Orleans.
 
-This is a core library is used by ArgentSea.Orleans.Sql. It is unlikely that you will need to reference this library directly.
+This is a core library used by ArgentSea.Orleans.Sql and ArgentSea.Orleans.Pg. It is unlikely that you will need to reference this library directly.
 
 ## Limitations
 

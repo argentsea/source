@@ -17,9 +17,23 @@ namespace ArgentSea.Pg
 			IOptions<PgShardConnectionOptions> configOptions,
             IOptions<PgGlobalPropertiesOptions>? globalOptions,
 			ILogger<PgShardSets>? logger
-			) : base(configOptions, new DataProviderServiceFactory(), globalOptions?.Value, logger)
+			) : this(configOptions, new DataProviderServiceFactory(), globalOptions, logger)
 		{
 
 		}
+
+        /// <summary>
+        /// Initializes the collection over a caller-supplied provider factory instead of the PostgreSQL <see cref="DataProviderServiceFactory"/>.
+        /// Intended for derived classes and tests that substitute an in-memory provider.
+        /// </summary>
+        protected PgShardSets(
+            IOptions<PgShardConnectionOptions> configOptions,
+            IDataProviderServiceFactory services,
+            IOptions<PgGlobalPropertiesOptions>? globalOptions,
+            ILogger<PgShardSets>? logger
+            ) : base(configOptions, services, globalOptions?.Value, logger)
+        {
+
+        }
 	}
 }

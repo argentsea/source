@@ -5,8 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Orleans.Providers;
 using Orleans.Runtime.Hosting;
 
-[assembly: RegisterProvider("ArgentSea", "GrainStorage", "Silo", typeof(ArgentSeaGrainStorageDbProviderBuilder))]
-[assembly: RegisterProvider("ArgentSea", "GrainStorage", "Silo", typeof(ArgentSeaGrainStorageShardProviderBuilder))]
+// Orleans resolves one builder per provider type, so each storage kind has its own: shard sets (the common case) take the
+// plain name, single-database storage the "Db" suffix. ArgentSea.Orleans.Pg registers "ArgentSeaPg" and "ArgentSeaPgDb".
+[assembly: RegisterProvider("ArgentSeaSqlDb", "GrainStorage", "Silo", typeof(ArgentSeaGrainStorageDbProviderBuilder))]
+[assembly: RegisterProvider("ArgentSeaSql", "GrainStorage", "Silo", typeof(ArgentSeaGrainStorageShardProviderBuilder))]
 
 namespace Orleans.Hosting;
 

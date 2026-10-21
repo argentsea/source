@@ -21,7 +21,7 @@ Three habits make that contract real:
 
 Every data method takes a `Query`. ArgentSea ships two implementations.
 
-`QueryProcedure` names a stored procedure and sets the command type to `StoredProcedure`. It is the preferred choice on SQL Server. On PostgreSQL, Npgsql rewrites a stored-procedure command as `SELECT * FROM <name>`, so `QueryProcedure` can call PostgreSQL *functions* only. To call a PostgreSQL procedure, write `CALL my_proc(...)` in a statement file.
+`QueryProcedure` names a stored procedure and sets the command type to `StoredProcedure`. It is the preferred choice on SQL Server. On PostgreSQL, Npgsql runs a stored-procedure command as `CALL <name>(...)` with named arguments, so `QueryProcedure` calls PostgreSQL *procedures* only. A procedure returns no rows, but values come back through its INOUT parameters, which ArgentSea reads like output parameters. To read rows from a PostgreSQL function, write `SELECT * FROM my_function(...)` in a statement file.
 
 `QueryStatement` loads parameterized SQL from a file and sets the command type to `Text`. It is the preferred choice on PostgreSQL, and useful anywhere you cannot create procedures. Files live in a `SQL` folder under the application directory and are read lazily on first use, then cached. The extension defaults to `.sql`; `AddPgServices` changes the default to `.psql`.
 

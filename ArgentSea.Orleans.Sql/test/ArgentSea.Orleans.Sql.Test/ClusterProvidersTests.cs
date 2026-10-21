@@ -162,7 +162,7 @@ public class ClusterProvidersTests
         entry.AddSuspector(Silo("10.0.0.1", 1111, 1), a2);
         entry.AddSuspector(Silo("10.0.0.2", 2222, 2), b);
 
-        var result = await table.UpdateRow(entry, "7", new TableVersion(4, "7"));
+        var result = await table.UpdateRow(entry, "5", new TableVersion(4, "7"));
 
         result.Should().BeTrue();
         var cmd = dbs.Provider.Recorder.Commands.Should().ContainSingle().Which;
@@ -174,7 +174,8 @@ public class ClusterProvidersTests
         ((byte[])cmd.Parameter("@Address")!).Should().Equal(IPAddress.Parse("10.0.0.1").GetAddressBytes());
         cmd.Parameter("@Port").Should().Be(11111);
         cmd.Parameter("@Generation").Should().Be(7);
-        cmd.Parameter("@ETagNo").Should().Be(7);
+        cmd.Parameter("@MemberETagNo").Should().Be(5, "the member row's own etag argument is checked by the procedure");
+        cmd.Parameter("@ETagNo").Should().Be(7, "the table version's etag is checked separately");
         cmd.Parameter("@Version").Should().Be(4);
 
         var suspects = cmd.Parameter("@SuspectTimes").Should().BeAssignableTo<IEnumerable<SqlDataRecord>>().Which.ToList();
@@ -219,6 +220,23 @@ public class ClusterProvidersTests
 
         (await act.Should().ThrowAsync<SqlException>()).Which.Should().BeSameAs(timeout);
         logger.Entries.Should().ContainSingle(e => e.Level == LogLevel.Error && e.Exception == timeout);
+    }
+
+    [Theory]
+    [InlineData(41302)]
+    [InlineData(41305)]
+    [InlineData(41325)]
+    [InlineData(41301)]
+    [Trait("Spec", "blk-1a703d5db09d4821bebe4b7bc67dc013")]
+    [Trait("Spec", "blk-b0466f322fc64ca7a7909149b65eba64")]
+    public async Task AMemoryOptimizedWriteConflictIsReportedAsAConcurrencyConflict(int errorNumber)
+    {
+        var (table, dbs, _) = BuildTable();
+        dbs.Provider.Script.ForQuery(Queries.OrleansClusterUpdateMemberKey).Throws(SqlExceptions.WithNumber(errorNumber, "write conflict"));
+        dbs.Provider.Script.ForQuery(Queries.OrleansClusterInsertMemberKey).Throws(SqlExceptions.WithNumber(errorNumber, "write conflict"));
+
+        (await table.UpdateRow(Entry(), "7", new TableVersion(4, "7"))).Should().BeFalse("a simultaneous writer changed the row first");
+        (await table.InsertRow(Entry(), new TableVersion(4, "7"))).Should().BeFalse("a simultaneous writer changed the version row first");
     }
 
     [Fact]
@@ -324,7 +342,7 @@ public class ClusterProvidersTests
 
         data.Members.Should().ContainSingle().Which.Item2.Should().Be("6", "each member carries its own etag");
         data.Version.Version.Should().Be(3);
-        logger.Entries.Where(e => e.Level == LogLevel.Error).Should().HaveCount(3, "etag mismatch, version ahead of the table, and the missing suspects set are each logged");
+        logger.Entries.Where(e => e.Level == LogLevel.Error).Should().HaveCount(2, "a version ahead of the table and the missing suspects set are each logged; a member etag behind the table etag is normal");
 
         using var empty = new FakeDbDataReader([new FakeResultSet(VersionColumns, [])]);
         FluentActions.Invoking(() => ArgentSeaOrleansMembershipTable.ReadAllFromReader(empty, logger)).Should().Throw<OrleansException>().WithMessage("*version table was not found*");
@@ -400,13 +418,14 @@ public class ClusterProvidersTests
         defaults.MaxRefreshInterval.Should().Be(TimeSpan.FromSeconds(60));
         var declaredDefaults = (ClusterClientDbOptions)Activator.CreateInstance(typeof(ClusterClientDbOptions))!;
         declaredDefaults.DatabaseKey.Should().Be("Common");
-        declaredDefaults.GatewayListQuery.Sql.Should().Be("rdr.OrleansClusterGatewayListV1");
-        declaredDefaults.GatewayListQuery.ParameterNames.Should().Equal("@ClusterId");
+        declaredDefaults.GatewayListQuery.Should().BeNull("the shared core declares no platform-specific query; each provider package supplies its own");
+        Queries.OrleansClusterGatewayList.Sql.Should().Be("rdr.OrleansClusterGatewayListV1");
+        Queries.OrleansClusterGatewayList.ParameterNames.Should().Equal("@ClusterId");
 
         var provider = new ArgentSeaGatewayListProvider(
             Options.Create(new SqlDbConnectionOptions { SqlDbConnections = [] }),
             Options.Create(new SqlGlobalPropertiesOptions()),
-            Options.Create(new ClusterClientDbOptions { DatabaseKey = "Common", ConnectionString = "Data Source=explicit", GatewayListQuery = declaredDefaults.GatewayListQuery, MaxRefreshInterval = TimeSpan.FromSeconds(42) }),
+            Options.Create(new ClusterClientDbOptions { DatabaseKey = "Common", ConnectionString = "Data Source=explicit", MaxRefreshInterval = TimeSpan.FromSeconds(42) }),
             Options.Create(new ClusterOptions { ClusterId = "alpha" }),
             NullLogger<ArgentSeaGatewayListProvider>.Instance);
 
@@ -471,7 +490,7 @@ public class ClusterProvidersTests
     {
         var config = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
         {
-            ["Orleans:Clustering:ProviderType"] = "ArgentSea",
+            ["Orleans:Clustering:ProviderType"] = "ArgentSeaSql",
             ["Orleans:Clustering:ClusterId"] = "from-section",
             ["Orleans:Clustering:ServiceId"] = "svc",
         }).Build();
@@ -479,12 +498,12 @@ public class ClusterProvidersTests
         var providerBuilder = new ArgentSeaClusteringProviderBuilder();
 
         var (silo, siloServices) = SiloBuilder(config);
-        providerBuilder.Configure(silo, "ArgentSea", section);
+        providerBuilder.Configure(silo, "ArgentSeaSql", section);
         siloServices.Should().ContainSingle(d => d.ServiceType == typeof(IMembershipTable) && d.ImplementationType == typeof(ArgentSeaOrleansMembershipTable));
         siloServices.BuildServiceProvider().GetRequiredService<IOptions<ClusterOptions>>().Value.ClusterId.Should().Be("from-section");
 
         var (client, clientServices) = ClientBuilder();
-        providerBuilder.Configure(client, "ArgentSea", section);
+        providerBuilder.Configure(client, "ArgentSeaSql", section);
         clientServices.Should().ContainSingle(d => d.ServiceType == typeof(IMembershipTable) && d.ImplementationType == typeof(ArgentSeaOrleansMembershipTable));
         clientServices.Should().ContainSingle(d => d.ServiceType == typeof(IGatewayListProvider) && d.ImplementationType == typeof(ArgentSeaGatewayListProvider));
         clientServices.BuildServiceProvider().GetRequiredService<IOptions<ClusterOptions>>().Value.ClusterId.Should().Be("from-section");

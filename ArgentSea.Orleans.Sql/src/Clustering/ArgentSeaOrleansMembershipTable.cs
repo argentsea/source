@@ -154,10 +154,18 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
     internal const int ConcurrencyConflictErrorNumber = 51000;
 
     /// <summary>
-    /// True only for the procedure-raised concurrency signal; transient, connection and timeout failures are not conflicts.
+    /// In-memory OLTP errors raised when a simultaneous writer changed the same memory-optimized row first
+    /// (41302 update conflict, 41305 repeatable-read validation, 41325 serializable validation, 41301 commit dependency).
+    /// The write lost the race exactly as an etag mismatch would, so these are conflicts too.
+    /// </summary>
+    internal static readonly int[] WriteConflictErrorNumbers = [41302, 41305, 41325, 41301];
+
+    /// <summary>
+    /// True only for the procedure-raised concurrency signal or a memory-optimized write conflict; transient, connection
+    /// and timeout failures are not conflicts.
     /// </summary>
     internal static bool IsConcurrencyConflict(Exception ex)
-        => ex is SqlException sqlEx && sqlEx.Number == ConcurrencyConflictErrorNumber;
+        => ex is SqlException sqlEx && sqlEx.Errors.Cast<SqlError>().Any(e => e.Number == ConcurrencyConflictErrorNumber || WriteConflictErrorNumbers.Contains(e.Number));
 
 
     /// <summary>
@@ -220,12 +228,9 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
                 StartTime = rdr.GetDateTime(8),
                 IAmAliveTime = rdr.GetDateTime(9)
             };
+            // A member's etag is the table etag of the write that last changed that row, so it may lag the table etag.
             memberETagNo = rdr.GetInt32(10);
             memberVersion = rdr.GetInt32(11);
-            if (memberETagNo != versionETagNo)
-            {
-                logger.LogError($"Member ETag {memberETagNo} does not match VersionTable ETag {versionETagNo}.");
-            }
             if (memberVersion > tv.Version)
             {
                 logger.LogError($"Member Version {memberVersion} is greater than VersionTable version number {tv.Version}. This may indicate data corruption.");
@@ -302,12 +307,9 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
             IAmAliveTime = rdr.GetDateTime(5)
         };
         // Ordinal 6 is OrleansClusterMemberVersion.Timestamp; the member etag and version follow it.
+        // A member's etag is the table etag of the write that last changed that row, so it may lag the table etag.
         var memberETagNo = rdr.GetInt32(7);
         var memberVersion = rdr.GetInt32(8);
-        if (memberETagNo != versionETagNo)
-        {
-            logger.LogError($"Member ETag {memberETagNo} does not match VersionTable ETag {versionETagNo}.");
-        }
         if (memberVersion > tv.Version)
         {
             logger.LogError($"Member Version {memberVersion} is greater than VersionTable version number {tv.Version}. This may indicate data corruption.");
@@ -386,6 +388,7 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
             .AddSqlIntInputParameter("@Port", entry.SiloAddress.Endpoint.Port)
             .AddSqlIntInputParameter("@Generation", entry.SiloAddress.Generation)
             .AddSqlTableValuedParameter("@SuspectTimes", usualSuspects.Count > 0 ? usualSuspects : null)
+            .AddSqlIntInputParameter("@MemberETagNo", int.Parse(etag, CultureInfo.InvariantCulture))
             .AddSqlIntInputParameter("@ETagNo", int.Parse(tableVersion.VersionEtag, CultureInfo.InvariantCulture))
             .AddSqlIntInputParameter("@Version", tableVersion.Version);
 
@@ -396,7 +399,7 @@ public class ArgentSeaOrleansMembershipTable : IMembershipTable
         }
         catch (Exception ex) when (IsConcurrencyConflict(ex))
         {
-            // The procedure raises error 51000 when the member row is missing or its etag/the TableVersion does not match.
+            // The procedure raises error 51000 when the member row is missing or its etag/the TableVersion etag does not match.
             _logger.LogWarning(ex, "Membership update conflict for entry: {Entry}", entry);
             return false;
         }

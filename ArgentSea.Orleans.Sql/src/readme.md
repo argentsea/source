@@ -101,3 +101,13 @@ Contributions are very welcome.
 ## License
 
 [MIT.](https://opensource.org/licenses/MIT)
+
+## Configuration-driven provider types
+
+When Orleans providers are registered from configuration (`Orleans:{Kind}:{name}:ProviderType`), this package registers `ArgentSeaSql` for shard-set grain storage, clustering and reminders, and `ArgentSeaSqlDb` for single-database grain storage. (ArgentSea.Orleans.Pg registers `ArgentSeaPg` and `ArgentSeaPgDb`.)
+
+## Upgrading from 2.0
+
+* The provider type `ArgentSea` is gone. Use `ArgentSeaSql` or `ArgentSeaSqlDb` as above. The old name resolved only to shard-set storage, so single-database storage was unreachable from configuration.
+* `common.sql` replaces `wtr.OrleansClusterInsertMemberKeyV1` and `wtr.OrleansClusterUpdateMemberKeyV1` with V2 procedures that enforce the membership etag checks (each write compares and advances the table etag in one statement, checks the member row's own etag on update, and commits all of its changes or none), and drops the V1 versions. V1 and V2 silos must not share a cluster, so upgrade the whole cluster at once: stop it, run the new `common.sql`, and start the upgraded silos.
+* `ClusterClientDbOptions.GatewayListQuery` has no default in the shared options any more. Leave it unset to use this package's `rdr.OrleansClusterGatewayListV1`.

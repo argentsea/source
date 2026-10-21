@@ -33,6 +33,9 @@ GO
 
 ALTER DATABASE Common SET READ_COMMITTED_SNAPSHOT ON;
 ALTER DATABASE Common SET ALLOW_SNAPSHOT_ISOLATION ON;
+-- Interpreted procedures that open an explicit transaction (wtr.OrleansClusterUpdateMemberKeyV2) access the memory-optimized
+-- tables at snapshot isolation.
+ALTER DATABASE Common SET MEMORY_OPTIMIZED_ELEVATE_TO_SNAPSHOT = ON;
 
 --Database Initialization
 USE Common;
@@ -323,7 +326,13 @@ BEGIN;
 END;
 GO
 
-CREATE OR ALTER PROCEDURE wtr.OrleansClusterInsertMemberKeyV1 (
+-- The V1 write procedures never advanced the etag (see wtr.OrleansClusterInsertMemberKeyV2 below). A V1 update writes the table
+-- etag back without checking it, so V1 and V2 must never serve one cluster: they are dropped rather than kept beside V2.
+DROP PROCEDURE IF EXISTS wtr.OrleansClusterInsertMemberKeyV1;
+DROP PROCEDURE IF EXISTS wtr.OrleansClusterUpdateMemberKeyV1;
+GO
+
+CREATE OR ALTER PROCEDURE wtr.OrleansClusterInsertMemberKeyV2 (
 	@ClusterId nvarchar(150) NOT NULL,
 	@Address varbinary(16) NOT NULL,
 	@Port int NOT NULL,
@@ -337,13 +346,16 @@ CREATE OR ALTER PROCEDURE wtr.OrleansClusterInsertMemberKeyV1 (
 	@ETagNo int NOT NULL,
 	@Version int NOT NULL
 	)
-WITH NATIVE_COMPILATION, SCHEMABINDING  
-AS BEGIN ATOMIC WITH  
-(  
- TRANSACTION ISOLATION LEVEL = SNAPSHOT, LANGUAGE = N'us_english'  
-)  
+WITH NATIVE_COMPILATION, SCHEMABINDING
+AS BEGIN ATOMIC WITH
+(
+ TRANSACTION ISOLATION LEVEL = SNAPSHOT, LANGUAGE = N'us_english'
+)
+	-- The etag is compared and advanced by this one statement, so two writers from the same read cannot both pass it.
+	-- The atomic block rolls the version change back if anything below fails.
 	UPDATE dbo.OrleansClusterMemberVersion
 	SET Timestamp = GETUTCDATE(),
+		ETagNo = ETagNo + 1,
         Version = @Version
 	WHERE ClusterId = @ClusterId
 		AND ETagNo = @ETagNo;
@@ -351,7 +363,7 @@ AS BEGIN ATOMIC WITH
     -- Error 51000 is the concurrency signal ArgentSeaOrleansMembershipTable.InsertRow maps to a false result.
     IF @@ROWCOUNT = 0
     BEGIN;
-        THROW 51000, 'Concurrency error.', 1;
+        THROW 51000, 'Concurrency error: the table etag does not match.', 1;
     END;
 
 	INSERT INTO dbo.OrleansClusterMember
@@ -379,7 +391,7 @@ AS BEGIN ATOMIC WITH
 		@ProxyPort,
 		@StartTime,
 		@IAmAliveTime,
-        @ETagNo,
+        @ETagNo + 1,
         @Version
 	WHERE NOT EXISTS
 	(
@@ -393,7 +405,7 @@ AS BEGIN ATOMIC WITH
 
 	IF @@ROWCOUNT = 0
     BEGIN;
-		THROW 51000, 'Unexpectedly could not insert a new value in the cluster membership table. Possibly already exists', 1;
+		THROW 51000, 'Concurrency error: the silo is already in the cluster membership table.', 1;
     END;
 END;
 GO
@@ -438,53 +450,65 @@ AS BEGIN ATOMIC WITH
 END;
 GO
 
-CREATE OR ALTER PROCEDURE wtr.OrleansClusterUpdateMemberKeyV1 (
+CREATE OR ALTER PROCEDURE wtr.OrleansClusterUpdateMemberKeyV2 (
 	@ClusterId nvarchar(150),
-	@Status int,
+	@Status smallint,
 	@ProxyPort int,
 	@IAmAliveTime datetime2(3),
 	@Address varbinary(16),
 	@Port int,
 	@Generation int,
     @SuspectTimes wtr.SuspicionType READONLY,
+	@MemberETagNo int,
 	@ETagNo int,
 	@Version int
     )
-AS 
+AS
 BEGIN;
+	-- Every change below commits together or not at all. Memory-optimized tables join the explicit transaction at snapshot
+	-- isolation (MEMORY_OPTIMIZED_ELEVATE_TO_SNAPSHOT), so a concurrent writer of the same row fails with a write conflict.
+	SET XACT_ABORT, NOCOUNT ON;
+	DECLARE @NewETagNo int = @ETagNo + 1;
+
+	BEGIN TRANSACTION;
+
+	-- The table etag is compared and advanced by this one statement, so two writers from the same read cannot both pass it.
+	UPDATE dbo.OrleansClusterMemberVersion
+	SET Timestamp = GETUTCDATE(),
+		ETagNo = @NewETagNo,
+        Version = @Version
+	WHERE ClusterId = @ClusterId
+		AND ETagNo = @ETagNo;
+
+    -- Error 51000 is the concurrency signal ArgentSeaOrleansMembershipTable.UpdateRow maps to a false result.
+    IF @@ROWCOUNT = 0
+    BEGIN;
+		ROLLBACK TRANSACTION;
+        THROW 51000, 'Concurrency error: the table etag does not match.', 1;
+    END;
+
     DECLARE @ClusterMemberId int = (SELECT ClusterMemberId
                         FROM dbo.OrleansClusterMember
                         WHERE OrleansClusterMember.ClusterId = @ClusterId
                             AND OrleansClusterMember.Address = @Address
                             AND OrleansClusterMember.Port = @Port
-                            AND OrleansClusterMember.Generation = @Generation
-                            AND OrleansClusterMember.MembershipETagNo = @ETagNo);
+                            AND OrleansClusterMember.Generation = @Generation);
 
-    IF @ClusterMemberId IS NULL
-    BEGIN;
-        THROW 51000, 'Cluster member not found or invalid eTag.', 1;
-    END;
-
-	UPDATE dbo.OrleansClusterMemberVersion
-	SET Timestamp = GETUTCDATE(),
-		ETagNo = @ETagNo,
-        Version = @Version
-	WHERE ClusterId = @ClusterId;
+	-- The member row's own etag is checked by the statement that replaces it.
+	UPDATE dbo.OrleansClusterMember
+	SET Status = @Status,
+        ProxyPort = @ProxyPort,
+		IAmAliveTime = @IAmAliveTime,
+        MembershipETagNo = @NewETagNo,
+        MembershipVersion = @Version
+	WHERE ClusterMemberId = @ClusterMemberId
+		AND MembershipETagNo = @MemberETagNo;
 
     IF @@ROWCOUNT = 0
     BEGIN;
-        THROW 51000, 'Concurrency error.', 1;
+		ROLLBACK TRANSACTION;
+        THROW 51000, 'Concurrency error: the cluster member was not found or its etag does not match.', 1;
     END;
-
-	UPDATE dbo.OrleansClusterMember
-	SET --SiloName,
-        --HostName,
-        Status = @Status,
-        ProxyPort = @ProxyPort,
-		IAmAliveTime = @IAmAliveTime,
-        MembershipETagNo = @ETagNo,
-        MembershipVersion = @Version
-	WHERE ClusterMemberId = @ClusterMemberId;
 
     INSERT INTO dbo.OrleansClusterMemberSuspicion (ClusterMemberId, Address, Port, Generation, Timestamp)
     SELECT @ClusterMemberId, Susp.Address, Susp.Port, Susp.Generation, Susp.Timestamp
@@ -517,6 +541,8 @@ BEGIN;
             AND OrleansClusterMemberSuspicion.Generation = Susp.Generation
     WHERE OrleansClusterMemberSuspicion.ClusterMemberId = @ClusterMemberId
         AND Susp.Port is Null;
+
+	COMMIT TRANSACTION;
 END;
 GO
 

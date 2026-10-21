@@ -10,7 +10,7 @@ namespace ArgentSea.Test
 {
     /// <summary>
     /// Spec sections argent-sea, argent-sea-core, sql-server-provider-package, postgres-provider-package,
-    /// orleans-grain-storage-package and orleans-sql-server-package: the invariants about the solution file and the five
+    /// orleans-grain-storage-package, orleans-sql-server-package and the Orleans PostgreSQL package: the invariants about the solution file and the six
     /// product project files, asserted by parsing them as XML. Each theory row names the project file it checks.
     /// </summary>
     public class PackageInvariantTests
@@ -20,9 +20,10 @@ namespace ArgentSea.Test
         private const string PgProject = "ArgentSea.Pg/src/ArgentSea.Pg.csproj";
         private const string OrleansProject = "ArgentSea.Orleans/src/ArgentSea.Orleans.csproj";
         private const string OrleansSqlProject = "ArgentSea.Orleans.Sql/src/ArgentSea.Orleans.Sql.csproj";
+        private const string OrleansPgProject = "ArgentSea.Orleans.Pg/src/ArgentSea.Orleans.Pg.csproj";
         private const string TestAssemblyGrant = "$(MSBuildProjectName).Test";
 
-        private static readonly string[] ProductProjects = { CoreProject, SqlProject, PgProject, OrleansProject, OrleansSqlProject };
+        private static readonly string[] ProductProjects = { CoreProject, SqlProject, PgProject, OrleansProject, OrleansSqlProject, OrleansPgProject };
 
         private static readonly Lazy<string> RepositoryRoot = new Lazy<string>(() =>
         {
@@ -93,11 +94,11 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-642b4e9041b64a96a018c2c5e13b2f9b")]
-        public void TheSolutionHoldsTheFiveProductProjectsEachWithOneDedicatedTestProject()
+        public void TheSolutionHoldsTheSixProductProjectsEachWithOneDedicatedTestProject()
         {
             var names = SolutionProjects.Select(ProjectName).ToList();
 
-            var products = new[] { "ArgentSea", "ArgentSea.Sql", "ArgentSea.Pg", "ArgentSea.Orleans", "ArgentSea.Orleans.Sql" };
+            var products = new[] { "ArgentSea", "ArgentSea.Sql", "ArgentSea.Pg", "ArgentSea.Orleans", "ArgentSea.Orleans.Sql", "ArgentSea.Orleans.Pg" };
             names.Should().Contain(products);
             names.Should().Contain(products.Select(p => p + ".Test"), "each product project has a dedicated test project");
             // The two shared test harness projects added by the coverage work are the only other members.
@@ -111,15 +112,17 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-d448f3ce7fdc4737973d92d770542285")]
-        public void OnlyOrleansSqlDeclaresBuildDependenciesAndReleaseBuildTypeIsDeclaredForProductsAndTheCoreTests()
+        public void OnlyTheOrleansProviderPackagesDeclareBuildDependenciesAndReleaseBuildTypeIsDeclaredForProductsAndTheCoreTests()
         {
             var withDependencies = SolutionProjects.Where(p => p.Elements("BuildDependency").Any()).ToList();
-            withDependencies.Select(ProjectName).Should().Equal("ArgentSea.Orleans.Sql");
-            withDependencies[0].Elements("BuildDependency").Select(d => Path.GetFileNameWithoutExtension(((string)d.Attribute("Project")!).Replace('\\', '/')))
-                .Should().BeEquivalentTo(new[] { "ArgentSea.Orleans", "ArgentSea.Sql" });
+            withDependencies.Select(ProjectName).Should().BeEquivalentTo(new[] { "ArgentSea.Orleans.Sql", "ArgentSea.Orleans.Pg" });
+            string[] Dependencies(string name) => withDependencies.Single(p => ProjectName(p) == name).Elements("BuildDependency")
+                .Select(d => Path.GetFileNameWithoutExtension(((string)d.Attribute("Project")!).Replace('\\', '/'))).ToArray();
+            Dependencies("ArgentSea.Orleans.Sql").Should().BeEquivalentTo(new[] { "ArgentSea.Orleans", "ArgentSea.Sql" });
+            Dependencies("ArgentSea.Orleans.Pg").Should().BeEquivalentTo(new[] { "ArgentSea.Orleans", "ArgentSea.Pg" });
 
             var release = SolutionProjects.Where(p => p.Elements("BuildType").Any(b => (string?)b.Attribute("Project") == "Release")).Select(ProjectName);
-            release.Should().BeEquivalentTo(new[] { "ArgentSea", "ArgentSea.Sql", "ArgentSea.Pg", "ArgentSea.Orleans", "ArgentSea.Orleans.Sql", "ArgentSea.Test" });
+            release.Should().BeEquivalentTo(new[] { "ArgentSea", "ArgentSea.Sql", "ArgentSea.Pg", "ArgentSea.Orleans", "ArgentSea.Orleans.Sql", "ArgentSea.Orleans.Pg", "ArgentSea.Test" });
         }
 
         #endregion
@@ -369,6 +372,38 @@ namespace ArgentSea.Test
                 ["Microsoft.Orleans.Sdk"] = "10.3.1",
             });
             ProjectReferences(project).Should().BeEquivalentTo(new[] { "ArgentSea.Orleans.csproj", "ArgentSea.Sql.csproj" });
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-2c4d613b2b0443ffa64bf739405ec9a7")]
+        public void OrleansPgMatchesOrleansSqlVersionsAndDependsOnTheOrleansAndPgProjects()
+        {
+            var project = Load(OrleansPgProject);
+            var sqlCounterpart = Load(OrleansSqlProject);
+
+            Single(project, "Version").Should().Be(Single(sqlCounterpart, "Version"), "the two Orleans provider packages are versioned together");
+            PackageReferences(project).Should().BeEquivalentTo(PackageReferences(sqlCounterpart), "both provider packages build on the same Orleans release");
+            ProjectReferences(project).Should().BeEquivalentTo(new[] { "ArgentSea.Orleans.csproj", "ArgentSea.Pg.csproj" });
+        }
+
+        [Fact]
+        [Trait("Spec", "blk-2c4d613b2b0443ffa64bf739405ec9a7")]
+        public void OrleansPgPacksItsIconReadmeAndBothSchemaScripts()
+        {
+            var project = Load(OrleansPgProject);
+
+            AssertPacked(project, "argentsea-logo.png");
+            AssertPacked(project, "readme.md");
+            foreach (var script in new[] { "common.psql", "tenant.psql" })
+            {
+                var item = Items(project, "None").Should().ContainSingle(i => i.Include == script, $"{script} is packed").Subject;
+                ((string?)item.Element.Attribute("Pack")).Should().BeEquivalentTo("true");
+                ((string?)item.Element.Attribute("PackagePath")).Should().Be("sql\\", "the schema scripts ship in the package's sql folder");
+            }
+            foreach (var file in new[] { "readme.md", "common.psql", "tenant.psql", "argentsea-logo.png" })
+            {
+                File.Exists(Path.Combine(RepositoryRoot.Value, Path.GetDirectoryName(OrleansPgProject)!, file)).Should().BeTrue($"{file} is in the project folder");
+            }
         }
 
         [Fact]

@@ -231,7 +231,7 @@ public class GrainStorageHostingTests
     [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
     public void TheDbProviderBuilderRegistersCreateDbUnderTheNameAndResolvesTheDatabaseKeyFromTheProviderSectionThenOrleansData()
     {
-        var providerSection = Config(new() { ["Orleans:GrainStorage:catalog:ProviderType"] = "ArgentSea", ["Orleans:GrainStorage:catalog:DatabaseKey"] = "Catalog", ["OrleansData:DatabaseKey"] = "Common" });
+        var providerSection = Config(new() { ["Orleans:GrainStorage:catalog:ProviderType"] = "ArgentSeaSqlDb", ["Orleans:GrainStorage:catalog:DatabaseKey"] = "Catalog", ["OrleansData:DatabaseKey"] = "Common" });
         var (fromSection, sectionServices) = SiloBuilder(providerSection);
         sectionServices.AddSingleton<SqlDatabases>(FakeSqlDatabases.Create("Catalog"));
         new ArgentSeaGrainStorageDbProviderBuilder().Configure(fromSection, "catalog", providerSection.GetSection("Orleans:GrainStorage:catalog"));
@@ -240,7 +240,7 @@ public class GrainStorageHostingTests
         provider.GetRequiredService<IOptionsMonitor<OrleansDbPersistenceOptions>>().Get("catalog").DatabaseKey.Should().Be("Catalog", "the provider's own section wins");
         provider.GetRequiredKeyedService<IGrainStorage>("catalog").Should().BeOfType<ArgentSeaDbGrainPersistence<SqlDbConnectionOptions>>();
 
-        var legacy = Config(new() { ["Orleans:GrainStorage:catalog:ProviderType"] = "ArgentSea", ["OrleansData:DatabaseKey"] = "Common" });
+        var legacy = Config(new() { ["Orleans:GrainStorage:catalog:ProviderType"] = "ArgentSeaSqlDb", ["OrleansData:DatabaseKey"] = "Common" });
         var (fromLegacy, legacyServices) = SiloBuilder(legacy);
         new ArgentSeaGrainStorageDbProviderBuilder().Configure(fromLegacy, "catalog", legacy.GetSection("Orleans:GrainStorage:catalog"));
         legacyServices.BuildServiceProvider().GetRequiredService<IOptionsMonitor<OrleansDbPersistenceOptions>>().Get("catalog").DatabaseKey.Should().Be("Common");
@@ -262,7 +262,7 @@ public class GrainStorageHostingTests
     [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
     public void TheShardProviderBuilderRegistersCreateShardsUnderTheNameAndResolvesTheShardSetKeyFromTheProviderSectionThenOrleansData()
     {
-        var providerSection = Config(new() { ["Orleans:GrainStorage:orders:ProviderType"] = "ArgentSea", ["Orleans:GrainStorage:orders:ShardSetKey"] = "Orders", ["OrleansData:ShardSetKey"] = "Legacy" });
+        var providerSection = Config(new() { ["Orleans:GrainStorage:orders:ProviderType"] = "ArgentSeaSql", ["Orleans:GrainStorage:orders:ShardSetKey"] = "Orders", ["OrleansData:ShardSetKey"] = "Legacy" });
         var (fromSection, sectionServices) = SiloBuilder(providerSection);
         sectionServices.AddSingleton<SqlShardSets>(FakeSqlShardSets.Create("Orders", 1));
         new ArgentSeaGrainStorageShardProviderBuilder().Configure(fromSection, "orders", providerSection.GetSection("Orleans:GrainStorage:orders"));
@@ -271,7 +271,7 @@ public class GrainStorageHostingTests
         provider.GetRequiredService<IOptionsMonitor<OrleansShardPersistenceOptions>>().Get("orders").ShardSetKey.Should().Be("Orders");
         provider.GetRequiredKeyedService<IGrainStorage>("orders").Should().BeOfType<ArgentSeaShardGrainPersistence<SqlShardConnectionOptions>>();
 
-        var legacy = Config(new() { ["Orleans:GrainStorage:orders:ProviderType"] = "ArgentSea", ["OrleansData:ShardSetKey"] = "Legacy" });
+        var legacy = Config(new() { ["Orleans:GrainStorage:orders:ProviderType"] = "ArgentSeaSql", ["OrleansData:ShardSetKey"] = "Legacy" });
         var (fromLegacy, legacyServices) = SiloBuilder(legacy);
         new ArgentSeaGrainStorageShardProviderBuilder().Configure(fromLegacy, "orders", legacy.GetSection("Orleans:GrainStorage:orders"));
         legacyServices.BuildServiceProvider().GetRequiredService<IOptionsMonitor<OrleansShardPersistenceOptions>>().Get("orders").ShardSetKey.Should().Be("Legacy");

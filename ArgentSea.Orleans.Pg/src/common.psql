@@ -1,0 +1,349 @@
+/* ===========================================================================
+ * Setup script for the "common" PostgreSQL database of ArgentSea.Orleans.Pg.
+ * It holds the Orleans cluster membership tables, used by silos and clients, and is "common" in that one set of tables
+ * is shared across all shards/tenants. Its connection belongs in the ArgentSea PgDbConnections collection.
+ *
+ * The script is idempotent and runs as one command (psql -f, or a single Npgsql command). Run it as the role that will
+ * own the tables and routines.
+ *
+ * Optional manual steps, before running the script:
+ *   CREATE DATABASE orleans_common;
+ * After running it, give your login roles the group roles the routines are granted to, e.g.:
+ *   CREATE ROLE silo_login LOGIN PASSWORD '...' IN ROLE orleans_writer;
+ *   CREATE ROLE client_login LOGIN PASSWORD '...' IN ROLE orleans_client;
+ *
+ * Permission model: the tables live in the orleans schema, on which no role but the owner has any right. Every routine is
+ * SECURITY DEFINER with a pinned search_path, PUBLIC's default EXECUTE right is revoked, and EXECUTE is granted per role:
+ *   orleans_reader  -> the rdr functions
+ *   orleans_writer  -> the rdr functions and the wtr procedures
+ *   orleans_client  -> rdr.orleans_cluster_gateway_list_v1 only
+ *
+ * Concurrency: every successful insert or update of a member compares the table etag and advances it in one statement,
+ * stamps the new etag on the member row, and raises SQLSTATE AS001 on any mismatch; the procedure's changes then roll back.
+=========================================================================== */
+
+-- Roles (cluster-wide; created without login rights)
+DO $roles$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_roles WHERE rolname = 'orleans_reader') THEN
+        CREATE ROLE orleans_reader NOLOGIN;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_roles WHERE rolname = 'orleans_writer') THEN
+        CREATE ROLE orleans_writer NOLOGIN;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_roles WHERE rolname = 'orleans_client') THEN
+        CREATE ROLE orleans_client NOLOGIN;
+    END IF;
+END
+$roles$;
+
+-- Schemas
+CREATE SCHEMA IF NOT EXISTS orleans;
+CREATE SCHEMA IF NOT EXISTS rdr;
+CREATE SCHEMA IF NOT EXISTS wtr;
+REVOKE ALL ON SCHEMA orleans FROM PUBLIC;
+
+-- Tables
+CREATE TABLE IF NOT EXISTS orleans.orleans_cluster_member_version
+(
+    cluster_id varchar(150) NOT NULL CONSTRAINT pk_orleans_cluster_member_version PRIMARY KEY,
+    "timestamp" timestamptz NOT NULL DEFAULT pg_catalog.now(),
+    etag_no integer NOT NULL DEFAULT 0,
+    version integer NOT NULL DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS orleans.orleans_cluster_member
+(
+    cluster_member_id integer NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_orleans_cluster_member PRIMARY KEY,
+    cluster_id varchar(150) NOT NULL CONSTRAINT fk_orleans_cluster_member_version REFERENCES orleans.orleans_cluster_member_version (cluster_id),
+    address bytea NOT NULL,
+    port integer NOT NULL,
+    generation integer NOT NULL,
+    silo_name varchar(150) NOT NULL,
+    host_name varchar(150) NOT NULL,
+    status smallint NOT NULL,
+    proxy_port integer NULL,
+    start_time timestamptz NOT NULL,
+    i_am_alive_time timestamptz NOT NULL,
+    membership_etag_no integer NOT NULL,
+    membership_version integer NOT NULL,
+    CONSTRAINT uix_orleans_cluster_member_silo UNIQUE (cluster_id, address, port, generation)
+);
+
+CREATE TABLE IF NOT EXISTS orleans.orleans_cluster_member_suspicion
+(
+    cluster_member_id integer NOT NULL CONSTRAINT fk_orleans_cluster_member_suspicion_member REFERENCES orleans.orleans_cluster_member (cluster_member_id),
+    address bytea NOT NULL,
+    port integer NOT NULL,
+    generation integer NOT NULL,
+    "timestamp" timestamptz NOT NULL DEFAULT pg_catalog.now(),
+    CONSTRAINT pk_orleans_cluster_member_suspicion PRIMARY KEY (cluster_member_id, address, port, generation)
+);
+
+-- Reads (functions)
+CREATE OR REPLACE FUNCTION rdr.orleans_cluster_gateway_list_v1(p_cluster_id varchar)
+RETURNS TABLE (address bytea, proxy_port integer, generation integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT m.address, m.proxy_port, m.generation
+    FROM orleans.orleans_cluster_member AS m
+    WHERE m.cluster_id = p_cluster_id
+        AND m.status = 3; -- SiloStatus.Active
+$$;
+
+CREATE OR REPLACE FUNCTION rdr.orleans_cluster_version_read_v1(p_cluster_id varchar)
+RETURNS TABLE (version_timestamp timestamptz, etag_no integer, version integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT v."timestamp", v.etag_no, v.version
+    FROM orleans.orleans_cluster_member_version AS v
+    WHERE v.cluster_id = p_cluster_id;
+$$;
+
+CREATE OR REPLACE FUNCTION rdr.orleans_cluster_member_read_all_v1(p_cluster_id varchar)
+RETURNS TABLE (cluster_member_id integer, address bytea, port integer, generation integer, silo_name varchar, host_name varchar,
+    status smallint, proxy_port integer, start_time timestamptz, i_am_alive_time timestamptz, membership_etag_no integer, membership_version integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT m.cluster_member_id, m.address, m.port, m.generation, m.silo_name, m.host_name,
+        m.status, m.proxy_port, m.start_time, m.i_am_alive_time, m.membership_etag_no, m.membership_version
+    FROM orleans.orleans_cluster_member AS m
+    WHERE m.cluster_id = p_cluster_id;
+$$;
+
+CREATE OR REPLACE FUNCTION rdr.orleans_cluster_suspicion_read_all_v1(p_cluster_id varchar)
+RETURNS TABLE (cluster_member_id integer, address bytea, port integer, generation integer, suspicion_timestamp timestamptz)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT s.cluster_member_id, s.address, s.port, s.generation, s."timestamp"
+    FROM orleans.orleans_cluster_member_suspicion AS s
+        INNER JOIN orleans.orleans_cluster_member AS m
+        ON m.cluster_member_id = s.cluster_member_id
+    WHERE m.cluster_id = p_cluster_id
+    ORDER BY s.cluster_member_id;
+$$;
+
+CREATE OR REPLACE FUNCTION rdr.orleans_cluster_member_read_row_v1(p_cluster_id varchar, p_address bytea, p_port integer, p_generation integer)
+RETURNS TABLE (silo_name varchar, host_name varchar, status smallint, proxy_port integer, start_time timestamptz, i_am_alive_time timestamptz,
+    version_timestamp timestamptz, membership_etag_no integer, membership_version integer, etag_no integer, version integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT m.silo_name, m.host_name, m.status, m.proxy_port, m.start_time, m.i_am_alive_time,
+        v."timestamp", m.membership_etag_no, m.membership_version, v.etag_no, v.version
+    FROM orleans.orleans_cluster_member AS m
+        INNER JOIN orleans.orleans_cluster_member_version AS v
+        ON v.cluster_id = m.cluster_id
+    WHERE m.cluster_id = p_cluster_id
+        AND m.address = p_address
+        AND m.port = p_port
+        AND m.generation = p_generation;
+$$;
+
+CREATE OR REPLACE FUNCTION rdr.orleans_cluster_suspicion_read_row_v1(p_cluster_id varchar, p_address bytea, p_port integer, p_generation integer)
+RETURNS TABLE (address bytea, port integer, generation integer, suspicion_timestamp timestamptz)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT s.address, s.port, s.generation, s."timestamp"
+    FROM orleans.orleans_cluster_member AS m
+        INNER JOIN orleans.orleans_cluster_member_suspicion AS s
+        ON s.cluster_member_id = m.cluster_member_id
+    WHERE m.cluster_id = p_cluster_id
+        AND m.address = p_address
+        AND m.port = p_port
+        AND m.generation = p_generation;
+$$;
+
+-- Writes (procedures)
+CREATE OR REPLACE PROCEDURE wtr.orleans_cluster_insert_member_version_v1(p_cluster_id varchar, p_etag_no integer, p_version integer)
+LANGUAGE sql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    INSERT INTO orleans.orleans_cluster_member_version (cluster_id, etag_no, version)
+    VALUES (p_cluster_id, p_etag_no, p_version)
+    ON CONFLICT (cluster_id) DO NOTHING;
+$$;
+
+CREATE OR REPLACE PROCEDURE wtr.orleans_cluster_insert_member_v1(
+    p_cluster_id varchar,
+    p_address bytea,
+    p_port integer,
+    p_generation integer,
+    p_silo_name varchar,
+    p_host_name varchar,
+    p_status smallint,
+    p_proxy_port integer,
+    p_start_time timestamptz,
+    p_i_am_alive_time timestamptz,
+    p_etag_no integer,
+    p_version integer)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+BEGIN
+    -- The etag is compared and advanced by this one statement, so two writers from the same read cannot both pass it.
+    UPDATE orleans.orleans_cluster_member_version
+    SET "timestamp" = pg_catalog.now(),
+        etag_no = etag_no + 1,
+        version = p_version
+    WHERE cluster_id = p_cluster_id
+        AND etag_no = p_etag_no;
+
+    -- SQLSTATE AS001 is the concurrency signal ArgentSeaOrleansMembershipTable.InsertRow maps to a false result.
+    -- Raising it aborts the procedure, so the version change above rolls back with it.
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Concurrency error: the table etag does not match.' USING ERRCODE = 'AS001';
+    END IF;
+
+    INSERT INTO orleans.orleans_cluster_member (cluster_id, address, port, generation, silo_name, host_name, status, proxy_port,
+        start_time, i_am_alive_time, membership_etag_no, membership_version)
+    VALUES (p_cluster_id, p_address, p_port, p_generation, p_silo_name, p_host_name, p_status, p_proxy_port,
+        p_start_time, p_i_am_alive_time, p_etag_no + 1, p_version)
+    ON CONFLICT (cluster_id, address, port, generation) DO NOTHING;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Concurrency error: the silo is already in the cluster membership table.' USING ERRCODE = 'AS001';
+    END IF;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE wtr.orleans_cluster_update_member_v1(
+    p_cluster_id varchar,
+    p_status smallint,
+    p_proxy_port integer,
+    p_i_am_alive_time timestamptz,
+    p_address bytea,
+    p_port integer,
+    p_generation integer,
+    p_suspect_addresses bytea[],
+    p_suspect_ports integer[],
+    p_suspect_generations integer[],
+    p_suspect_times timestamptz[],
+    p_member_etag_no integer,
+    p_etag_no integer,
+    p_version integer)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+DECLARE
+    v_new_etag_no integer := p_etag_no + 1;
+    v_cluster_member_id integer;
+BEGIN
+    -- The table etag is compared and advanced by this one statement, so two writers from the same read cannot both pass it.
+    UPDATE orleans.orleans_cluster_member_version
+    SET "timestamp" = pg_catalog.now(),
+        etag_no = v_new_etag_no,
+        version = p_version
+    WHERE cluster_id = p_cluster_id
+        AND etag_no = p_etag_no;
+
+    -- SQLSTATE AS001 is the concurrency signal ArgentSeaOrleansMembershipTable.UpdateRow maps to a false result.
+    -- Raising it aborts the procedure, so every change made before it rolls back.
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Concurrency error: the table etag does not match.' USING ERRCODE = 'AS001';
+    END IF;
+
+    -- The member row's own etag is checked by the statement that replaces it.
+    UPDATE orleans.orleans_cluster_member
+    SET status = p_status,
+        proxy_port = p_proxy_port,
+        i_am_alive_time = p_i_am_alive_time,
+        membership_etag_no = v_new_etag_no,
+        membership_version = p_version
+    WHERE cluster_id = p_cluster_id
+        AND address = p_address
+        AND port = p_port
+        AND generation = p_generation
+        AND membership_etag_no = p_member_etag_no
+    RETURNING cluster_member_id INTO v_cluster_member_id;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Concurrency error: the cluster member was not found or its etag does not match.' USING ERRCODE = 'AS001';
+    END IF;
+
+    -- The member's suspicions become exactly the supplied list: absent ones are removed, present ones inserted or refreshed.
+    -- (Multi-array unnest is FROM-clause syntax and cannot be schema-qualified; the pinned search_path resolves it to pg_catalog.)
+    DELETE FROM orleans.orleans_cluster_member_suspicion AS s
+    WHERE s.cluster_member_id = v_cluster_member_id
+        AND NOT EXISTS
+        (
+            SELECT 1
+            FROM unnest(coalesce(p_suspect_addresses, '{}'), coalesce(p_suspect_ports, '{}'), coalesce(p_suspect_generations, '{}'))
+                AS susp (address, port, generation)
+            WHERE susp.address = s.address
+                AND susp.port = s.port
+                AND susp.generation = s.generation
+        );
+
+    INSERT INTO orleans.orleans_cluster_member_suspicion (cluster_member_id, address, port, generation, "timestamp")
+    SELECT v_cluster_member_id, susp.address, susp.port, susp.generation, susp.suspicion_timestamp
+    FROM unnest(coalesce(p_suspect_addresses, '{}'), coalesce(p_suspect_ports, '{}'), coalesce(p_suspect_generations, '{}'), coalesce(p_suspect_times, '{}'))
+        AS susp (address, port, generation, suspicion_timestamp)
+    ON CONFLICT (cluster_member_id, address, port, generation) DO UPDATE
+    SET "timestamp" = EXCLUDED."timestamp";
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE wtr.orleans_cluster_update_i_am_alive_time_v1(
+    p_i_am_alive_time timestamptz,
+    p_cluster_id varchar,
+    p_address bytea,
+    p_port integer,
+    p_generation integer)
+LANGUAGE sql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    -- Orleans expects this never to fail, so nothing is reported back.
+    UPDATE orleans.orleans_cluster_member
+    SET i_am_alive_time = p_i_am_alive_time
+    WHERE cluster_id = p_cluster_id
+        AND address = p_address
+        AND port = p_port
+        AND generation = p_generation;
+$$;
+
+CREATE OR REPLACE PROCEDURE wtr.orleans_cluster_delete_defunct_members_v1(p_cluster_id varchar, p_before_date timestamptz)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+BEGIN
+    DELETE FROM orleans.orleans_cluster_member_suspicion AS s
+    USING orleans.orleans_cluster_member AS m
+    WHERE m.cluster_member_id = s.cluster_member_id
+        AND m.cluster_id = p_cluster_id
+        AND m.i_am_alive_time < p_before_date
+        AND m.status <> 3; -- SiloStatus.Active
+
+    DELETE FROM orleans.orleans_cluster_member AS m
+    WHERE m.cluster_id = p_cluster_id
+        AND m.i_am_alive_time < p_before_date
+        AND m.status <> 3; -- SiloStatus.Active
+
+    IF NOT EXISTS (SELECT 1 FROM orleans.orleans_cluster_member AS m WHERE m.cluster_id = p_cluster_id) THEN
+        DELETE FROM orleans.orleans_cluster_member_version AS v
+        WHERE v.cluster_id = p_cluster_id;
+    END IF;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE wtr.orleans_cluster_delete_v1(p_cluster_id varchar)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+BEGIN
+    DELETE FROM orleans.orleans_cluster_member_suspicion AS s
+    USING orleans.orleans_cluster_member AS m
+    WHERE m.cluster_member_id = s.cluster_member_id
+        AND m.cluster_id = p_cluster_id;
+
+    DELETE FROM orleans.orleans_cluster_member AS m
+    WHERE m.cluster_id = p_cluster_id;
+
+    DELETE FROM orleans.orleans_cluster_member_version AS v
+    WHERE v.cluster_id = p_cluster_id;
+END;
+$$;
+
+-- Authorization
+REVOKE ALL ON ALL TABLES IN SCHEMA orleans FROM PUBLIC;
+REVOKE ALL ON ALL ROUTINES IN SCHEMA rdr FROM PUBLIC;
+REVOKE ALL ON ALL ROUTINES IN SCHEMA wtr FROM PUBLIC;
+
+GRANT USAGE ON SCHEMA rdr TO orleans_reader, orleans_writer, orleans_client;
+GRANT USAGE ON SCHEMA wtr TO orleans_writer;
+GRANT EXECUTE ON ALL ROUTINES IN SCHEMA rdr TO orleans_reader, orleans_writer;
+GRANT EXECUTE ON ALL ROUTINES IN SCHEMA wtr TO orleans_writer;
+GRANT EXECUTE ON FUNCTION rdr.orleans_cluster_gateway_list_v1(varchar) TO orleans_client;

@@ -198,7 +198,7 @@ A non-nullable .NET value that ArgentSea treats as database null when writing or
 
 <p class="glossary-synonyms">Also: <code>ArgentSeaOrleansMembershipTable</code>, <code>ArgentSeaGatewayListProvider</code>, <code>ArgentSeaOrleansReminderTable</code>, <code>Orleans clustering</code>, <code>Orleans reminders</code></p>
 
-ArgentSea.Orleans.Sql's implementations of the Orleans membership table, gateway list provider and reminder table. They store cluster membership, client gateway discovery and grain reminders in SQL Server through versioned stored procedures, with reader (`rdr`) and writer (`wtr`) schemas. Because Orleans' membership and reminder types are sealed and cannot carry mapping attributes, these providers use ADO.NET directly rather than the Mapper.
+The implementations of the Orleans membership table, gateway list provider and reminder table in ArgentSea.Orleans.Sql and ArgentSea.Orleans.Pg. They store cluster membership, client gateway discovery and grain reminders in SQL Server or PostgreSQL through versioned database routines, with reader (`rdr`) and writer (`wtr`) schemas. Because Orleans' membership and reminder types are sealed and cannot carry mapping attributes, these providers use ADO.NET directly rather than the Mapper.
 
 ## P {#letter-p}
 

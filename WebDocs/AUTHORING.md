@@ -31,7 +31,7 @@ ArgentSea's elevator pitch (keep these claims consistent everywhere):
 Supported platforms: SQL Server (incl. Express, Azure SQL Database; readable secondaries / read scale-out) via
 `ArgentSea.Sql` on Microsoft.Data.SqlClient; PostgreSQL (incl. Amazon RDS/Aurora, Azure Database for PostgreSQL,
 Google Cloud SQL; hot standbys / read replicas) via `ArgentSea.Pg` on Npgsql. Orleans packages: `ArgentSea.Orleans`
-(abstract) and `ArgentSea.Orleans.Sql` (SQL Server implementation; PostgreSQL Orleans provider does not exist yet).
+(abstract), `ArgentSea.Orleans.Sql` (SQL Server implementation) and `ArgentSea.Orleans.Pg` (PostgreSQL implementation).
 
 ## Site map (URL = file under `docs/`, no extension)
 
@@ -108,7 +108,7 @@ id). Batches: `database.Write.RunAsync(batch, cancellationToken)`.
 `Lazy<QueryStatement>`; the SQL file is `SQL/GetCustomer.sql` (or `.psql` once Pg services are registered; a host
 with both providers uses `SqlQueryStatement` / `PgQueryStatement`). Convention: one static `Queries` class exposing
 every query as a static property, so usage is visible by reference count. Procedures are preferred for SQL Server;
-statement files for PostgreSQL (Pg `QueryProcedure` calls functions only).
+statement files for PostgreSQL (Npgsql runs a Pg `QueryProcedure` as `CALL`, so it calls procedures only; read rows from a function through a statement file).
 
 **Parameters.** `var prms = new ParameterCollection();` then provider extension methods such as
 `prms.AddSqlIntInputParameter("@CustomerId", id)`, `prms.AddSqlNVarCharOutputParameter("@Name", 255)` (Pg:
@@ -180,7 +180,7 @@ and `OrleansShardQueryDefinitions(...)`; `siloBuilder.UseArgentSeaClustering()`;
 and `IDeepCopier<ShardKey<T>>` so shard keys work as grain keys; options `OrleansDbPersistenceOptions`,
 `OrleansShardPersistenceOptions` (`ShardSetKey`, `DatabaseKey`, `ValidateGrainKeys`); for clients the
 `ClusterClientDbOptions` record (`DatabaseKey` default "Common", `GatewayListQuery` default
-`rdr.OrleansClusterGatewayListV1`, `MaxRefreshInterval`). The readme's `ClusteringClientOptions` section name is not
+`GatewayListQuery` with no default in the shared record: each package's gateway list provider uses its own `Queries.OrleansClusterGatewayList` when it is unset, `MaxRefreshInterval`). Configuration-driven provider types are `ArgentSeaSql` (shard-set storage, clustering, reminders) and `ArgentSeaSqlDb` (single-database storage); the PostgreSQL package registers `ArgentSeaPg` and `ArgentSeaPgDb`, and its extensions are Pg-named (`AddArgentSeaPgDbOrleansGrainStorage`, `AddArgentSeaPgShardOrleansGrainStorage`, `UseArgentSeaPgClustering`, `UseArgentSeaPgReminderService`); its scripts `common.psql` / `tenant.psql` are packed in the NuGet `sql` folder. The readme's `ClusteringClientOptions` section name is not
 bound by current source. Scripts `common.sql` / `tenant.sql` live in the ArgentSea.Orleans.Sql source (they are not
 packed into NuGet) with `rdr`/`wtr` schemas. Grain state is read/written through
 per-grain-type Query objects mapped by the Mapper; a missing row yields default-constructed state. See

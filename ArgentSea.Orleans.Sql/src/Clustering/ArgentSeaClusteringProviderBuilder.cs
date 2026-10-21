@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Orleans.Configuration;
 using Orleans.Providers;
 
-// Our providerType is named "ArgentSea" and our providerName is "Clustering".
-[assembly: RegisterProvider("ArgentSea", "Clustering", "Silo", typeof(ArgentSea.Orleans.Sql.ArgentSeaClusteringProviderBuilder))]
-[assembly: RegisterProvider("ArgentSea", "Clustering", "Client", typeof(ArgentSea.Orleans.Sql.ArgentSeaClusteringProviderBuilder))]
+// Our providerType is named "ArgentSeaSql" (ArgentSea.Orleans.Pg registers "ArgentSeaPg") and our providerName is "Clustering".
+[assembly: RegisterProvider("ArgentSeaSql", "Clustering", "Silo", typeof(ArgentSea.Orleans.Sql.ArgentSeaClusteringProviderBuilder))]
+[assembly: RegisterProvider("ArgentSeaSql", "Clustering", "Client", typeof(ArgentSea.Orleans.Sql.ArgentSeaClusteringProviderBuilder))]
 
 namespace ArgentSea.Orleans.Sql;
 

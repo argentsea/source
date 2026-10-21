@@ -15,7 +15,7 @@ ArgentSea is one core library plus a thin package for each database platform, wi
 
 **ArgentSea.Sql** and **ArgentSea.Pg** each implement one narrow seam, the *data provider services*: create a connection, create a command, copy a parameter collection onto a command, and decide whether an error is transient. Around that seam each package adds what only it can know: the configuration option classes and their JSON section names, the `MapToSql*` or `MapToPg*` attributes with the platform's types, typed parameter extension methods, bulk loading (table-valued parameters, or `COPY`), and the `AddSqlServices` / `AddPgServices` registration. A project references exactly one of them.
 
-**ArgentSea.Orleans** is the abstract Orleans provider: grain persistence built on any ArgentSea provider's collections, the `ShardKey` serializer for grain keys, and the option types. **ArgentSea.Orleans.Sql** binds it to SQL Server and adds cluster membership, gateway discovery and reminders through versioned stored procedures.
+**ArgentSea.Orleans** is the abstract Orleans provider: grain persistence built on any ArgentSea provider's collections, the `ShardKey` serializer for grain keys, and the option types. **ArgentSea.Orleans.Sql** binds it to SQL Server and **ArgentSea.Orleans.Pg** to PostgreSQL; each adds cluster membership, gateway discovery and reminders through versioned database routines.
 
 ## The two halves of a data method
 

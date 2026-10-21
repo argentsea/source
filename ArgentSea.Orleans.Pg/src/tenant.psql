@@ -1,0 +1,166 @@
+/* ===========================================================================
+ * Setup script for a "tenant" (shard) PostgreSQL database of ArgentSea.Orleans.Pg.
+ * It holds the sharded Orleans reminder table; run it in every database of the shard set. Presumably the ShardId determines
+ * the tenant in a hosted implementation. Its connections belong in the ArgentSea PgShardSets collection.
+ *
+ * The script is idempotent and runs as one command (psql -f, or a single Npgsql command). Run it as the role that will
+ * own the table and routines.
+ *
+ * Optional manual steps, before running the script:
+ *   CREATE DATABASE orleans_tenant_0;
+ * After running it, give your login roles the group roles the routines are granted to, e.g.:
+ *   CREATE ROLE silo_login LOGIN PASSWORD '...' IN ROLE orleans_writer;
+ *
+ * Permission model: the table lives in the orleans schema, on which no role but the owner has any right. Every routine is
+ * SECURITY DEFINER with a pinned search_path, PUBLIC's default EXECUTE right is revoked, and EXECUTE is granted per role:
+ *   orleans_reader  -> the rdr functions
+ *   orleans_writer  -> the rdr functions and the wtr procedures
+=========================================================================== */
+
+-- Roles (cluster-wide; created without login rights)
+DO $roles$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_roles WHERE rolname = 'orleans_reader') THEN
+        CREATE ROLE orleans_reader NOLOGIN;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_roles WHERE rolname = 'orleans_writer') THEN
+        CREATE ROLE orleans_writer NOLOGIN;
+    END IF;
+END
+$roles$;
+
+-- Schemas
+CREATE SCHEMA IF NOT EXISTS orleans;
+CREATE SCHEMA IF NOT EXISTS rdr;
+CREATE SCHEMA IF NOT EXISTS wtr;
+REVOKE ALL ON SCHEMA orleans FROM PUBLIC;
+
+-- Tables
+CREATE TABLE IF NOT EXISTS orleans.orleans_reminder
+(
+    reminder_id bigint NOT NULL GENERATED ALWAYS AS IDENTITY CONSTRAINT pk_orleans_reminder PRIMARY KEY,
+    grain_key bytea NOT NULL,              -- the serialized grain key (an ArgentSea ShardKey selects the shard)
+    grain_type varchar(1023) NOT NULL,
+    reminder_name varchar(150) NOT NULL,
+    start_time timestamptz NOT NULL,
+    period bigint NOT NULL,                -- TimeSpan ticks
+    grain_hash bigint NOT NULL,            -- GrainId.GetUniformHashCode(), a uint, so it needs 64 bits
+    version integer NOT NULL,
+    CONSTRAINT uix_orleans_reminder_grain_reminder UNIQUE (grain_key, grain_type, reminder_name)
+);
+
+CREATE INDEX IF NOT EXISTS ix_orleans_reminder_grain_hash ON orleans.orleans_reminder (grain_hash);
+
+-- Reads (functions)
+CREATE OR REPLACE FUNCTION rdr.orleans_reminder_read_row_v1(p_grain_key bytea, p_grain_type varchar, p_reminder_name varchar)
+RETURNS TABLE (grain_key bytea, grain_type varchar, reminder_name varchar, start_time timestamptz, period bigint, version integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT r.grain_key, r.grain_type, r.reminder_name, r.start_time, r.period, r.version
+    FROM orleans.orleans_reminder AS r
+    WHERE r.grain_key = p_grain_key
+        AND r.grain_type = p_grain_type
+        AND r.reminder_name = p_reminder_name;
+$$;
+
+CREATE OR REPLACE FUNCTION rdr.orleans_reminder_read_rows_v1(p_grain_key bytea, p_grain_type varchar)
+RETURNS TABLE (grain_key bytea, grain_type varchar, reminder_name varchar, start_time timestamptz, period bigint, version integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT r.grain_key, r.grain_type, r.reminder_name, r.start_time, r.period, r.version
+    FROM orleans.orleans_reminder AS r
+    WHERE r.grain_key = p_grain_key
+        AND r.grain_type = p_grain_type;
+$$;
+
+-- The range (begin, end] excludes begin and includes end; when begin >= end it wraps around the ring.
+CREATE OR REPLACE FUNCTION rdr.orleans_reminder_read_range_rows_v1(p_begin_hash bigint, p_end_hash bigint)
+RETURNS TABLE (grain_key bytea, grain_type varchar, reminder_name varchar, start_time timestamptz, period bigint, version integer)
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+    SELECT r.grain_key, r.grain_type, r.reminder_name, r.start_time, r.period, r.version
+    FROM orleans.orleans_reminder AS r
+    WHERE (p_begin_hash >= p_end_hash AND (r.grain_hash > p_begin_hash OR r.grain_hash <= p_end_hash))
+        OR (p_begin_hash < p_end_hash AND r.grain_hash > p_begin_hash AND r.grain_hash <= p_end_hash);
+$$;
+
+-- Writes (procedures)
+CREATE OR REPLACE PROCEDURE wtr.orleans_reminder_delete_row_v1(
+    p_grain_key bytea,
+    p_grain_type varchar,
+    p_reminder_name varchar,
+    p_version integer,
+    INOUT p_is_found boolean DEFAULT NULL)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+BEGIN
+    DELETE FROM orleans.orleans_reminder AS r
+    WHERE r.grain_key = p_grain_key
+        AND r.grain_type = p_grain_type
+        AND r.reminder_name = p_reminder_name
+        AND r.version = p_version;
+
+    p_is_found := FOUND;
+END;
+$$;
+
+CREATE OR REPLACE PROCEDURE wtr.orleans_reminder_upsert_row_v1(
+    p_grain_key bytea,
+    p_grain_type varchar,
+    p_reminder_name varchar,
+    p_start_time timestamptz,
+    p_period bigint,
+    p_grain_hash bigint,
+    p_old_version integer,
+    INOUT p_new_version integer DEFAULT NULL)
+LANGUAGE plpgsql SECURITY DEFINER SET search_path = pg_catalog, pg_temp
+AS $$
+DECLARE
+    v_current_version integer;
+BEGIN
+    SELECT r.version INTO v_current_version
+    FROM orleans.orleans_reminder AS r
+    WHERE r.grain_key = p_grain_key
+        AND r.grain_type = p_grain_type
+        AND r.reminder_name = p_reminder_name
+    FOR UPDATE;
+
+    IF FOUND THEN
+        -- An etag that no longer matches is a concurrency conflict (SQLSTATE AS001); with no etag the row is replaced.
+        IF p_old_version IS NOT NULL AND v_current_version <> p_old_version THEN
+            RAISE EXCEPTION 'Concurrency error: the reminder version does not match.' USING ERRCODE = 'AS001';
+        END IF;
+        p_new_version := v_current_version + 1;
+
+        UPDATE orleans.orleans_reminder AS r
+        SET start_time = p_start_time,
+            period = p_period,
+            grain_hash = p_grain_hash,
+            version = p_new_version
+        WHERE r.grain_key = p_grain_key
+            AND r.grain_type = p_grain_type
+            AND r.reminder_name = p_reminder_name;
+    ELSE
+        -- A new reminder (no stored row, so no old version) starts at version 0 and reports it.
+        p_new_version := coalesce(p_old_version, -1) + 1;
+
+        INSERT INTO orleans.orleans_reminder (grain_key, grain_type, reminder_name, start_time, period, grain_hash, version)
+        VALUES (p_grain_key, p_grain_type, p_reminder_name, p_start_time, p_period, p_grain_hash, p_new_version)
+        ON CONFLICT (grain_key, grain_type, reminder_name) DO NOTHING;
+
+        IF NOT FOUND THEN
+            RAISE EXCEPTION 'Concurrency error: the reminder was created by a concurrent writer.' USING ERRCODE = 'AS001';
+        END IF;
+    END IF;
+END;
+$$;
+
+-- Authorization
+REVOKE ALL ON ALL TABLES IN SCHEMA orleans FROM PUBLIC;
+REVOKE ALL ON ALL ROUTINES IN SCHEMA rdr FROM PUBLIC;
+REVOKE ALL ON ALL ROUTINES IN SCHEMA wtr FROM PUBLIC;
+
+GRANT USAGE ON SCHEMA rdr TO orleans_reader, orleans_writer;
+GRANT USAGE ON SCHEMA wtr TO orleans_writer;
+GRANT EXECUTE ON ALL ROUTINES IN SCHEMA rdr TO orleans_reader, orleans_writer;
+GRANT EXECUTE ON ALL ROUTINES IN SCHEMA wtr TO orleans_writer;

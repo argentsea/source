@@ -16,7 +16,7 @@ public class ProviderBuilderConfigurationTests
     {
         var config = Config(new()
         {
-            ["Orleans:GrainStorage:Tenant:ProviderType"] = "ArgentSea",
+            ["Orleans:GrainStorage:Tenant:ProviderType"] = "ArgentSeaSql",
             ["Orleans:GrainStorage:Tenant:ShardSetKey"] = "FromProvider",
             ["OrleansData:ShardSetKey"] = "FromLegacy",
         });
@@ -33,7 +33,7 @@ public class ProviderBuilderConfigurationTests
     {
         var config = Config(new()
         {
-            ["Orleans:GrainStorage:Common:ProviderType"] = "ArgentSea",
+            ["Orleans:GrainStorage:Common:ProviderType"] = "ArgentSeaSqlDb",
             ["OrleansData:DatabaseKey"] = "Common",
         });
 
