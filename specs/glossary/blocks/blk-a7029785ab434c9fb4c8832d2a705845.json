@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "A query or batch executed concurrently across every shard of a `ShardSet` (or the subset specified by `ShardsValues`), where each shard runs on its own connection with its own cloned parameter set under its own resilience policy. `ShardSet` provides three fan-out modes: `ReadAll` (combines all non-null shard results), `ReadFirst` (returns the first non-null result and cancels remaining shards), and `Write` (executes on shard write connections and lets all shards finish).",
     "name": "Fan-out query",
-    "definition": "One query executed concurrently against every shard of a shard set, or a targeted subset given by shards values. Each shard runs on its own connection, with its own copy of the parameters, under its own resilience strategy. The per-shard results, produced by a result handler, are then combined. The three forms are ReadAll, ReadFirst and shard-set Write.",
     "synonyms": [
       "shard-set query",
       "cross-shard query"
