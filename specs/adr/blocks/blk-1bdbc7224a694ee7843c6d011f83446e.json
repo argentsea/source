@@ -1,0 +1,84 @@
+{
+  "id": "blk-1bdbc7224a694ee7843c6d011f83446e",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Discover each shard's id from the database at startup through a convention table or procedure.",
+        "whyRejected": "It imposes a schema convention on every consumer and adds a startup dependency on every shard being reachable."
+      },
+      {
+        "option": "Verify the shard id on every call.",
+        "whyRejected": "It adds per-call cost. ArgentSea leaves it as an opt-in through the shard id parameter."
+      }
+    ],
+    "consequences": "Every client must map shard ids to databases identically. Two clients configured differently can corrupt data silently. Recommended mitigations, all of which are the application's responsibility: validate a shard id parameter inside write procedures, use optimistic concurrency (rowversion or timestamp), and manage shard configuration centrally.",
+    "context": "Shard databases usually have identical schemas and frequently identical record ids, so a misrouted write does not fail; it overwrites a different record in the wrong database. Making the client discover each database's shard id would require a well-known query or schema convention on every database, plus an extra round trip or a startup handshake.",
+    "decision": "A shard's id comes only from the client's configuration (`ShardId` on each shard entry). ArgentSea does not ask the database which shard it is and does not verify it. For applications that want verification, ArgentSea can pass the configured shard id into any query through a shard id parameter, so the SQL can check it or record it.",
+    "status": "Accepted",
+    "title": "Shard identity is assigned by client configuration; the database is not authoritative"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/shardtype.md",
+        "lines": "1-12",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "34-45",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "76-81",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-addressing",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": "Shard id",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-eee7f551a58f4b4f9e5f8b6bebc2389f",
+      "blobHash": null,
+      "label": "Shard id parameter",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-b33019a7f7434c96b391fff4951a0ecc",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

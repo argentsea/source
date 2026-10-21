@@ -20,7 +20,7 @@
     "consequences": "Every client must map shard ids to databases identically. Two clients configured differently can corrupt data silently. Recommended mitigations, all of which are the application's responsibility: validate a shard id parameter inside write procedures, use optimistic concurrency (rowversion or timestamp), and manage shard configuration centrally."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
