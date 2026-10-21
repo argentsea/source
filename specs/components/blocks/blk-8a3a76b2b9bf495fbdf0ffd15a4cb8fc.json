@@ -1,0 +1,34 @@
+{
+  "id": "blk-8a3a76b2b9bf495fbdf0ffd15a4cb8fc",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans PostgreSQL Grain Storage Hosting",
+    "responsibility": "Registers ArgentSea grain storage over PostgreSQL on an Orleans silo — single-database storage over PgDatabases and shard-set storage over PgShardSets — through Pg-named builder extensions, a grain-storage factory resolving options by provider name, and configuration-driven provider types ArgentSeaPg (shard sets) and ArgentSeaPgDb (single database).",
+    "parent": "blk-f486ffd938dc49848ea294575437cb5b"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-ffd569b5985548bab62dbffc61611fbb",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
