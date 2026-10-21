@@ -5,15 +5,15 @@
   "fields": {
     "gwt": {
       "given": "data is the 1-byte span [0x07] with position = 0, and valueType = typeof(object) -- a type neither GetKeyDataType nor GetArgType ever produces",
-      "when": "TryConvertFromBytes(ref data, ref position, typeof(object), out result) is called",
-      "then": "TryConvertFromBytes returns false, result is null, and position remains 0 -- no exception is thrown for the unrecognized type"
+      "then": "TryConvertFromBytes returns false, result is null, and position remains 0 -- no exception is thrown for the unrecognized type",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(object), out result) is called"
     },
     "illustrates": [
       {
+        "blockId": "blk-faee456447084061bb18f1b1bbcab911",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-39a425343a964aec833e2152fd208691"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
