@@ -20,7 +20,7 @@
     "consequences": "Adding a provider is relatively small, and a fix in the core benefits every provider. Consuming code sees provider-named types (`SqlDatabases`, `PgShardSets`) that are thin subclasses of the generic bases. The core cannot assume provider features, so anything platform-specific must go through the seam or the attributes. Provider behaviors such as transient-error lists and parameter copying can differ, so they need provider-specific specification."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
