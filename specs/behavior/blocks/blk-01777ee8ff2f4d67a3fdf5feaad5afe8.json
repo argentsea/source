@@ -1,0 +1,62 @@
+{
+  "id": "blk-01777ee8ff2f4d67a3fdf5feaad5afe8",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a result handler expecting a data reader from stored procedure \"usp_GetCustomer\" on connection \"Shard03\", where the reader object returned is null",
+      "then": "the logger receives an Error-level event under event id MapperResultsReaderInvalid (7) reading \"Expected data reader object was null from procedure usp_GetCustomer on connection Shard03.\"",
+      "when": "DataReaderIsNull(logger, \"usp_GetCustomer\", \"Shard03\") is called"
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-b494ccd7a3e84199989eecd5278d375d",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "110-111,225-226",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-344945c1c13043a3aa52a115b6b863ba",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
