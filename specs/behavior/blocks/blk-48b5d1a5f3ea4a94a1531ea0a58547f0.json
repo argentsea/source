@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "compiled key-handling delegates are initialized on demand per grain type and reused across subsequent grain persistence operations",
+    "response": "lazily initialize the compiled delegate per grain key and log a cache hit at Trace or a cache miss at Debug under event id MapperCacheStatus (4), naming the grain type: the database-backed provider reports OrleansDbCacheHit/Miss, and the shard provider reports OrleansShardCacheHit/Miss for every delegate it looks up, including the set-shard delegate its read path uses when it activates a default state whose shard key must be set from the grain id",
     "subject": "Grain Persistence",
-    "trigger": "a read, write or clear operation looks up the compiled key-handling delegate for a grain type in its process-lifetime cache",
-    "response": "report a cache hit at Trace or a cache miss at Debug under event id MapperCacheStatus (4), naming the grain type: the database-backed provider reports OrleansDbCacheHit/Miss, and the shard provider reports OrleansShardCacheHit/Miss for every delegate it looks up, including the set-shard delegate its read path uses when it activates a default state whose shard key must be set from the grain id",
-    "postcondition": "the hit/miss decision is taken from whether the cached Lazy already had its value created before it is forced, so concurrent first callers for the same grain type can each report a miss although only one compiles the delegate"
+    "trigger": "a read, write or clear operation looks up the compiled key-handling delegate for a grain type in its process-lifetime cache"
   },
   "metadata": {
     "status": "Draft",
