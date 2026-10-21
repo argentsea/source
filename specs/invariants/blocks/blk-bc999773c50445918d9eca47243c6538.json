@@ -7,7 +7,7 @@
     "scope": "Every Query instance (QueryProcedure, QueryStatement, and any other Query subclass)."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
