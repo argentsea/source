@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "a string produced by SerializeToExternalString for unaltered bytes always reverses successfully to the original byte sequence, since both directions compute the 12-bit checksum over the unobfuscated byte values",
+    "response": "decode the URL-safe Modified Base64 characters and invert the bit-inversion obfuscation to recover the payload bytes, recompute the 12-bit checksum over the de-obfuscated bytes, and reject an invalid external key string (when the recomputed checksum does not equal the leading two checksum characters or a character falls outside the encoding alphabet) by throwing an exception",
     "subject": "StringExtensions",
-    "trigger": "a caller reverses an external key string via SerializeFromExternalString",
-    "response": "recompute the 12-bit checksum over the de-obfuscated bytes and reject the string with a System.Exception when it does not equal the leading two checksum characters, or when either checksum character falls outside the encoding alphabet",
-    "postcondition": "a string produced by SerializeToExternalString for unaltered bytes always reverses successfully, since both directions accumulate the checksum over the same unobfuscated byte values"
+    "trigger": "a caller decodes an external key string via SerializeFromExternalString"
   },
   "metadata": {
     "status": "Draft",
