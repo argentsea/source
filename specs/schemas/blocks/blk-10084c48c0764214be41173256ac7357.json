@@ -87,10 +87,25 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "orleans-grain-storage-package",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
   "references": [],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "PackageInvariantTests pass against the 2.1.0 project files at commit ea8e9aa3 (ArgentSea.Test 623/623).",
+      "evidenceId": "evi-a6f7dd40e2cd4816963bfb736b4d013e",
+      "verifiedContentHash": "fields-sha256-v1:aa84239c97d693df620d06ed37583237961d571d5642cd25cbbf11ac9f3a3283",
+      "recordedAt": "2026-10-21T05:31:56.4864468+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
