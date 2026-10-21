@@ -22,7 +22,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "argent-sea",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "universal"
   },
@@ -36,5 +36,20 @@
       "label": "origin note"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "TheSolutionHoldsTheSixProductProjectsEachWithOneDedicatedTestProject passes at 85a10ff3.",
+      "evidenceId": "evi-c003a23c5b5a4de99d44873b98f9c74e",
+      "verifiedContentHash": "fields-sha256-v1:c73ff104ab15edd4df570626723c65f26850f948f064817ca136707cdc143805",
+      "recordedAt": "2026-10-21T05:00:00.594728+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
