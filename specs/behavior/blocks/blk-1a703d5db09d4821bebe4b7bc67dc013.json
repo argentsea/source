@@ -6,8 +6,8 @@
     "subject": "ArgentSeaOrleansMembershipTable",
     "condition": "the update-member query execution fails",
     "trigger": "UpdateRow is invoked",
-    "response": "return false only when the failure is the procedure's concurrency signal (a SqlException with error number 51000, raised when the member row is missing or its etag or the TableVersion does not match); log and propagate every other exception",
-    "postcondition": "callers receive false only for a version/etag conflict, consistent with InsertRow; transient connection or timeout failures surface as exceptions and are never reported to Orleans as a concurrency conflict"
+    "response": "return false only when the failure is a concurrency conflict: a SqlException carrying error number 51000 (raised by wtr.OrleansClusterUpdateMemberKeyV2 when the stored table etag does not equal the TableVersion etag, or the member row is missing, or its stored etag does not equal UpdateRow's etag argument) or an In-Memory OLTP write-conflict error 41302, 41305, 41325 or 41301 (a simultaneous writer changed the row first); log and propagate every other exception",
+    "postcondition": "callers receive false only for a version/etag conflict, consistent with InsertRow; the procedure compares and advances the table etag in one statement and commits the version, member and suspicion changes entirely or not at all; transient connection or timeout failures surface as exceptions and are never reported to Orleans as a concurrency conflict"
   },
   "metadata": {
     "status": "Draft",
@@ -46,6 +46,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
