@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "repeated conversions of the same model type reuse the cached compiled projection delegate instead of rebuilding it from reflection on every call",
+    "response": "lazily compile and cache that model type's table-valued-record projection delegate behind a cached Lazy<Delegate>, reusing the compiled delegate on subsequent calls for the same type and logging whether the cached delegate was already initialized (cache hit) or newly compiled (cache miss)",
     "subject": "Table Valued Parameters",
-    "trigger": "ToTvpRecord<TModel> is called for a model type",
-    "response": "shall compile that model type's table-valued-record projection delegate at most once behind a cached Lazy<Delegate>, reusing the compiled delegate for every later call for the same type, and shall report whether the projection was already materialized at the moment this call checked the cache (a cache hit) or had not yet been materialized (a cache miss) — because the cache check and the forced materialization are two separate steps, a concurrent caller can observe an entry that another caller already added but has not yet finished compiling, and will report a miss even though this call did not itself create the dictionary entry",
-    "postcondition": "repeated conversions of the same model type reuse one compiled projection instead of rebuilding it from reflection on every call"
+    "trigger": "ToTvpRecord<TModel> is called for a model type"
   },
   "metadata": {
     "status": "Draft",
