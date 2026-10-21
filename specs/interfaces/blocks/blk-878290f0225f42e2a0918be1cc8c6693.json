@@ -25,7 +25,7 @@
     "owner": "operator",
     "orderKey": "mmmmmm",
     "sectionId": "orleans-cluster-providers",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
@@ -48,5 +48,20 @@
       "label": "origin note"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Integration.Test/Orleans/MembershipTableIntegrationTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "GatewayListProviderListsTheActiveSilosOfTheCluster (option unset, package default) and ClusterProvidersTests pass at 85a10ff3.",
+      "evidenceId": "evi-e4c626c2daed4205a543abcc6698e56b",
+      "verifiedContentHash": "fields-sha256-v1:d2c6e3b87a22cd992f78ac42b42819d05d6df0b9241b6d57fa99bbb193fab11d",
+      "recordedAt": "2026-10-21T05:00:13.5484565+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
