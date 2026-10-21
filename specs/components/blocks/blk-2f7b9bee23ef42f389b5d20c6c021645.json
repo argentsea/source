@@ -1,0 +1,34 @@
+{
+  "id": "blk-2f7b9bee23ef42f389b5d20c6c021645",
+  "specId": "components",
+  "type": "Component",
+  "fields": {
+    "name": "Orleans PostgreSQL Reminder Storage",
+    "responsibility": "Stores Orleans reminders in the PostgreSQL shard databases of an ArgentSea shard set, each reminder on the shard its grain key names, with versioned upserts, conditional removal and hash-range reads across every shard.",
+    "parent": "blk-f486ffd938dc49848ea294575437cb5b"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-2e8c9c04e79f4a80997000cc759dc7e2",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": null,
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
