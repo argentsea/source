@@ -3,7 +3,7 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "The ArgentSea solution's project membership comprises exactly five product projects — ArgentSea.Shared (built as ArgentSea.csproj), ArgentSea.Sql, ArgentSea.Pg, ArgentSea.Orleans, and ArgentSea.Orleans.Sql — plus exactly one dedicated test project for each of them (ArgentSea.Test, ArgentSea.Sql.Test, ArgentSea.Pg.Test, ArgentSea.Orleans.Test, and ArgentSea.Orleans.Sql.Test).",
+    "statement": "The ArgentSea solution's project membership comprises exactly six product projects — ArgentSea.Shared (built as ArgentSea.csproj), ArgentSea.Sql, ArgentSea.Pg, ArgentSea.Orleans, ArgentSea.Orleans.Sql and ArgentSea.Orleans.Pg — plus exactly one dedicated test project for each of them (ArgentSea.Test, ArgentSea.Sql.Test, ArgentSea.Pg.Test, ArgentSea.Orleans.Test, ArgentSea.Orleans.Sql.Test and ArgentSea.Orleans.Pg.Test), and the shared ArgentSea.TestKit and ArgentSea.Integration.Test projects.",
     "scope": "Project composition declared in the ArgentSea.slnx solution file."
   },
   "metadata": {
@@ -26,6 +26,15 @@
     "schemaVersion": "1",
     "packId": "universal"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
+    }
+  ],
   "evidenceLinks": []
 }
