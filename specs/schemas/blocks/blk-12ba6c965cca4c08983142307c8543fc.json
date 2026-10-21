@@ -3,127 +3,132 @@
   "specId": "schemas",
   "type": "Schema",
   "fields": {
-    "name": "MapToSql*Attribute target-type matrix",
-    "description": "The target SQL Server type (the SqlDbType each variant's constructor passes to SqlParameterMapAttribute) and the CLR property shapes its IsValidType override accepts, for the 23 MapToSql*Attribute variants. Nullable forms are accepted only where listed; enum acceptance is limited to the string-family and integer variants. Every accepted shape works through input parameters, output parameters, data-reader reads and table-valued-parameter rows; any other shape is rejected with InvalidMapTypeException when the mapping is first built.",
+    "description": "The target SQL Server type (the SqlDbType each variant's constructor passes to SqlParameterMapAttribute or CollectionMapAttributeBase) and the CLR property shapes its IsValidType override accepts, for the 24 MapToSql*Attribute variants (23 scalar SqlParameterMapAttribute subclasses plus MapToSqlTableValuedParameterAttribute). Nullable forms are accepted only where listed; enum acceptance is limited to the string-family and integer variants (not Binary/VarBinary). Integer attributes (BigInt, Int, SmallInt, TinyInt) accept both signed and unsigned/opposite-signed 64/32/16/8-bit integers via unchecked same-width bitwise conversion, while Binary and VarBinary attributes also accept ulong, uint, ushort, sbyte (and their nullable forms) via fixed-width big-endian binary encoding. Every accepted scalar shape works through input parameters, output parameters, data-reader reads and table-valued-parameter rows; any unsupported CLR shape is rejected with InvalidMapTypeException when the mapping is first built, while a supported binary numeric shape with an incompatible configured length is rejected with InvalidBinaryMappingLengthException.",
     "members": [
       {
+        "description": "string, enum, nullable enum; length -1 selects nvarchar(max)",
         "name": "NVarChar",
-        "type": "nvarchar(n)",
-        "description": "string, enum, nullable enum; length -1 selects nvarchar(max)"
+        "type": "nvarchar(n)"
       },
       {
+        "description": "string, enum, nullable enum; length",
         "name": "NChar",
-        "type": "nchar(n)",
-        "description": "string, enum, nullable enum; length"
+        "type": "nchar(n)"
       },
       {
+        "description": "string, enum, nullable enum; length -1 selects varchar(max), and localeId",
         "name": "VarChar",
-        "type": "varchar(n)",
-        "description": "string, enum, nullable enum; length -1 selects varchar(max), and localeId"
+        "type": "varchar(n)"
       },
       {
+        "description": "string, enum, nullable enum; length and localeId",
         "name": "Char",
-        "type": "char(n)",
-        "description": "string, enum, nullable enum; length and localeId"
+        "type": "char(n)"
       },
       {
+        "description": "long, ulong, non-nullable enum, nullable long (Nullable<long>), or nullable ulong (Nullable<ulong>); a nullable enum is NOT accepted. ulong and ulong? use unchecked same-width conversion to/from Int64 across input parameters, output parameters, data-reader reads, and TVP rows.",
         "name": "BigInt",
-        "type": "bigint",
-        "description": "long, enum, nullable long (Nullable<long>); a nullable enum is NOT accepted"
+        "type": "bigint"
       },
       {
+        "description": "int, uint, enum, nullable int (Nullable<int>), nullable uint (Nullable<uint>), or nullable enum. uint and uint? use unchecked same-width conversion to/from Int32 across input parameters, output parameters, data-reader reads, and TVP rows.",
         "name": "Int",
-        "type": "int",
-        "description": "int, enum, nullable int (Nullable<int>), nullable enum"
+        "type": "int"
       },
       {
+        "description": "short, ushort, enum, nullable short (Nullable<short>), nullable ushort (Nullable<ushort>), or nullable enum. ushort and ushort? use unchecked same-width conversion to/from Int16 across input parameters, output parameters, data-reader reads, and TVP rows.",
         "name": "SmallInt",
-        "type": "smallint",
-        "description": "short, enum, nullable short (Nullable<short>), nullable enum"
+        "type": "smallint"
       },
       {
+        "description": "byte, sbyte, enum, nullable byte (Nullable<byte>), nullable sbyte (Nullable<sbyte>), or nullable enum. sbyte and sbyte? use unchecked same-width conversion to/from Byte across input parameters, output parameters, data-reader reads, and TVP rows.",
         "name": "TinyInt",
-        "type": "tinyint",
-        "description": "byte, enum, nullable byte (Nullable<byte>), nullable enum"
+        "type": "tinyint"
       },
       {
+        "description": "bool or nullable bool",
         "name": "Bit",
-        "type": "bit",
-        "description": "bool or nullable bool"
+        "type": "bit"
       },
       {
+        "description": "decimal or nullable decimal; precision and scale",
         "name": "Decimal",
-        "type": "decimal(p,s)",
-        "description": "decimal or nullable decimal; precision and scale"
+        "type": "decimal(p,s)"
       },
       {
+        "description": "decimal or nullable decimal",
         "name": "Money",
-        "type": "money",
-        "description": "decimal or nullable decimal"
+        "type": "money"
       },
       {
+        "description": "decimal or nullable decimal",
         "name": "SmallMoney",
-        "type": "smallmoney",
-        "description": "decimal or nullable decimal"
+        "type": "smallmoney"
       },
       {
+        "description": "double or nullable double",
         "name": "Float",
-        "type": "float",
-        "description": "double or nullable double"
+        "type": "float"
       },
       {
+        "description": "float or nullable float",
         "name": "Real",
-        "type": "real",
-        "description": "float or nullable float"
+        "type": "real"
       },
       {
+        "description": "DateTime or nullable DateTime",
         "name": "DateTime",
-        "type": "datetime",
-        "description": "DateTime or nullable DateTime"
+        "type": "datetime"
       },
       {
+        "description": "DateTime or nullable DateTime",
         "name": "DateTime2",
-        "type": "datetime2",
-        "description": "DateTime or nullable DateTime"
+        "type": "datetime2"
       },
       {
+        "description": "DateOnly or nullable DateOnly (DateTime is NOT accepted); a date output parameter returned as DateTime is read back as its DateOnly date part",
         "name": "Date",
-        "type": "date",
-        "description": "DateOnly or nullable DateOnly (DateTime is NOT accepted); a date output parameter returned as DateTime is read back as its DateOnly date part"
+        "type": "date"
       },
       {
+        "description": "TimeSpan, TimeOnly, nullable TimeSpan, or nullable TimeOnly; a TimeOnly value is sent (input parameter and table-valued-parameter row) as its TimeSpan equivalent and read back from the TimeSpan or TimeOnly value the provider returns",
         "name": "Time",
-        "type": "time",
-        "description": "TimeSpan, TimeOnly, nullable TimeSpan, or nullable TimeOnly; a TimeOnly value is sent (input parameter and table-valued-parameter row) as its TimeSpan equivalent and read back from the TimeSpan or TimeOnly value the provider returns"
+        "type": "time"
       },
       {
+        "description": "DateTimeOffset or nullable DateTimeOffset",
         "name": "DateTimeOffset",
-        "type": "datetimeoffset",
-        "description": "DateTimeOffset or nullable DateTimeOffset"
+        "type": "datetimeoffset"
       },
       {
+        "description": "byte[] (no nullable wrapper; ReadOnlySpan<byte>, Span<byte>, ReadOnlyMemory<byte> and Memory<byte> are rejected), or ulong, uint, ushort, sbyte, ulong?, uint?, ushort?, sbyte? (enums are NOT accepted). Numeric values are encoded as fixed-width big-endian bytes (8B for ulong, 4B for uint, 2B for ushort, 1B unchecked((byte)value) for sbyte), which preserves unsigned sort order in SQL Server for ulong, uint, and ushort (not sbyte). Configured length must be -1 (varbinary(max)) or in [width, 8000], otherwise IsValidType throws InvalidBinaryMappingLengthException; on read/output decode, a non-null payload whose byte length != width throws InvalidBinaryValueLengthException.",
         "name": "VarBinary",
-        "type": "varbinary(n)",
-        "description": "byte[] only (no nullable wrapper; ReadOnlySpan<byte>, Span<byte>, ReadOnlyMemory<byte> and Memory<byte> are rejected); length -1 selects varbinary(max)"
+        "type": "varbinary(n)"
       },
       {
+        "description": "byte[], or ulong, uint, ushort, sbyte, ulong?, uint?, ushort?, sbyte? (enums are NOT accepted). Numeric values are encoded as fixed-width big-endian bytes (8B for ulong, 4B for uint, 2B for ushort, 1B unchecked((byte)value) for sbyte), preserving unsigned sort order for ulong, uint, and ushort (not sbyte). Configured length must equal the exact byte width of the numeric type (8, 4, 2, or 1), otherwise IsValidType throws InvalidBinaryMappingLengthException; on read/output decode, a non-null payload whose byte length != width throws InvalidBinaryValueLengthException.",
         "name": "Binary",
-        "type": "binary(n)",
-        "description": "byte[] only; length"
+        "type": "binary(n)"
       },
       {
+        "description": "Guid or nullable Guid",
         "name": "UniqueIdentifier",
-        "type": "uniqueidentifier",
-        "description": "Guid or nullable Guid"
+        "type": "uniqueidentifier"
       },
       {
+        "description": "System.Text.Json.JsonDocument only (no nullable wrapper)",
         "name": "Json",
-        "type": "json",
-        "description": "System.Text.Json.JsonDocument only (no nullable wrapper)"
+        "type": "json"
+      },
+      {
+        "description": "IEnumerable<TElement>, IList<TElement>, List<TElement>, TElement[], ImmutableArray<TElement> (default uninitialized instances are normalized to ImmutableArray<TElement>.Empty), or HashSet<TElement>, where TElement has MapToSql* column attributes; binds as SqlDbType.Structured with SqlParameter.TypeName set to the configured SQL Server table type name on writes, and reads child records from a subsequent result set.",
+        "name": "TableValuedParameter",
+        "type": "array<T>"
       }
     ],
+    "name": "MapToSql*Attribute target-type matrix",
     "representations": {
-      "C#": "Each member is realized by a MapToSql<member>Attribute subclass."
+      "C#": "Each scalar member is realized by a MapToSql<member>Attribute subclass of SqlParameterMapAttribute, and TableValuedParameter is realized by MapToSqlTableValuedParameterAttribute : CollectionMapAttributeBase. Although MapToSqlBigIntAttribute, MapToSqlIntAttribute, MapToSqlSmallIntAttribute, MapToSqlTinyIntAttribute, MapToSqlBinaryAttribute, and MapToSqlVarBinaryAttribute support ulong, uint, ushort, and sbyte (and their nullable forms) for ordinary model properties, ShardKey<...> does NOT support unsigned (ulong, uint, ushort) or sbyte record/child/grandchild/great-grandchild key type arguments: ShardKeySerialization.GetKeyDataType returns KeyDataType.Undefined for those types, so ShardKey constructors throw InvalidShardKeyMetadataException."
     }
   },
   "metadata": {
