@@ -9,7 +9,7 @@
     "contract": "The per-property mapping trace family: TraceInMapperProperty, TraceSetOutMapperProperty, TraceGetOutMapperProperty, TraceRdrMapperProperty, each taking (this ILogger logger, string propertyName) and logging at Trace level under event id MapperProcessTrace (5), naming the property the Mapper's compiled delegate is currently processing. The variation dimension is mapping direction: In (building an input parameter), SetOut (declaring an output parameter), GetOut (reading an output parameter back), Rdr (reading a data-reader field). This direction vocabulary (In/SetOut/GetOut/Rdr) does not match the ReadOut spelling used by the sibling MappingCacheEvents family for what is otherwise the same read-output-parameter direction — the two families name the same concept differently."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
