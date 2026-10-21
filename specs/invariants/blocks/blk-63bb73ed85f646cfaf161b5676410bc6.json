@@ -7,7 +7,7 @@
     "scope": "ArgentSea.Orleans.Sql.csproj ProjectReference ItemGroup: ArgentSea.Orleans and ArgentSea.Sql entries."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
