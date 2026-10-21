@@ -11,7 +11,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "ImportedFromDocs",
-    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Draft for operator review.",
+    "provenanceNote": "ArgentSea architectural constitution.",
     "sources": [
       {
         "kind": "file",
