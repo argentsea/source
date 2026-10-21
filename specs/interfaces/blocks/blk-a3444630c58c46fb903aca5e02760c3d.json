@@ -9,7 +9,7 @@
     "contract": "StringExtensions.InputCleaningOptions is a flags selection for StringExtensions.CleanInput. CleanAll = 0 selects default cleaning. AllowEmojis = 1 retains surrogate-pair characters that default cleaning removes. AllowMultiline = 2 converts each LF to CRLF; other control characters, including a standalone CR, remain removed. AllowEmojis and AllowMultiline are independent nonzero flag bits and can be combined."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
