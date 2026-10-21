@@ -8,7 +8,7 @@
     "response": "log the call via the corresponding wrapper: RetryingDbConnection (Warning, event id ConnectRetry), CiruitBreakingDbConnection/CiruitBreakingDbCommand (Critical, event id CircuitBreaker), CiruitBrokenDbConnectionTest/CiruitBrokenDbCommandTest (Information, event id CircuitBreaker), or CiruitBrokenDbConnectionRestored/CiruitBrokenDbCommandRestored (Information, event id CircuitBreaker), naming the connection or command and, for a retry, the attempt number"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
