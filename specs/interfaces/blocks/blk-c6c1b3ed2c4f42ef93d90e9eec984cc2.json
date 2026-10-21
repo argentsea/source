@@ -1,0 +1,53 @@
+{
+  "id": "blk-c6c1b3ed2c4f42ef93d90e9eec984cc2",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "contract": "SqlDbConnectionOptions exposes a writable SqlDbConnections collection of SqlDbConnectionConfiguration entries. Its IDatabaseConfigurationOptions view exposes the same collection as IDatabaseConnectionConfiguration entries through DbConnectionsInternal.",
+    "kind": "Library",
+    "language": "text",
+    "name": "SqlDbConnectionOptions database-configuration collection contract"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlDbConnectionOptions.cs",
+        "lines": "32-36",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "components",
+      "blockId": "connection-configuration-hierarchy",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-e0effff43c6b4d4daa3244a3bb19ec2a",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
