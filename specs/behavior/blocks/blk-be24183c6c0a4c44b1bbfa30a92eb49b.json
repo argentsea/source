@@ -1,0 +1,71 @@
+{
+  "id": "blk-be24183c6c0a4c44b1bbfa30a92eb49b",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "each of the four cache kinds is distinguishable by event name and message",
+    "response": "report whether that model type's compiled mapping delegate was already cached (Trace-level cache-hit) or had to be compiled (Debug-level cache-miss) under event id MapperCacheStatus, with an event name equal to the wrapper method's name and a message naming the cache kind — input parameters, setting output parameters, reading output parameters, or data reader — and the model type as the cache key",
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls one of the eight cache-hit/cache-miss wrapper methods on the logger for a model type — SqlInParametersCacheHit/Miss, SqlSetOutParametersCacheHit/Miss, SqlReadOutParametersCacheHit/Miss, or SqlReaderCacheHit/Miss"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "83-90,145-167",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-860f5b1abf194ddea94eea2d0f7e237d",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
