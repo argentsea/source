@@ -1,0 +1,33 @@
+{
+  "id": "blk-8603d3bd15fe43e383af28d4a4c2fdd2",
+  "specId": "behavior",
+  "type": "Invariant",
+  "fields": {
+    "statement": "common.psql and tenant.psql each run as one command (no CREATE DATABASE, no psql meta-commands) and can be run any number of times against the same database without error.",
+    "scope": "ArgentSea.Orleans.Pg/src/common.psql and tenant.psql, packed in the NuGet package's sql folder."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-61544e59f047498ea00638b916701600",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-ef64d117d0c44284b69beba3f6821db2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
