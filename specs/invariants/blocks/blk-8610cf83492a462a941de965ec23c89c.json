@@ -23,7 +23,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "orleans-grain-storage-package",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "universal"
   },
@@ -38,5 +38,20 @@
       "relation": "supersedes"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "PackageInvariantTests verify ArgentSea.Orleans depends only on ArgentSea.Shared and Orleans abstractions and has no database-provider dependencies.",
+      "evidenceId": "evi-7448dcfe9e9a494cbe528d8053e8ef03",
+      "verifiedContentHash": "fields-sha256-v1:b89ab1f395300905f5d979e3fa69b6f1ef00dd16d8053494ab71fe7c2a6c0f03",
+      "recordedAt": "2026-10-21T22:57:32.0341503+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
