@@ -10,7 +10,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "ImportedFromDocs",
-    "provenanceNote": "Derived from the ArgentSea.DocFx documentation and the ArgentSea.Home landing page during initial agentic onboarding, 2026-07-19. Revised same day per operator direction: tenanting (distinct database per cloud tenant) is the more active use case than sharding — isolation, per-tenant data management, multi-tenant Orleans; Orleans capabilities expanded from the ArgentSea.Orleans readmes. Draft for operator review.",
+    "provenanceNote": "ArgentSea architectural constitution.",
     "sources": [
       {
         "kind": "file",
