@@ -9,7 +9,7 @@
     "contract": "namespace ArgentSea;\npublic sealed class InvalidShardKeyMetadataException : ApplicationException {\n  InvalidShardKeyMetadataException();               // \"The metadata embedded in the serialized shardkey data does not match the presecribed data types required by the current shardkey definition. The data is corrupt.\"\n  InvalidShardKeyMetadataException(string message);\n  InvalidShardKeyMetadataException(string message, Exception innerException);\n  InvalidShardKeyMetadataException(Type expected);  // \"The metadata embedded in the serialized shardkey does not match the prescribed data type of {expected} required by the current shardkey definition. The data is corrupt.\"\n}\n// Carries no properties beyond the message; the Type constructor only interpolates the expected key-part type into the message.\n// Raised while turning serialized bytes (or their external string form) back into a ShardKey / ShardChild / ShardGrandChild / ShardGreatGrandChild, or a GhostShardKey, when the embedded type metadata is too short or does not match the key-part types of the target key: the parameterless form for a length/shape failure, the Type form naming the expected key-part type for a position mismatch.\n// Callers should treat it as invalid input, not a transient fault: the serialized key was produced for a different key shape or was altered/truncated in transit, so retrying cannot succeed. Code that accepts external key strings (URLs, client payloads) should catch it and report a bad request rather than a server error."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
