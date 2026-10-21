@@ -9,7 +9,7 @@
     "contract": "namespace ArgentSea;\npublic sealed class InvalidShardArgumentsException : ApplicationException {\n  InvalidShardArgumentsException();               // \"An empty shard key type must have zeros for shard and record values.\"\n  InvalidShardArgumentsException(string message);\n  InvalidShardArgumentsException(string message, Exception innerException);\n}\n// Carries no properties beyond the message.\n// Declared as part of the public surface for rejecting inconsistent ShardKey construction arguments (an 'empty' key whose shard or record values are not zero), but no code in the library currently throws it: the ShardKey family's constructors and parsers do not raise it, so callers will not observe it from ArgentSea itself. It remains available for application code that validates key arguments and wants a library-consistent exception type."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
