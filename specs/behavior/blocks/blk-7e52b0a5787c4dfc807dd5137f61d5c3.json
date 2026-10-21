@@ -1,0 +1,78 @@
+{
+  "id": "blk-7e52b0a5787c4dfc807dd5137f61d5c3",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "no table-valued-parameter row expression is produced for a Json-mapped property; every other MapToSql*Attribute variant contributes a row expression instead",
+    "response": "throw a NotImplementedException reporting that the Json data type is not implemented in ADO.NET for table-valued functions",
+    "subject": "SQL Server Type Mapping",
+    "trigger": "a compiled table-valued-parameter row mapper builds the row-expression for a property mapped with MapToSqlJsonAttribute"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1317-1319",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "88-1266",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-type-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-819adff89883499c866bcaa1a3e45aa4",
+      "blobHash": null,
+      "label": null,
+      "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-aae7d609ee1b4dea9b78106b4b1426c3",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -9,7 +9,7 @@
     "postcondition": "no table-valued-parameter row expression is produced for a Json-mapped property; every other MapToSql*Attribute variant contributes a row expression instead"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
