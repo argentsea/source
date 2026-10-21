@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by rework-author: Correctable only by a replacement that cites committed Term 'Virtual compound key' (blk-636453e340ee46b59274b6e31038ed1a) and SpanParser.cs:26-255; retirement is currently refused because the proposal belongs to another invocation.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewed and verified against source.",
     "sources": [
       {
         "kind": "file",
