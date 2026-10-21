@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "SqlShardSets",
+    "contract": "SqlShardSets : ShardSetsBase<SqlShardConnectionOptions> is the library facade for SQL Server shard sets configured through SqlShardConnectionOptions. It exposes two constructors: (1) a public constructor SqlShardSets(IOptions<SqlShardConnectionOptions> configOptions, IOptions<SqlGlobalPropertiesOptions>? globalOptions, ILogger<SqlShardSets>? logger) that delegates to the protected constructor with a new SqlClient DataProviderServiceFactory (new DataProviderServiceFactory()), and (2) a protected constructor protected SqlShardSets(IOptions<SqlShardConnectionOptions> configOptions, IDataProviderServiceFactory services, IOptions<SqlGlobalPropertiesOptions>? globalOptions, ILogger<SqlShardSets>? logger) that forwards the caller-supplied IDataProviderServiceFactory and globalOptions?.Value to ShardSetsBase<SqlShardConnectionOptions> for derived classes and test doubles.",
     "kind": "Library",
     "language": "csharp",
-    "contract": "SqlShardSets is the library facade for SQL shard sets configured through SqlShardConnectionOptions. Constructing SqlShardSets binds shard-set access to the supplied SQL shard-connection configuration and SQL global-properties options, and it hard-wires a new SqlClient DataProviderServiceFactory as its data-provider services directly in the constructor rather than accepting one as a constructor parameter or resolving it from the dependency-injection container — every SqlShardSets instance is bound to the SqlClient provider regardless of what else is registered."
+    "name": "SqlShardSets"
   },
   "metadata": {
     "status": "Draft",
