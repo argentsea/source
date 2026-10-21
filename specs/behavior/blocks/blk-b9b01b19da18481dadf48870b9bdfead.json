@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "response": "when called with no type parameter, execute the query and return the integer return value from the command; when called with a TValue type parameter and a dataName, return the matching MockResults entry when configured, or otherwise execute the query, extract the scalar value named by dataName, and return it as TValue while honoring the caller's CancellationToken",
     "subject": "DatabasesBase<TConfiguration>.DataConnection",
-    "trigger": "a caller invokes ReturnValueAsync",
-    "response": "shall, when called with no type parameter, return the Task<int> obtained directly from DataConnectionManager.ReturnAsync; shall, when called with a TValue type parameter and a dataName, absent a matching MockResults entry, forward dataName to DataConnectionManager.ReturnAsync<TValue, object, object> and return its Item1 as the TValue result"
+    "trigger": "a caller invokes ReturnValueAsync"
   },
   "metadata": {
     "status": "Draft",
