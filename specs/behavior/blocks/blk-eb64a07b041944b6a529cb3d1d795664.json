@@ -1,0 +1,51 @@
+{
+  "id": "blk-eb64a07b041944b6a529cb3d1d795664",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "defunct silo entries older than beforeDate are removed from the membership table and gateway refresh metadata reflects ClusterClientDbOptions.MaxRefreshInterval",
+    "response": "bind @DeploymentId (ClusterOptions.ClusterId) and @IamAliveTime (beforeDate.UtcDateTime) to execute Queries.OrleansCleanupDefunctSiloEntries on the configured Write database in CleanupDefunctSiloEntries, and expose MaxStaleness from ClusterClientDbOptions.MaxRefreshInterval, IsUpdatable = true, and a completed InitializeGatewayListProvider task on ArgentSeaGatewayListProvider",
+    "subject": "ArgentSeaOrleansMembershipTable and ArgentSeaGatewayListProvider (ArgentSea.Orleans.Sql)",
+    "trigger": "CleanupDefunctSiloEntries(beforeDate) or gateway list provider initialization and staleness inspection are invoked"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaOrleansMembershipTable.cs",
+        "lines": "62-76",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Clustering/ArgentSeaGatewayListProvider.cs",
+        "lines": "57-95",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-cluster-providers",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
