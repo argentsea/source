@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "ClusteringExtensions.UseArgentSeaClustering (IClientBuilder)",
+    "contract": "Configures an Orleans client builder for ArgentSea clustering. UseArgentSeaClustering(this IClientBuilder builder, Action<IConfiguration> configuration) applies a non-null Action<IConfiguration> to service configuration (skipping a null action) and registers both clustering membership/configuration validation services (IMembershipTable -> ArgentSeaOrleansMembershipTable and IConfigurationValidator -> ClusterOptionsValidator / IConfigureOptions<ClusterClientDbOptions> -> ArgentSeaClusteringGatewayOptionsValidator) AND singleton IGatewayListProvider -> ArgentSeaGatewayListProvider; AddArgentSeaClustering(this IClientBuilder, Action<OptionsBuilder<ClusterClientDbOptions>>) likewise registers both IConfigureOptions<ClusterClientDbOptions> -> ArgentSeaClusteringGatewayOptionsValidator and IGatewayListProvider -> ArgentSeaGatewayListProvider. The method returns the configured IClientBuilder.",
     "kind": "Library",
     "language": "text",
-    "contract": "Configures an Orleans client builder for ArgentSea clustering. It applies a non-null Action<IConfiguration> to service configuration before registering singleton IMembershipTable resolution as ArgentSeaOrleansMembershipTable and singleton IConfigurationValidator resolution as ClusterOptionsValidator; a null action is skipped. The method returns the configured IClientBuilder."
+    "name": "ClusteringExtensions.UseArgentSeaClustering (IClientBuilder)"
   },
   "metadata": {
     "status": "Draft",
