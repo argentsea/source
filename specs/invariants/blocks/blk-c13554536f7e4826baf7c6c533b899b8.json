@@ -1,0 +1,32 @@
+{
+  "id": "blk-c13554536f7e4826baf7c6c533b899b8",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "scope": "OrleansExpressionHelper compiled grain-identity and shard-routing delegate builders (ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs)",
+    "statement": "OrleansExpressionHelper must compile and cache each grain state type's key-marshalling and shard-routing delegates once per model type (and validation mode where applicable), validating [MapShardKey] and [MapTo*] property bindings and SpanParser key-type compatibility at expression-compilation time rather than per grain activation or persistence call."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansExpressionHelper.cs",
+        "lines": "14-504",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-key-marshalling",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
