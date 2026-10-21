@@ -3,9 +3,9 @@
   "specId": "constitution",
   "type": "Principle",
   "fields": {
-    "title": "Be resilient by default, and never hide it",
+    "rationale": "Distributed data access must survive transient network and database faults without allowing stalled connections to cascade into system-wide exhaustion. Disabling silent provider-internal retries in favor of observable Polly retry and circuit-breaker policies ensures operators have full diagnostic visibility while leaving failover orchestration to infrastructure.",
     "statement": "Recover gracefully from transient failures out of the box: automatic retries (with configurable count, interval, and lengthening curve) plus circuit breaking, provided via Polly, with sensible defaults that apply unless overridden anywhere in the configuration hierarchy. Retries and breaker trips must always be logged.",
-    "rationale": "Business-critical applications must survive transient network and database hiccups, and an unbounded backlog of stalled connections can cascade into total system failure — hence fail-fast circuit breaking that reopens automatically once a server recovers. Resilience that happens silently robs operators of vital diagnostics, so ArgentSea deliberately disables the provider's own hidden retry logic in favor of its own logged behavior. ArgentSea makes failover easy to build but stays unopinionated about it, since robust failover must be coordinated at the infrastructure level, not decided by a rogue client."
+    "title": "Be resilient by default, and never hide it"
   },
   "metadata": {
     "status": "Draft",
