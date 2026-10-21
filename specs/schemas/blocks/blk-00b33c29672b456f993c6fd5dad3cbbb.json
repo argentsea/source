@@ -36,7 +36,7 @@
     }
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable schema. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'orleans-cluster-providers' resolves to component 'Orleans Cluster Providers' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
