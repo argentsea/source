@@ -3,25 +3,25 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Fix the shard id as a 16-bit integer",
-    "status": "Accepted",
-    "decision": "Every shard id is a `short` (Int16 / SMALLINT). The shard id type is not a generic parameter anywhere: not on shard keys, shard sets, batches or result handlers.",
-    "context": "Early versions made the shard id type generic, so it could be a byte, int, string or Guid. Within any one application that type can never vary, yet every declaration in the object model and in consuming code had to restate it. The type also determines storage cost wherever a shard-qualified foreign key is persisted.",
     "alternatives": [
       {
-        "option": "Keep the shard id generic (`TShard`).",
-        "whyRejected": "It produced a verbose, redundant object model (`ShardSets<short>`, `ShardKey<short, int>`, `ShardBatch<short, …>`) for flexibility no application could use, since the type is fixed per application."
+        "option": "Make the shard id type a generic parameter (`TShard`).",
+        "whyRejected": "Propagates an extra generic type parameter across `ShardSets`, `ShardKey`, `ShardBatch`, and result handlers for flexibility no single application uses, since the shard id type is uniform within an application."
       },
       {
-        "option": "Fix it as `byte`.",
-        "whyRejected": "Smaller, but 255 shards is a plausible ceiling for global or tenant-per-database deployments."
+        "option": "Fix the shard id as `byte`.",
+        "whyRejected": "A ceiling of 255 shards is too small for large global or tenant-per-database deployments."
       },
       {
-        "option": "Fix it as `int` or a Guid.",
-        "whyRejected": "Doubles or octuples the storage of every persisted shard reference, for a shard count no deployment will approach."
+        "option": "Fix the shard id as `int` or `Guid`.",
+        "whyRejected": "Doubles or octuples the storage cost of every persisted shard reference for a shard count no deployment requires."
       }
     ],
-    "consequences": "Simpler APIs (`ShardKey<TRecord>`), a compact two-byte shard component in every serialized key, and a theoretical ceiling of tens of thousands of shards. Older documentation and samples that show a shard type parameter (`ShardKey<byte, int>`, `ShardBatch<short, …>`) are obsolete."
+    "consequences": "Cleaner generic signatures (`ShardKey<TRecord>`, `ShardSet<TShardOptions>`), a compact two-byte shard identifier in every serialized `ShardKey`, and a range of up to 65,535 non-zero `short` shard identifiers.",
+    "context": "Within any single application, the shard identifier type is uniform across all shard sets, keys, batches, and handlers. Making the shard identifier type generic forces every declaration in the library and in consuming code to repeat a type parameter that never varies within a system, while the chosen width directly determines the wire and storage cost of every persisted shard-qualified key.",
+    "decision": "Every shard identifier (`shardId`) is a 16-bit signed integer (`short` / `Int16` / SQL `smallint`), with `0` reserved as the empty/unassigned sentinel. The shard id type is fixed rather than generic across `ShardKey`, `ShardSet`, `ShardBatch`, and result handlers.",
+    "status": "Accepted",
+    "title": "Fix the shard id as a 16-bit integer"
   },
   "metadata": {
     "status": "Draft",
