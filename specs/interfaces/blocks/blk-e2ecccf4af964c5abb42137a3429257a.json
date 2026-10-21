@@ -9,7 +9,7 @@
     "contract": "For a Query contract, MapOutputAsync returns a TModel instance populated from the query's output parameters and zero to eight data-reader result sets (TReaderResult0..TReaderResult7, each constrained new()). Variants select: the reader-result arity, 0 through 8; whether the method constructs the TModel via a parameterless constructor or instead populates a TModel instance the caller supplies; and whether a named parameter is bound to the endpoint's current shard identifier before execution."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
