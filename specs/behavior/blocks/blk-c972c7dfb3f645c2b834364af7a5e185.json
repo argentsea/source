@@ -4,16 +4,16 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "ReminderOptions.MinimumReminderPeriod is -00:00:01.",
-      "when": "ArgentSeaReminderOptionsValidator.ValidateConfiguration is called.",
-      "then": "The call throws OrleansConfigurationException."
+      "given": "ReminderOptions with MinimumReminderPeriod set to TimeSpan.FromSeconds(-1) and an ArgentSeaReminderOptionsValidator wrapping Options.Create(options).",
+      "then": "ValidateConfiguration throws OrleansConfigurationException whose message identifies MinimumReminderPeriod and its value -00:00:01.",
+      "when": "ValidateConfiguration() is called."
     },
     "illustrates": [
       {
+        "blockId": "blk-c8dd6f10ebfb4b9c82e3e70c319abb36",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "invariants",
-        "blockId": "blk-691a21722e7945909232c2031ee93d2d"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
