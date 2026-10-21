@@ -7,7 +7,7 @@
     "scope": "ExpressionHelpers reader-column fragment builders, within a single compiled reader-mapping delegate build"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
