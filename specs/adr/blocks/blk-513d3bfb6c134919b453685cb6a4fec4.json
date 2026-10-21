@@ -62,8 +62,8 @@
     {
       "kind": "spec",
       "project": "argentsea",
-      "specId": "brief-af80c127212447289aac17e723ca8cf3",
-      "blockId": "blk-99910d9a758d4a1c87bc8986ec5eb1e0",
+      "specId": "behavior",
+      "blockId": "blk-5308f769443c4483a1d48fcd5a377128",
       "blobHash": null,
       "label": "Pg registration keys",
       "relation": "references"
