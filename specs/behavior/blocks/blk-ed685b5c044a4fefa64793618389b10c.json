@@ -1,0 +1,36 @@
+{
+  "id": "blk-ed685b5c044a4fefa64793618389b10c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSea.Orleans.Pg configuration-driven provider registration",
+    "condition": "a host builds an Orleans silo from configuration that names a provider type in Orleans:{Kind}:{name}:ProviderType",
+    "trigger": "the provider type is ArgentSeaPg or ArgentSeaPgDb",
+    "response": "ArgentSeaPg resolves grain storage to the shard-set builder (ShardSetKey), and clustering and reminders to this package's membership and reminder tables; ArgentSeaPgDb resolves grain storage to the single-database builder (DatabaseKey). Each builder takes its key from the provider's own section, else the OrleansData section, else Default, and throws when neither section exists",
+    "postcondition": "each storage kind is reachable from configuration; no two RegisterProvider attributes in the package share a (type, kind, side) key and none uses a SQL Server type name"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-e052491ad0d34fe6aa83076b5e6cef0b",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-8a3a76b2b9bf495fbdf0ffd15a4cb8fc",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
