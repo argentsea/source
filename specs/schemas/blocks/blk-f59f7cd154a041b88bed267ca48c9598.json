@@ -1,0 +1,104 @@
+{
+  "id": "blk-f59f7cd154a041b88bed267ca48c9598",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "description": "Wire format and encoding layout for ShardKey<TRecord>, ShardKey<TRecord, TChild>, ShardKey<TRecord, TChild, TGrandChild>, and ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild> across raw binary (ToArray), UTF-8 custom base-64 (ToUtf8), and checksummed XOR-obfuscated external string (ToExternalString / FromExternalString) representations.",
+    "members": [
+      {
+        "description": "Leading 1-byte header in the raw binary layout (ToArray): bits 0-1 store the type-metadata byte length (metaLen = 1 for arity 1, 2 for arity 2, 3 for arities 3 and 4), and bit 7 is set to 1 ((byte)(metaLen | 128)) to mark the payload as raw binary rather than UTF-8 encoded. When ShardKey(ReadOnlySpan<byte>) or TryParse inspects input bytes, ((data[0] & 128) != 128) detects a UTF-8 encoded payload and decodes it via StringExtensions.Decode before reading the header.",
+        "name": "HeaderByte",
+        "notes": "Bit 7 discriminates raw binary (1) from custom base-64 UTF-8 bytes (0), because all 64 encoding characters in StringExtensions are 7-bit ASCII.",
+        "required": true,
+        "type": "tinyint"
+      },
+      {
+        "description": "1 to 3 bytes immediately following HeaderByte (at indices 1..metaLen) packing up to four 6-bit KeyDataType codes via ShardKeySerialization.Combiner: uint combined = ((uint)key1 << 18) | ((uint)key2 << 12) | ((uint)key3 << 6) | (uint)key4, serialized as little-endian bytes via BitConverter.GetBytes(combined) and sliced as [combined[2]] (1 byte, arity 1), [combined[2], combined[1]] (2 bytes, arity 2), or [combined[2], combined[1], combined[0]] (3 bytes, arities 3 and 4).",
+        "name": "TypeMetadata",
+        "notes": "Unsigned integers (ulong, uint, ushort), sbyte, and TimeOnly are not recognized by GetKeyDataType (which returns KeyDataType.Undefined = 0) and are rejected by TryEncodeTypeMetadata.",
+        "required": true,
+        "type": "varbinary(n)"
+      },
+      {
+        "description": "2-byte signed 16-bit integer immediately following TypeMetadata (at offset metaLen + 1), serialized via BitConverter.GetBytes(short) and decoded via BitConverter.ToInt16.",
+        "name": "ShardId",
+        "required": true,
+        "type": "smallint"
+      },
+      {
+        "description": "Concatenated serialized byte payloads for each key component (RecordId, and when present ChildId, GrandChildId, GreatGrandChildId) in declaration order. Fixed-width types use little-endian BitConverter/runtime layouts: int (4B), long (8B), short (2B), byte (1B), char (2B), float (4B), double (8B), DateTime (8B Ticks), DateOnly (4B DayNumber), TimeSpan (8B Ticks), Guid (16B ToByteArray), decimal (16B from Decimal.GetBits ints i0..i3), and enums (serialized as their underlying int/long/short/byte type). Variable-length string values are UTF-8 encoded with a 1-byte length prefix: 0x00 for null or empty string, or (byte)((utf8Length << 1) + 1) followed by utf8Length UTF-8 bytes (maximum 127 UTF-8 bytes; longer strings throw ArgumentOutOfRangeException). Variable-length byte[]/Memory<byte>/ReadOnlyMemory<byte> parts read via TryGetVariableLength use the same 1-byte prefix ((length << 1) + 1, with 0x00 decoding to null for byte[] or Empty for Memory<byte>/ReadOnlyMemory<byte>).",
+        "name": "KeyPartPayloads",
+        "required": true,
+        "type": "varbinary(n)"
+      },
+      {
+        "description": "ASCII/UTF-8 byte representation produced by ToUtf8() via StringExtensions.EncodeToUtf8(ToArray().Span) using the 64-character alphabet '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_~'. Every 3 raw bytes [b0, b1, b2] map to up to 4 output bytes: the low 6 bits of each present byte (b & 63) followed by a trailing quad byte packing their high 2 bits (((b0 & 192) >> 6) | ((b1 & 192) >> 4) | ((b2 & 192) >> 2)). Output length is rawLength + (rawLength / 3) + (rawLength % 3 > 0 ? 1 : 0).",
+        "name": "Utf8EncodedPayload",
+        "required": false,
+        "type": "varbinary(n)"
+      },
+      {
+        "description": "URL-safe external string produced by ToExternalString() and parsed by FromExternalString() via StringExtensions.SerializeToExternalString / SerializeFromExternalString. Computes a 12-bit checksum over the raw ToArray() bytes (checkSum = (checkSum + raw[i]) & 0xFFF), XORs each raw byte in-place with a 6-byte repeating key [119, 78, 180, 92, 83, 77] selected by (i % 6), encodes the 12-bit checksum as a 2-character prefix (CheckSumToChar(checkSum >> 6) followed by CheckSumToChar(checkSum & 0x3F) using alphabet A-Z = 0-25, a-z = 26-51, 0-9 = 52-61, '-' = 62, '_' = 63), and appends StringExtensions.EncodeToString(xorBytes). On decode, SerializeFromExternalString reverses the custom base-64 and 6-byte XOR, recomputes the 12-bit checksum, and throws Exception('External key string is not valid.') on mismatch.",
+        "name": "ExternalStringPayload",
+        "required": false,
+        "type": "nvarchar(n)"
+      }
+    ],
+    "name": "ShardKey binary, UTF-8, and external string serialization layout",
+    "representations": {
+      "Binary": "ReadOnlyMemory<byte> returned by ToArray(): [HeaderByte (1B)] [TypeMetadata (1-3B)] [ShardId (2B)] [KeyPartPayloads (variable)].",
+      "C#": "Implemented across ShardKey<TRecord>, ShardKey<TRecord, TChild>, ShardKey<TRecord, TChild, TGrandChild>, ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>, ShardKeySerialization, and StringExtensions.",
+      "ExternalString": "string returned by ToExternalString(): 2-character 12-bit checksum prefix (A-Za-z0-9-_) + custom 64-character base-64 encoding of the 6-byte-XOR-obfuscated ToArray() bytes.",
+      "Utf8": "ReadOnlyMemory<byte> returned by ToUtf8(): custom 64-character ASCII/UTF-8 base-64 encoding of ToArray() with bit 7 clear on every byte."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "11-712",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "97-426",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-3ae75246ea2e459fb01a9eb3fe57a9bf",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
