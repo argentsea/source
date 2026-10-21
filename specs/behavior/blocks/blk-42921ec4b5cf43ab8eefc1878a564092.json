@@ -9,7 +9,7 @@
     "response": "emit the generated destination-table definition and COPY definition before command execution"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Pg/src/CopyMapper.cs:149-172 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'copy-load' resolves to component 'Copy Load' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
