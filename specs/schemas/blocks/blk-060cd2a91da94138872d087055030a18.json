@@ -1,0 +1,41 @@
+{
+  "id": "blk-060cd2a91da94138872d087055030a18",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSea.Orleans.Pg reminder table",
+    "description": "The table tenant.psql creates in the orleans schema of every shard database.",
+    "members": [
+      {
+        "name": "orleans_reminder",
+        "type": "table",
+        "required": true,
+        "description": "reminder_id identity primary key; grain_key bytea (the serialized grain key), grain_type varchar(1023), reminder_name varchar(150), unique together; start_time timestamptz; period bigint (TimeSpan ticks); grain_hash bigint (indexed); version integer."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-d2e041c4703b4a5ab9ef5178f10688aa",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-2f7b9bee23ef42f389b5d20c6c021645",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
