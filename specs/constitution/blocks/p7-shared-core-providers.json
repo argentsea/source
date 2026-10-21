@@ -3,9 +3,9 @@
   "specId": "constitution",
   "type": "Principle",
   "fields": {
-    "title": "One shared core, thin provider-specific packages",
+    "rationale": "Core sharding, configuration, resilience, and expression-tree compilation are provider-agnostic, while ADO.NET drivers and native type systems are provider-specific. Binding each model class to a single provider avoids runtime provider-dispatch ambiguity and preserves first-class support for provider-native types and bulk primitives.",
     "statement": "Concentrate the framework's logic in a shared core and expose it through thin, provider-specific packages (ArgentSea.Sql for SQL Server, ArgentSea.Pg for PostgreSQL). Support each provider fully on its own terms and keep dependencies minimal; a single model class targets exactly one provider, not several at once.",
-    "rationale": "Most behavior is provider-agnostic and belongs in one place; only the ADO.NET-specific bindings (SqlClient, Npgsql) differ, which is why the two packages both install a shared core and split into `ArgentSea` versus `ArgentSea.Sql`/`ArgentSea.Pg` namespaces. Mixing providers within one model would force the Mapper to guess which provider will execute its parameters and would multiply the per-provider delegate machinery — complexity that a review found exceeds its value. Separate projects or microservices are the clean answer when an application must reach multiple providers."
+    "title": "One shared core, thin provider-specific packages"
   },
   "metadata": {
     "status": "Draft",
