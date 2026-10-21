@@ -1,0 +1,62 @@
+{
+  "id": "blk-b7f391c29d5049c5b5adf2aa224cd3dc",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "an ISiloBuilder whose configuration has an \"OrleansData\" section with DatabaseKey \"Common\", and Orleans passes the provider's own configuration section (Orleans:GrainStorage:catalog) which either sets DatabaseKey \"Catalog\" or omits DatabaseKey",
+      "then": "ArgentSeaGrainStorageFactory.CreateDb is registered under \"catalog\" against the silo's service collection, and the named OrleansDbPersistenceOptions for \"catalog\" get DatabaseKey \"Catalog\" when the provider section sets it, otherwise \"Common\" from OrleansData; if OrleansData also lacks DatabaseKey the value is \"Default\", and if the provider section lacks the key and no OrleansData section exists Configure throws InvalidOperationException",
+      "when": "ArgentSeaGrainStorageDbProviderBuilder.Configure is invoked on that builder with provider name \"catalog\" and that configuration section"
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-2c15faa36c5343e782da1e8d9bb6816f",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageProviderBuilder.cs",
+        "lines": "13-35,37-50",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-hosting",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-2c15faa36c5343e782da1e8d9bb6816f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-242e632bcc3e4bfca54b139ed4dee1bb",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
