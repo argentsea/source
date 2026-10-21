@@ -6,7 +6,7 @@
     "name": "PgShardSets construction surface",
     "kind": "Library",
     "language": "text",
-    "contract": "`PgShardSets` provides a constructible shard-set collection whose inherited collection operations are typed for `PgShardConnectionOptions` entries. In its constructor it supplies a new ArgentSea.Pg.DataProviderServiceFactory() together with the bound PgShardConnectionOptions and PgGlobalPropertiesOptions to the ShardSetsBase<PgShardConnectionOptions> base constructor. Like PgDatabases, it adds no members of its own beyond this constructor."
+    "contract": "`PgShardSets` provides a constructible shard-set collection whose inherited collection operations are typed for `PgShardConnectionOptions` entries. Its public constructor supplies a new ArgentSea.Pg.DataProviderServiceFactory() together with the bound PgShardConnectionOptions and PgGlobalPropertiesOptions to the ShardSetsBase<PgShardConnectionOptions> base constructor; a protected constructor additionally takes an IDataProviderServiceFactory and passes it instead, so derived classes and tests can substitute the provider, as SqlShardSets allows. Like PgDatabases, it adds no members of its own beyond these two constructors."
   },
   "metadata": {
     "status": "Draft",
@@ -38,6 +38,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
