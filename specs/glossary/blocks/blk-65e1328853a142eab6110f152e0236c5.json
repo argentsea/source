@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "The `ShardSet.ReadFirst` (`ReadQueryFirstAsync`) fan-out mode that executes a query concurrently on the read connection of every targeted shard, returns the first non-null result produced by any shard, and cancels remaining in-flight shard queries via a linked token.",
     "name": "ReadFirst",
-    "definition": "The fan-out form that runs a query on the read connection of every targeted shard and returns the first non-null result any shard produces. It then cancels the remaining shard queries and ignores their failures. When no shard produces a result it returns the default value, unless the caller cancelled (the call throws OperationCanceledException) or a shard failed (the failure is rethrown). It is intended for lookups by an attribute that should be unique across the set but is not the shard key (a user by login name). If the attribute is not actually unique, duplicates are silently discarded.",
     "synonyms": [
       "ShardSetReadFirst",
       "read-first fan-out",
