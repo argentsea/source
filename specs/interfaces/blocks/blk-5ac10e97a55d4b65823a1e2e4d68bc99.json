@@ -9,7 +9,7 @@
     "contract": "The batch-step boundary pair: internal static void BatchStepStart(this ILogger logger, int stepIndex, string connectionName) and internal static void BatchStepEnd(this ILogger logger, int stepIndex, string connectionName), both logging at Debug under event id BatchStep (12). Unlike every other member in this file, both are `internal`, not `public`. BatchStepStart invokes the `_batchStepStart` delegate (event name BatchStepStart, message \"Starting batch step … on connection …\"); BatchStepEnd invokes the `_batchStepEnd` delegate (event name BatchStepEnd, message \"Completed batch step … on connection …\"). Both messages carry the step index and connection name."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
