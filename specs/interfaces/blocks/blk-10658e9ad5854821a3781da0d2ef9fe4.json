@@ -1,0 +1,35 @@
+{
+  "id": "blk-10658e9ad5854821a3781da0d2ef9fe4",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSea.Orleans.Pg Queries catalogue and PgFunctionQuery",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSea.Orleans.Pg.Queries exposes fourteen static members, each composing a fresh equal instance on access. Writes are QueryProcedure members naming version-1 wtr procedures (run by Npgsql as CALL with named p_ arguments): OrleansClusterInsertMemberVersion, OrleansClusterInsertMember, OrleansClusterUpdateMember, OrleansClusterUpdateIAmAliveTime, OrleansClusterDeleteDefunctMembers, OrleansClusterDelete, OrleansReminderDeleteRow, OrleansReminderUpsertRow. Reads are PgFunctionQuery members (CommandType.Text whose text is only SELECT * FROM calls of version-1 rdr functions with @p_ placeholders, one statement per result set): OrleansClusterGatewayList, OrleansClusterMemberReadAll (three statements), OrleansClusterMemberReadRow (two statements), OrleansReminderReadRow, OrleansReminderReadRows, OrleansReminderReadRangeRows. PgFunctionQuery(name, sql) is a public Query subclass for such function calls."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-e78d9d562dd04174b86897f3d4243e45",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-ef64d117d0c44284b69beba3f6821db2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
