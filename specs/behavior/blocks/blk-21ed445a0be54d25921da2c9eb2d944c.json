@@ -1,0 +1,36 @@
+{
+  "id": "blk-21ed445a0be54d25921da2c9eb2d944c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSea.Orleans.Pg timestamp handling",
+    "condition": "a DateTime is written to or read from a timestamptz column by the membership or reminder table",
+    "trigger": "a write binds the value, or a read maps it",
+    "response": "Kind Utc is sent unchanged, Kind Unspecified is taken as UTC with its clock reading kept, and Kind Local is converted with ToUniversalTime, each sent as a zero-offset DateTimeOffset; values read back are given Kind Utc",
+    "postcondition": "every stored timestamp is a UTC instant and every returned DateTime is Utc"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-9b537eb07a79432ea036fb19f4304bf9",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-76cdd2609e9d4c02880ca1bae609b4c2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
