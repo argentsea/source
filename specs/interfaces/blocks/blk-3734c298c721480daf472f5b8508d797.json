@@ -1,0 +1,35 @@
+{
+  "id": "blk-3734c298c721480daf472f5b8508d797",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSea.Orleans.Pg membership table, gateway list provider and clustering registration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSea.Orleans.Pg.ArgentSeaOrleansMembershipTable implements IMembershipTable over the PgDatabases entry named by OrleansDbPersistenceOptions.DatabaseKey (construction throws KeyNotFoundException when it is missing) for the configured ClusterOptions.ClusterId: InitializeMembershipTable(true) creates the version record once; InsertRow and UpdateRow return true on success and false on a concurrency conflict; ReadAll and ReadRow return the membership data; UpdateIAmAlive changes only the liveness time; CleanupDefunctSiloEntries and DeleteMembershipTableEntries remove rows. ArgentSea.Orleans.Pg.ArgentSeaGatewayListProvider implements IGatewayListProvider from ClusterClientDbOptions (an explicit ConnectionString, else the read connection of the PgDbConnections entry named by DatabaseKey with global settings applied; an unknown key throws ArgumentException), with MaxStaleness from MaxRefreshInterval and IsUpdatable true. PgClusteringExtensions.UseArgentSeaPgClustering registers the membership table (and, on a client, the gateway list provider) as singletons with the ClusterOptions validator."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-ffa9b2fc0d09490da2c1470af1542cfb",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-76cdd2609e9d4c02880ca1bae609b4c2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
