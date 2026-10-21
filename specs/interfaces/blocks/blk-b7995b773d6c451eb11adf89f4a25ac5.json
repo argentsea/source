@@ -17,7 +17,7 @@
       {
         "kind": "file",
         "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
-        "lines": "18-33",
+        "lines": "16-450",
         "label": null,
         "relation": "grounds"
       }
