@@ -22,10 +22,25 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "orleans-sql-server-package",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "universal"
   },
   "references": [],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "PackageInvariantTests pass against the 2.1.0 project files at commit ea8e9aa3 (ArgentSea.Test 623/623).",
+      "evidenceId": "evi-8eb05a089b834bd5a6e6f6dfe368386c",
+      "verifiedContentHash": "fields-sha256-v1:74a2f0c92bc81cfd1e51364a19a382a21eb90143dcd03e97a8cdbb0c57e33a38",
+      "recordedAt": "2026-10-21T05:31:34.9635958+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
