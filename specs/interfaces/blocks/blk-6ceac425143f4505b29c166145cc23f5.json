@@ -6,7 +6,7 @@
     "name": "PgDatabases",
     "kind": "Library",
     "language": "text",
-    "contract": "PgDatabases constructs the non-sharded PostgreSQL database collection: it closes DatabasesBase<PgDbConnectionOptions> and, in its constructor, supplies a new ArgentSea.Pg.DataProviderServiceFactory() together with the bound PgDbConnectionOptions and PgGlobalPropertiesOptions to the DatabasesBase base constructor. It adds no members of its own beyond this constructor."
+    "contract": "PgDatabases constructs the non-sharded PostgreSQL database collection: it closes DatabasesBase<PgDbConnectionOptions>. Its public constructor takes the bound PgDbConnectionOptions, PgGlobalPropertiesOptions and logger and supplies a new ArgentSea.Pg.DataProviderServiceFactory() to the DatabasesBase base constructor. A protected constructor additionally takes an IDataProviderServiceFactory and passes it instead, so derived classes and tests can substitute the provider, as SqlDatabases allows. It adds no members of its own beyond these two constructors."
   },
   "metadata": {
     "status": "Draft",
@@ -47,6 +47,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
