@@ -3,11 +3,11 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "A compact byte header encoding the arity and `.NET` `ShardKeyType` of a `ShardKey`'s record-id and child-id components, embedded at the front of every serialized representation (binary, UTF-8, and external string). Deserialization validates this header against the target generic type arguments so bytes produced for one key shape cannot be decoded as an incompatible key type, and `GhostShardKey` uses it to reconstruct and display keys whose generic types are not known at compile time. It identifies key component types rather than specific database tables.",
     "name": "Shard key type metadata",
-    "definition": "A compact code for the .NET types of a shard key's record-key columns, embedded in every serialized shard key: binary, UTF-8 and the external key. Deserializing checks it against the expected generic types, so bytes produced for one key shape cannot be read as another. It also lets a ghost shard key reconstruct a key whose types are unknown at compile time. It identifies key *types*, not tables: keys of the same types from different tables are indistinguishable. In older documentation it replaces the per-table DataOrigin character.",
     "synonyms": [
       "type metadata",
-      "DataOrigin (obsolete)"
+      "ShardKeyTypeMetadata"
     ]
   },
   "metadata": {
