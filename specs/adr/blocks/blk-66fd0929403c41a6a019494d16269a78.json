@@ -1,0 +1,90 @@
+{
+  "id": "blk-66fd0929403c41a6a019494d16269a78",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "One full connection string per connection, as in standard ADO.NET.",
+        "whyRejected": "Every shared value is repeated in every string, so a password rotation or a server rename touches hundreds of entries. A secret cannot be supplied separately from the rest of a string by a different configuration provider."
+      },
+      {
+        "option": "Connection strings with token substitution or per-environment config transforms.",
+        "whyRejected": "Keeps the redundancy, moves the complexity into deployment tooling, and still embeds secrets in a templated artifact."
+      },
+      {
+        "option": "A flat property list per connection without inheritance.",
+        "whyRejected": "Separates secrets, but every shard still restates the same login, database and tuning values. The shard set's Read/Write sections exist because a strict parent-child chain would force every shard's read endpoint to repeat the read login."
+      },
+      {
+        "option": "A fully mutable hierarchy where shards and databases can be added or removed at run time.",
+        "whyRejected": "The collections are shared, concurrently used singletons. Fixing the layout keeps lookups lock-free and immutable, while still allowing failover-style changes to endpoint properties."
+      }
+    ],
+    "consequences": "Configuration volume scales with what differs rather than with the number of connections. Passwords can live in a secrets store addressed by a short key such as `SqlShardSets:0:Password`. Each kind of value can come from whichever provider manages it best. Costs: a mis-shaped configuration section binds to a null or partially empty Options object with no error, which is hard to diagnose. Options arrays are positional, so a configuration file's ordering matters and the index is not the key. Adding or removing a shard requires a restart. Run-time property updates are not fully thread-safe; in-flight queries are unaffected, and later connections use the new values.",
+    "context": "A sharded application with read scale-out may need hundreds of connections. Every shard has a read and a write endpoint, and every environment (dev, test, staging, several production regions) needs a different variant. Most of those values are shared: one login for every shard's write connection, one database name across shards, one packet size everywhere. Secrets must stay out of source control, and environment-specific values must be injectable without transforming files at deployment. The .NET configuration system can merge values from many providers, such as JSON files, user secrets, environment variables and key vaults, into one dictionary, but only if the shape being bound is a property tree rather than opaque strings.",
+    "decision": "Every connection attribute (server, database, credentials, timeouts, pooling, and resilience settings) is a discrete property bound from .NET configuration through strongly typed Options classes. The properties form the Hereditary Configuration Hierarchy, in which each level inherits its parent's values and may override them. For a non-sharded database the levels are global, database, and read/write endpoint. For a shard set they are global, shard set, the shard set's Read/Write section, shard, and read/write endpoint. Each endpoint's connection string is derived from the resolved properties. The provider's `AddSqlServices` or `AddPgServices` registration builds the Databases and ShardSets collections once at startup. Their layout is then fixed, but property values stay updatable at run time and changes propagate to inheriting children.",
+    "status": "Accepted",
+    "title": "Configure connections as an inheritable property hierarchy bound through .NET Options, not as connection strings"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/hierarchy.md",
+        "lines": "3-5",
+        "label": "Hereditary Configuration Hierarchy",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p5-manageable-configuration",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-20a3c21c08874a558b97d494d6f15b24",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

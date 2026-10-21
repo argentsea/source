@@ -28,7 +28,7 @@
     "consequences": "Configuration volume scales with what differs rather than with the number of connections. Passwords can live in a secrets store addressed by a short key such as `SqlShardSets:0:Password`. Each kind of value can come from whichever provider manages it best. Costs: a mis-shaped configuration section binds to a null or partially empty Options object with no error, which is hard to diagnose. Options arrays are positional, so a configuration file's ordering matters and the index is not the key. Adding or removing a shard requires a restart. Run-time property updates are not fully thread-safe; in-flight queries are unaffected, and later connections use the new values."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
