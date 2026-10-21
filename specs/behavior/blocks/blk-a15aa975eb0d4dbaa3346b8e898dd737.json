@@ -8,7 +8,7 @@
     "response": "configure the builder's service collection to register the corresponding database or Shard grain-storage factory under that provider name and return the builder; when the caller supplies a persistence-options action, apply it to the options registered under that same provider name before the storage registration is added"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
