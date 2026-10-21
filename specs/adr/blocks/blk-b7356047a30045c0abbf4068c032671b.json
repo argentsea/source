@@ -1,0 +1,82 @@
+{
+  "id": "blk-b7356047a30045c0abbf4068c032671b",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "General runtime type coercion via `Convert.ChangeType` or provider-level implicit conversions.",
+        "whyRejected": "Conceals schema drift and precision loss, introduces conversions outside an explicit supported matrix, and incurs per-value runtime conversion overhead."
+      },
+      {
+        "option": "Strict column/parameter presence, failing when a mapped column or output parameter is absent from a query result.",
+        "whyRejected": "Prevents reusing a single model class across queries that return different subsets of columns."
+      },
+      {
+        "option": "Require consumers to expose signed-integer or `byte[]` surrogate properties on models instead of supporting unsigned and `sbyte` types on mapping attributes.",
+        "whyRejected": "Forces boilerplate conversion properties into domain models despite attribute-driven storage representation selection."
+      },
+      {
+        "option": "Platform-endian binary encoding for numeric binary mappings.",
+        "whyRejected": "Makes persisted `binary`/`varbinary` representations dependent on machine endianness and breaks unsigned byte-order sorting on little-endian hosts."
+      }
+    ],
+    "consequences": "Undeclared CLR/database type pairings fail immediately during mapping construction (`InvalidMapTypeException`), while models remain reusable across queries returning partial column sets. For SQL Server numeric binary mappings (`[MapToSqlBinary]`, `[MapToSqlVarBinary]`), invalid configured attribute lengths throw `InvalidBinaryMappingLengthException` during mapping validation (`IsValidType`), and non-null payloads whose runtime byte length differs from the target type's byte width throw `InvalidBinaryValueLengthException` during reader or output-parameter decoding. Fixed-width big-endian `binary(n)` and equal-width `varbinary` payloads preserve true unsigned sort order for `ulong`, `uint`, and `ushort` under SQL Server byte-by-byte comparison (matching same-width SQL integer `CAST` representations), whereas signed integer mappings do not preserve unsigned sort order and neither `tinyint` nor `binary(1)` preserves signed `sbyte` sort order. `ShardKey` binary/external serialization does not include `ulong`, `uint`, `ushort`, or `sbyte`.",
+    "context": "Silent runtime type coercions hide precision and schema-mismatch bugs and add per-row overhead, whereas strict compile/build-time validation of attribute-to-property pairings catches mismatches early. At the same time, domain models legitimately use `enum` types, unsigned integers (`ulong`, `uint`, `ushort`), and signed bytes (`sbyte`), and a single model class is routinely reused across queries that return different column subsets (such as summary vs. detail queries). For unsigned integers stored in SQL Server, fixed-width big-endian binary encoding (`binary(8/4/2)`) preserves unsigned sort order under SQL Server's byte-by-byte binary comparison, while same-width integer storage (`bigint`/`int`/`smallint`/`tinyint`) provides compact integer storage when unsigned SQL ordering is not required.",
+    "decision": "Mapping attributes declare a closed set of supported CLR-to-database representations and reject undeclared pairings when constructing the mapping delegate, while tolerating missing result columns and missing output parameters at execution time (logging at `Debug` level and resolving column ordinals once per result set). In `ArgentSea.Sql`:\n1. `MapToSqlBigInt`, `MapToSqlInt`, `MapToSqlSmallInt`, and `MapToSqlTinyInt` permit explicit reversible same-width unchecked conversions for `ulong` (`bigint`), `uint` (`int`), `ushort` (`smallint`), and `sbyte` (`tinyint`), including nullable forms.\n2. `MapToSqlBinary` and `MapToSqlVarBinary` permit fixed-width big-endian binary encoding (`8`, `4`, `2`, and `1` bytes) for `ulong`, `uint`, `ushort`, and `sbyte` (and nullable forms) across input parameters, output parameters, data readers, and table-valued parameters.\n3. For enum properties, `MapToSqlInt`, `MapToSqlSmallInt`, and `MapToSqlTinyInt` accept any enum or `Nullable<enum>` regardless of the enum's underlying integer width, while `MapToSqlBigInt` accepts any non-nullable enum and rejects `Nullable<enum>`.",
+    "status": "Accepted",
+    "title": "Permit explicit reversible storage representations while rejecting implicit coercion"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-3279c88f673b4d37afec5a55d86ecb9f",
+        "blockId": "blk-44613b24134746bfb6b060397cf76164",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "agent",
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-2b2e07c9cbe54c01be588da75b6e9ad9",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-ba7d8629b4d44282bbe136392b7de228",
+      "blobHash": null,
+      "label": "Mapping attribute",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": "Model",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}

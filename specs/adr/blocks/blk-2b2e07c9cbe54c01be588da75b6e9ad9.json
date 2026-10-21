@@ -24,7 +24,7 @@
     "consequences": "Type mistakes surface immediately, while models stay reusable across queries. Column order and extra columns do not matter. A misspelled column name leaves the property silently at its default, discoverable only through Debug logging. Enum mappings must use the enum's exact base type."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
