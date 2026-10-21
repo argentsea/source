@@ -53,8 +53,8 @@
     {
       "kind": "spec",
       "project": "argentsea",
-      "specId": "brief-af80c127212447289aac17e723ca8cf3",
-      "blockId": "blk-e052491ad0d34fe6aa83076b5e6cef0b",
+      "specId": "behavior",
+      "blockId": "blk-ed685b5c044a4fefa64793618389b10c",
       "blobHash": null,
       "label": "Pg provider types",
       "relation": "references"
