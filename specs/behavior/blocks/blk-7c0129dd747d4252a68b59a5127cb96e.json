@@ -5,14 +5,15 @@
   "fields": {
     "gwt": {
       "given": "on a little-endian runtime, a single-part key of type Guid (KeyDataType.Guid = 1)",
-      "when": "TryEncodeTypeMetadata(typeof(Guid), out result) is invoked",
-      "then": "it returns true and result is the single byte 0x04 -- the code 1 packed into the top 6 bits of a 1-byte result (1 << 2)"
+      "then": "it returns true and result is the single byte 0x04 -- the code 1 packed into the top 6 bits of a 1-byte result (1 << 2)",
+      "when": "TryEncodeTypeMetadata(typeof(Guid), out result) is invoked"
     },
     "illustrates": [
       {
+        "blockId": "blk-2632e46de8eb4fc2b7ea40af22c27a3d",
         "kind": "spec",
-        "specId": "behavior",
-        "blockId": "blk-c3ba6c6f80be402d9ad69ee801b3b3f1"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
