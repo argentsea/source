@@ -3,7 +3,7 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "ArgentSea.Orleans.Sql.csproj declares a Version of 2.0.4 and declares no AssemblyVersion or FileVersion property anywhere in the file; the project file pins no assembly version or file version independently of Version 2.0.4.",
+    "statement": "ArgentSea.Orleans.Sql.csproj declares a Version of 2.1.0 and declares no AssemblyVersion or FileVersion property anywhere in the file; the project file pins no assembly version or file version independently of Version 2.1.0.",
     "scope": "ArgentSea.Orleans.Sql.csproj PropertyGroup: Version, AssemblyVersion, and FileVersion declarations."
   },
   "metadata": {
