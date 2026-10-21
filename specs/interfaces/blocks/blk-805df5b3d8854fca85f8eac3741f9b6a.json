@@ -9,7 +9,7 @@
     "contract": "The mapping-mismatch event family, varying by what was missing and where: SqlParameterNotFound(ILogger, string parameterName, Type propertyType) logs at Debug under event id MapperSqlParameterNotFound (2) that a mapping attribute named a parameter which was not found among the supplied parameters. SqlFieldNotFound(ILogger, string columnName, string modelName) logs at Debug under event id MapperSqlColumnNotFound (3) that a mapping attribute named a result-set column which was not present in the data reader's row. RequiredPropertyIsDbNull(ILogger, string modelName, string parameterName) logs at Debug under event id UnexpectedDbNull (6) that a mapped value declared required read back as database null. All three take only strings/Type (and a Type for the first), so none can be gated more cheaply than the compiled delegate's own IsEnabled check; none of the three wrapper methods adds an extra guard."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
