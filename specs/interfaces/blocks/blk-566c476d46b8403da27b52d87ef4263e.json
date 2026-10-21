@@ -6,7 +6,7 @@
     "name": "ClusterClientDbOptions library configuration record",
     "kind": "Library",
     "language": "csharp",
-    "contract": "ClusterClientDbOptions exposes a mutable configuration record for a cluster client. Its public contract carries: a required DatabaseKey initialized to \"Common\"; an optional ConnectionString initialized to null; a required GatewayListQuery initialized to QueryProcedure(\"rdr.OrleansClusterGatewayListV1\", [\"@ClusterId\"]); and a MaxRefreshInterval initialized to 60 seconds. The declaration alone does not establish how any consumer resolves these values."
+    "contract": "ClusterClientDbOptions exposes a mutable configuration record for a cluster client. Its public contract carries: a required DatabaseKey initialized to \"Common\"; an optional ConnectionString initialized to null; an optional GatewayListQuery initialized to null, which a provider package's gateway list provider replaces with that package's own query (ArgentSea.Orleans.Sql: rdr.OrleansClusterGatewayListV1; ArgentSea.Orleans.Pg: rdr.orleans_cluster_gateway_list_v1), so the provider-neutral record names no platform-specific query; and a MaxRefreshInterval initialized to 60 seconds."
   },
   "metadata": {
     "status": "Draft",
@@ -38,6 +38,14 @@
       "blobHash": null,
       "label": "Query contract",
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
