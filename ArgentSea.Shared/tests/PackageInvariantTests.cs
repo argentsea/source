@@ -143,7 +143,7 @@ namespace ArgentSea.Test
 
             Single(project, "TargetFramework").Should().Be("net10.0");
             Single(project, "Nullable").Should().Be("enable");
-            Single(project, "Version").Should().Be("2.0.4");
+            Single(project, "Version").Should().Be("2.1.0");
             Single(project, "PackageLicenseExpression").Should().Be("MIT");
             Single(project, "PackageIcon").Should().Be("argentsea-logo.png");
             Single(project, "GeneratePackageOnBuild").Should().BeEquivalentTo("true");
@@ -181,9 +181,9 @@ namespace ArgentSea.Test
             Path.GetFileNameWithoutExtension(CoreProject).Should().Be("ArgentSea", "the package id is the project name");
             Properties(project, "AssemblyName").Should().BeEmpty("the assembly is named after the project");
             Single(project, "Title").Should().Be("ArgentSea core library");
-            Single(project, "AssemblyVersion").Should().Be("2.0.0.0");
-            Single(project, "FileVersion").Should().Be("2.0.0.0");
-            Single(project, "Version").Should().NotBe("2.0.0.0", "the package version moves independently of the assembly version");
+            Single(project, "AssemblyVersion").Should().Be("2.1.0.0");
+            Single(project, "FileVersion").Should().Be("2.1.0.0");
+            Single(project, "Version").Should().NotBe("2.1.0.0", "the package version moves independently of the assembly version");
         }
 
         [Fact]
@@ -216,12 +216,12 @@ namespace ArgentSea.Test
             packages.Should().BeEquivalentTo(new Dictionary<string, string?>
             {
                 ["Microsoft.CSharp"] = "4.7.0",
-                ["Microsoft.Extensions.Configuration"] = "10.0.12",
-                ["Microsoft.Extensions.Logging"] = "10.0.12",
-                ["Microsoft.Extensions.Options"] = "10.0.12",
-                ["Microsoft.Extensions.Options.ConfigurationExtensions"] = "10.0.12",
-                ["Polly"] = "8.7.0",
-                ["System.Collections.Immutable"] = "10.0.12",
+                ["Microsoft.Extensions.Configuration"] = "10.0.13",
+                ["Microsoft.Extensions.Logging"] = "10.0.13",
+                ["Microsoft.Extensions.Options"] = "10.0.13",
+                ["Microsoft.Extensions.Options.ConfigurationExtensions"] = "10.0.13",
+                ["Polly"] = "8.8.0",
+                ["System.Collections.Immutable"] = "10.0.13",
             });
             packages.Keys.Where(k => !k.StartsWith("Microsoft.", StringComparison.Ordinal) && !k.StartsWith("System.", StringComparison.Ordinal)).Should().Equal("Polly");
             ProjectReferences(Load(CoreProject)).Should().BeEmpty("the core depends on no other ArgentSea project");
@@ -240,8 +240,8 @@ namespace ArgentSea.Test
 
             PackageReferences(project).Should().BeEquivalentTo(new Dictionary<string, string?>
             {
-                ["Microsoft.Data.SqlClient"] = "7.0.3",
-                ["Microsoft.Extensions.Logging"] = "10.0.12",
+                ["Microsoft.Data.SqlClient"] = "7.1.1",
+                ["Microsoft.Extensions.Logging"] = "10.0.13",
             });
             Items(project, "PackageReference").Single(i => i.Include == "Microsoft.Data.SqlClient").Condition.Should().BeNull("the SqlClient reference carries no Condition");
             ProjectReferences(project).Should().Equal("ArgentSea.csproj");
@@ -253,8 +253,8 @@ namespace ArgentSea.Test
         {
             var project = Load(SqlProject);
 
-            Single(project, "AssemblyVersion").Should().Be("2.0.0.0");
-            Single(project, "FileVersion").Should().Be("2.0.0.0");
+            Single(project, "AssemblyVersion").Should().Be("2.1.0.0");
+            Single(project, "FileVersion").Should().Be("2.1.0.0");
             Single(project, "IncludeSymbols").Should().BeEquivalentTo("true");
             Single(project, "SymbolPackageFormat").Should().Be("snupkg");
         }
@@ -280,8 +280,8 @@ namespace ArgentSea.Test
 
             PackageReferences(project).Should().BeEquivalentTo(new Dictionary<string, string?>
             {
-                ["Microsoft.Extensions.Configuration"] = "10.0.12",
-                ["Microsoft.Extensions.Logging"] = "10.0.12",
+                ["Microsoft.Extensions.Configuration"] = "10.0.13",
+                ["Microsoft.Extensions.Logging"] = "10.0.13",
                 ["Npgsql"] = "10.0.3",
             });
             ProjectReferences(project).Should().Equal("ArgentSea.csproj");
@@ -315,9 +315,9 @@ namespace ArgentSea.Test
 
             PackageReferences(project).Should().BeEquivalentTo(new Dictionary<string, string?>
             {
-                ["Microsoft.Orleans.Reminders"] = "10.3.1",
-                ["Microsoft.Orleans.Runtime"] = "10.3.1",
-                ["Microsoft.Orleans.Sdk"] = "10.3.1",
+                ["Microsoft.Orleans.Reminders"] = "10.4.0",
+                ["Microsoft.Orleans.Runtime"] = "10.4.0",
+                ["Microsoft.Orleans.Sdk"] = "10.4.0",
             });
             ProjectReferences(project).Should().Equal("ArgentSea.csproj");
             var everyReference = PackageReferences(project).Keys.Concat(ProjectReferences(project));
@@ -333,8 +333,8 @@ namespace ArgentSea.Test
             var project = Load(OrleansProject);
 
             Single(project, "ImplicitUsings").Should().Be("enable");
-            Single(project, "AssemblyVersion").Should().Be("2.0.0.0");
-            Single(project, "FileVersion").Should().Be("2.0.0.0");
+            Single(project, "AssemblyVersion").Should().Be("2.1.0.0");
+            Single(project, "FileVersion").Should().Be("2.1.0.0");
             Single(project, "Title").Should().Be("ArgentSea core library for Microsoft Orleans persistence");
             Single(project, "Description").Should().Be("Abstractions which enable ArgentSea to serve as a data provider for Microsoft Orleans.");
         }
@@ -367,9 +367,9 @@ namespace ArgentSea.Test
 
             PackageReferences(project).Should().BeEquivalentTo(new Dictionary<string, string?>
             {
-                ["Microsoft.Orleans.Reminders"] = "10.3.1",
-                ["Microsoft.Orleans.Runtime"] = "10.3.1",
-                ["Microsoft.Orleans.Sdk"] = "10.3.1",
+                ["Microsoft.Orleans.Reminders"] = "10.4.0",
+                ["Microsoft.Orleans.Runtime"] = "10.4.0",
+                ["Microsoft.Orleans.Sdk"] = "10.4.0",
             });
             ProjectReferences(project).Should().BeEquivalentTo(new[] { "ArgentSea.Orleans.csproj", "ArgentSea.Sql.csproj" });
         }
