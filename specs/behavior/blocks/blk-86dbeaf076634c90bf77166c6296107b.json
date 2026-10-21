@@ -3,9 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "response": "allow the exception thrown by the underlying data call or resilience policy to propagate directly to the caller without being swallowed or wrapped in a RetryLimitExceededException",
     "subject": "Resilient Command Execution",
-    "trigger": "the retry policy exhausts the connection's configured retry count without a successful execution",
-    "response": "let whatever exception the connection's current resilience policy (ResiliencePolicy.ExecuteAsync) throws propagate to the caller: none of DataConnectionManager's seven execution methods (ReturnAsync x2, ListAsync x2, QueryAsync, RunAsync, RunBatchAsync) wraps that call in a try/catch that could intercept, translate or replace it, and DataConnectionManager.cs never constructs a RetryLimitExceededException."
+    "trigger": "the retry policy exhausts the connection's configured retry count without a successful execution"
   },
   "metadata": {
     "status": "Draft",
