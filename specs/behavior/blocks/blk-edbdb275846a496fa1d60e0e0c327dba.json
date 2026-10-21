@@ -1,0 +1,51 @@
+{
+  "id": "blk-edbdb275846a496fa1d60e0e0c327dba",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "the options instance exposes deterministic default backing-store keys, grain-key validation enabled, ApplicationServices initialization ordering, and any supplied query definitions indexed by GrainType",
+    "response": "initialize DatabaseKey = 'Common' (on OrleansDbPersistenceOptions) or ShardSetKey = 'Default' (on OrleansShardPersistenceOptions), ValidateGrainKeys = true, Queries = new Dictionary<string, OrleansQueryDefinitions>(), and InitStage = ServiceLifecycleStage.ApplicationServices, and populate Queries keyed by definition.GrainType when constructed with a non-null List<OrleansQueryDefinitions>",
+    "subject": "OrleansDbPersistenceOptions and OrleansShardPersistenceOptions",
+    "trigger": "an options instance is constructed with the parameterless constructor or a List<OrleansQueryDefinitions>"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansDbPersistenceOptions.cs",
+        "lines": "12-46",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/OrleansShardPersistenceOptions.cs",
+        "lines": "13-50",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
