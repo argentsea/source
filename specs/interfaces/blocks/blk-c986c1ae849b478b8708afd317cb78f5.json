@@ -9,7 +9,7 @@
     "contract": "For a ShardBatch<TResult> composed of multiple commands, RunAsync executes that batch's commands against this single shard within one transaction and returns the batch's declared TResult. This is the single-shard execution path for a ShardBatch assembled elsewhere in the shard-set API; unlike the Query-based RunAsync overloads, it takes the batch and a cancellation token only, with no separate parameters or shardParameterName argument of its own."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
