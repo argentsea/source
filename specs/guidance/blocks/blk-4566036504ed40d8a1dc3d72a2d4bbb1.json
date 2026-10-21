@@ -1,0 +1,74 @@
+{
+  "id": "blk-4566036504ed40d8a1dc3d72a2d4bbb1",
+  "specId": "guidance",
+  "type": "Guidance",
+  "fields": {
+    "appliesWhen": {
+      "fileGlobs": [
+        "*Query*.cs",
+        "*.sql",
+        "*.psql"
+      ],
+      "semanticAnchor": "declaring QueryProcedure, QueryStatement, SqlQueryStatement, PgQueryStatement, or PgFunctionQuery in a static Queries catalog for SQL Server stored procedures and PostgreSQL procedures or functions",
+      "symbols": [
+        "QueryProcedure",
+        "QueryStatement",
+        "SqlQueryStatement",
+        "PgQueryStatement",
+        "PgFunctionQuery"
+      ]
+    },
+    "body": "Declare all `Query` definitions in a static `Queries` catalog class. Use `QueryProcedure` (`CommandType.StoredProcedure`) for SQL Server stored procedures (`EXEC`) and PostgreSQL `CREATE PROCEDURE` routines (`CALL` in Npgsql 7+). Use `QueryStatement` (`CommandType.Text`) or `PgFunctionQuery` for PostgreSQL `CREATE FUNCTION` and set-returning functions (`SELECT * FROM fn(...)`), because `CommandType.StoredProcedure` in Npgsql 7+ emits `CALL` and cannot invoke PostgreSQL functions. When both SQL Server and PostgreSQL statement files are used in the same process, use `SqlQueryStatement` (`.sql`) and `PgQueryStatement` (`.psql`) rather than mutating the shared static `QueryStatement.Extension` property.",
+    "scope": "targeted",
+    "title": "QueryProcedure vs. QueryStatement and PgFunctionQuery selection"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryProcedure.cs",
+        "lines": "1-60",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryStatement.cs",
+        "lines": "1-95",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-5a81848b65fe4aafb1def3ebb3238ec4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
