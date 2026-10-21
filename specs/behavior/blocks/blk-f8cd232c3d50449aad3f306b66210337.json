@@ -5,15 +5,15 @@
   "fields": {
     "gwt": {
       "given": "a ShardKey<int> with shard identifier 42 and record identity 123456",
-      "when": "ShardKeyOrleansSerializer<...>.DeepCopy is invoked for that key",
-      "then": "the result is a ShardKey<int> reconstructed from the key's ToArray bytes and equals the input key"
+      "then": "the result is a ShardKey<int> reconstructed from the key's ToArray bytes and equals the input key",
+      "when": "ShardKeyOrleansSerializer<...>.DeepCopy is invoked for that key"
     },
     "illustrates": [
       {
+        "blockId": "blk-67158cfafab944f28c38b6bafc5ae730",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-f7c7ad67a313423c93c6cc2d0879ab13"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
