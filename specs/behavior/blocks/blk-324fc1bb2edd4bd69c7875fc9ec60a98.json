@@ -9,7 +9,7 @@
     "postcondition": "a later resolution of grain storage for that provider name is backed by the builder's chosen store"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

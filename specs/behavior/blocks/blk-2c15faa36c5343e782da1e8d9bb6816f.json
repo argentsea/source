@@ -1,0 +1,80 @@
+{
+  "id": "blk-2c15faa36c5343e782da1e8d9bb6816f",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "a later resolution of grain storage for that provider name is backed by the builder's chosen store",
+    "response": "it registers the corresponding grain-storage factory — CreateDb for the database builder, CreateShards for the shard-set builder — against the silo's service collection under that same provider name",
+    "subject": "Orleans Grain Storage Hosting",
+    "trigger": "the database-backed or shard-set-backed ArgentSea GrainStorage provider builder's Configure method is invoked on an ISiloBuilder with a given provider name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Persistence/ArgentSeaGrainStorageProviderBuilder.cs",
+        "lines": "13-65",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-hosting",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-0d3796e06a3b4bf4ab550723c361902c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-a44c5174893a48b4ba23db0b55f92e11",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-566af5dfe48e44a9a243401a545ffa14",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-324fc1bb2edd4bd69c7875fc9ec60a98",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
