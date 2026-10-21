@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "MapSqlShardKeyAttribute constructor family",
+    "contract": "MapSqlShardKeyAttribute : MapShardKeyAttribute configures an attributed ShardKey<TRecord>, ShardKey<TRecord, TChild>, ShardKey<TRecord, TChild, TGrandChild>, or ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild> (or nullable equivalent) property for SQL Server parameter and result mapping. All 10 constructor overloads require recordIdName and may additionally accept shardIdName, childIdName, grandChildIdName, greatGrandChildIdName, and isRecordIdentifier (defaulting isRecordIdentifier to true when omitted). When shardIdName is supplied, it creates an internal MapToSqlSmallIntAttribute(shardIdName, false) for the shard identifier slot; each record/child component name must match a sibling MapToSql*Attribute on the same property (or MapAttributeMissingException is thrown). On hydration from DbDataReader or output DbParameterCollection, the mapper resolves each configured component column or parameter, checks column/parameter presence and DBNull status (terminating model hydration with null/default when a component marked IsRecordIdentifier is missing or DBNull), and constructs the target ShardKey<...> when all key components are non-null (or assigns ShardKey<...>.Empty / null when any component is null).",
     "kind": "Library",
     "language": "csharp",
-    "contract": "MapSqlShardKeyAttribute configures an attributed virtual compound key for SQL mapping. All overloads require recordIdName; overloads may add shardIdName, childIdName, grandChildIdName, greatGrandChildIdName, and isRecordIdentifier. A supplied shardIdName is represented by a SQL SmallInt mapping with isRequired=false. Overloads without isRecordIdentifier set it to true; overloads with it preserve the supplied value. The three-argument (shardIdName, recordIdName, childIdName) overload assigns childIdName to the child, grandchild, and great-grandchild configuration slots; the four- through six-argument forms assign each supplied subordinate name to its corresponding slot."
+    "name": "MapSqlShardKeyAttribute constructor family"
   },
   "metadata": {
     "status": "Draft",
