@@ -3,8 +3,8 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "Queries QueryProcedure members must always resolve to the declared version-1 procedure identifier and declared ordered parameter list.",
-    "scope": "The public QueryProcedure catalogue exposed by Queries."
+    "statement": "Queries QueryProcedure members must always resolve to the declared versioned procedure identifier (version 1, or version 2 for the etag-advancing membership writes wtr.OrleansClusterInsertMemberKeyV2 and wtr.OrleansClusterUpdateMemberKeyV2) and declared ordered parameter list.",
+    "scope": "The public QueryProcedure catalogue exposed by ArgentSea.Orleans.Sql Queries."
   },
   "metadata": {
     "status": "Draft",
@@ -36,6 +36,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
