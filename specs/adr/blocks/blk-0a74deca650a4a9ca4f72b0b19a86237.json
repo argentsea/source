@@ -1,0 +1,86 @@
+{
+  "id": "blk-0a74deca650a4a9ca4f72b0b19a86237",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "PostgreSQL Orleans routines: procedures for writes, functions for reads",
+    "decision": "Every write in ArgentSea.Orleans.Pg is a PostgreSQL procedure invoked with QueryProcedure (Npgsql sends CALL with named arguments); values a write must return (a new reminder version, whether a row was removed) are INOUT procedure parameters read with ReturnValueAsync. Every read is a set-returning PostgreSQL function invoked by a CommandType.Text query whose text is only the SELECT * FROM function call. The membership reads keep the SQL Server package's result-set shapes and reader mappers: ReadAll runs three function calls (version row; member rows; suspect rows) and ReadRow runs two (the addressed member row joined to the version row; its suspect rows), each as one multi-statement command inside a REPEATABLE READ transaction so all its result sets come from one snapshot; ReadAll with no version row and ReadRow for an unknown silo throw OrleansException, as on SQL Server. Concurrency conflicts are raised with the package's own SQLSTATE AS001 and classified by PostgresException.SqlState. Every routine is SECURITY DEFINER with SET search_path = pg_catalog, pg_temp and schema-qualifies every object it touches; the scripts revoke the default EXECUTE right from PUBLIC on every routine and grant EXECUTE only per role: orleans_reader on rdr routines, orleans_writer on rdr and wtr routines, orleans_client on the gateway-list function alone.",
+    "context": "Npgsql 10 sends CommandType.StoredProcedure as CALL, so a QueryProcedure cannot call a function (verified: 42883 procedure does not exist), and a PostgreSQL procedure cannot return a result set except through refcursors. The SQL Server package returns reads as procedure result sets, passes the suspect list as a table-valued parameter and signals conflicts with THROW 51000. ArgentSea keeps query logic in the database rather than in compiled code. SECURITY DEFINER routines run with their owner's rights, so without a pinned search_path a caller could shadow objects through a schema it controls, and PostgreSQL grants EXECUTE on new routines to PUBLIC by default, which would defeat the role separation. A Codex review (relayed by the operator) caught the ReadRow result-set count and the incomplete permission contract.",
+    "alternatives": [
+      {
+        "option": "Statement files (QueryStatement, .psql) holding the full queries, deployed beside the application",
+        "whyRejected": "Puts query logic outside the database routines the schema scripts install, and makes every consumer copy package content files into a SQL folder; a NuGet library cannot rely on that layout."
+      },
+      {
+        "option": "Procedures returning refcursors for reads",
+        "whyRejected": "Needs an explicit transaction and a FETCH round trip per cursor, and Npgsql does not dereference cursors, so the C# would grow cursor plumbing for no gain over function calls."
+      },
+      {
+        "option": "Functions for writes too, called through text commands",
+        "whyRejected": "Loses the QueryProcedure path that ArgentSea's Write.RunAsync and ReturnValueAsync are built around, and a function cannot COMMIT or be granted separately from reads as cleanly as a wtr procedure."
+      },
+      {
+        "option": "Single-statement atomic read (one function returning all rows as JSON or a union)",
+        "whyRejected": "Would need a different reader mapping from the SQL Server package and JSON decoding in C#; a REPEATABLE READ transaction gives the same atomicity with plain result sets."
+      },
+      {
+        "option": "SECURITY INVOKER routines with table grants per role",
+        "whyRejected": "Gives every role direct table access, so a reader could bypass the routines; the SQL Server package's model is execute-only."
+      }
+    ],
+    "consequences": "The package holds one small Query subclass for function-call text and the schema scripts hold all logic. The membership reader mappers are shared in shape with the SQL Server package. The suspect list travels as four parallel arrays unnested by the update procedure instead of a TVP. Readers, writers and clients get execute-only rights through SECURITY DEFINER routines with a pinned search_path, and tests must show each role is refused the routines it should not call. ArgentSea's own documentation must stop saying that a PostgreSQL QueryProcedure calls functions.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-1466ca40221b4e97bf88cbc07aaa97ce",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-d768665c1b9f4bb5848992eab45d3261",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-e7566bc44d504db7875fff7333a3d53c",
+      "blobHash": null,
+      "label": "Snapshot membership reads",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-10658e9ad5854821a3781da0d2ef9fe4",
+      "blobHash": null,
+      "label": "Queries catalogue and PgFunctionQuery",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-f281557d20c9483597c3002b971f632e",
+      "blobHash": null,
+      "label": "Routine security and grants",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
