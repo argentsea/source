@@ -4,16 +4,16 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "an input parameter collection that already contains a parameter named '@ExistingId', and an ignoreParameters set that does not contain '@ExistingId'",
-      "when": "CreateInputParameters<TModel> is called on that collection, passing that ignoreParameters set and a model instance",
-      "then": "after the call returns, the ignoreParameters set contains '@ExistingId' even though the caller never added it — every parameter name already present in the incoming collection is merged into ignoreParameters before the model's mapping delegate is invoked, and the same parameter collection is returned"
+      "given": "an input parameter collection that already contains a parameter named '@ExistingId', and an ignoreParameters exclusion set",
+      "then": "CreateInputParameters<TModel> excludes both the parameter names in ignoreParameters and any parameter names already present in the incoming collection (such as '@ExistingId', matched case-insensitively) when appending input parameters for the model, and returns the parameter collection",
+      "when": "CreateInputParameters<TModel> is called on that collection, passing that ignoreParameters set and a model instance"
     },
     "illustrates": [
       {
+        "blockId": "blk-39b5f4e3d08a457e9bbdbab3d455030a",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-39b5f4e3d08a457e9bbdbab3d455030a"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
