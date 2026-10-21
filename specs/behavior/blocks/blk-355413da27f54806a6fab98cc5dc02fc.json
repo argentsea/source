@@ -9,7 +9,7 @@
     "postcondition": "the SQL Server database provider is the SqlClient-specific completion of the provider-neutral core, and any consumer of the package takes both SqlClient and the core as transitive dependencies"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
