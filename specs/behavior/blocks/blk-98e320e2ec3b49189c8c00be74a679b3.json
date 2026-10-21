@@ -10,7 +10,7 @@
     "postcondition": "an unusually short reminder period does not fail validation; ValidateConfiguration invokes ILogger.LogWarning under RS_FastReminderInterval reporting the configured period against the default minimum, rather than rejecting the period outright or returning with no logging call"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
