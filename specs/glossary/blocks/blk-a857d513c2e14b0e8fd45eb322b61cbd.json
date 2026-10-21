@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "A subordinate key component (`ChildId`, `GrandChildId`, `GreatGrandChildId`) of a multi-column `ShardKey`, representing composite primary-key columns beneath `RecordId` within the same shard.",
     "name": "Child id",
-    "definition": "The second record-key column of a multi-column shard key (`ChildId`). The third and fourth columns are the grandchild id and great-grandchild id. They express a table whose primary key has more than one column, typically a parent id plus an id within that parent (an order and its line number). Like the record id, they are unique only in combination with the shard id.",
     "synonyms": [
       "ChildId",
       "GrandChildId",
