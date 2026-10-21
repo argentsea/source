@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "Populating a caller-supplied, already-existing model instance with query results in place instead of constructing a new model instance. This allows objects whose lifecycle ArgentSea does not own (such as Orleans grain state) to be hydrated directly; result handlers therefore receive the target model instance as their first argument.",
     "name": "Instance hydration",
-    "definition": "Populating a caller-supplied, already-existing model instance with query results, instead of always constructing a new model. It was introduced in version 2 so that objects whose lifetime ArgentSea does not own, such as Orleans grain state, can be loaded in place. Result handlers therefore receive the instance to fill as their first argument.",
     "synonyms": [
       "populate existing instance"
     ]
