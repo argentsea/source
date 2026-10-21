@@ -20,7 +20,7 @@
     "consequences": "Each provider package stays small and exact about its platform's types. Teams that need both SQL Server and PostgreSQL must separate them into different projects or services. Models cannot be shared between providers."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,

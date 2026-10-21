@@ -1,0 +1,64 @@
+{
+  "id": "blk-ef87f4c58faf43b9a0fc623b296e103b",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Provider-neutral mapping attributes resolved to a provider at run time.",
+        "whyRejected": "Gives up exact database-type declarations such as length, precision and locale, which the design relies on for correctly sized parameters and strict type matching. It would also require choosing a delegate per call, forfeiting the single compiled delegate per type."
+      },
+      {
+        "option": "Allow both providers' attributes on one model, with per-provider delegate caches.",
+        "whyRejected": "When the Mapper meets attributes for two providers it cannot know which to emit. Duplicating every cache by provider adds considerable complexity without architectural benefit."
+      }
+    ],
+    "consequences": "Each provider package stays small and exact about its platform's types. Teams that need both SQL Server and PostgreSQL must separate them into different projects or services. Models cannot be shared between providers.",
+    "context": "The Mapper compiles one set of delegates per model type, and those delegates emit provider-typed parameters such as `SqlParameter` and `NpgsqlParameter` and read provider-specific values. The mapping attributes carry provider database types (`MapToSqlNVarChar` versus `MapToPgVarchar`), and when the Mapper builds a delegate it does not know which provider will eventually run the parameters.",
+    "decision": "ArgentSea ships separate provider packages (ArgentSea.Sql for SQL Server, ArgentSea.Pg for PostgreSQL) over one shared core. A model's mapping attributes must all come from one provider, and combining both providers in one application is unsupported and untested. Applications that need both platforms should split along a service boundary.",
+    "status": "Accepted",
+    "title": "A model and an application target exactly one database provider"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/documentation/faqs.md",
+        "lines": "11-15",
+        "label": "Provider-combination FAQ decision",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p7-shared-core-providers",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-535735bcbe07473e8bdbf3b54e518715",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
