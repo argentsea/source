@@ -10,7 +10,7 @@
     "postcondition": "the returned connection string preserves the explicitly supplied diagnostic settings"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Reviewer note (merge-skeptic): Grounded in ArgentSea.Pg/src/PgConnectionConfiguration.cs:114-143 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'postgres-connection-settings' resolves to component 'Postgres Connection Settings' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
