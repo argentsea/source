@@ -1,0 +1,53 @@
+{
+  "id": "blk-34cc1b971b6f4cda9b99a7276c4e8d84",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "name": "ArgentSea.Orleans.Pg cluster membership tables",
+    "description": "The tables common.psql creates in the orleans schema for cluster membership.",
+    "members": [
+      {
+        "name": "orleans_cluster_member_version",
+        "type": "table",
+        "required": true,
+        "description": "cluster_id varchar(150) primary key; timestamp timestamptz; etag_no integer (the table etag, advanced by every member insert or update); version integer."
+      },
+      {
+        "name": "orleans_cluster_member",
+        "type": "table",
+        "required": true,
+        "description": "cluster_member_id identity primary key; cluster_id references the version row; address bytea, port, generation (unique per cluster); silo_name, host_name varchar(150); status smallint; proxy_port integer; start_time, i_am_alive_time timestamptz; membership_etag_no (the table etag of the write that last changed the row) and membership_version integers."
+      },
+      {
+        "name": "orleans_cluster_member_suspicion",
+        "type": "table",
+        "required": true,
+        "description": "cluster_member_id references the member; address bytea, port, generation of the suspecting silo (primary key with cluster_member_id); timestamp timestamptz of its latest report."
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-d1a256b10cce4c5c9f9ec51f25e89fc6",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-76cdd2609e9d4c02880ca1bae609b4c2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
