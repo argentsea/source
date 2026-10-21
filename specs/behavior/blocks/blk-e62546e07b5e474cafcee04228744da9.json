@@ -10,7 +10,7 @@
     "postcondition": "nothing is formatted or logged when Trace is disabled; a call that throws before its query completes logs no timing event"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
