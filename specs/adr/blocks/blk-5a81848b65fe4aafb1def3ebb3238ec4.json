@@ -1,0 +1,77 @@
+{
+  "id": "blk-5a81848b65fe4aafb1def3ebb3238ec4",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Dynamic SQL generated from the object model, as in a full ORM.",
+        "whyRejected": "Couples application code to table structure, hides the actual SQL from DBAs, complicates plan tuning, and widens the injection surface."
+      },
+      {
+        "option": "Inline SQL string literals compiled into the application.",
+        "whyRejected": "Any query change requires a rebuild and redeploy, and SQL authors must work inside the C# toolchain."
+      },
+      {
+        "option": "Stored procedures only (`QueryProcedure` / `CommandType.StoredProcedure`), for every provider.",
+        "whyRejected": "In PostgreSQL (`Npgsql` 7+), `CommandType.StoredProcedure` emits `CALL <name>(...)` and invokes `CREATE PROCEDURE` routines only, whereas PostgreSQL functions (`CREATE FUNCTION`, including set-returning functions) must be invoked via SQL text statements (`QueryStatement` or `PgFunctionQuery`). In addition, some teams cannot create server-side routines in databases they do not own, so file-based statements are needed as well."
+      }
+    ],
+    "consequences": "The database can be refactored, re-indexed, hinted, or partitioned without application changes as long as each query contract holds. DBAs can review every data access and grant `EXECUTE`-only permissions where stored procedures or functions are used. Unused queries show up with zero code references. SQL statement files must be deployed alongside the application, and parameter and result column names form a contract that the `Mapper` relies on.",
+    "context": "SQL that performs well on day one often needs rewriting as data volume and cardinality change, and the engineers tuning SQL often work outside the C# build. SQL generated from an object model is harder to review and optimize and widens the injection surface. Large applications also accumulate orphaned queries that cannot be safely removed without knowing which code paths call them.",
+    "decision": "Every ArgentSea data method takes a `Query` object that names SQL living outside the compiled application. A `QueryProcedure` (`CommandType.StoredProcedure`) names a stored procedure in the database (invoking `EXEC` on SQL Server and `CALL` on PostgreSQL). A `QueryStatement` (`CommandType.Text`) names a parameterized SQL statement file deployed beside the application and loaded lazily (used for SQL queries and PostgreSQL `SELECT * FROM fn(...)` function calls, alongside `PgFunctionQuery`). ArgentSea never generates SQL from model types. Applications declare every `Query` in a static `Queries` catalog so usage is discoverable by reference count. The query contract—parameters accepted and result columns returned—is the only coupling between application and database.",
+    "status": "Accepted",
+    "title": "Keep SQL static, consolidated and segregated from application binaries"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/querying.md",
+        "lines": "37-51",
+        "label": "Static, consolidated, segregated SQL rationale",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-definitions",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b476e4e258c74e5fbe94ff18d6f37705",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p4-loose-coupling",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-eeec7240b88c4bdab98d751c228daf28",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

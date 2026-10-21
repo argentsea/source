@@ -24,7 +24,7 @@
     "title": "Keep SQL static, consolidated and segregated from application binaries"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
