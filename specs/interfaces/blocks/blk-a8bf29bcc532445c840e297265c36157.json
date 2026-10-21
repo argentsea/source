@@ -9,7 +9,7 @@
     "contract": "public static void WriteTo(Expression node, TextWriter writer)\n\nDebugViewWriter.WriteTo renders the supplied expression into the supplied writer using the component's debug-view notation. A root lambda is rendered as its definition; nested lambda nodes are recorded while the root is traversed and their definitions are appended after the root rendering in first-encounter order."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
