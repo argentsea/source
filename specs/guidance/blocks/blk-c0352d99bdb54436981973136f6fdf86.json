@@ -1,0 +1,81 @@
+{
+  "id": "blk-c0352d99bdb54436981973136f6fdf86",
+  "specId": "guidance",
+  "type": "Guidance",
+  "fields": {
+    "appliesWhen": {
+      "fileGlobs": [
+        "*ShardKey*.cs",
+        "*Map*ShardKey*.cs"
+      ],
+      "semanticAnchor": "mapping and hydrating ShardKey properties with MapSqlShardKeyAttribute, MapPgShardKeyAttribute, or MapShardKeyAttribute and configuring shardParameterName for foreign-shard keys or server-side shard verification",
+      "symbols": [
+        "MapSqlShardKeyAttribute",
+        "MapPgShardKeyAttribute",
+        "MapShardKeyAttribute",
+        "ShardKey"
+      ]
+    },
+    "body": "When hydrating a `[MapSqlShardKey]` or `[MapPgShardKey]` property on a model, omit the `shardParameterName` constructor argument when the `ShardId` originates from the executing shard connection itself—the `Mapper` automatically supplies the connection's `shardId`. Specify a `shardParameterName` column or parameter name only when reading a foreign-shard reference stored in the row or when passing the current `shardId` into a SQL command for server-side shard verification.",
+    "scope": "targeted",
+    "title": "ShardKey hydration and shardParameterName usage"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/MapShardKeyAttribute.cs",
+        "lines": "1-90",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": "820-900",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-1bdbc7224a694ee7843c6d011f83446e",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8720c6e92b0142ed8308a371fea29ad4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-eee7f551a58f4b4f9e5f8b6bebc2389f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
