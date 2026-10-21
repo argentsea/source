@@ -9,7 +9,7 @@
     "trigger": "ThrowIfMetadataMismatch is invoked with the expected key component type(s) and serialized metadata header"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
