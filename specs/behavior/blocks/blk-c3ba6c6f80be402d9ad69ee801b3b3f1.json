@@ -9,7 +9,7 @@
     "postcondition": "the packed bytes are written even when the call returns false, with any Undefined part encoded as zero"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

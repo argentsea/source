@@ -1,0 +1,62 @@
+{
+  "id": "blk-2632e46de8eb4fc2b7ea40af22c27a3d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "the packed bytes are written even when the call returns false, with any Undefined part encoded as zero",
+    "response": "pack each key part's KeyDataType code (from GetKeyDataType) into a byte sequence sized by arity -- 1 byte for one part, 2 bytes for two, and 3 bytes for three or four parts -- and return true only when every supplied type encoded to a non-Undefined code",
+    "subject": "ShardKeySerialization",
+    "trigger": "a caller requests encoded type metadata for a 1-to-4-part key via TryEncodeTypeMetadata"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "203-261",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-f59f7cd154a041b88bed267ca48c9598",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-c3ba6c6f80be402d9ad69ee801b3b3f1",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
