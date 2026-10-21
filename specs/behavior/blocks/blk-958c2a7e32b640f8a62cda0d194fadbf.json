@@ -10,7 +10,7 @@
     "postcondition": "no ShardKey byte payload is written to or read from the wire for that occurrence of the field"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
