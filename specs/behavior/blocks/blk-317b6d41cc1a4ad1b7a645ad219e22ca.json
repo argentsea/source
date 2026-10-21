@@ -1,0 +1,44 @@
+{
+  "id": "blk-317b6d41cc1a4ad1b7a645ad219e22ca",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "each PostgreSQL command executes with isolated cloned NpgsqlParameter instances, statement preparation when non-multiplexed, and transient error classification via NpgsqlException.IsTransient",
+    "response": "return a transient-error predicate evaluating NpgsqlException.IsTransient from GetIsErrorTransient, construct NpgsqlConnection and NpgsqlCommand in NewConnection and NewCommand, and in SetParameters clone each required NpgsqlParameter, apply any per-shard parameterValues overrides (or DBNull.Value when null), throw ParameterNotFoundException when a named query parameter is missing from both collections, and call cmd.Prepare() when NpgsqlConnectionStringBuilder(connection.ConnectionString).Multiplexing is false",
+    "subject": "DataProviderServiceFactory (ArgentSea.Pg)",
+    "trigger": "PostgreSQL connections, commands, parameters, or retry predicates are requested during command execution"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/DataProviderServiceFactory.cs",
+        "lines": "18-108",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-provider-services",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-76a65bb7246047f396ebbe5ad80158d9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
