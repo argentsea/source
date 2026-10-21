@@ -1,0 +1,86 @@
+{
+  "id": "blk-a0ee66527aa246e989ad938877b3b4b0",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Make the shard id type a generic parameter (`TShard`).",
+        "whyRejected": "Propagates an extra generic type parameter across `ShardSets`, `ShardKey`, `ShardBatch`, and result handlers for flexibility no single application uses, since the shard id type is uniform within an application."
+      },
+      {
+        "option": "Fix the shard id as `byte`.",
+        "whyRejected": "A ceiling of 255 shards is too small for large global or tenant-per-database deployments."
+      },
+      {
+        "option": "Fix the shard id as `int` or `Guid`.",
+        "whyRejected": "Doubles or octuples the storage cost of every persisted shard reference for a shard count no deployment requires."
+      }
+    ],
+    "consequences": "Cleaner generic signatures (`ShardKey<TRecord>`, `ShardSet<TShardOptions>`), a compact two-byte shard identifier in every serialized `ShardKey`, and a range of up to 65,535 non-zero `short` shard identifiers.",
+    "context": "Within any single application, the shard identifier type is uniform across all shard sets, keys, batches, and handlers. Making the shard identifier type generic forces every declaration in the library and in consuming code to repeat a type parameter that never varies within a system, while the chosen width directly determines the wire and storage cost of every persisted shard-qualified key.",
+    "decision": "Every shard identifier (`shardId`) is a 16-bit signed integer (`short` / `Int16` / SQL `smallint`), with `0` reserved as the empty/unassigned sentinel. The shard id type is fixed rather than generic across `ShardKey`, `ShardSet`, `ShardBatch`, and result handlers.",
+    "status": "Accepted",
+    "title": "Fix the shard id as a 16-bit integer"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "34-40",
+        "label": "ShardId design history",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5a609a263dd34f5d865a994451aae0c9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-636453e340ee46b59274b6e31038ed1a",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p1-scale-out-first",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-9c60b6576e70453aa5440391c60db0a6",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -24,7 +24,7 @@
     "title": "Fix the shard id as a 16-bit integer"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
