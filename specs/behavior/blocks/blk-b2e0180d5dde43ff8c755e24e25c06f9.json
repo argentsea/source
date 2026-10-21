@@ -1,0 +1,62 @@
+{
+  "id": "blk-b2e0180d5dde43ff8c755e24e25c06f9",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "data is a 16-byte span of all-zero bytes with position already advanced to 1 (so only 15 bytes remain ahead of the cursor), and valueType = typeof(Guid)",
+      "then": "TryConvertFromBytes validates the remaining span length from position 1 (15 bytes < 16 required), returns false, leaves result at default (Guid.Empty), and leaves position unchanged at 1",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(Guid), out result) is called"
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-faee456447084061bb18f1b1bbcab911",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "410-421",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-faee456447084061bb18f1b1bbcab911",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-377cea45df6144a09584071253d0f5b3",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
