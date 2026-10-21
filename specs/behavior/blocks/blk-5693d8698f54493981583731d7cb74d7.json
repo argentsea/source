@@ -5,16 +5,15 @@
   "fields": {
     "gwt": {
       "given": "A DataConnectionConfigurationBase instance's UserName property currently holds the value \"svc_shard01\".",
-      "when": "The caller assigns UserName the same value, \"svc_shard01\", again.",
-      "then": "The setter's value-changed check (comparing the new value to the current _userName field) finds no difference, so UserName is left unchanged and PropertyChanged is not raised."
+      "then": "The setter's value-changed check (comparing the new value to the current UserName property value) finds no difference, so UserName is left unchanged and PropertyChanged is not raised.",
+      "when": "The caller assigns UserName the same value, \"svc_shard01\", again."
     },
     "illustrates": [
       {
-        "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
         "blockId": "blk-d408f46971a040e292e8898732234253",
-        "relation": "illustrates"
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
