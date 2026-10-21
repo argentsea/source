@@ -20,7 +20,7 @@
     "consequences": "Callers get null for absent records and can use non-nullable Guid and double properties naturally. A literal `Guid.Empty` or `NaN` cannot be stored through a non-nullable property. Because nested models are flattened, a required column inside one nulls the whole parent model. When a required null discards a model, the Mapper logs which column caused it at Debug level, because the resulting null carries no clue."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

@@ -1,0 +1,84 @@
+{
+  "id": "blk-96717d78181f43e8959db530de34d09e",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Require `Nullable<T>` for every nullable column, with no sentinels.",
+        "whyRejected": "It is verbose for Guid and floating-point fields, which commonly use Empty and NaN as \"no value\" in .NET code already."
+      },
+      {
+        "option": "Always return a model, letting callers inspect key fields for emptiness.",
+        "whyRejected": "It pushes absent-record detection into every caller, and it is error-prone when a shard key is a non-nullable struct."
+      }
+    ],
+    "consequences": "Callers get null for absent records and can use non-nullable Guid and double properties naturally. A literal `Guid.Empty` or `NaN` cannot be stored through a non-nullable property. Because nested models are flattened, a required column inside one nulls the whole parent model. When a required null discards a model, the Mapper logs which column caused it at Debug level, because the resulting null carries no clue.",
+    "context": "Most columns can be null, but C# value types cannot. Some nulls are ordinary attribute values; others, such as a null primary key from an outer join or a not-found output parameter, mean there is no record at all. Returning an object with all-default properties in that case is a common source of bugs.",
+    "decision": "Database null maps as follows. Reference types (strings, arrays) map null to null. `Nullable<T>` value types and nullable enums map null to null. The non-nullable `Guid`, `double` and `float` use null sentinels: `Guid.Empty` and `NaN` read and write as database null, while their nullable forms store those values literally. Other non-nullable value types have no null representation. Separately, a mapping marked required makes a database null mean that the record is absent: the Mapper yields no model (null, or the row is omitted from a list) rather than a model with a null property. A non-nullable ShardKey property receiving null data is an error unless the mapping is required.",
+    "status": "Accepted",
+    "title": "Represent database null with nullable types, null sentinels and the required flag"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/attributes.md",
+        "lines": "156-188",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "153-160",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/complexattributes.md",
+        "lines": "129-150",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-75d86a819deb4554a3ce58936d019b3b",
+      "blobHash": null,
+      "label": "Null sentinel",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-67d09a13d68f412aa1af5d696140ed43",
+      "blobHash": null,
+      "label": "Required mapping",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-5d4b15dcf02d4d34b22fff57c2aab90d",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
