@@ -1,0 +1,42 @@
+{
+  "id": "blk-8610cf83492a462a941de965ec23c89c",
+  "specId": "invariants",
+  "type": "Invariant",
+  "fields": {
+    "scope": "ArgentSea.Orleans package dependency graph (ArgentSea.Orleans.csproj)",
+    "statement": "ArgentSea.Orleans must depend only on ArgentSea.Shared and Microsoft Orleans runtime, serialization, clustering, and reminder abstractions, and must never depend on any database-provider project or client package (ArgentSea.Sql, ArgentSea.Pg, Microsoft.Data.SqlClient, or Npgsql)."
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/ArgentSea.Orleans.csproj",
+        "lines": "24-37",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-grain-storage-package",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "invariants",
+      "blockId": "blk-d9e5aef9e5504b31a8cd3f4f5f0cd8b0",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

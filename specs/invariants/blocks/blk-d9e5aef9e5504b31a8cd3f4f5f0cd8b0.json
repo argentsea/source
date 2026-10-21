@@ -7,7 +7,7 @@
     "statement": "ArgentSea.Orleans must depend only on ArgentSea.Shared and Microsoft Orleans runtime, serialization, clustering, and reminder abstractions, and must never depend on any database-provider project or client package (ArgentSea.Sql, ArgentSea.Pg, Microsoft.Data.SqlClient, or Npgsql)."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
