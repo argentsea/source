@@ -9,7 +9,7 @@
     "postcondition": "with Debug disabled no rendering occurs; each kind of listing is distinguishable by its event name and message"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
