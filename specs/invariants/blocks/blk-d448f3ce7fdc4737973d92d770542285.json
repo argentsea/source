@@ -22,7 +22,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "argent-sea",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "universal"
   },
@@ -36,5 +36,20 @@
       "label": "origin note"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "OnlyTheOrleansProviderPackagesDeclareBuildDependenciesAndReleaseBuildTypeIsDeclaredForProductsAndTheCoreTests passes at 85a10ff3.",
+      "evidenceId": "evi-aaed184775164573b51a847953e70ebb",
+      "verifiedContentHash": "fields-sha256-v1:c0d8bb93d147cd69bfdd5771e2f85b172fdfd5e9d110840c905ea99f79293e5c",
+      "recordedAt": "2026-10-21T05:00:08.4341872+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
