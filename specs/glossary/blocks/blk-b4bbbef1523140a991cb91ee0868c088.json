@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "A `Query` whose parameterized SQL text lives in a file deployed beside the application rather than compiled into application binaries, executing with `CommandType.Text`. The default folder is `SQL` and the default extension is `.sql` (or `.psql` once PostgreSQL services are registered via `QueryStatement.Extension`). A host that registers both SQL Server and PostgreSQL services can use `SqlQueryStatement` (`.sql`) and `PgQueryStatement` (`.psql`) to avoid sharing the process-wide default extension. The SQL file is loaded lazily on first use and cached. On PostgreSQL (`Npgsql` 7+), `QueryStatement` (or `PgFunctionQuery`) is required when invoking PostgreSQL functions (`SELECT * FROM fn(...)`), because `QueryProcedure` (`CommandType.StoredProcedure`) emits `CALL` and invokes `CREATE PROCEDURE` routines only.",
     "name": "QueryStatement",
-    "definition": "A Query whose parameterized SQL text lives in a file deployed beside the application rather than compiled into it. The default location is the `SQL` folder with extension `.sql`, or `.psql` once PostgreSQL services are registered (the default extension is one process-wide value). A host that registers both SQL Server and PostgreSQL services creates statements through `SqlQueryStatement` and `PgQueryStatement`, which each use their own extension (`.sql` and `.psql`) regardless of the shared default. The file is loaded lazily on first use and cached, and the query executes with command type Text. It is the preferred form for PostgreSQL and for databases the team cannot add procedures to. A missing file surfaces only at first use.",
     "synonyms": [
       "SQL statement file",
       "statement query"
