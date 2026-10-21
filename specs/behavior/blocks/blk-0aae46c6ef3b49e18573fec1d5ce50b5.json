@@ -3,10 +3,9 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "response": "inspect the serialized metadata header to determine the key's arity and component primitive types, dynamically construct the corresponding typed ShardKey<...> from the retained byte payload when the bytes represent a valid serialized key, and format the untyped key via ToString using its shardId and decoded record, child, grandchild, and great-grandchild components (or return '{ Empty ShardKey }' when empty and '{ Not a ShardKey }' when the buffer cannot be decoded as a valid ShardKey)",
     "subject": "ShardKeys.GhostShardKey",
-    "condition": "its retained bytes contain at least one byte but fewer than five bytes",
-    "trigger": "ToString is invoked",
-    "response": "return the literal `{ Not a ShardKey }` instead of a virtual compound key representation"
+    "trigger": "GetInstance or ToString is invoked on a GhostShardKey"
   },
   "metadata": {
     "status": "Draft",
