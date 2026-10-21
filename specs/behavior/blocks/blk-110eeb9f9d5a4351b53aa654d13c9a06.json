@@ -34,7 +34,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "table-valued-parameters",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
@@ -49,5 +49,26 @@
       "relation": "supersedes"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/test/CollectionMapWriteTests.cs",
+        "lines": "92-378",
+        "label": null
+      },
+      "note": "15/15 CollectionMapWriteTests pass (empty, null, default ImmutableArray, keyed-model, ShardKey, raw-overload empty and lazy pass-through all yield a null-reference Structured Value).",
+      "evidenceId": "evi-10028031c71d48759a85e5c6c42214f6",
+      "verifiedContentHash": "fields-sha256-v1:ca3e033260cd5cc79a7b97797887194613ebd2ff1f1cc96d2942c172fc37aeb6",
+      "subject": {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1125-1420",
+        "label": null
+      },
+      "recordedAt": "2026-10-21T23:03:59.7805749+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
