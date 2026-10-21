@@ -4,16 +4,16 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "data is the 5-byte span [0x00, 0x00, 0x00, 0x00, 0x2A] with position = 3, so only 2 bytes (indices 3-4) remain ahead of the cursor -- fewer than the 4 an Int32 requires -- even though the span's total length of 5 is not itself less than 4",
-      "when": "TryConvertFromBytes(ref data, ref position, typeof(int), out result) is called",
-      "then": "the length guard compares against the full 5-byte span rather than the 2 bytes remaining from position 3 and passes, then the conversion of the 2-byte remainder to Int32 throws ArgumentOutOfRangeException instead of TryConvertFromBytes returning false"
+      "given": "data is the 5-byte span [0x00, 0x00, 0x00, 0x00, 0x2A] with position = 3, so only 2 bytes (indices 3-4) remain ahead of the cursor -- fewer than the 4 bytes an Int32 requires",
+      "then": "TryConvertFromBytes validates the remaining span length ahead of position 3 (2 bytes < 4 required), returns false, leaves result at default (0), and leaves position unchanged at 3",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(int), out result) is called"
     },
     "illustrates": [
       {
+        "blockId": "blk-39a425343a964aec833e2152fd208691",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-39a425343a964aec833e2152fd208691"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
