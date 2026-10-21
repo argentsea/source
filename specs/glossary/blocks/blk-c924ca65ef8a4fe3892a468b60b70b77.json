@@ -3,14 +3,12 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "A data method whose results are hydrated into models automatically by the `Mapper`, as opposed to a `QueryAsync` method, which takes a caller-written result handler delegate. There are three families: `MapReader*` builds the root model from a single-row data reader result; `MapOutput*` builds it from output parameters; and `MapList*` returns one model per row. `MapReader` and `MapOutput` can also populate up to eight child list properties (`TReaderResult0`–`TReaderResult7`) from subsequent result sets. On a shard set, the `First` and `All` suffixes select `ReadFirst` or `ReadAll` fan-out semantics.",
     "name": "Map method",
-    "definition": "A data method whose results are built by the Mapper, as opposed to a Query method, which takes a caller-written result handler. There are three families. `MapReader*` builds the root model from a single-row data reader result. `MapOutput*` builds it from output parameters. `MapList*` returns one model per row. MapReader and MapOutput can also fill up to eight result-set list properties from further result sets. On a shard set, the `First` and `All` suffixes select ReadFirst or ReadAll semantics.",
     "synonyms": [
       "MapReaderAsync",
       "MapOutputAsync",
-      "MapListAsync",
-      "Query method",
-      "QueryAsync"
+      "MapListAsync"
     ]
   },
   "metadata": {
