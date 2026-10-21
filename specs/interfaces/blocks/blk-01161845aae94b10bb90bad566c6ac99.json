@@ -9,7 +9,7 @@
     "contract": "Consumers can construct ArgentSeaGrainPersistenceException with no diagnostic text, with diagnostic text, or with diagnostic text and a causal Exception. For the latter two variants, the resulting exception preserves the supplied diagnostic text; the causal variant also preserves the supplied Exception as InnerException."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Reviewer note (area-skeptic): Grounded and falsifiable exception constructor contract. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'grain-persistence' resolves to component 'Grain Persistence' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",

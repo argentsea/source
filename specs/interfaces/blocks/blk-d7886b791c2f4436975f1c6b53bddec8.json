@@ -1,0 +1,44 @@
+{
+  "id": "blk-d7886b791c2f4436975f1c6b53bddec8",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "contract": "Consumers can construct ArgentSeaGrainPersistenceException with no diagnostic text, with diagnostic text, or with diagnostic text and a causal Exception. For the latter two variants, the resulting exception preserves the supplied diagnostic text; the causal variant also preserves the supplied Exception as InnerException.",
+    "kind": "Library",
+    "language": "csharp",
+    "name": "ArgentSeaGrainPersistenceException construction"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Exceptions/ArgentSeaGrainPersistenceException.cs",
+        "lines": "14-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-01161845aae94b10bb90bad566c6ac99",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
