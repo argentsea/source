@@ -6,8 +6,8 @@
     "subject": "ArgentSeaOrleansMembershipTable",
     "condition": "the insert-member query execution fails",
     "trigger": "InsertRow is invoked",
-    "response": "return false when the failure is the procedure's concurrency signal (a SqlException with error number 51000, raised when the TableVersion etag does not match or a row for the silo already exists); otherwise log the exception and propagate it to the caller",
-    "postcondition": "InsertRow returns true when the insert query completes without throwing, false for an etag/version conflict or an already-existing silo row, and never converts a connection, timeout, or other non-conflict failure into a false result"
+    "response": "return false when the failure is a concurrency conflict: a SqlException carrying error number 51000 (raised by wtr.OrleansClusterInsertMemberKeyV2 when the stored table etag does not equal the TableVersion etag or a row for the silo already exists) or an In-Memory OLTP write-conflict error 41302, 41305, 41325 or 41301; otherwise log the exception and propagate it to the caller",
+    "postcondition": "InsertRow returns true when the insert completes, having advanced the table etag by one and stamped the new etag on the inserted row; false for an etag/version conflict or an already-existing silo row, with nothing changed; and never converts a connection, timeout, or other non-conflict failure into a false result"
   },
   "metadata": {
     "status": "Draft",
@@ -46,6 +46,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
