@@ -5,7 +5,7 @@
   "fields": {
     "subject": "SQL Server Provider Package",
     "trigger": "ArgentSea.Sql.csproj is restored and built for its net10.0 target framework",
-    "response": "compile against Microsoft.Data.SqlClient 7.0.3, Microsoft.Extensions.Logging 10.0.12 and a project reference to the shared ArgentSea core (ArgentSea.Shared/src/ArgentSea.csproj), declared unconditionally for every configuration and platform",
+    "response": "compile against Microsoft.Data.SqlClient 7.1.1, Microsoft.Extensions.Logging 10.0.13 and a project reference to the shared ArgentSea core (ArgentSea.Shared/src/ArgentSea.csproj), declared unconditionally for every configuration and platform",
     "postcondition": "the SQL Server database provider is the SqlClient-specific completion of the provider-neutral core, and any consumer of the package takes both SqlClient and the core as transitive dependencies"
   },
   "metadata": {
