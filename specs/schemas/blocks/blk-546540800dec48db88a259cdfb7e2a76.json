@@ -32,21 +32,21 @@
         "type": "nvarchar(20)",
         "description": "The compiled assembly's version.",
         "required": true,
-        "notes": "2.0.0.0"
+        "notes": "2.1.0.0"
       },
       {
         "name": "FileVersion",
         "type": "nvarchar(20)",
         "description": "The compiled assembly file's version resource.",
         "required": true,
-        "notes": "2.0.0.0"
+        "notes": "2.1.0.0"
       },
       {
         "name": "Version",
         "type": "nvarchar(20)",
         "description": "The NuGet package version.",
         "required": true,
-        "notes": "2.0.4"
+        "notes": "2.1.0"
       },
       {
         "name": "Title",
