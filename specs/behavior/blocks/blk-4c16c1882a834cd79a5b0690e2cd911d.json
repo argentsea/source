@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "the process-wide static QueryStatement.Extension holds \"psql\" after AddPgServices returns",
+    "response": "assign the process-wide static property QueryStatement.Extension to the non-empty extension configured for PostgreSQL (\"psql\" by default), mutating the shared static default used by QueryStatement across the process",
     "subject": "Postgres Service Registration",
-    "trigger": "A host calls PgServiceBuilderExtensions.AddPgServices(services, config) to register PostgreSQL services",
-    "response": "the call unconditionally assigns QueryStatement.Extension — set through the QueryStatement type itself, not through either PgDatabases or PgShardSets — to \"psql\", regardless of what value the property held immediately before the call",
-    "postcondition": "QueryStatement.Extension holds \"psql\" at the point AddPgServices returns"
+    "trigger": "A host calls PgServiceBuilderExtensions.AddPgServices(services, config) to register PostgreSQL services"
   },
   "metadata": {
     "status": "Draft",
