@@ -1,0 +1,71 @@
+{
+  "id": "blk-c015c5523f194bb4873b2cc0fcfa8125",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "a logger with Information enabled, and an uninitialized ShardKey<string, int> (default, so RecordId is null) mapped for property \"ChildKey\"; and separately a ShardKey<int, int>(0, 5, 0) whose identities are value-typed",
+      "then": "the uninitialized string-keyed ShardKey produces one Information-level UnexpectedDbNull (event id 6) event named NullShardChildArguments, carrying \"ChildKey\" and the key's string form without throwing; the value-typed ShardKey<int, int> produces no event",
+      "when": "NullShardChildArguments(logger, \"ChildKey\", shardChild) is called with each key"
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-b494ccd7a3e84199989eecd5278d375d",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "181-187",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "invariants",
+      "blockId": "blk-36632b4e401b43108fd3dfa028f721e4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-9d51af3c3e2e4c659ff706705a75c92e",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
