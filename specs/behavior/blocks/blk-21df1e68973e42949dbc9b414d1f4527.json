@@ -1,0 +1,60 @@
+{
+  "id": "blk-21df1e68973e42949dbc9b414d1f4527",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "A DataConnectionManager's connection has RetryCount configured to 6, and the data provider's transient-error classifier reports a particular DbException as transient on every attempt.",
+      "then": "The call surfaces whatever exception the connection's current resilience policy (ResiliencePolicy.ExecuteAsync) throws straight to the caller — DataConnectionManager itself contains no code that intercepts, translates, catches-and-wraps, or constructs a RetryLimitExceededException or other wrapping exception around that failure.",
+      "when": "A command execution on that connection throws that same DbException on the initial attempt and all 6 retries (7 attempts total), so the retry policy exhausts its configured retry count without a successful execution."
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-86dbeaf076634c90bf77166c6296107b",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "19-585",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/RetryLimitExceededException.cs",
+        "lines": "14-41",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-3e17aeca6d5b4e5699ee82ee0efc1864",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
