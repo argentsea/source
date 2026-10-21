@@ -1,0 +1,69 @@
+{
+  "id": "blk-c8968aa909454df6b1591aca05705038",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "a string produced by SerializeToExternalString for unaltered bytes always reverses successfully to the original byte sequence, since both directions compute the 12-bit checksum over the unobfuscated byte values",
+    "response": "decode the URL-safe Modified Base64 characters and invert the bit-inversion obfuscation to recover the payload bytes, recompute the 12-bit checksum over the de-obfuscated bytes, and reject an invalid external key string (when the recomputed checksum does not equal the leading two checksum characters or a character falls outside the encoding alphabet) by throwing an exception",
+    "subject": "StringExtensions",
+    "trigger": "a caller decodes an external key string via SerializeFromExternalString"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "95-157",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "225-253",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-f59f7cd154a041b88bed267ca48c9598",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-47c1a251f6944b8399d1a25a4ea9695f",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

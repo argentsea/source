@@ -9,7 +9,7 @@
     "trigger": "a caller decodes an external key string via SerializeFromExternalString"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
