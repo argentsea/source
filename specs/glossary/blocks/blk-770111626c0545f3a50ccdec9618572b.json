@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "The `ShardSet.Write` (`RunAllAsync`, `BatchAllAsync`, `WriteQueryAllAsync`) fan-out mode that executes a command or batch concurrently on the write connection of every targeted shard without cancelling sibling shards on failure.",
     "name": "Shard-set write",
-    "definition": "The fan-out form (`ShardSet.Write`) that runs a command or shard-set batch on the write connection of every targeted shard, for changes that must be applied across the set. Writes addressed to one record belong on that record's shard (or the default shard) instead.",
     "synonyms": [
       "ShardSetWrite"
     ]
