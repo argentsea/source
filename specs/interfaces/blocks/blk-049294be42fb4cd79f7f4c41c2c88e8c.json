@@ -9,7 +9,7 @@
     "contract": "ShardSetsBase<TConfiguration>.ShardSetReadFirst exposes MapOutputAsync as a fan-out read-first query contract that constructs TModel from output parameters and, where selected, typed data-reader result sets. The family varies target scope between the whole shard set and ShardsValues, shard-identifier parameter injection between omitted and named, and reader-result-set arity from no child result set through eight typed child result sets. Each variant completes as Task<TModel> with the first non-null mapped model from a target shard."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
