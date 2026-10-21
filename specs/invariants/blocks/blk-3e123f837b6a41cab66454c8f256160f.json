@@ -7,7 +7,7 @@
     "scope": "ArgentSea.Orleans.Sql.csproj PropertyGroup elements (TargetFramework, Nullable, ImplicitUsings, Version, AssemblyVersion, FileVersion, Title, Copyright, Description, PackageIcon, PackageLicenseExpression, GeneratePackageOnBuild, IncludeSymbols, SymbolPackageFormat) and the file's ItemGroup InternalsVisibleTo declarations."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
