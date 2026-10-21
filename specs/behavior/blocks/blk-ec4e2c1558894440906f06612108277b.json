@@ -4,16 +4,16 @@
   "type": "Scenario",
   "fields": {
     "gwt": {
-      "given": "QueryStatement.Folder is \"SQL\", QueryStatement.Extension has been set to the empty string \"\", and QueryStatement.Create is called with a statement name \"myQuery\" that is not itself a rooted path (and the folder is not a rooted path either)",
-      "when": "the Lazy<QueryStatement> is realized and GetSqlFullPath computes the file path from the application base directory, the folder, the name, and the extension",
-      "then": "the extension is still appended because \"\" is non-null, producing a path ending in \"myQuery.\" (a trailing dot with no characters after it) rather than omitting the dot entirely"
+      "given": "QueryStatement.Folder is \"SQL\", and QueryStatement.Create(\"myQuery\", null, \"SQL\", \"\") is called with an empty extension \"\" and a statement name \"myQuery\" that is not itself a rooted path",
+      "then": "QueryStatement.Create(\"myQuery\", null, \"SQL\", \"\") reads \"{appPath}/SQL/myQuery\" with no trailing dot because a null or empty extension omits the dot and extension suffix",
+      "when": "the Lazy<QueryStatement> is realized and GetSqlFullPath computes the file path from the application base directory, the folder, the name, and the empty extension"
     },
     "illustrates": [
       {
+        "blockId": "blk-9d7c0004be194159bd72d6e2a8ceb718",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-9d7c0004be194159bd72d6e2a8ceb718"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
