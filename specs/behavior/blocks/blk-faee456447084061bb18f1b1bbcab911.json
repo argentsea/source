@@ -1,0 +1,69 @@
+{
+  "id": "blk-faee456447084061bb18f1b1bbcab911",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "Every supported ShardKeyType primitive round-trips through GetValueBytes/WriteBufferValueBytes and TryConvertFromBytes, and truncated buffers are rejected cleanly by returning false without throwing out-of-range exceptions or advancing the cursor.",
+    "response": "GetValueBytes and WriteBufferValueBytes serialize all 18 supported ShardKeyType primitives — Guid, int, long, byte, short, char, decimal, double, float, DateTime, DateOnly (serialized as a 4-byte DayNumber), TimeOnly (serialized as an 8-byte Ticks value), TimeSpan, DateTimeOffset, Half, Int128, UInt128, string (length-and-flag-byte prefixed up to 127 UTF-8 bytes), and enum types (dispatched via their underlying integer type) — into their binary representations. TryConvertFromBytes validates remaining span lengths ahead of the cursor before reading any supported type (including fixed-width primitives, Guid, decimal, DateOnly, TimeOnly, byte, string, byte[], Memory<byte>, ReadOnlyMemory<byte>, and enum types): when the buffer has fewer bytes remaining than required by the target type or its length prefix, or when valueType is not a supported type, TryConvertFromBytes returns false, sets result to default, and leaves pos unchanged; only on a successful read does it assign the decoded value to result, advance pos by the consumed byte count, and return true.",
+    "subject": "Shard Key Serialization",
+    "trigger": "ShardKeySerialization: a caller reads a key-column value from a byte span at a cursor position via TryConvertFromBytes, supplying the .NET type expected for that column, or writes one via GetValueBytes or WriteBufferValueBytes"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "406-580",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "582-677",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e5558069e914469786d25a11953c738f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-f59f7cd154a041b88bed267ca48c9598",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-39a425343a964aec833e2152fd208691",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
