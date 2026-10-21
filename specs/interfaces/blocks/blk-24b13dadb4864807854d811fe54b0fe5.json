@@ -30,6 +30,13 @@
       },
       {
         "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/NoMappingAttributesFoundException.cs",
+        "lines": "7-35",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
         "path": "ArgentSea.Shared/src/Exceptions/MultipleAttributeException.cs",
         "lines": "17-57",
         "label": null,
@@ -39,6 +46,20 @@
         "kind": "file",
         "path": "ArgentSea.Shared/src/Exceptions/UnexpectedMultiRowResultException.cs",
         "lines": "10-45",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidBinaryMappingLengthException.cs",
+        "lines": "7-23",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Exceptions/InvalidBinaryValueLengthException.cs",
+        "lines": "7-21",
         "label": null,
         "relation": "grounds"
       },
