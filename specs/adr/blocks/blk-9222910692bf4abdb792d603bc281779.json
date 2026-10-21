@@ -1,0 +1,93 @@
+{
+  "id": "blk-9222910692bf4abdb792d603bc281779",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "A full ORM with query generation and change tracking.",
+        "whyRejected": "It conflicts with static, segregated SQL, and it couples the application to table structure."
+      },
+      {
+        "option": "A closed pipeline in which the framework always owns command creation and result materialization.",
+        "whyRejected": "Any gap in the framework would then force abandoning it for that query, rather than replacing just the one step."
+      }
+    ],
+    "consequences": "Developers can add, remove or alter Mapper-created parameters, call the Mapper from their own command objects, or write a custom result handler that calls the Mapper for part of a result. Parameters already present in a collection are not recreated, and query parameter names can suppress the rest. Types without a mapping attribute (spatial, XML, JSON, CLR types) need custom handlers. The Mapper offers no change tracking or relationship loading; complex hierarchies beyond nested models and one level of result-set lists need a handler.",
+    "context": "Full ORMs remove boilerplate but take over SQL generation, which conflicts with the static-SQL decision. Their abstractions also become a ceiling when a query needs something they do not model, such as spatial, XML or JSON types, unusual result shapes, or provider-specific features. ArgentSea positions itself as a thin layer over ADO.NET (principle p3), where what the framework cannot do should fall back to ordinary ADO.NET code with no penalty.",
+    "decision": "The Mapper maps model properties to and from query parameters, output parameters, data-reader columns and bulk-load rows. It never generates SQL, tracks changes, manages identity, or loads relationships lazily. Parameter creation, query execution and result handling are separate operations that work on standard ADO.NET types. The parameter helpers are extension methods on `DbParameterCollection`, and result handlers receive a plain `DbDataReader` and parameter collection. Any step can therefore be done by the Mapper, by hand, or by mixing the two.",
+    "status": "Accepted",
+    "title": "Map parameters and results only; keep each step separable and ADO.NET-compatible"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/documentation/faqs.md",
+        "lines": "3-9",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Mapping/targets.md",
+        "lines": "1-40",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/index.md",
+        "lines": "20-26",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "model-mapping",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": "Mapper",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": "Result handler",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p3-thin-layer",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-cea30033ed97477c9ac66a98f379fbeb",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

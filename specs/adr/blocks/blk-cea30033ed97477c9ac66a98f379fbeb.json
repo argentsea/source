@@ -20,7 +20,7 @@
     "consequences": "Developers can add, remove or alter Mapper-created parameters, call the Mapper from their own command objects, or write a custom result handler that calls the Mapper for part of a result. Parameters already present in a collection are not recreated, and query parameter names can suppress the rest. Types without a mapping attribute (spatial, XML, JSON, CLR types) need custom handlers. The Mapper offers no change tracking or relationship loading; complex hierarchies beyond nested models and one level of result-set lists need a handler."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
