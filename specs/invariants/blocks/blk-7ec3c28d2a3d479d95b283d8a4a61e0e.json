@@ -7,7 +7,7 @@
     "scope": "Every DataConnectionManager instance whose CircuitBreakerFailureCount is left unset or is explicitly configured to 1 or more; the circuit breaker is skipped only when it is explicitly configured to a value below 1, since the nullable comparison deciding this (CircuitBreakerFailureCount < 1) evaluates false for both an unset value and any value >= 1."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
