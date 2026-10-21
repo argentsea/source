@@ -9,7 +9,7 @@
     "postcondition": "no rendering work is done when Debug logging is disabled"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

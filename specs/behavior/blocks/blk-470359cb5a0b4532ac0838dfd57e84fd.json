@@ -1,0 +1,71 @@
+{
+  "id": "blk-470359cb5a0b4532ac0838dfd57e84fd",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "no rendering work is done when Debug logging is disabled",
+    "response": "check logger.IsEnabled(LogLevel.Debug) and, only when Debug is enabled, render the compiled expression tree as a debug-view string and log it at Debug under event id ExpressionTreeCreation, through that method's own delegate and event name — so CreatedExpressionTreeForReaderOrdinals emits a CreatedExpressionTreeForReaderOrdinals event with its ordinals message, distinct from CreatedExpressionTreeForReaderRowData",
+    "subject": "Core Log Events",
+    "trigger": "code elsewhere in the library calls one of the six CreatedExpressionTreeFor* wrapper methods (SetInParameters, SetOutParameters, ReadOutParameters, ReaderOrdinals, ReaderRowData, or Model) with a newly compiled expression tree for a model type"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/LoggerExtensions.cs",
+        "lines": "114-119,239-304",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "core-log-events",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-605bbaed80184fb3856ffa4fad4200b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-7b61ff3fe4bf4018916310fac43b858c",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-b7995b773d6c451eb11adf89f4a25ac5",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-8cc0d157123145c488c9b2cae55023af",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
