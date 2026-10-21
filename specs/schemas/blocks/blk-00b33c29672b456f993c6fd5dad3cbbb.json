@@ -21,8 +21,8 @@
       {
         "name": "GatewayListQuery",
         "type": "object<Query>",
-        "required": true,
-        "description": "Mutable required Query initialized to QueryProcedure(\"rdr.OrleansClusterGatewayListV1\", [\"@ClusterId\"])."
+        "required": false,
+        "description": "Mutable nullable Query initialized to null; null selects the provider package's own gateway-list query."
       },
       {
         "name": "MaxRefreshInterval",
@@ -32,7 +32,7 @@
       }
     ],
     "representations": {
-      "C#": "public sealed record with public get/set properties; DatabaseKey and GatewayListQuery are required, ConnectionString is nullable, and MaxRefreshInterval is a non-nullable TimeSpan."
+      "C#": "public sealed record with public get/set properties; DatabaseKey is required, ConnectionString and GatewayListQuery are nullable, and MaxRefreshInterval is a non-nullable TimeSpan."
     }
   },
   "metadata": {
@@ -74,6 +74,14 @@
       "blobHash": null,
       "label": "Query contract",
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
