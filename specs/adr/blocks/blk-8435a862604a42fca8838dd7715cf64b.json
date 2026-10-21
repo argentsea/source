@@ -1,0 +1,121 @@
+{
+  "id": "blk-8435a862604a42fca8838dd7715cf64b",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Rely on the database driver's built-in connection retry.",
+        "whyRejected": "Driver retries are not surfaced to structured application logs, cover connection opening rather than full command execution, and provide no circuit breaker."
+      },
+      {
+        "option": "Leave resilience entirely to application code.",
+        "whyRejected": "Every consumer would re-implement retry and circuit-breaking logic inconsistently, violating Principle `p6-resilient-by-default`."
+      },
+      {
+        "option": "Share one global resilience policy across all connections.",
+        "whyRejected": "One failing shard would trip the circuit breaker for healthy shards; per-endpoint policies isolate shard faults."
+      }
+    ],
+    "consequences": "Each read or write endpoint degrades and recovers independently, and retry/circuit-breaker activity is observable in structured logs. The default connection timeout is lowered from ADO.NET's 15 seconds (to 5 seconds on SQL Server and 2 seconds on PostgreSQL) so unresponsive endpoints surface quickly. Runtime configuration changes to an endpoint's retry count or circuit-breaker settings trigger a policy rebuild before the next command (resetting breaker state), while retry interval and backoff lengthening strategy are evaluated dynamically on each retry. The default `Lengthening` backoff strategy waits `(2n - 1) * RetryInterval` (`1x, 3x, 5x, 7x...`), `Linear` waits `n * RetryInterval`, and `RetryInterval` defaults to `250 ms` (`Fibonacci` is retained only as an `[Obsolete]` enum alias for backward configuration compatibility).",
+    "context": "Transient faults such as network blips, replica failovers, deadlocks, and concurrency conflicts are routine in distributed database deployments, while an unresponsive database endpoint can cause callers to queue behind connection timeouts until the application stalls. Operators of a sharded database fleet need per-endpoint fault isolation and structured logging when individual endpoints degrade.",
+    "decision": "Every data connection endpoint (each database or shard read/write endpoint) owns its own Polly resilience policy: a wait-and-retry policy that retries only transient errors (as classified by the provider's `IDataProviderServiceFactory`) wrapped in a per-endpoint circuit breaker. Retry count, base retry interval, backoff lengthening sequence, circuit-breaker failure threshold, and circuit-breaker test interval are inherited through the connection configuration hierarchy with built-in defaults enabled out of the box. The policy is constructed from the endpoint's resolved settings and rebuilt if retry count or circuit-breaker settings change. Built-in driver connection retries (`ConnectRetryCount = 0` on SQL Server) are disabled so all retries flow through the policy and emit structured log events (`Warning` on retry, `Critical` when the circuit breaker opens, and `Information` on half-open test and reset). Setting `CircuitBreakerFailureCount < 1` disables the circuit breaker for that endpoint.",
+    "status": "Accepted",
+    "title": "Own resilience in the client with Polly: per-endpoint retry and circuit breaker, with driver retries disabled"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "29-137",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionConfiguration.cs",
+        "lines": "154-157",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "1-80",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Configuration/DataConnectionConfigurationBase.cs",
+        "lines": "146-175",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": "Resilience strategy",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-c13f52f5ed1746d086ebd2121da26166",
+      "blobHash": null,
+      "label": "Circuit breaker",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-18465bb38e19495398f19801e800cd0b",
+      "blobHash": null,
+      "label": "Retry backoff",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9290978c867e4f25950d140d802739a8",
+      "blobHash": null,
+      "label": "Transient error",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p6-resilient-by-default",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-a4eaa76fe6ed447aa709aa3b30408bea",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
