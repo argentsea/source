@@ -1,0 +1,60 @@
+{
+  "id": "blk-90f07e3b384a49dfbc27b451b3978927",
+  "specId": "behavior",
+  "type": "Scenario",
+  "fields": {
+    "gwt": {
+      "given": "var key = new ShardKey<int>(7, 100); Span<byte> buffer = new byte[key.CountBytes()];",
+      "then": "TryFormat returns true, bytesWritten equals 7 (1 metadata + 2 shardId + 4 Int32), and roundTripped == key is true.",
+      "when": "key.TryFormat(buffer, out int bytesWritten); var roundTripped = new ShardKey<int>((ReadOnlySpan<byte>)buffer);"
+    },
+    "illustrates": [
+      {
+        "blockId": "blk-0a8e1d90116c4c82b28e563f8717e7e2",
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "behavior"
+      }
+    ]
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey1.cs",
+        "lines": "91-125",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKeySerialization.cs",
+        "lines": "400-523",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-0016b648602d4cb58d2e1fe4c2674fd8",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
