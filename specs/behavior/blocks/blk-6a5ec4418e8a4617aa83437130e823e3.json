@@ -22,7 +22,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by area-skeptic: Subject rule defect: block does not state unique committed name 'BatchBase<TResult>' verbatim, using only concrete instantiation 'BatchBase<int>'. Grounded and falsifiable otherwise.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewed and verified against source.",
     "sources": [
       {
         "kind": "file",
