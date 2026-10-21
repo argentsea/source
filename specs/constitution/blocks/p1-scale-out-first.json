@@ -11,7 +11,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "ImportedFromDocs",
-    "provenanceNote": "Derived from ArgentSea.DocFx during initial agentic onboarding, 2026-07-19. Reframed same day per operator direction: tenanting elevated to equal footing with scale-out (structural isolation, per-tenant data management, multi-tenant Orleans). Draft for operator review.",
+    "provenanceNote": "ArgentSea architectural constitution.",
     "sources": [
       {
         "kind": "file",
