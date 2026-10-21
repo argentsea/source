@@ -42,7 +42,7 @@
     }
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Reviewer note (area-skeptic): Grounded in ArgentSea.Sql/src/SqlShardConnectionOptions.cs:30-37 and falsifiable schema block. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'sql-server-connection-settings' resolves to component 'SQL Server Connection Settings' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
