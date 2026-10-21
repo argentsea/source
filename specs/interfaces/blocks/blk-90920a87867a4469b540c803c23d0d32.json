@@ -6,7 +6,7 @@
     "name": "ArgentSeaRemindersProviderBuilder.Configure",
     "kind": "Library",
     "language": "csharp",
-    "contract": "ArgentSeaRemindersProviderBuilder implements IProviderBuilder<ISiloBuilder> and is registered as the Orleans keyed provider builder for (\"ArgentSea\", \"Reminders\", \"Silo\") via an assembly-level RegisterProviderAttribute, so Orleans' provider-configuration mechanism discovers and invokes it when a silo's configuration names an \"ArgentSea\" provider of category \"Reminders\". Configure adds a ClusterOptions options registration to the builder's service collection and calls UseArgentSeaReminderService on the builder with an empty configure delegate, installing the ArgentSea reminder table, its configuration validator, and Orleans' reminder subsystem with ReminderOptions left at their defaults. The supplied provider name and configuration section parameters are not inspected."
+    "contract": "ArgentSeaRemindersProviderBuilder implements IProviderBuilder<ISiloBuilder> and is registered as the Orleans keyed provider builder for (\"ArgentSeaSql\", \"Reminders\", \"Silo\") via an assembly-level RegisterProviderAttribute, so Orleans' provider-configuration mechanism discovers and invokes it when a silo's configuration names an \"ArgentSeaSql\" provider of category \"Reminders\". Configure adds a ClusterOptions options registration to the builder's service collection and calls UseArgentSeaReminderService on the builder with an empty configure delegate, installing the ArgentSea reminder table, its configuration validator, and Orleans' reminder subsystem with ReminderOptions left at their defaults. The supplied provider name and configuration section parameters are not inspected."
   },
   "metadata": {
     "status": "Draft",
@@ -43,6 +43,14 @@
       "blobHash": null,
       "label": null,
       "relation": "dependsOn"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
