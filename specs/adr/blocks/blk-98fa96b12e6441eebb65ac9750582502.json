@@ -20,7 +20,7 @@
     "consequences": "Sharded and non-sharded data access look identical, and moving a database to a shard set changes little code. Result handlers must be thread-safe, and they receive the shard id and connection description so that results and logs can be attributed. Because parameters are copied per connection, a caller cannot read output values through references held to the original parameter objects; outputs are read from the handler's collection, or through MapOutput. The parameter collection needs no command, which is why `ParameterCollection` exists."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

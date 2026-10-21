@@ -1,0 +1,93 @@
+{
+  "id": "blk-bc0225301af74b75aa95fd960ff26dc6",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "The conventional connection-first ADO.NET sequence, with a separate API for sharded access.",
+        "whyRejected": "Two programming models would mean two sets of habits, tests and Mapper integrations, and code would have to be rewritten when a database later becomes sharded."
+      },
+      {
+        "option": "Sharing one parameter collection across concurrent commands.",
+        "whyRejected": "ADO.NET parameters belong to one command, and concurrent executions would overwrite each other's values and outputs."
+      }
+    ],
+    "consequences": "Sharded and non-sharded data access look identical, and moving a database to a shard set changes little code. Result handlers must be thread-safe, and they receive the shard id and connection description so that results and logs can be attributed. Because parameters are copied per connection, a caller cannot read output values through references held to the original parameter objects; outputs are read from the handler's collection, or through MapOutput. The parameter collection needs no command, which is why `ParameterCollection` exists.",
+    "context": "Standard ADO.NET code creates a connection, then a command, then fills that command's parameters, then reads results inline. A sharded query reverses the first steps: one parameter set must be executed on many connections at once, each on its own thread with its own command. Parameter objects cannot be shared across commands, and result-reading code runs concurrently on several connections.",
+    "decision": "Every ArgentSea data method follows the query paradigm, in this order. The caller declares parameters in a free-standing parameter collection before any connection exists. ArgentSea then opens a connection and command per target database, copies the parameters onto each command, executes, and passes each connection's results to a result handler. In a fan-out query this runs concurrently, one handler invocation per shard. The same structure is used for non-sharded databases. The Mapper provides the handlers for Map methods; Query methods take a caller-written handler.",
+    "status": "Accepted",
+    "title": "Split data access into a single-threaded caller and a thread-safe result handler, for sharded and non-sharded queries alike"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/sequence.md",
+        "lines": "1-40",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "58-67",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
+        "lines": "9-23",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "query-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9b699a9d54364bf08e7efd718ee5deb4",
+      "blobHash": null,
+      "label": "Query paradigm",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": "Result handler",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-d6d842a80eb74675aee857400672b927",
+      "blobHash": null,
+      "label": "Parameter collection",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-98fa96b12e6441eebb65ac9750582502",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
