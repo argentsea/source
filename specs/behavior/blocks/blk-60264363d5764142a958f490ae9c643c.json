@@ -8,7 +8,7 @@
     "response": "emit a Trace-level TraceMapperGrainPersistance event under event id MapperProcessTrace (5) naming that property, the call being embedded into the compiled delegate when it is built"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
