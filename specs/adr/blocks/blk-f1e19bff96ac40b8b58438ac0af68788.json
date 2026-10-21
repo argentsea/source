@@ -20,7 +20,7 @@
     "consequences": "ArgentSea stays out of the failover decision. The circuit breaker prevents pile-ups while a database is down, but recovery depends on infrastructure or application code. Applications that want client-driven failover must build the trigger and coordination themselves, using updatable connection properties."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,

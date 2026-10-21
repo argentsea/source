@@ -1,0 +1,82 @@
+{
+  "id": "blk-34e01fae59a74dfbaa5fc58fe85d8f40",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Built-in automatic failover to a configured secondary after repeated failures.",
+        "whyRejected": "No single policy works predictably across the possible topologies, and an uncoordinated client-side failover is dangerous."
+      },
+      {
+        "option": "No run-time reconfiguration at all; require a restart to change endpoints.",
+        "whyRejected": "Would prevent applications from implementing their own coordinated failover signal."
+      }
+    ],
+    "consequences": "ArgentSea stays out of the failover decision. The circuit breaker prevents pile-ups while a database is down, but recovery depends on infrastructure or application code. Applications that want client-driven failover must build the trigger and coordination themselves, using updatable connection properties.",
+    "context": "High-availability and disaster-recovery designs vary widely. A real failover usually involves coordinated infrastructure changes and a business decision. A single client that independently decides to fail over can split traffic across primaries and corrupt data.",
+    "decision": "ArgentSea does not fail a connection over to a standby server on its own. Failover is delegated to the infrastructure (DNS, availability-group listeners, the provider's FailoverPartner or multi-subnet settings) or to application code. Application code can redirect connections at run time by updating endpoint properties in the configuration hierarchy, and those changes propagate to inheriting connections.",
+    "status": "Accepted",
+    "title": "Leave database failover to infrastructure; make it possible, not automatic"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Configuration/resilience.md",
+        "lines": "81-90",
+        "label": "Failover boundary and configuration update capability",
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-94d49b5857674d3eb690e9ce190b5430",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-5f67736dfb88469b8fbe4e5247ea796f",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p6-resilient-by-default",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-f1e19bff96ac40b8b58438ac0af68788",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
