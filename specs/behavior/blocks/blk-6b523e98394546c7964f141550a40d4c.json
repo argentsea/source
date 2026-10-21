@@ -1,0 +1,36 @@
+{
+  "id": "blk-6b523e98394546c7964f141550a40d4c",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "subject": "ArgentSea.Orleans.Pg ArgentSeaOrleansReminderTable",
+    "condition": "a reminder is read, upserted or removed",
+    "trigger": "the reminder routines of tenant.psql run on the grain's shard",
+    "response": "UpsertRow inserts a new reminder at version 0 or, for an existing one, writes version current+1, returning it through the INOUT p_new_version argument; an etag that no longer matches raises SQLSTATE AS001, which propagates; RemoveRow deletes only when the version matches and returns the INOUT p_is_found flag; ReadRow returns the stored entry or, when none exists, an entry bearing only the grain id; a hash-range read excludes begin, includes end and wraps around when begin >= end; grain hashes are stored as bigint so values above int.MaxValue are accepted",
+    "postcondition": "reminders stay on their grain's shard and every row is returned with its version as the etag"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-a6a660767f734b97b189a4b178764a32",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-2f7b9bee23ef42f389b5d20c6c021645",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
