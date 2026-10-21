@@ -6,7 +6,7 @@
     "name": "ArgentSeaClusteringProviderBuilder host-builder configuration family",
     "kind": "Library",
     "language": "csharp",
-    "contract": "ArgentSeaClusteringProviderBuilder is a final provider-builder surface for both Orleans host roles.\n\nFor either a silo host or a client host, Configure accepts that host builder, a provider name, and a configuration section. The operation binds ClusterOptions from the supplied configuration section and enables ArgentSea clustering on the same host builder. The two host-role overloads provide the same clustering-setup outcome."
+    "contract": "ArgentSeaClusteringProviderBuilder is a final provider-builder surface for both Orleans host roles, registered for configuration-driven hosts as provider type \"ArgentSeaSql\" of category \"Clustering\" on both the Silo and the Client side.\n\nFor either a silo host or a client host, Configure accepts that host builder, a provider name, and a configuration section. The operation binds ClusterOptions from the supplied configuration section and enables ArgentSea clustering on the same host builder. The two host-role overloads provide the same clustering-setup outcome."
   },
   "metadata": {
     "status": "Draft",
@@ -29,6 +29,15 @@
     "schemaVersion": "1",
     "packId": "software"
   },
-  "references": [],
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
+    }
+  ],
   "evidenceLinks": []
 }
