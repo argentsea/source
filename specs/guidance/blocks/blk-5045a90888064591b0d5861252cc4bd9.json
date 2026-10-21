@@ -1,0 +1,89 @@
+{
+  "id": "blk-5045a90888064591b0d5861252cc4bd9",
+  "specId": "guidance",
+  "type": "Guidance",
+  "fields": {
+    "appliesWhen": {
+      "fileGlobs": [
+        "*ShardSet*.cs",
+        "*DataConnection*.cs",
+        "*ParameterCollection*.cs"
+      ],
+      "semanticAnchor": "building ParameterCollection parameters, reading output parameters, writing QueryResultModelHandler or QueryResultHandler delegates, concurrent fan-out queries across shards, and per-shard ShardsValues parameter overrides",
+      "symbols": [
+        "ParameterCollection",
+        "QueryResultModelHandler",
+        "QueryResultHandler",
+        "ShardsValues"
+      ]
+    },
+    "body": "Build `ParameterCollection` instances on the caller thread before invoking any data method. Never read output parameter values from the original input `DbParameter` objects after execution—each connection or shard clones the parameters onto its own `DbCommand`, so output values must be read from the `DbParameterCollection` passed into the result handler or via `Mapper.MapOutput`. Keep `QueryResultModelHandler` and `QueryResultHandler` delegates stateless and thread-safe: never mutate shared caller state or the input `ParameterCollection` inside a handler, because handlers execute concurrently across shards and may be re-invoked across Polly retries. Use `ShardsValues` when a fan-out query requires per-shard parameter overrides or shard filtering.",
+    "scope": "targeted",
+    "title": "Parameter collection cloning and result handler thread safety"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ParameterCollection.cs",
+        "lines": "1-75",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/QueryResultModelHandler.cs",
+        "lines": "9-23",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "12-152",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-bc0225301af74b75aa95fd960ff26dc6",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-d6d842a80eb74675aee857400672b927",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
