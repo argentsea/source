@@ -3,11 +3,11 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "condition": "its retained bytes encode a key at least one of whose identity components was serialized with an enum metadata code (Int32Enum, ByteEnum, Int16Enum, or Int64Enum)",
+    "postcondition": "a GhostShardKey never silently deserializes an enum-typed key component as a plain integer; callers holding a serialized enum-component key must deserialize it with the concrete ShardKey<...> type",
+    "response": "throw InvalidShardKeyMetadataException because the binary metadata header records only the enum component's underlying integer width rather than the concrete CLR enum type, so untyped GhostShardKey deserialization maps the component code to its underlying integer primitive and the constructed ShardKey<...> rejects the enum metadata code as a type mismatch",
     "subject": "ShardKeys.GhostShardKey",
-    "condition": "its retained bytes encode a virtual compound key at least one of whose identity parts was declared as an enum type (metadata code Int32Enum, ByteEnum, Int16Enum or Int64Enum)",
-    "trigger": "GetInstance (or ToString, which calls it) is invoked",
-    "response": "throw InvalidShardKeyMetadataException rather than return a key: the metadata records only the enum part's underlying width, never the enum type, so the ghost can only select the underlying primitive (int, byte, short or long) as the generic argument, and the ShardKey<...> it then constructs rejects the stored *Enum code as a mismatch for that primitive. This is a documented, accepted limitation of the serialization format, not a defect to be fixed: a caller holding a serialized enum-part key must deserialize it with the original ShardKey<...> type, which round-trips enum parts correctly",
-    "postcondition": "a GhostShardKey never yields a key whose enum parts have been silently replaced by their underlying integers"
+    "trigger": "GetInstance or ToString is invoked"
   },
   "metadata": {
     "status": "Draft",
