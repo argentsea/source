@@ -1,0 +1,44 @@
+{
+  "id": "blk-1f0ab2b54ab94948afab3a66fba3c02a",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "the parameter collection contains an Input SqlDbType.Structured SqlParameter whose Value is null for null or empty collections or the corresponding IEnumerable<SqlDataRecord> sequence",
+    "response": "normalize parameterName to start with '@', create a SqlParameter with SqlDbType.Structured, TypeName set to sqlTypeName, and Direction = ParameterDirection.Input, assign Value = null when the input collection is null or empty (Count == 0), convert non-empty model or ShardKey collections via Mapper.ToSqlDataRecord / KeyedModelToSqlDataRecord / ShardKeysToSqlDataRecord, and pass non-collection IEnumerable<SqlDataRecord> sequences directly without eager enumeration",
+    "subject": "SqlParameterCollectionExtensions.AddSqlTableValuedParameter",
+    "trigger": "AddSqlTableValuedParameter is invoked on an IParameterCollection with a parameter name, SQL Server user-defined table type name, and row data"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "1159-1500",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
