@@ -9,7 +9,7 @@
     "contract": "The resilience-transition event family, varying by subject (connection vs command) and transition (breaking, broken-test, restored): RetryingDbConnection(ILogger, string connectionName, int attemptCount, Exception exception) logs at Warning under event id ConnectRetry (9) when called to report an automatic retry attempt on a transient connection error. CiruitBreakingDbConnection/CiruitBreakingDbCommand log at Critical under event id CircuitBreaker (11) when called to report a connection, respectively a named command on a connection, as circuit-broken. CiruitBrokenDbConnectionTest/CiruitBrokenDbCommandTest log at Information, same event id, when called to report a broken circuit being retested. CiruitBrokenDbConnectionRestored/CiruitBrokenDbCommandRestored log at Information, same event id, when called to report the circuit restored. This file only reports these transitions; it does not implement or expose the resilience policy that decides when a retry or circuit-breaker transition occurs. The six circuit-breaker member and method names are spelled \"Ciruit\", not \"Circuit\", in the public surface; this is the as-built spelling, not a typo to silently correct. EventIdentifier.CommandRetry (10) is declared in the enum but currently has no active emitting member: the backing field `_sqlCommandRetry` and the method `RetryingDbCommand` are both commented out, so only connection-level retries are logged today — a command-level retry event exists in the id catalogue but nothing in this file raises it."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
