@@ -1,0 +1,33 @@
+{
+  "id": "blk-5308f769443c4483a1d48fcd5a377128",
+  "specId": "behavior",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Pg registers exactly the provider keys (ArgentSeaPg, Clustering, Silo), (ArgentSeaPg, Clustering, Client), (ArgentSeaPgDb, GrainStorage, Silo), (ArgentSeaPg, GrainStorage, Silo) and (ArgentSeaPg, Reminders, Silo), each once.",
+    "scope": "The assembly-level RegisterProvider attributes of ArgentSea.Orleans.Pg."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-99910d9a758d4a1c87bc8986ec5eb1e0",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-8a3a76b2b9bf495fbdf0ffd15a4cb8fc",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
