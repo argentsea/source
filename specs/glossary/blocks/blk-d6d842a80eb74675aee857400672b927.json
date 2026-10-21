@@ -3,11 +3,10 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "`ParameterCollection` is a free-standing `DbParameterCollection` implementation that can be instantiated on the caller's thread before a database connection or command exists, and then cloned per shard or retry onto each connection's `DbCommand`. Because each execution receives its own parameter copies, callers must read output values via result handlers rather than holding references to the original input `DbParameter` instances. ArgentSea's typed parameter extension methods and the `Mapper` operate uniformly on `ParameterCollection` and on provider `DbParameterCollection` instances.",
     "name": "Parameter collection",
-    "definition": "`ParameterCollection` is a free-standing `DbParameterCollection` that can be created without a command object. Parameters can therefore be declared once, on the caller's thread, before any connection exists, and then copied onto each connection's command. Because every connection gets its own copy, a caller must not hold references to the original output parameters expecting them to receive results. ArgentSea's typed parameter extension methods and the Mapper work both on it and on any provider command's `Parameters`.",
     "synonyms": [
-      "ParameterCollection",
-      "QueryParameterCollection (older docs)"
+      "ParameterCollection"
     ]
   },
   "metadata": {
