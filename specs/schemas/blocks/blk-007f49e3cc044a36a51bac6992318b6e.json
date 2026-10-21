@@ -4,7 +4,7 @@
   "type": "Schema",
   "fields": {
     "name": "ArgentSeaOrleansMembershipTable membership record and version mutation shape",
-    "description": "The membership mutation shape that ArgentSeaOrleansMembershipTable passes to its cluster membership query contract combines the addressed member state with the presented table-version concurrency state.",
+    "description": "The membership mutation shape that ArgentSeaOrleansMembershipTable passes to its cluster membership query contract combines the addressed member state with the presented table-version and member-row concurrency state.",
     "members": [
       {
         "name": "ClusterId",
@@ -71,7 +71,13 @@
         "name": "ETagNo",
         "type": "int",
         "required": true,
-        "description": "Numeric concurrency token supplied from the table version's ETag string."
+        "description": "Numeric table etag supplied from the table version's ETag string; the write succeeds only if it equals the stored table etag, which the write advances by one."
+      },
+      {
+        "name": "MemberETagNo",
+        "type": "int",
+        "required": true,
+        "description": "Update only: the member row's own etag (UpdateRow's etag argument), which must equal the row's stored etag."
       },
       {
         "name": "Version",
@@ -87,7 +93,7 @@
       }
     ],
     "representations": {
-      "CSharp": "MembershipEntry supplies member state; TableVersion supplies Version and a string VersionEtag parsed as int; suspect reports are materialized as SqlDataRecord values."
+      "CSharp": "MembershipEntry supplies member state; TableVersion supplies Version and a string VersionEtag parsed as int; UpdateRow's etag string is parsed as int; suspect reports are materialized as SqlDataRecord values."
     }
   },
   "metadata": {
@@ -129,6 +135,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
