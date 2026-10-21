@@ -9,7 +9,7 @@
     "contract": "ArgentSeaGrainStorageDbProviderBuilder and ArgentSeaGrainStorageShardProviderBuilder are internal sealed IProviderBuilder<ISiloBuilder> implementations, one per backing store, registered for configuration-driven hosts under distinct provider types of category \"GrainStorage\" on the Silo side: the Shard builder as \"ArgentSeaSql\" and the Db builder as \"ArgentSeaSqlDb\" (Orleans keeps one builder per provider type, so a shared type would leave one unreachable). Each type's Configure(ISiloBuilder builder, string? dataProviderName, IConfigurationSection configurationSection) method registers the matching grain-storage factory against the builder's service collection under the supplied dataProviderName: the Db builder registers ArgentSeaGrainStorageFactory.CreateDb and sets the named OrleansDbPersistenceOptions.DatabaseKey, the Shard builder registers ArgentSeaGrainStorageFactory.CreateShards and sets the named OrleansShardPersistenceOptions.ShardSetKey. The key is resolved in order: the supplied configurationSection's DatabaseKey/ShardSetKey when present and non-empty; otherwise the same key in the application configuration's top-level \"OrleansData\" section; otherwise \"Default\". Precondition: when configurationSection does not supply the key, the \"OrleansData\" section must exist, or Configure throws InvalidOperationException. This is the declarative counterpart to ArgentSeaSiloBuilderExtensions' imperative registration calls; both ultimately register the same ArgentSeaGrainStorageFactory delegates under the same provider name."
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
