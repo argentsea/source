@@ -8,7 +8,7 @@
     "response": "log the step index and connection at Debug under event id BatchStep: BatchStepStart with a 'Starting batch step' message and the event name BatchStepStart, and BatchStepEnd with a 'Completed batch step' message and the event name BatchStepEnd"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
