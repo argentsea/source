@@ -9,7 +9,7 @@
     "contract": "For a Query contract, MapReaderAsync returns a TModel instance populated from zero to eight data-reader result sets (TReaderResult0..TReaderResult7, each constrained new()); when TModel is itself one of the selected reader-result types, that result set must contain exactly one row. Variants select: the reader-result arity; whether the method constructs the TModel via a parameterless constructor or instead populates a TModel instance the caller supplies; and whether a named parameter is bound to the endpoint's current shard identifier before execution. The sibling MapReaderWithCollectionsAsync member is a separate family: it maps scalar properties from the first result set and CollectionMapAttributeBase-decorated collection properties from subsequent result sets, in property declaration order, rather than by positional TReaderResult type arguments."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
