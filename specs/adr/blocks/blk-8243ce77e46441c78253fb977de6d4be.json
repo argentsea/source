@@ -3,21 +3,21 @@
   "specId": "adr",
   "type": "ADR",
   "fields": {
-    "title": "Embed key-type metadata in serialized shard keys",
-    "status": "Accepted",
-    "decision": "Each ShardKey carries compact shard key type metadata, a code for the .NET type of each record-key column. The metadata is written at the front of every serialized form (binary, UTF-8 and external key) and checked when a key is deserialized as a specific generic type. Equality compares the shard id and key values only.",
-    "context": "Serialized keys now flow through channels where the reader may not know the generic types in advance, such as logging and Orleans grain ids.",
     "alternatives": [
       {
-        "option": "Keep the DataOrigin character, serialized as an 8-bit value.",
-        "whyRejected": "The DataOrigin was not helpful in any real-world development scenarios; it was a solution in search of a problem. It also add substantial development overhead that was not justified by the perceived benefit."
+        "option": "Embed an 8-bit `DataOrigin` character tag instead of key-type metadata.",
+        "whyRejected": "An origin tag does not identify the record-id and child-id CLR types needed to deserialize or validate a `ShardKey` when the generic type arguments are not known in advance."
       },
       {
-        "option": "Serialize without any type information.",
-        "whyRejected": "Deserialization would only work if the type was always known in advance. Orleans and certain logging scenarios do not always know this."
+        "option": "Serialize `ShardKey` values without any type metadata header.",
+        "whyRejected": "Deserialization could not detect mismatched generic type arguments, and untyped diagnostic or grain-key consumers (`GhostShardKey`) could not inspect serialized keys without compile-time type knowledge."
       }
     ],
-    "consequences": "Deserializing with the wrong generic types fails, and a ghost shard key can rebuild an unknown key. This is a requirement for logging and Orleans support."
+    "consequences": "Deserializing a `ShardKey` with mismatched generic type arguments throws `InvalidShardKeyMetadataException`, and `GhostShardKey` can reconstruct and format a serialized key without compile-time type arguments. Equality comparisons (`Equals`, `GetHashCode`, `==`) compare only `ShardId` and the typed key values, ignoring the metadata header.",
+    "context": "Serialized `ShardKey` values flow through channels where the reader may not know the generic key-column types at compile time (such as structured logging and Orleans grain identity strings) or where mismatched generic type arguments must be detected on deserialization.",
+    "decision": "Every `ShardKey` carries compact `ShardKeyTypeMetadata` encoding the arity and .NET `ShardKeyType` of its record-id and child-id components. This metadata header is written at the front of every serialized representation (binary, UTF-8, and external string) and validated when deserializing into a typed `ShardKey<...>`. Equality compares only the `ShardId` and key component values.",
+    "status": "Accepted",
+    "title": "Embed key-type metadata in serialized shard keys"
   },
   "metadata": {
     "status": "Draft",
