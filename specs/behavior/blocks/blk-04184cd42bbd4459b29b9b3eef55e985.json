@@ -4,9 +4,9 @@
   "type": "Behavioral",
   "fields": {
     "subject": "ArgentSeaRemindersProviderBuilder",
-    "trigger": "Orleans resolves the keyed Silo provider registered under category \"Reminders\" for provider name \"ArgentSea\"",
+    "trigger": "Orleans resolves the keyed Silo provider registered under category \"Reminders\" for provider type \"ArgentSeaSql\"",
     "response": "add a ClusterOptions options registration to the silo's services and install the ArgentSea reminder service onto the silo builder with ReminderOptions left at their defaults",
-    "postcondition": "a silo configured only by naming the ArgentSea reminders provider has its reminder service, reminder table, and reminder-options validator registered with ReminderOptions left at their defaults, with no further ReminderOptions configuration required to complete registration"
+    "postcondition": "a silo configured only by naming the ArgentSeaSql reminders provider has its reminder service, reminder table, and reminder-options validator registered with ReminderOptions left at their defaults, with no further ReminderOptions configuration required to complete registration"
   },
   "metadata": {
     "status": "Draft",
@@ -52,6 +52,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
