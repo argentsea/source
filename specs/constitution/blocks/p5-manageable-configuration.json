@@ -3,9 +3,9 @@
   "specId": "constitution",
   "type": "Principle",
   "fields": {
-    "title": "Make many connections manageable and secure",
+    "rationale": "Configuring large fleets of shard and replica endpoints independently creates brittle, repetitive configuration. Inheriting shared settings down a hierarchy while integrating with .NET configuration providers eliminates duplication, keeps credentials in secret stores rather than connection strings, and preserves runtime property updates for infrastructure-driven failover.",
     "statement": "Sharding, read/write splitting, and multi-environment deployment can explode the number of connections to manage. Tame this with the Hereditary Configuration Hierarchy — connection values inherited from parent to child and overridable at any level, down to an individual read or write endpoint — built on the .NET Core configuration system so secrets stay out of source and promotion across environments needs no messy file transforms.",
-    "rationale": "A large fleet of connections with mostly-shared settings is unmanageable if each is configured independently. Inheritance collapses the redundancy (a shard set that varies only by server address need not repeat login and database name), .NET Core's configuration providers keep passwords in secure stores rather than connection strings, and the same layered configuration promotes cleanly across dev, test, staging, and multiple production regions. Connection properties stay updatable at runtime (enabling caller-built failover) even though the hierarchy layout, once built, is immutable."
+    "title": "Make many connections manageable and secure"
   },
   "metadata": {
     "status": "Draft",
