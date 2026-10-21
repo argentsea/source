@@ -37,20 +37,13 @@
       "relation": "grounds"
     }
   ],
-  "evidenceLinks": [
+  "evidenceLinks": [],
+  "evidenceRetractions": [
     {
-      "relation": "Verifies",
-      "target": {
-        "kind": "file",
-        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
-        "lines": null,
-        "label": null
-      },
-      "note": "PackageInvariantTests pass against the 2.1.0 project files at commit ea8e9aa3 (ArgentSea.Test 623/623).",
       "evidenceId": "evi-9235a44f9b494c28b6d703166ba5ee35",
-      "verifiedContentHash": "fields-sha256-v1:d2155e9355e6a34ae462344f97378b4eff7f7b77cbbca172fcebacbf0b77eaed",
-      "recordedAt": "2026-10-21T05:31:45.9256239+00:00",
-      "isVerificationBasis": true
+      "reason": "Block amended to state architectural dependency invariant without pinned version numbers; superseded by refreshed verification receipt.",
+      "actor": "agent",
+      "retractedAt": "2026-10-21T15:14:01.0143669+00:00"
     }
   ]
 }
