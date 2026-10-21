@@ -32,7 +32,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "orleans-grain-storage-hosting",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
@@ -65,5 +65,20 @@
       "relation": "supersedes"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/test/ArgentSea.Orleans.Sql.Test/ProviderTypeResolutionTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "ProviderTypeResolutionTests resolve ArgentSeaSql to shard-set storage and ArgentSeaSqlDb to single-database storage through a real host; GrainStorageHostingTests pass.",
+      "evidenceId": "evi-00b0b39867654beabfdce82548c61265",
+      "verifiedContentHash": "fields-sha256-v1:331aa7d09eb32818c8d9c594dd93cab65453caf14ec399ca9802b1dd8b5bbc90",
+      "recordedAt": "2026-10-21T22:57:39.3969237+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
