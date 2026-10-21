@@ -6,7 +6,7 @@
     "name": "ArgentSeaOrleansMembershipTable membership-table library surface",
     "kind": "Library",
     "language": "text",
-    "contract": "ArgentSeaOrleansMembershipTable provides one cluster-scoped membership-table surface. It can optionally establish that cluster's initial version record; remove defunct entries before a supplied UTC cutoff; remove all entries for an explicitly supplied cluster; insert a complete silo membership record while presenting a table version; read either all records or one addressed record together with the table version; update only a record's liveness time; and replace a record while presenting both its record ETag and table version. ReadRow binds exactly one parameter per procedure argument of rdr.OrleansClusterMemberReadRowKeyV1 (@ClusterId, @Address, @Port, @Generation), returns the addressed silo's record with Status read as the smallint column and the member ETag and version read from the member columns that follow the version timestamp, and attaches that record's suspect reports. Insert and replacement return true on successful completion and false when the write procedure signals a concurrency conflict (SqlException error number 51000: table-version or record ETag mismatch, a missing record on replacement, or an already-existing record on insert); any other failure propagates as an exception. Callers receive the membership data reconstructed from the table's version, member, and suspect result sets."
+    "contract": "ArgentSeaOrleansMembershipTable provides one cluster-scoped membership-table surface. It can optionally establish that cluster's initial version record; remove defunct entries before a supplied UTC cutoff; remove all entries for an explicitly supplied cluster; insert a complete silo membership record while presenting a table version; read either all records or one addressed record together with the table version; update only a record's liveness time; and replace a record while presenting both its record ETag (bound as @MemberETagNo) and table version (@ETagNo, @Version). ReadRow binds exactly one parameter per procedure argument of rdr.OrleansClusterMemberReadRowKeyV1 (@ClusterId, @Address, @Port, @Generation), returns the addressed silo's record with Status read as the smallint column and the member ETag and version read from the member columns that follow the version timestamp, and attaches that record's suspect reports. A successful insert or replacement advances the stored table etag by one and stamps it on the written row, so a member's etag may lag the table etag. Insert and replacement return true on successful completion and false when the write procedure signals a concurrency conflict (SqlException error number 51000: table-version or record ETag mismatch, a missing record on replacement, or an already-existing record on insert; or an In-Memory OLTP write conflict 41302, 41305, 41325 or 41301); any other failure propagates as an exception. Callers receive the membership data reconstructed from the table's version, member, and suspect result sets."
   },
   "metadata": {
     "status": "Draft",
@@ -47,6 +47,14 @@
       "blobHash": null,
       "label": null,
       "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "note-fb174a791cfe42debf552cacc237151c",
+      "blobHash": null,
+      "label": "origin note"
     }
   ],
   "evidenceLinks": []
