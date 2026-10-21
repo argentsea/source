@@ -8,7 +8,7 @@
     "response": "log the mismatch at Debug via SqlParameterNotFound, SqlFieldNotFound, or RequiredPropertyIsDbNull respectively, naming the missing parameter or column together with the property type or model name involved"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
