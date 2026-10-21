@@ -9,7 +9,7 @@
     "postcondition": "the copied key has the value represented by the input bytes"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": "Reviewer note (area-skeptic): Grounded in ShardKeyOrleansSerializer.cs:16-180 and falsifiable behavioral block. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'shard-key-orleans-codecs' resolves to component 'Shard Key Orleans Codecs' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
