@@ -1,0 +1,51 @@
+{
+  "id": "blk-facb8dcac61548e0b114add5cb5df94d",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "each PostgreSQL collection resolves connection strings and resilience policies through the 5-level configuration hierarchy using PgGlobalPropertiesOptions as the global fallback",
+    "response": "forward configOptions, globalOptions?.Value, new DataProviderServiceFactory() (or the caller-supplied IDataProviderServiceFactory on the protected constructors), and logger to DatabasesBase<PgDbConnectionOptions> or ShardSetsBase<PgShardConnectionOptions>",
+    "subject": "PgDatabases and PgShardSets",
+    "trigger": "PgDatabases or PgShardSets is constructed via its public DI constructor or protected factory constructor"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgDatabases.cs",
+        "lines": "12-36",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgShardSets.cs",
+        "lines": "14-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-aaa96124e3f54507bcd6a7365738f700",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
