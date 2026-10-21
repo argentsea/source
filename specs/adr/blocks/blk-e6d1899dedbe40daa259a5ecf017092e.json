@@ -20,7 +20,7 @@
     "title": "Support unit testing by short-circuiting queries with mock results keyed by query name"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

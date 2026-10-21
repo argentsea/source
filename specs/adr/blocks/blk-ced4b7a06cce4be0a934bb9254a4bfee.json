@@ -1,0 +1,75 @@
+{
+  "id": "blk-ced4b7a06cce4be0a934bb9254a4bfee",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Define interfaces over every collection and connection type for mocking frameworks.",
+        "whyRejected": "Significantly widens the public API surface and complicates the nested generic object model across connections, shards, and shard sets."
+      },
+      {
+        "option": "Require integration tests against live database instances.",
+        "whyRejected": "Slow and requires database infrastructure in every unit-test environment."
+      }
+    ],
+    "consequences": "Application data access code can be unit-tested through the production call path with canned results. The stored mock object must match the method's expected return type (for example, a `List<TModel>` for a `ReadAll` call), since mock short-circuiting bypasses the `Mapper`, ADO.NET command execution, and result handlers.",
+    "context": "Application data classes depend on concrete ArgentSea collection and connection singletons built from configuration. Without an in-memory short-circuit seam, unit-testing application data logic would require a live database or wrapper interfaces over every generic collection type.",
+    "decision": "Data connections, shards, and shard sets expose a `MockResults` dictionary keyed by `Query.Name`. When a data method is invoked with a `Query` whose name is present in `MockResults`, the stored object is returned immediately without opening a database connection, while parameter construction, method selection, and caller logic execute normally.",
+    "status": "Accepted",
+    "title": "Support unit testing by short-circuiting queries with mock results keyed by query name"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "57-73",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "108-111",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/DataConnectionManager.cs",
+        "lines": "175-178",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "resilient-command-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-e920962bb5ed4bb48ca7e0c3f0c54a0f",
+      "blobHash": null,
+      "label": "Mock results",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-e6d1899dedbe40daa259a5ecf017092e",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
