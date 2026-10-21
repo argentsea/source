@@ -1,0 +1,33 @@
+{
+  "id": "blk-f281557d20c9483597c3002b971f632e",
+  "specId": "behavior",
+  "type": "Invariant",
+  "fields": {
+    "statement": "Every routine common.psql and tenant.psql create in the rdr and wtr schemas is SECURITY DEFINER with search_path pinned to pg_catalog, pg_temp, PUBLIC holds no EXECUTE right on any of them, and no role but the owner has any right on the orleans schema's tables; orleans_reader may execute only the rdr functions, orleans_writer the rdr functions and wtr procedures, and orleans_client only rdr.orleans_cluster_gateway_list_v1.",
+    "scope": "The objects and grants installed by ArgentSea.Orleans.Pg's common.psql and tenant.psql."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-be88d6697209480ab2ada24eea222bb2",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-ef64d117d0c44284b69beba3f6821db2",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
