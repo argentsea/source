@@ -1,0 +1,44 @@
+{
+  "id": "blk-38c68970420847d3a21e1e5d80800551",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "postcondition": "the service collection contains configured PgGlobalPropertiesOptions, PgDbConnectionOptions, PgShardConnectionOptions, and singleton PgDatabases and PgShardSets registrations without mutating QueryStatement.Extension",
+    "response": "call services.AddOptions(), configure PgGlobalPropertiesOptions from the 'PgGlobalSettings' configuration section, configure PgDbConnectionOptions and PgShardConnectionOptions from the root configuration, register PgDatabases and PgShardSets as singletons, and return the same IServiceCollection instance",
+    "subject": "PgServiceBuilderExtensions.AddPgServices",
+    "trigger": "AddPgServices(services, config) is invoked with an IServiceCollection and an IConfiguration instance"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/PgServiceBuilderExtensions.cs",
+        "lines": "25-40",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "postgres-service-registration",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-b4bbbef1523140a991cb91ee0868c088",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
