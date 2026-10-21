@@ -8,7 +8,7 @@
     "response": "render a parameter reference as `$` followed by its declared name or, when the parameter has no name, by a synthetic `varN` built from a per-tree sequential id; render a constant as a quoted string, a quoted char, a bare numeral or boolean literal, a numeral suffixed with its type marker (U, L, UL, D, F, or M) when one applies, `null` for a null value, or `.Constant<Type>(value)` otherwise; render a default-value node as `.Default(Type)`; render a debug-info node as `.DebugInfo(file: startLine, startColumn - endLine, endColumn)`; render a lambda node, at the point it is visited, as `.Lambda name<DelegateType>` and enqueue that lambda node for its own parameter-list-and-body definition exactly once, even when the same node is visited again later, preserving first-encounter order across the whole rendering; and assign any unnamed lambda or label target a synthetic `#LambdaN` or `#LabelN` name built the same per-tree sequential way, quoting a declared name that itself contains whitespace"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
