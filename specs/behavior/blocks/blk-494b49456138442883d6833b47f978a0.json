@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "only this fixed set of SQL Server error numbers is ever reported as worth retrying",
+    "response": "classify the exception as transient only when it is a SqlException whose Number equals one of: 41301, 41302, 41305, 41325 (memory-optimized-table transaction or row-version conflicts); 41823, 41839, 41840 (memory-optimized-table resource or commit-dependency limits); 4221 (read-secondary login blocked waiting for row-version transition); 49918, 49919, 49920 (Azure SQL subscription busy or throttled for pending operations); 4060, 40613 (requested database or its login unavailable while the database comes online); 40197, 40501, 10928, 10929 (Azure SQL service busy or a resource-governance limit reached); 10053, 10054, 10060, 20, 64, 233 (a network or transport-level failure before or during login, matching Microsoft.Data.SqlClient's configurable-retry transient error list); or 1205 (chosen as the deadlock victim); classify every other SqlException Number, and every exception that is not a SqlException, as not transient",
     "subject": "SQL Server Provider Services",
-    "trigger": "a caller asks whether an exception raised by a SQL Server operation is transient",
-    "response": "classify the exception as transient only when it is a SqlException whose Number equals one of: 41301, 41302, 41305, 41325 (memory-optimized-table transaction or row-version conflicts); 41823, 41839, 41840 (memory-optimized-table resource or commit-dependency limits); 4221 (read-secondary login blocked waiting for row-version transition); 49918, 49919, 49920 (Azure SQL subscription busy or throttled for pending operations); 4060, 40613 (requested database or its login unavailable while the database comes online); 40197, 40501, 10928, 10929 (Azure SQL service busy or a resource-governance limit reached); 10053, 10054, 10060, 20, 64, 233 (a network or transport-level failure before or during login); or 1205 (chosen as the deadlock victim); classify every other SqlException Number, and every exception that is not a SqlException, as not transient. Error 20 (whose message reports that the instance does not support encryption) is included by design: Microsoft.Data.SqlClient's own configurable-retry transient error list includes error 20, and the code comment beside it records that reason",
-    "postcondition": "only this fixed set of SQL Server error numbers is ever reported as worth retrying"
+    "trigger": "a caller asks whether an exception raised by a SQL Server operation is transient"
   },
   "metadata": {
     "status": "Draft",
