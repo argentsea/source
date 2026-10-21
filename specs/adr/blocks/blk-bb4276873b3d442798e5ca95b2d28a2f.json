@@ -24,7 +24,7 @@
     "consequences": "Routing is a property of the key, and databases can use small, ordinary identity columns, often int rather than bigint. Compound primary keys are first-class, with up to four columns. Every persisted reference to a record on another shard must also store that shard's id. Splitting or merging shards requires rewriting keys. Correctness depends on every client mapping shard ids to the same databases."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
