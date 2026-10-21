@@ -7,7 +7,7 @@
     "scope": "ArgentSea.Orleans.Sql.csproj PackageReference ItemGroup: Microsoft.Orleans.Runtime, Microsoft.Orleans.Reminders, Microsoft.Orleans.Sdk."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
