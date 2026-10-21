@@ -28,7 +28,7 @@
     "title": "Fan out across shards concurrently with three result semantics: ReadAll, ReadFirst and Write"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

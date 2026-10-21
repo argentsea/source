@@ -1,0 +1,131 @@
+{
+  "id": "blk-6c5a84d7acd0471b89ad4f5ccb059d90",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Sequential iteration over shards.",
+        "whyRejected": "Latency grows linearly with shard count."
+      },
+      {
+        "option": "A single 'query all' form that callers post-filter.",
+        "whyRejected": "Wastes work and latency on unique lookups where one match suffices, and provides no way to target only a subset of shards."
+      },
+      {
+        "option": "A central directory or index of which shard holds which non-key attribute.",
+        "whyRejected": "Adds a stateful lookup component that must be kept consistent across writes; fan-out requires no extra infrastructure."
+      },
+      {
+        "option": "Await the shard tasks with `Task.WhenAll` and let the `await` rethrow directly.",
+        "whyRejected": "Awaiting `Task.WhenAll` rethrows only the first faulted task's exception, silently discarding failures on other shards; for a multi-shard write, callers must know every shard that failed."
+      }
+    ],
+    "consequences": "Cross-shard reads complete in roughly one round trip of the slowest targeted shard rather than the sum of all shards. `ReadFirst` discards duplicate matches across shards when the search attribute is not globally unique; once a shard produces a non-null result, `ReadFirst` cancels the remaining shard queries via its linked token and ignores their failures (surfacing shard exceptions only when no shard succeeds, and throwing `OperationCanceledException` on caller cancellation). A failure on any shard fails a `ReadAll` or `Write` call: `ReadAll` cancels remaining in-flight shard reads (excluding cancellation exceptions provoked by its own linked token), whereas `Write` lets every targeted shard's write finish so no shard is left in an unknown in-flight state. Once all shard tasks settle, a single shard exception is rethrown directly and multiple shard exceptions are thrown together as an `AggregateException`. Fan-out multiplies connection-pool and database load by the targeted shard count; passing `ShardsValues` restricts execution to the relevant shards.",
+    "context": "With partitioned data, lookups by `ShardKey` target a single shard, but cross-shard operations—searching by a non-shard-key attribute, resolving a unique login name, following foreign-key references across a subset of shards, or applying a write across shards—must query multiple shards. Running these sequentially multiplies latency by the shard count.",
+    "decision": "A `ShardSet` exposes three concurrent fan-out execution forms over all shards (or the subset specified by `ShardsValues`), where each targeted shard runs on its own connection with its own parameter copy under its own resilience policy:\\n1. `ReadAll` (`ReadQueryAllAsync`) uses shard read connections, waits for every targeted shard, and returns all non-null per-shard results combined into a single list.\\n2. `ReadFirst` (`ReadQueryFirstAsync`) uses shard read connections, returns the first non-null result produced by any shard, and cancels remaining in-flight shard queries via a linked `CancellationTokenSource`.\\n3. `Write` (`RunAllAsync`, `BatchAllAsync`, `WriteQueryAllAsync`) uses shard write connections and passes the caller's `CancellationToken` unchanged without cancelling sibling shard writes.\\nAll three forms report shard failures uniformly once all shard tasks settle: a single failure is rethrown preserving its original stack trace, and multiple failures are thrown together in an `AggregateException`. `ShardsValues` can override parameter values per shard, and an optional `shardParameterName` injects each shard's `shardId` into its query parameters.",
+    "status": "Accepted",
+    "title": "Fan out across shards concurrently with three result semantics: ReadAll, ReadFirst and Write"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "5-37",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "60-90",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "97-191",
+        "label": "ReadQueryAllAsync and ReadQueryFirstAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardSet.cs",
+        "lines": "535-661",
+        "label": "RunAllAsync, BatchAllAsync and WriteQueryAllAsync"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardFanOut.cs",
+        "lines": "12-152",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-set-fan-out",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-a7029785ab434c9fb4c8832d2a705845",
+      "blobHash": null,
+      "label": "Fan-out query",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8db2a20ae6d84ff0a8d358d63ce24373",
+      "blobHash": null,
+      "label": "ReadAll",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-65e1328853a142eab6110f152e0236c5",
+      "blobHash": null,
+      "label": "ReadFirst",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-770111626c0545f3a50ccdec9618572b",
+      "blobHash": null,
+      "label": "Shard-set write",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-77530745cca642d982c6de223e74db46",
+      "blobHash": null,
+      "label": "Shards values",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-a7295df350994a0ea87c7e30b8ad5dbe",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
