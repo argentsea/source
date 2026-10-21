@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "postcondition": "ThrowIfMetadataMismatch returns normally only when the metadata header's compound flag and all active component ShardKeyType codes match the caller's key type signature",
+    "response": "validate that the metadata header's IsCompound flag and per-component ShardKeyType codes match the expected key arity and component CLR types for the invoked overload (1 to 4 key components), and throw InvalidShardKeyMetadataException when IsCompound or any component ShardKeyType does not match",
     "subject": "ShardKeySerialization",
-    "trigger": "ThrowIfMetadataMismatch is invoked with the call-site key type(s) and previously-saved metadata bytes",
-    "response": "throw InvalidShardKeyMetadataException with no type argument when the recomputed metadata's length differs from the supplied metadata's length; throw InvalidShardKeyMetadataException naming only the single first-position call-site type (keyType) -- never the call-site type that actually failed to encode -- when any call-site type fails to encode to a KeyDataType; otherwise compare the recomputed packed bytes to the supplied bytes position by position and throw InvalidShardKeyMetadataException naming keyType for a position-0 mismatch, childType for position-1, or grandchildType for position-2; in the four-type overload the position-2 byte also carries the greatgrandchildType's full packed 6-bit code alongside grandchildType's two low bits, so a position-2 mismatch there is still reported as grandchildType regardless of which of the two co-located codes actually changed",
-    "postcondition": "it returns normally, without throwing, only when every recomputed packed byte -- for whichever subset of positions the invoked overload's arity defines -- exactly matches the supplied metadata"
+    "trigger": "ThrowIfMetadataMismatch is invoked with the expected key component type(s) and serialized metadata header"
   },
   "metadata": {
     "status": "Draft",
