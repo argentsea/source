@@ -1,0 +1,33 @@
+{
+  "id": "blk-6092f9837e7b4b4faf5153ab2cd54a96",
+  "specId": "behavior",
+  "type": "Invariant",
+  "fields": {
+    "statement": "ArgentSea.Orleans.Pg.csproj declares the same Version and the same Microsoft.Orleans package references and versions as ArgentSea.Orleans.Sql.csproj, references exactly the ArgentSea.Orleans and ArgentSea.Pg projects, packs readme.md and argentsea-logo.png at the package root, and packs common.psql and tenant.psql in the package's sql folder.",
+    "scope": "The ArgentSea.Orleans.Pg project file and the NuGet package it produces."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-2c4d613b2b0443ffa64bf739405ec9a7",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-d768665c1b9f4bb5848992eab45d3261",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "universal"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
