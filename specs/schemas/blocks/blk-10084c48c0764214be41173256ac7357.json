@@ -11,21 +11,21 @@
         "type": "nvarchar(20)",
         "description": "Version of the Orleans reminder-service package referenced.",
         "required": true,
-        "notes": "10.3.1"
+        "notes": "10.4.0"
       },
       {
         "name": "PackageReference[Microsoft.Orleans.Runtime]",
         "type": "nvarchar(20)",
         "description": "Version of the Orleans runtime package referenced.",
         "required": true,
-        "notes": "10.3.1"
+        "notes": "10.4.0"
       },
       {
         "name": "PackageReference[Microsoft.Orleans.Sdk]",
         "type": "nvarchar(20)",
         "description": "Version of the Orleans SDK package referenced.",
         "required": true,
-        "notes": "10.3.1, same pin as the other two Orleans packages"
+        "notes": "10.4.0, same pin as the other two Orleans packages"
       },
       {
         "name": "ProjectReference",
