@@ -7,7 +7,7 @@
     "scope": "LoggingExtensions (ArgentSea.Shared/src/LoggerExtensions.cs) — all static readonly Action/Func event and scope delegate fields and their one-time assignment in the static constructor."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
