@@ -8,7 +8,7 @@
     "response": "log the degenerate state via DataReaderIsNull or DataReaderIsClosed (Error, event id MapperResultsReaderInvalid) naming the procedure and connection, or via EmptyResult (Debug, event id UnexpectedDbNull) naming the query; NullShardChildArguments emits its Information-level UnexpectedDbNull event, under the event name NullShardChildArguments, naming the property and the ShardKey's string form only when Information is enabled and the ShardKey's record or child identity is null (a value-typed identity can never be null, so such keys never log)"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
