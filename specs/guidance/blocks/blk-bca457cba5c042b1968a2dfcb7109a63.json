@@ -1,0 +1,93 @@
+{
+  "id": "blk-bca457cba5c042b1968a2dfcb7109a63",
+  "specId": "guidance",
+  "type": "Guidance",
+  "fields": {
+    "appliesWhen": {
+      "fileGlobs": [
+        "*Batch*.cs",
+        "*Tvp*.cs",
+        "*Copy*.cs"
+      ],
+      "semanticAnchor": "bulk multi-row writes and multi-statement transactions using SQL Server table-valued parameters (AddSqlTableValuedParameter, MapToSqlTableValuedParameterAttribute) or PostgreSQL binary COPY (CopyMapper) inside SqlBatch, PgBatch, or ShardSetBatch",
+      "symbols": [
+        "AddSqlTableValuedParameter",
+        "MapToSqlTableValuedParameterAttribute",
+        "CopyMapper",
+        "SqlBatch",
+        "PgBatch",
+        "ShardSetBatch"
+      ]
+    },
+    "body": "For multi-row writes on SQL Server, prefer `AddSqlTableValuedParameter` or `[MapToSqlTableValuedParameter]` over multi-step batches. Passing `null` or an empty collection sends `Value = null`, which SQL Server observes as an empty table-valued parameter; however, callers passing a custom unbuffered lazy `IEnumerable<SqlDataRecord>` (not implementing `ICollection<SqlDataRecord>` or `IReadOnlyCollection<SqlDataRecord>`) must ensure the sequence yields at least one record or pass `null`, because `Microsoft.Data.SqlClient` rejects an empty unbuffered enumerator at execution time. On PostgreSQL, combine `CopyMapper` binary `COPY` into a staging table with a follow-up `BatchStep` inside a `PgBatch` or `ShardBatch` so the bulk load and consuming SQL execute atomically in one transaction.",
+    "scope": "targeted",
+    "title": "Bulk and multi-statement write idioms for SQL Server TVPs and PostgreSQL COPY"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "920-975",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Pg/src/CopyMapper.cs",
+        "lines": "1-120",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "batch-execution",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-82cc202eaf4149669f3ef0f34d643bc4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-cef8c22e3aa7428b9cd3b4fa52cfb9e9",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-63fc7d338c694be88387932bedeb16d4",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
