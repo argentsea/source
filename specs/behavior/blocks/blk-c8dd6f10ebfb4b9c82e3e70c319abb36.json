@@ -1,0 +1,45 @@
+{
+  "id": "blk-c8dd6f10ebfb4b9c82e3e70c319abb36",
+  "specId": "behavior",
+  "type": "Behavioral",
+  "fields": {
+    "condition": "options.Value.MinimumReminderPeriod is less than TimeSpan.Zero",
+    "postcondition": "silo startup rejects negative minimum reminder periods before reminder table initialization",
+    "response": "throw OrleansConfigurationException identifying ReminderOptions.MinimumReminderPeriod, and succeed without throwing when MinimumReminderPeriod is greater than or equal to TimeSpan.Zero",
+    "subject": "ArgentSeaReminderOptionsValidator",
+    "trigger": "ValidateConfiguration() is invoked"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/Providers/ArgentSeaReminderOptionsValidator.cs",
+        "lines": "20-38",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "orleans-reminder-storage",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-3b00d26115794c439f2302c372fb816d",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
