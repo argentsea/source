@@ -3,10 +3,10 @@
   "specId": "interfaces",
   "type": "Interface",
   "fields": {
-    "name": "SqlDatabases",
+    "contract": "SqlDatabases : DatabasesBase<SqlDbConnectionOptions> is the library facade for configured, non-sharded SQL Server database connections. It exposes two constructors: (1) a public constructor SqlDatabases(IOptions<SqlDbConnectionOptions> configOptions, IOptions<SqlGlobalPropertiesOptions>? globalOptions, ILogger<SqlDatabases>? logger) that delegates to the protected constructor with a new SqlClient DataProviderServiceFactory (new DataProviderServiceFactory()), and (2) a protected constructor protected SqlDatabases(IOptions<SqlDbConnectionOptions> configOptions, IDataProviderServiceFactory services, IOptions<SqlGlobalPropertiesOptions>? globalOptions, ILogger<SqlDatabases>? logger) that forwards the caller-supplied IDataProviderServiceFactory and globalOptions?.Value to DatabasesBase<SqlDbConnectionOptions> for derived classes and test doubles.",
     "kind": "Library",
     "language": "csharp",
-    "contract": "SqlDatabases is the library facade for configured, non-sharded SQL database connections. Its construction boundary accepts SqlDbConnectionOptions and SQL global-properties options so the facade is created for that connection configuration, and it hard-wires a new SqlClient DataProviderServiceFactory as its data-provider services directly in the constructor rather than accepting one as a constructor parameter or resolving it from the dependency-injection container — every SqlDatabases instance is bound to the SqlClient provider regardless of what else is registered."
+    "name": "SqlDatabases"
   },
   "metadata": {
     "status": "Draft",
