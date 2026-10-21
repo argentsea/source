@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "A SQL Server structured parameter (`SqlDbType.Structured`) that carries a set of rows to save many records in one round trip. ArgentSea builds one from a sequence of models (converted to `SqlDataRecord` rows by the compiled `TvpMapper`) via `AddSqlTableValuedParameter`, or from a collection property marked with `[MapToSqlTableValuedParameter]`. An empty or null row set is sent with `Value = null`.",
     "name": "Table-valued parameter",
-    "definition": "A SQL Server parameter that carries a set of rows, used to save many records in one round trip. ArgentSea builds one from a list of models, with each model converted to a `SqlDataRecord` by the compiled TVP mapper, or from a collection property marked with a collection mapping attribute. An empty or null row set is sent as a null parameter value.",
     "synonyms": [
       "TVP",
       "TvpMapper"
@@ -41,7 +41,7 @@
       "kind": "spec",
       "project": "argentsea",
       "specId": "adr",
-      "blockId": "blk-0af15f91fda543868ea6cefa1b28a6c7",
+      "blockId": "blk-82cc202eaf4149669f3ef0f34d643bc4",
       "blobHash": null,
       "label": "Empty TVP as null ADR",
       "relation": "references"
