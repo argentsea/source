@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "ArgentSea's immutable value type implementing the virtual compound key. It combines a `short` `ShardId` (`0` = empty) with one to four key components (`RecordId`, `ChildId`, `GrandChildId`, `GreatGrandChildId`): `ShardKey<TRecord>`, `ShardKey<TRecord, TChild>`, `ShardKey<TRecord, TChild, TGrandChild>`, and `ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>`. It embeds `ShardKeyTypeMetadata` in binary, UTF-8, and external string representations, while value equality compares only `ShardId` and the key component values.",
     "name": "ShardKey",
-    "definition": "ArgentSea's immutable value type implementing the virtual compound key. It holds a shard id plus a record key of one to four columns: `ShardKey<TRecord>`, `ShardKey<TRecord, TChild>`, `ShardKey<TRecord, TChild, TGrandChild>` and `ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>`. It also embeds shard key type metadata. Equality compares the shard id and the key values. Because it is a struct it cannot be null: an absent key is `ShardKey.Empty` (shard 0, default key values), or the property is declared `Nullable<ShardKey<…>>`. It serializes to bytes, UTF-8 and an external key.",
     "synonyms": [
       "shard key",
       "ShardKey<TRecord>"
