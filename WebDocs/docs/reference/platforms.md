@@ -19,26 +19,26 @@ In both cases the choice of read or write is explicit in your code; ArgentSea ne
 
 ## Package matrix
 
-All packages are version 2.0.4 and target `net10.0`.
+All packages are version 2.1.0 and target `net10.0`.
 
 | Package | Purpose | Depends on | NuGet |
 | --- | --- | --- | --- |
-| `ArgentSea` | Core: Mapper, Query objects, shard keys, configuration, resilience, logging, batches | Microsoft.Extensions.* 10.0.12, Polly 8.7.0 | [ArgentSea](https://www.nuget.org/packages/ArgentSea/) |
-| `ArgentSea.Sql` | SQL Server provider | `ArgentSea`, Microsoft.Data.SqlClient 7.0.3 | [ArgentSea.Sql](https://www.nuget.org/packages/ArgentSea.Sql/) |
+| `ArgentSea` | Core: Mapper, Query objects, shard keys, configuration, resilience, logging, batches | Microsoft.Extensions.* 10.0.13, Polly 8.8.0 | [ArgentSea](https://www.nuget.org/packages/ArgentSea/) |
+| `ArgentSea.Sql` | SQL Server provider | `ArgentSea`, Microsoft.Data.SqlClient 7.1.1 | [ArgentSea.Sql](https://www.nuget.org/packages/ArgentSea.Sql/) |
 | `ArgentSea.Pg` | PostgreSQL provider | `ArgentSea`, Npgsql 10.0.3 | [ArgentSea.Pg](https://www.nuget.org/packages/ArgentSea.Pg/) |
-| `ArgentSea.Orleans` | Abstract Orleans grain storage, clustering and reminder support | `ArgentSea`, Microsoft.Orleans 10.3.1 | [ArgentSea.Orleans](https://www.nuget.org/packages/ArgentSea.Orleans/) |
-| `ArgentSea.Orleans.Sql` | Orleans providers for SQL Server | `ArgentSea.Orleans`, `ArgentSea.Sql`, Microsoft.Orleans 10.3.1 | [ArgentSea.Orleans.Sql](https://www.nuget.org/packages/ArgentSea.Orleans.Sql/) |
-| `ArgentSea.Orleans.Pg` | Orleans providers for PostgreSQL | `ArgentSea.Orleans`, `ArgentSea.Pg`, Microsoft.Orleans 10.3.1 | [ArgentSea.Orleans.Pg](https://www.nuget.org/packages/ArgentSea.Orleans.Pg/) |
+| `ArgentSea.Orleans` | Abstract Orleans grain storage, clustering and reminder support | `ArgentSea`, Microsoft.Orleans 10.4.0 | [ArgentSea.Orleans](https://www.nuget.org/packages/ArgentSea.Orleans/) |
+| `ArgentSea.Orleans.Sql` | Orleans providers for SQL Server | `ArgentSea.Orleans`, `ArgentSea.Sql`, Microsoft.Orleans 10.4.0 | [ArgentSea.Orleans.Sql](https://www.nuget.org/packages/ArgentSea.Orleans.Sql/) |
+| `ArgentSea.Orleans.Pg` | Orleans providers for PostgreSQL | `ArgentSea.Orleans`, `ArgentSea.Pg`, Microsoft.Orleans 10.4.0 | [ArgentSea.Orleans.Pg](https://www.nuget.org/packages/ArgentSea.Orleans.Pg/) |
 
 You install the provider package you need (`ArgentSea.Sql` or `ArgentSea.Pg`, and `ArgentSea.Orleans.Sql` or `ArgentSea.Orleans.Pg` for Orleans); the core and abstract packages come in transitively. See [Installation](/getting-started/installation).
 
 ## Runtime requirements
 
 - .NET 10 (`net10.0`). Version 1 targeted .NET Standard; see [What's new](/reference/whats-new) for migration.
-- Microsoft.Data.SqlClient 7.0.3 for SQL Server.
+- Microsoft.Data.SqlClient 7.1.1 for SQL Server.
 - Npgsql 10.0.3 for PostgreSQL.
-- Microsoft.Orleans 10.3.1 (Runtime, Sdk and Reminders) for the Orleans packages.
-- Polly 8.7.0 for retry and circuit breaking (installed with the core package).
+- Microsoft.Orleans 10.4.0 (Runtime, Sdk and Reminders) for the Orleans packages.
+- Polly 8.8.0 for retry and circuit breaking (installed with the core package).
 - An `ILogger` implementation: logging is mandatory on every data method and Mapper call.
 
 ## One provider per project

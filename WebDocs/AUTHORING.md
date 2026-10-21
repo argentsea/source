@@ -26,7 +26,7 @@ ArgentSea's elevator pitch (keep these claims consistent everywhere):
   data can be queried across grains with SQL), and provides clustering and reminders. ShardKey values serialize as
   grain keys. Uniquely, it can run tenants/shards behind a single cluster.
 - MIT licensed. Version 1 ran in production for years and handled billions of dollars of transactions. Version 2 is
-  current (2.0.4), targets .NET 10.
+  current (2.1.0), targets .NET 10.
 
 Supported platforms: SQL Server (incl. Express, Azure SQL Database; readable secondaries / read scale-out) via
 `ArgentSea.Sql` on Microsoft.Data.SqlClient; PostgreSQL (incl. Amazon RDS/Aurora, Azure Database for PostgreSQL,
@@ -70,8 +70,8 @@ with this list, this list wins. When in doubt, grep the source under `ArgentSea.
 projects, and the spec corpus digests.
 
 **Packages / versions.** `ArgentSea` (core, installed transitively), `ArgentSea.Sql`, `ArgentSea.Pg`,
-`ArgentSea.Orleans`, `ArgentSea.Orleans.Sql`; all 2.0.4; `net10.0`; Microsoft.Data.SqlClient 7.0.3; Npgsql 10.0.3;
-Microsoft.Orleans 10.3.1; Polly 8.7.0. Namespaces: `ArgentSea`, `ArgentSea.Sql`, `ArgentSea.Pg`, `ArgentSea.Orleans`.
+`ArgentSea.Orleans`, `ArgentSea.Orleans.Sql`, `ArgentSea.Orleans.Pg`; all 2.1.0; `net10.0`; Microsoft.Data.SqlClient 7.1.1; Npgsql 10.0.3;
+Microsoft.Orleans 10.4.0; Polly 8.8.0; Microsoft.Extensions.* 10.0.13. Namespaces: `ArgentSea`, `ArgentSea.Sql`, `ArgentSea.Pg`, `ArgentSea.Orleans`.
 
 **Service registration.** `services.AddSqlServices(configuration)` / `services.AddPgServices(configuration)`
 (extension methods in `Microsoft.Extensions.DependencyInjection`). They bind the options and register the singletons

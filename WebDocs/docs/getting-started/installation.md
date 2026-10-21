@@ -13,7 +13,7 @@ Pick the package that matches your database. Each one pulls in the core `ArgentS
 
 | Database | Package | Driver |
 | --- | --- | --- |
-| SQL Server, Azure SQL Database | [`ArgentSea.Sql`](https://www.nuget.org/packages/ArgentSea.Sql/) | Microsoft.Data.SqlClient 7.0.3 |
+| SQL Server, Azure SQL Database | [`ArgentSea.Sql`](https://www.nuget.org/packages/ArgentSea.Sql/) | Microsoft.Data.SqlClient 7.1.1 |
 | PostgreSQL (incl. RDS, Aurora, Azure, Cloud SQL) | [`ArgentSea.Pg`](https://www.nuget.org/packages/ArgentSea.Pg/) | Npgsql 10.0.3 |
 
 ::: code-group
@@ -25,7 +25,7 @@ dotnet add package ArgentSea.Pg
 ```
 :::
 
-The current version is 2.0.4 and it targets **.NET 10**. Every package in the family (`ArgentSea`, `ArgentSea.Sql`, `ArgentSea.Pg`, `ArgentSea.Orleans`, `ArgentSea.Orleans.Sql`, `ArgentSea.Orleans.Pg`) is released at the same version number, so keep them aligned.
+The current version is 2.1.0 and it targets **.NET 10**. Every package in the family (`ArgentSea`, `ArgentSea.Sql`, `ArgentSea.Pg`, `ArgentSea.Orleans`, `ArgentSea.Orleans.Sql`, `ArgentSea.Orleans.Pg`) is released at the same version number, so keep them aligned.
 
 If you are hosting Microsoft Orleans grains, there are three further packages: `ArgentSea.Orleans` (the abstract provider), and two implementations that give you grain persistence, clustering and reminders: `ArgentSea.Orleans.Sql` on top of `ArgentSea.Sql` and `ArgentSea.Orleans.Pg` on top of `ArgentSea.Pg`. They are covered in the [Orleans guide](/guides/orleans).
 
@@ -38,7 +38,7 @@ Pick one provider per project. Both packages can be referenced side by side, but
 ArgentSea is a thin layer over ADO.NET and leans on the standard Microsoft building blocks rather than reinventing them:
 
 - **Microsoft.Extensions.Configuration**, **Options** and **Logging** (10.0.x): connection settings are bound from `IConfiguration` into options objects, and every data call writes structured log events.
-- **Polly** 8.7.0: retry with backoff and a circuit breaker, applied per connection endpoint. You never call Polly directly; ArgentSea configures the policies from your settings. See [Resilience](/guides/resilience).
+- **Polly** 8.8.0: retry with backoff and a circuit breaker, applied per connection endpoint. You never call Polly directly; ArgentSea configures the policies from your settings. See [Resilience](/guides/resilience).
 - **Microsoft.Data.SqlClient** or **Npgsql**: the real ADO.NET driver. ArgentSea never hides it; there is always an escape hatch to the raw provider types.
 
 All of these are restored automatically when you add the package.
