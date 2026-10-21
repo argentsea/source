@@ -30,7 +30,7 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "orleans-reminder-storage",
-    "verificationStatus": "Unverified",
+    "verificationStatus": "Verified",
     "schemaVersion": "1",
     "packId": "software"
   },
@@ -62,5 +62,20 @@
       "label": "origin note"
     }
   ],
-  "evidenceLinks": []
+  "evidenceLinks": [
+    {
+      "relation": "Verifies",
+      "target": {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/test/ArgentSea.Orleans.Sql.Test/ProviderTypeResolutionTests.cs",
+        "lines": null,
+        "label": null
+      },
+      "note": "ReminderStorageTests provider-builder test and ProviderTypeResolutionTests (real host, ArgentSeaSql reminders) pass at 85a10ff3.",
+      "evidenceId": "evi-57b1f1d6ad3843b6bb8b8cc14d7db98e",
+      "verifiedContentHash": "fields-sha256-v1:abf279de2b4535c53d2c14e1f6492e0b007591831f6756ba904f816c09eff33e",
+      "recordedAt": "2026-10-21T04:58:46.583634+00:00",
+      "isVerificationBasis": true
+    }
+  ]
 }
