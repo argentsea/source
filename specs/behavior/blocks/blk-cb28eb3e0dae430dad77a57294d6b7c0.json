@@ -3,10 +3,10 @@
   "specId": "behavior",
   "type": "Behavioral",
   "fields": {
+    "response": "open the circuit so that further executions on that connection fail immediately, without attempting the command, for the connection's configured circuit-breaker test interval",
     "subject": "Resilient Command Execution",
-    "where": "the connection's CircuitBreakerFailureCount is left unconfigured (null) or is explicitly configured to 1 or more; the nullable comparison CircuitBreakerFailureCount < 1 that decides whether to skip the circuit breaker evaluates false both when the setting is unset and when it is >= 1, so only an explicit value below 1 disables it",
-    "trigger": "consecutive execution failures on that connection reach the configured circuit-breaker failure count. The circuit breaker is built with Policy.Handle<Exception>() and wraps the retry policy, so an execution counts as a failure when any exception of any type escapes the retry policy: a non-transient or non-DbException exception that the retry policy does not handle counts immediately, and a transient DbException counts once its retries are exhausted. The breaker does not apply the retry policy's transient-DbException filter.",
-    "response": "open the circuit so that further executions on that connection fail immediately, without attempting the command, for the connection's configured circuit-breaker test interval — the fail-fast behavior this component's own committed responsibility (components/resilient-command-execution) specifies for a circuit breaker whose consecutive-failure threshold has been reached."
+    "trigger": "consecutive execution failures on that connection reach the configured circuit-breaker failure count (where transient database errors are filtered and retried via services.GetIsErrorTransient(ex) before an unrecovered failure counts toward the circuit-breaker threshold)",
+    "where": "the connection's CircuitBreakerFailureCount is left unconfigured (null) or is explicitly configured to 1 or more"
   },
   "metadata": {
     "status": "Draft",
