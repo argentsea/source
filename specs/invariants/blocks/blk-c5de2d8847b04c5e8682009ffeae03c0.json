@@ -7,7 +7,7 @@
     "scope": "The PackageReference to Microsoft.Data.SqlClient declared in ArgentSea.Sql.csproj."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
