@@ -9,7 +9,7 @@
     "contract": "For a Query contract, ReturnValueAsync returns either an integer return value, a named scalar output, or a virtual compound key. Variants select whether database parameters are supplied, whether a named parameter receives the current shard identifier, and whether a returned key derives its shard identifier from query output or from the endpoint's current shard."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
