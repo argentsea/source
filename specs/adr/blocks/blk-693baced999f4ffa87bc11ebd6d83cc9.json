@@ -1,0 +1,108 @@
+{
+  "id": "blk-693baced999f4ffa87bc11ebd6d83cc9",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Orleans' built-in ADO.NET storage provider with serialized state blobs.",
+        "whyRejected": "Grain state is not queryable relationally, and serialized formats are brittle across type changes."
+      },
+      {
+        "option": "A separate reporting projection of grain state.",
+        "whyRejected": "It duplicates data and adds consistency lag and machinery."
+      }
+    ],
+    "consequences": "Grain state is queryable with SQL and governed like any other relational data. Each grain type needs its own read, write and clear routines and a registration, and a missing registration fails at first use. Grain keys must be ShardKeys, with Orleans serializers registered for each key type in use. Types wrapped in `Orleans.Concurrency.Immutable<T>` are not supported. The membership and reminder providers depend on ArgentSea's versioned routines (`rdr`/`wtr` schemas) being deployed.",
+    "context": "Orleans' standard storage providers persist grain state as opaque serialized blobs. Grain data then cannot be queried across grains, for example to ask which users have an attribute or how many meet a criterion, and blob formats couple stored data to .NET type versions.",
+    "decision": "ArgentSea's Orleans storage provider saves and loads grain state through per-grain-type read, write and clear Query objects (grain query definitions), using the Mapper and instance hydration. State lands in ordinary third-normal-form tables, not serialized blobs. A sharded variant resolves the shard from the grain key, which is a serialized ShardKey, and can validate that the grain id matches the model's key. If a read returns no row, the state is created by default construction or by the model's `IActivator` factory. ArgentSea also provides Orleans membership, gateway-list and reminder providers backed by SQL Server and PostgreSQL routines. Because Orleans' membership and reminder types are sealed and cannot carry mapping attributes, those providers use ADO.NET directly.",
+    "status": "Accepted",
+    "title": "Persist Orleans grain state in normalized tables through ArgentSea queries"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/readme.md",
+        "lines": "1-80",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/readme.md",
+        "lines": "1-12",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans/src/GrainPersistance/ArgentSeaShardGrainPersistence.cs",
+        "lines": "55-122",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Orleans.Sql/src/Queries.cs",
+        "lines": "6-12",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "grain-persistence",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-879f47de7dc4474ea337cbc4010ca520",
+      "blobHash": null,
+      "label": "Grain persistence",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-8719cd5fac1c4f36885a754d2ed2abb7",
+      "blobHash": null,
+      "label": "Grain query definitions",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-3b00d26115794c439f2302c372fb816d",
+      "blobHash": null,
+      "label": "Orleans cluster providers",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-504dda77e33b4b608c87b49bfbb66711",
+      "blobHash": null,
+      "label": "Instance hydration",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-3bbfe42356454cdda8cc46eda355c9ee",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

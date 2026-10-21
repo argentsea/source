@@ -20,7 +20,7 @@
     "consequences": "Grain state is queryable with SQL and governed like any other relational data. Each grain type needs its own read, write and clear procedures and a registration, and a missing registration fails at first use. Grain keys must be ShardKeys, with Orleans serializers registered for each key type in use. Types wrapped in `Orleans.Concurrency.Immutable<T>` are not supported. The membership and reminder providers depend on ArgentSea's versioned procedures (`rdr`/`wtr` schemas) being deployed."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
