@@ -20,7 +20,7 @@
     "consequences": "Most work runs as one round trip per call. Bulk loads can be committed together with the SQL that consumes them. A shard-set batch can partially succeed: some shards commit and others fail, so callers must make such work idempotent or compensate. Batches cost a round trip per step and should not replace a single multi-statement command."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
