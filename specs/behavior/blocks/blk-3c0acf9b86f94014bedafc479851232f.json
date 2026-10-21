@@ -5,15 +5,15 @@
   "fields": {
     "gwt": {
       "given": "data is a 16-byte span of all-zero bytes with position already advanced to 1 (so only 15 bytes remain ahead of the cursor), and valueType = typeof(decimal)",
-      "when": "TryConvertFromBytes(ref data, ref position, typeof(decimal), out result) is called",
-      "then": "the data.Length >= 16 check passes against the full 16-byte span rather than the 15 bytes remaining from position 1, so the read is attempted; the first three BitConverter.ToInt32 reads (at offsets 1, 5 and 9) each still have at least 4 bytes ahead and succeed, but the fourth read at offset 13 has only 3 bytes remaining in the span and BitConverter.ToInt32 throws ArgumentOutOfRangeException -- TryConvertFromBytes does not return false and position is never advanced"
+      "then": "TryConvertFromBytes validates the remaining span length from position 1 (15 bytes < 16 required), returns false, leaves result at default (decimal.Zero), and leaves position unchanged at 1",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(decimal), out result) is called"
     },
     "illustrates": [
       {
+        "blockId": "blk-39a425343a964aec833e2152fd208691",
         "kind": "spec",
-        "project": "ArgentSea",
-        "specId": "behavior",
-        "blockId": "blk-39a425343a964aec833e2152fd208691"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
