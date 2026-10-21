@@ -20,7 +20,7 @@
     "consequences": "Accidental corruption and casual tampering are detected, and external keys stay short and URL-safe. They are not secure: anyone can decode or forge one, so applications must still authorize every access. The format is part of the public contract, so changing it breaks stored and bookmarked keys."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

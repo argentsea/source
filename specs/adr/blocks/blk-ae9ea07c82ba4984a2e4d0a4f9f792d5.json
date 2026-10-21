@@ -1,0 +1,75 @@
+{
+  "id": "blk-ae9ea07c82ba4984a2e4d0a4f9f792d5",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Plain text (shard and id joined).",
+        "whyRejected": "Trivially edited, and it exposes record numbering."
+      },
+      {
+        "option": "Encrypted or HMAC-signed keys.",
+        "whyRejected": "Needs key management and rotation and adds per-key cost. Authorization belongs in the application, not in the identifier."
+      }
+    ],
+    "consequences": "Accidental corruption and casual tampering are detected, and external keys stay short and URL-safe. They are not cryptographically secure: anyone can decode or forge one, so applications must still authorize every access. The format is part of the public contract, so changing it breaks stored and bookmarked keys.",
+    "context": "Sharded record identities must cross the application boundary as one opaque, URL-safe value in REST routes, links and JSON. Plain concatenations such as `3-1042` invite casual editing, and a mistyped or truncated value should fail loudly rather than address a different record.",
+    "decision": "A ShardKey's external string is its binary form bit-inverted, suffixed with a 2-byte Fletcher checksum, and encoded in a URL-safe Modified Base64 alphabet. Parsing rejects a string whose checksum or type metadata does not match. No cryptographic key material is involved.",
+    "status": "Accepted",
+    "title": "External keys are obfuscated and checksummed, not encrypted or signed"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/StringExtensions.cs",
+        "lines": "158-198",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": "164-183",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardkey.md",
+        "lines": "64-73",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "shard-key-serialization",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-9c546be3cebf4dfc9ff4eec2d4206b09",
+      "blobHash": null,
+      "label": "External key",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-853947cd808a45e89e3bbf0b3c72bafb",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
