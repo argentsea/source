@@ -1,0 +1,35 @@
+{
+  "id": "blk-8b4e6953a3b042338493b7f32c5fc76c",
+  "specId": "interfaces",
+  "type": "Interface",
+  "fields": {
+    "name": "ArgentSea.Orleans.Pg grain-storage registration",
+    "kind": "Library",
+    "language": "text",
+    "contract": "ArgentSeaPgSiloBuilderExtensions (namespace Orleans.Hosting) registers grain storage under a provider name: AddArgentSeaPgDbOrleansGrainStorage(builder, name[, Action<OrleansDbPersistenceOptions>]) and AddArgentSeaPgShardOrleansGrainStorage(builder, name[, Action<OrleansShardPersistenceOptions>]) return the builder; the IServiceCollection overloads take an Action<OptionsBuilder<...>> and return the collection. Each applies its options to the options named for the provider and registers a keyed IGrainStorage built by ArgentSea.Orleans.Pg.ArgentSeaGrainStorageFactory: CreateDb yields ArgentSeaDbGrainPersistence<PgDbConnectionOptions> over the PgDatabases singleton, CreateShards yields ArgentSeaShardGrainPersistence<PgShardConnectionOptions> over the PgShardSets singleton, each reading the options named for the provider. The method names carry Pg so they never collide with ArgentSea.Orleans.Sql's extensions in the same namespace."
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-f020d72a658c450fbdd1d9dcda0ad8bb",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-8a3a76b2b9bf495fbdf0ffd15a4cb8fc",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [],
+  "evidenceLinks": []
+}
