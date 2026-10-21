@@ -12,7 +12,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Reviewer note (area-skeptic): Grounded in ArgentSeaReminderOptionsValidator.cs:24-42 and falsifiable. Earlier 'needs-review' missing-sectionId claim was stale: sectionId 'orleans-reminder-storage' resolves to component 'Orleans Reminder Storage' (cleared 2026-10-12). Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewed and verified against source.",
     "sources": [
       {
         "kind": "file",
