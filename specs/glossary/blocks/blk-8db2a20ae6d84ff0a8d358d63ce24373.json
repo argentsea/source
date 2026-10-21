@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "The `ShardSet.ReadAll` (`ReadQueryAllAsync`) fan-out mode that executes a query concurrently on the read connection of every targeted shard, waits for all shards to complete (cancelling remaining shard reads if one faults), and combines all non-null per-shard results into a single list.",
     "name": "ReadAll",
-    "definition": "The fan-out form that runs a query on the read connection of every targeted shard, waits for all of them, and returns every non-null per-shard result combined into one list. It is used when a result may span shards, such as all users with a given attribute.",
     "synonyms": [
       "ShardSetReadAll",
       "read-all fan-out"
