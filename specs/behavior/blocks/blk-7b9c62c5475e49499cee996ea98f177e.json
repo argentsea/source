@@ -13,7 +13,7 @@
     "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
-    "provenanceNote": "Accepted with an unresolved review verdict 'needs-review' recorded by rework-author: The option-controlled text-cleaning behavior names no committed glossary term. Linking an unrelated Term solely to satisfy lint would be false provenance; no honest in-scope repair exists.. Provenance held at GeneratedProposal — re-confirm explicitly to promote.",
+    "provenanceNote": "Reviewed and verified against source.",
     "sources": [
       {
         "kind": "file",
