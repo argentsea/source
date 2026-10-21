@@ -4,8 +4,8 @@
   "type": "Component",
   "fields": {
     "name": "Query Definitions",
-    "responsibility": "Names the SQL a data method is to execute and how it is to be invoked — as a stored procedure or function held in the database, or as parameterised statement text deployed as a file beside the application and loaded on first use — together with the optional list of parameter names that restricts which of a caller's parameters reach the command. Keeping the SQL named rather than inline is what lets one prepared parameter set serve several queries.",
-    "parent": "querying"
+    "parent": "querying",
+    "responsibility": "Defines the `Query` abstraction and its concrete forms (`QueryProcedure` for `CommandType.StoredProcedure` routines—invoking `EXEC` on SQL Server and `CALL` for `CREATE PROCEDURE` on PostgreSQL—and `QueryStatement` / `SqlQueryStatement` / `PgQueryStatement` / `PgFunctionQuery` for `CommandType.Text` SQL files and PostgreSQL function calls), together with the optional `ParameterNames` filter that restricts which parameters from a caller's collection are bound to the command."
   },
   "metadata": {
     "status": "Draft",
