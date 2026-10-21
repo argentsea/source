@@ -20,7 +20,7 @@
     "consequences": "Applications that consistently choose Read or Write can adopt replicas later through configuration alone. Read-your-writes consistency is the application's job; the documented pattern is to retry a key lookup on Write when Read unexpectedly returns null. Using different database schemas for read-only and write procedures helps make the distinction visible and enforceable."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

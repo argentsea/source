@@ -1,0 +1,78 @@
+{
+  "id": "blk-22fcde23f4ea464e9472c6137f88f876",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Infer read versus write from the SQL text or command type.",
+        "whyRejected": "Unreliable, especially for stored procedures, and it couples the framework to SQL parsing."
+      },
+      {
+        "option": "Automatically retry on the write connection when a read returns no result.",
+        "whyRejected": "It cannot distinguish lag from absence, doubles cost for empty results, and may not suit the application's consistency model."
+      }
+    ],
+    "consequences": "Applications that consistently choose Read or Write can adopt replicas later through configuration alone. Read-your-writes consistency is the application's job; the documented pattern is to retry a key lookup on Write when Read unexpectedly returns null. Using different database schemas for read-only and write procedures helps make the distinction visible and enforceable.",
+    "context": "Read scale-out sends read-only traffic to replicas that may lag the primary. ArgentSea cannot know whether a query writes, and whether a missing row is a genuine absence or replication lag depends on the business case. An automatic write-connection retry would double load for every legitimately empty lookup.",
+    "decision": "Every database and shard exposes separate Read and Write connections, and the calling code chooses one for each query. ArgentSea does not inspect SQL to infer intent, does not fall back to the write connection when a read finds nothing, and does not manage replication latency. Fan-out reads (ReadAll, ReadFirst) use read connections, and shard-set Write uses write connections.",
+    "status": "Accepted",
+    "title": "The caller chooses read or write; ArgentSea never routes or falls back automatically"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Sharding/shardsets.md",
+        "lines": "90-143",
+        "label": null
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.DocFx/tutorials/Querying/fetching.md",
+        "lines": "5-14",
+        "label": null
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "connection-configuration-hierarchy",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-33e9e5b34eda46338b7df38589392dde",
+      "blobHash": null,
+      "label": "Read/write connection pair",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-6d3b44de85ed4760bb04bf6381376dd4",
+      "blobHash": null,
+      "label": "Read scale-out",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-3746744db5264fce8059b3e5ef5697b1",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
