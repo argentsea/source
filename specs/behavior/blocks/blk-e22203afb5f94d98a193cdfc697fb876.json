@@ -5,14 +5,15 @@
   "fields": {
     "gwt": {
       "given": "on a little-endian runtime, a byte span whose first 4 bytes are the little-endian int32 value 1, i.e. [0x01, 0x00, 0x00, 0x00], with cursor position 0",
-      "when": "TryConvertFromBytes(ref data, ref position, typeof(int), out result) is invoked",
-      "then": "it returns true, result equals (dynamic)1, and position advances to 4"
+      "then": "it returns true, result equals (dynamic)1, and position advances to 4",
+      "when": "TryConvertFromBytes(ref data, ref position, typeof(int), out result) is invoked"
     },
     "illustrates": [
       {
+        "blockId": "blk-faee456447084061bb18f1b1bbcab911",
         "kind": "spec",
-        "specId": "behavior",
-        "blockId": "blk-39a425343a964aec833e2152fd208691"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
