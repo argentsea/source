@@ -8,7 +8,7 @@
     "response": "SqlConnectionStringBuilt reports that connection-string value to the host's logger at Debug level under event id ConnectionStringBuilt (EventIdentifier.ConnectionStringBuilt)"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
