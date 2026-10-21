@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "The primary record-key component (`RecordId`) of a `ShardKey` within its shard. It is unique within one shard and, combined with `ShardId` (and any child key components), forms a globally unique identity across the shard set.",
     "name": "Record id",
-    "definition": "A record's own key value within its shard: the first record-key column of a shard key (`RecordId`). It is unique only within one shard; combined with the shard id it becomes unique across the shard set. Its type may be any of the key types the shard key serializer supports, such as integers, Guid, string, dates and times, decimal or byte arrays.",
     "synonyms": [
       "RecordId"
     ]
