@@ -9,7 +9,7 @@
     "contract": "The execution-timing and scope family, varying by sharded vs non-sharded: TraceDbCmdExecuted(ILogger, string commandName, string connectionName, long milliseconds) logs at Trace under event id CmdExecuted (8) how long a command took on a non-sharded connection. TraceShardCmdExecuted(ILogger, string commandName, string shardSetKey, short shardId, long milliseconds), same event id, adds the shard-set key and the numeric shard id. Both call sites guard with `if (logger.IsEnabled(LogLevel.Trace))` before invoking their Trace-level delegate. BuildSqlResultsHandlerScope(ILogger, string procedureName, Type model) is the only member of the whole type that returns a value (IDisposable) rather than void: built via LoggerMessage.DefineScope, it opens a logical logging scope tagged with the stored-procedure name and the result model type, carrying no event id or level of its own; its lifetime is bounded by the caller disposing the returned IDisposable."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
