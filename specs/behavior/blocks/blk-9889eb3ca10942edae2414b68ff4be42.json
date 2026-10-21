@@ -8,7 +8,7 @@
     "postcondition": "so that this project's own test assembly can exercise ArgentSea.Pg's internal implementation details directly without those details being exposed as part of the package's public API"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
