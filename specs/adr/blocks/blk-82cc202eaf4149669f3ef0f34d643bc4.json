@@ -1,0 +1,87 @@
+{
+  "id": "blk-82cc202eaf4149669f3ef0f34d643bc4",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "alternatives": [
+      {
+        "option": "Pass `DBNull.Value` for an empty collection.",
+        "whyRejected": "`Microsoft.Data.SqlClient` rejects `DBNull.Value` on a `SqlDbType.Structured` parameter with `NotSupportedException` before any SQL is sent to the server."
+      },
+      {
+        "option": "Pass an empty `List<SqlDataRecord>` through to the parameter.",
+        "whyRejected": "`Microsoft.Data.SqlClient` rejects a zero-element `IEnumerable<SqlDataRecord>` with `ArgumentException` because zero records cannot supply TDS column metadata; the driver requires a `null` reference for an empty TVP."
+      },
+      {
+        "option": "Throw `ArgumentException` when the caller supplies an empty collection.",
+        "whyRejected": "An empty collection is a valid domain value (for example, a parent entity with no child rows). Throwing forces every caller and attribute-mapped model to special-case empty collections."
+      },
+      {
+        "option": "Omit the parameter from the `SqlParameterCollection` when the collection is empty.",
+        "whyRejected": "Changes the parameter collection shape between empty and non-empty invocations, breaks attribute-driven mapping that configures `TypeName` on the appended parameter, and fails for parameterized SQL text statements that reference the parameter name."
+      },
+      {
+        "option": "Materialize lazy `IEnumerable<SqlDataRecord>` sequences into a `List<SqlDataRecord>` at parameter-construction time.",
+        "whyRejected": "Defeats streaming for large inputs and corrupts data when a `yield` iterator reuses a single mutable `SqlDataRecord` instance across iterations."
+      },
+      {
+        "option": "Peek the first element of a lazy `IEnumerable<SqlDataRecord>` when the parameter is added.",
+        "whyRejected": "Opens and holds the source enumerator at parameter-addition time rather than command-execution time, complicating enumerator disposal and command retries."
+      }
+    ],
+    "consequences": "Null and empty collections added via `AddSqlTableValuedParameter` (and `[MapToSqlTableValuedParameter]`) execute cleanly and arrive at SQL Server as an empty table-valued parameter. Callers streaming a custom lazy `IEnumerable<SqlDataRecord>` that does not implement `ICollection<SqlDataRecord>` or `IReadOnlyCollection<SqlDataRecord>` must ensure the sequence yields at least one record or pass `null`, as `Microsoft.Data.SqlClient` rejects an empty unbuffered enumerator at execution time.",
+    "context": "`Microsoft.Data.SqlClient` validates `SqlDbType.Structured` (table-valued) parameter values on the client at command execution time: `DBNull.Value` throws `NotSupportedException`, and a zero-element `IEnumerable<SqlDataRecord>` throws `ArgumentException` because no record is present to supply TDS column metadata, whereas `Value = null` executes and is observed by SQL Server as an empty table for both stored procedures and parameterized SQL text commands. Meanwhile, the raw `IEnumerable<SqlDataRecord>` overload serves as the streaming path that the driver enumerates once at execution time.",
+    "decision": "Every `AddSqlTableValuedParameter` overload appends the `SqlDbType.Structured` input parameter unconditionally and sets `Value = null` whenever the supplied collection is `null` or produces zero rows. For the streaming `IEnumerable<SqlDataRecord>` overload, `null` and any collection implementing `ICollection<SqlDataRecord>` or `IReadOnlyCollection<SqlDataRecord>` with `Count == 0` are normalized to `Value = null` without enumerating, while non-collection lazy sequences are passed through unbuffered for single-pass driver enumeration at execution time.",
+    "status": "Accepted",
+    "title": "Represent a zero-row table-valued parameter as a null reference"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlParameterCollectionExtensions.cs",
+        "lines": "920-975",
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlMapAttributes.cs",
+        "lines": "1348-1415",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "table-valued-parameters",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "glossary",
+      "blockId": "blk-336c18d4329c4a7a9f35f2a5804f025d",
+      "blobHash": null,
+      "label": "Table-valued parameter",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-0af15f91fda543868ea6cefa1b28a6c7",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}

@@ -36,7 +36,7 @@
     "title": "Represent a zero-row table-valued parameter as a null reference"
   },
   "metadata": {
-    "status": "Approved",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
