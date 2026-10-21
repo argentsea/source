@@ -1,0 +1,197 @@
+{
+  "id": "blk-ee15a8daa2a64336be7fcd2006ca9a0c",
+  "specId": "schemas",
+  "type": "Schema",
+  "fields": {
+    "description": "The independently optional SQL Server connection attributes carried by SqlConnectionPropertiesBase.",
+    "members": [
+      {
+        "description": "Availability-group workload type.",
+        "name": "ApplicationIntent",
+        "required": false,
+        "type": "union<enum<ApplicationIntent>|null>"
+      },
+      {
+        "description": "Application name supplied during connection initiation.",
+        "name": "ApplicationName",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "Seconds to wait for a server connection attempt before it terminates.",
+        "name": "ConnectTimeout",
+        "required": false,
+        "type": "union<int|null>"
+      },
+      {
+        "description": "SQL Server language record name.",
+        "name": "CurrentLanguage",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "SQL Server instance name or network address.",
+        "name": "DataSource",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "Whether client-server traffic requests SSL encryption.",
+        "name": "Encrypt",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Partner server name or address used when the primary server is down.",
+        "name": "FailoverPartner",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "Database associated with the connection.",
+        "name": "InitialCatalog",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "Minimum seconds that a pooled connection remains alive before destruction.",
+        "name": "LoadBalanceTimeout",
+        "required": false,
+        "type": "union<int|null>"
+      },
+      {
+        "description": "Maximum connections allowed in this connection string's pool.",
+        "name": "MaxPoolSize",
+        "required": false,
+        "type": "union<int|null>"
+      },
+      {
+        "description": "Minimum connections allowed in this connection string's pool.",
+        "name": "MinPoolSize",
+        "required": false,
+        "type": "union<int|null>"
+      },
+      {
+        "description": "Whether a connection permits more than one active result set.",
+        "name": "MultipleActiveResultSets",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Whether availability-group connection detection uses multi-subnet failover.",
+        "name": "MultiSubnetFailover",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Network packet size in bytes.",
+        "name": "PacketSize",
+        "required": false,
+        "type": "union<int|null>"
+      },
+      {
+        "description": "Whether security-sensitive connection information remains returnable after the connection is opened.",
+        "name": "PersistSecurityInfo",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Whether requested connections are pooled rather than explicitly opened each time.",
+        "name": "Pooling",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Whether the connection supports replication.",
+        "name": "Replication",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "How the connection associates with an enlisted System.Transactions transaction.",
+        "name": "TransactionBinding",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "Whether an encrypted channel bypasses certificate-chain trust validation.",
+        "name": "TrustServerCertificate",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Type system expected by the application.",
+        "name": "TypeSystemVersion",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      },
+      {
+        "description": "Whether SQL Server Express redirects to a caller-owned runtime instance.",
+        "name": "UserInstance",
+        "required": false,
+        "type": "union<bit|null>"
+      },
+      {
+        "description": "Workstation name supplied to SQL Server.",
+        "name": "WorkstationID",
+        "required": false,
+        "type": "union<nvarchar(max)|null>"
+      }
+    ],
+    "name": "SqlConnectionPropertiesBase SQL Server connection-property values",
+    "representations": {
+      "CSharp": "Nullable value types and nullable strings exposed as public properties on SqlConnectionPropertiesBase."
+    }
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Sql/src/SqlConnectionPropertiesBase.cs",
+        "lines": "9-387",
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "sql-server-connection-settings",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-bcf40cddec984e70be95a1fe48b962e0",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "adr",
+      "blockId": "blk-66fd0929403c41a6a019494d16269a78",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "schemas",
+      "blockId": "blk-6d0dfdad34f9467db4ae1002f3d4a997",
+      "blobHash": null,
+      "label": null,
+      "relation": "supersedes"
+    }
+  ],
+  "evidenceLinks": []
+}
