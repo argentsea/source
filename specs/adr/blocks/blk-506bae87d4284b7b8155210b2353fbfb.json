@@ -1,0 +1,90 @@
+{
+  "id": "blk-506bae87d4284b7b8155210b2353fbfb",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Membership-table etags advance on every write, on both platforms",
+    "decision": "In both the SQL Server and the PostgreSQL membership table, every successful InsertRow or UpdateRow sets the version row's ETagNo to its previous value plus one and stamps that value on the member row it wrote. InsertRow succeeds only when the stored version etag equals TableVersion.VersionEtag. UpdateRow succeeds only when the stored version etag equals TableVersion.VersionEtag and the member row's stored etag equals UpdateRow's etag argument (which the SQL Server package currently ignores). The etag comparison is made by the same statement that advances it (UPDATE ... WHERE ETagNo = @ETagNo), never by a separate read, so two simultaneous writers cannot both pass it. Each write is all-or-nothing: the version row, the member row and its suspicion rows either all change or none do, including when any check fails (on SQL Server the V2 procedures run under SET XACT_ABORT ON inside one transaction; on PostgreSQL the procedure aborts as a unit on RAISE). Any mismatch, a missing row on update, or an existing row on insert raises the package's concurrency signal (THROW 51000 on SQL Server, SQLSTATE AS001 on PostgreSQL), which the C# reports to Orleans as false. The changed SQL Server write procedures ship under new V2 names and the V1 write procedures are removed from common.sql: V1 updates write the table etag back without checking it, so V1 and V2 silos must never share a cluster, and adopting this change requires a coordinated (whole-cluster) upgrade, documented in the readme. Any later procedure version must keep V2's etag contract (compare and advance in one statement, all-or-nothing), so that future rolling upgrades between V2 and its successors stay safe. The readers' member-versus-table etag mismatch error log is removed, since per-row etags legitimately lag the table etag. This decision covers only the cluster membership table; it does not cover the grain-state ETag.",
+    "context": "Orleans relies on the membership table's conditional writes for its membership protocol: every silo in the cluster writes the same table (joining, status changes, suspicion and death votes), each write asserting that nobody changed the table since its read, and Orleans re-reads and retries a write reported as false. TableVersion.Next() keeps the etag, so the table must change it. The SQL Server package never advances ETagNo (InsertMemberKeyV1 checks it but does not change it; UpdateMemberKeyV1 writes back the same value) and ignores UpdateRow's etag argument, so two silos writing from one read both succeed and the second silently overwrites the first, which can drop a suspicion vote or overwrite a Dead status with a stale one. UpdateMemberKeyV1 is also the one interpreted (not natively compiled) membership procedure and runs its six statements with no enclosing transaction, so a failure part-way leaves partial changes. The membership table is written with hand-built ADO.NET parameters (MembershipEntry is a sealed Orleans class, so no ArgentSea mapper is involved) and the etag already travels as an int parameter, so the fix is local to the procedures and the parameter lists. No ArgentSea Orleans cluster is deployed yet, so a coordinated upgrade costs nothing now, while rolling upgrades are expected to matter later. The grain-state ETag is a different matter, decided separately by the operator: grain persistence goes through the ArgentSea mapper, the ETag maps to no model property so no mapper can set or check it, the provider-neutral core cannot know about Orleans, and with the grain activation as the single writer the cost of an etag check far exceeds the risk; grain storage therefore stays without etag checking. A Codex review (relayed by the operator) identified the V1/V2 mixing hazard and the missing atomicity.",
+    "alternatives": [
+      {
+        "option": "Leave the SQL Server behaviour as it is and only write the PostgreSQL procedures correctly",
+        "whyRejected": "Leaves the SQL Server membership protocol without working optimistic concurrency; the operator decided both platforms must be fixed."
+      },
+      {
+        "option": "Keep the V1 procedures for rolling deployments",
+        "whyRejected": "A V1 update writes the table etag back without checking it, so an old silo could reset the token after a V2 write and defeat the new guarantee; nothing is deployed yet, so a coordinated upgrade is free."
+      },
+      {
+        "option": "Change the SQL Server V1 procedures in place",
+        "whyRejected": "Changes a procedure's signature under the same name, contrary to ArgentSea's versioned-procedure convention that future rolling upgrades will rely on."
+      },
+      {
+        "option": "Check the etag with a separate SELECT before updating",
+        "whyRejected": "Two simultaneous writers can both pass the read before either writes; the comparison must be part of the updating statement."
+      },
+      {
+        "option": "Detect conflicts by comparing the stored Version with the new Version minus one",
+        "whyRejected": "Orleans defines the etag, not the version number, as the concurrency token, and the member-row check still needs a per-row token."
+      },
+      {
+        "option": "Extend etag checking to grain storage too",
+        "whyRejected": "The grain-state ETag maps to no model property, the core cannot depend on Orleans, and the single-writer grain makes the risk negligible relative to the cost."
+      }
+    ],
+    "consequences": "Concurrent membership writes from one read now fail for all but the first on both platforms, so Orleans retries them as designed, and a failed write leaves no partial change. common.sql replaces its V1 write procedures with V2 ones and Queries points at them; upgrading an existing cluster from the previous package needs a whole-cluster restart. The SQL Server membership C# passes the member etag and drops the etag-mismatch error log. Both platforms' membership integration tests gain simultaneous-writer and failed-write-rollback scenarios. Grain storage is unchanged.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-e137023da6a94d88910dabb19bb2c81d",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-d768665c1b9f4bb5848992eab45d3261",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-1a9bf1257b894f9191d36ef2cc2e8f7e",
+      "blobHash": null,
+      "label": "Pg membership writes",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-1a703d5db09d4821bebe4b7bc67dc013",
+      "blobHash": null,
+      "label": "SQL Server UpdateRow",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "behavior",
+      "blockId": "blk-b0466f322fc64ca7a7909149b65eba64",
+      "blobHash": null,
+      "label": "SQL Server InsertRow",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
