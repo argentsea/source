@@ -24,7 +24,7 @@
     "consequences": "Steady-state mapping runs at compiled-code speed. The first use of each model type per purpose costs reflection plus compilation (typically under a second) and is CPU-intensive; this cost recurs after every process restart. Compiled code is opaque to the debugger, so ArgentSea compensates with diagnostic logging: it logs cache misses and a rendering of the generated code at Debug level, and per-property progress at Trace level. Model types must be stable for the life of the process, and the cache is never evicted."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Superseded",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
