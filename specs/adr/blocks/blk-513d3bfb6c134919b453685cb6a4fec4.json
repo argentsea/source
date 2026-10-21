@@ -1,0 +1,82 @@
+{
+  "id": "blk-513d3bfb6c134919b453685cb6a4fec4",
+  "specId": "adr",
+  "type": "ADR",
+  "fields": {
+    "title": "Platform-specific Orleans provider types, with shard-set storage as the plain name",
+    "decision": "Each package registers its own Orleans provider-type strings, and grain storage gets one string per storage kind. Shard-set storage, the common case, takes the plain name: ArgentSea.Orleans.Sql registers GrainStorage as ArgentSeaSql (shard sets) and ArgentSeaSqlDb (single database); ArgentSea.Orleans.Pg registers ArgentSeaPg (shard sets) and ArgentSeaPgDb (single database). Clustering and Reminders have one builder each and register as ArgentSeaSql and ArgentSeaPg. The old provider type ArgentSea is removed outright with no alias (a breaking change for configuration-driven hosts of ArgentSea.Orleans.Sql, called out in its readme and release notes). Types in each package's own namespace keep the SQL Server names (ArgentSeaOrleansMembershipTable, ArgentSeaOrleansReminderTable, ArgentSeaGatewayListProvider, Queries); the Pg package's extension methods use Pg-specific names (AddArgentSeaPgDbOrleansGrainStorage, AddArgentSeaPgShardOrleansGrainStorage, UseArgentSeaPgClustering, UseArgentSeaPgReminderService) in Pg-named static classes, and the SQL Server package's extension methods are unchanged.",
+    "context": "Orleans configuration-driven registration (Orleans:{Kind}:{name}:ProviderType) resolves a builder by the plain provider-type string from [assembly: RegisterProvider(type, kind, ...)]; namespaces play no part. ArgentSea.Orleans.Sql registers both its database and its shard-set grain-storage builders as ArgentSea/GrainStorage/Silo, and a probe against Orleans 10.4.0 (2026-10-20) showed only the shard-set builder is ever used: a section with ProviderType ArgentSea and DatabaseKey silently gets shard-set storage keyed Default, so single-database grain storage is unreachable from configuration (registration through the extension methods is unaffected). Separately, ArgentSea does not encourage using both database providers in one project: the lazily compiled handlers for a model type resolve to one delegate, so one model class cannot be mapped for both providers, and the combination is untested (it may work while no model combines both providers' mapping attributes). Because a solution to that may be found later, the packages should still avoid colliding wherever they can.",
+    "alternatives": [
+      {
+        "option": "One provider type per package for grain storage, choosing database or shard-set storage by whether the section has DatabaseKey or ShardSetKey",
+        "whyRejected": "Keeps one name but needs rules for sections with both keys or neither, and hides the storage kind from the configuration reader; distinct names are explicit."
+      },
+      {
+        "option": "Identical provider-type names in both packages, as a drop-in swap",
+        "whyRejected": "Orleans keeps one builder per type string, so a host loading both packages would get one package's builder for the other's configuration; switching providers already changes the package, namespace and schema."
+      },
+      {
+        "option": "Keep ArgentSea as a deprecated alias of ArgentSeaSql",
+        "whyRejected": "The operator chose a clean break; the alias would also have kept the broken database/shard-set ambiguity alive under the old name."
+      },
+      {
+        "option": "Database storage as the plain name and shard sets suffixed",
+        "whyRejected": "Shard-set storage is the overwhelmingly common case, so it gets the shorter name."
+      }
+    ],
+    "consequences": "Configuration-driven single-database grain storage becomes reachable in both packages. Existing ArgentSea.Orleans.Sql configurations that say ProviderType ArgentSea must change to ArgentSeaSql (or ArgentSeaSqlDb), so the SQL Server package's version must signal a breaking change. Switching a host between SQL Server and PostgreSQL changes the ProviderType values and the registration calls as well as the package. The SQL Server unit tests, docs and spec blocks that name the ArgentSea provider type are updated.",
+    "status": "Accepted"
+  },
+  "metadata": {
+    "status": "Approved",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "spec",
+        "project": "argentsea",
+        "specId": "brief-af80c127212447289aac17e723ca8cf3",
+        "blockId": "blk-da03a50d0e9b442a8360b6089df3e98f",
+        "blobHash": null,
+        "label": "adoptedFrom"
+      }
+    ],
+    "owner": "John Hicks",
+    "orderKey": "mmmmmm",
+    "sectionId": "blk-d768665c1b9f4bb5848992eab45d3261",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "blk-e052491ad0d34fe6aa83076b5e6cef0b",
+      "blobHash": null,
+      "label": "Pg provider types",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "brief-af80c127212447289aac17e723ca8cf3",
+      "blockId": "blk-99910d9a758d4a1c87bc8986ec5eb1e0",
+      "blobHash": null,
+      "label": "Pg registration keys",
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "interfaces",
+      "blockId": "blk-6f418939dc074229857ac55313f1fffa",
+      "blobHash": null,
+      "label": "SQL Server grain-storage provider builders",
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
