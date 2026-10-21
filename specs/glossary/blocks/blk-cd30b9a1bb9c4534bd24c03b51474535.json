@@ -3,8 +3,8 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
+    "definition": "The optional `ParameterNames` filter declared on a `Query`. When present, only parameters from the `ParameterCollection` whose names appear in `ParameterNames` are copied onto the command, allowing one model or parameter collection to supply multiple queries with different parameter subsets.",
     "name": "Query parameter names",
-    "definition": "The optional list of parameter names declared on a Query. When present, only parameters whose names are in the list are applied to the command, so one model can feed queries that each expect a different subset of its mapped parameters (an INSERT without `LastModified`, an UPDATE with it). When absent, every parameter in the collection is sent. Extra or missing parameters are errors raised by the database, not by ArgentSea.",
     "synonyms": [
       "ParameterNames",
       "parameter list"
