@@ -5,15 +5,15 @@
   "fields": {
     "gwt": {
       "given": "WriteField is called for a ShardKey<int> value for which ReferenceCodec.TryWriteReferenceField(ref writer, fieldIdDelta, expectedType, value) returns true, and separately ReadValue is called for a field whose WireType already equals WireType.Reference",
-      "when": "ShardKeyOrleansSerializer<int> executes WriteField for the first case and ReadValue for the second",
-      "then": "WriteField returns immediately after TryWriteReferenceField without writing a field header, a length, or key bytes for that occurrence; ReadValue takes the WireType.Reference branch and returns the value produced by ReferenceCodec.ReadReference<ShardKey<int>, TInput> without calling EnsureWireType, ReadVarUInt32, or ReadBytes"
+      "then": "WriteField returns immediately after TryWriteReferenceField without writing a field header, a length, or key bytes for that occurrence; ReadValue takes the WireType.Reference branch and returns the value produced by ReferenceCodec.ReadReference<ShardKey<int>, TInput> without calling EnsureWireType, ReadVarUInt32, or ReadBytes",
+      "when": "ShardKeyOrleansSerializer<int> executes WriteField for the first case and ReadValue for the second"
     },
     "illustrates": [
       {
+        "blockId": "blk-67158cfafab944f28c38b6bafc5ae730",
         "kind": "spec",
         "project": "argentsea",
-        "specId": "behavior",
-        "blockId": "blk-958c2a7e32b640f8a62cda0d194fadbf"
+        "specId": "behavior"
       }
     ]
   },
