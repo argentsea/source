@@ -1,0 +1,75 @@
+{
+  "id": "blk-b9a0b9f5c00c4cab860220c899ebd167",
+  "specId": "guidance",
+  "type": "Guidance",
+  "fields": {
+    "body": "Never generate dynamic SQL from model types; keep all SQL external in `QueryProcedure` or `QueryStatement` definitions declared in a static `Queries` catalog. Decorate model properties with explicit provider-specific `[MapToSql*]` or `[MapToPg*]` attributes and never mix providers on a single model class. Treat `ShardKey<...>` as an immutable value type with a fixed `short` `ShardId` (`0` = empty), and always select `.Read` or `.Write` connection endpoints explicitly rather than relying on implicit routing or fallback.",
+    "scope": "ambient",
+    "title": "Core ArgentSea data-access working agreement"
+  },
+  "metadata": {
+    "status": "Draft",
+    "priority": 0,
+    "provenance": "GeneratedProposal",
+    "provenanceNote": null,
+    "sources": [
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Query.cs",
+        "lines": null,
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/ShardKeys/ShardKey.cs",
+        "lines": null,
+        "label": null,
+        "relation": "grounds"
+      },
+      {
+        "kind": "file",
+        "path": "ArgentSea.Shared/src/Mapping/Mapper.cs",
+        "lines": null,
+        "label": null,
+        "relation": "grounds"
+      }
+    ],
+    "owner": null,
+    "orderKey": "mmmmmm",
+    "sectionId": "argent-sea",
+    "verificationStatus": "Unverified",
+    "schemaVersion": "1",
+    "packId": "software"
+  },
+  "references": [
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p1-scale-out-first",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p4-loose-coupling",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    },
+    {
+      "kind": "spec",
+      "project": "argentsea",
+      "specId": "constitution",
+      "blockId": "p7-shared-core-providers",
+      "blobHash": null,
+      "label": null,
+      "relation": "references"
+    }
+  ],
+  "evidenceLinks": []
+}
