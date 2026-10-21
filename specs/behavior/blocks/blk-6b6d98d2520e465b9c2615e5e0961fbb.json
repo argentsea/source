@@ -10,7 +10,7 @@
     "postcondition": "the supplied DbParameterCollection contains the database-null input parameter"
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "HumanConfirmed",
     "provenanceNote": null,
