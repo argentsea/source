@@ -5,14 +5,15 @@
   "fields": {
     "gwt": {
       "given": "the string value \"AB\" (2 UTF-8 bytes: 0x41, 0x42)",
-      "when": "GetValueBytes(\"AB\") is invoked",
-      "then": "it returns the 3-byte array [0x05, 0x41, 0x42], since the length-prefix byte equals (2 << 1) + 1 = 5"
+      "then": "it returns the 3-byte array [0x05, 0x41, 0x42], since the length-prefix byte equals (2 << 1) + 1 = 5",
+      "when": "GetValueBytes(\"AB\") is invoked"
     },
     "illustrates": [
       {
+        "blockId": "blk-faee456447084061bb18f1b1bbcab911",
         "kind": "spec",
-        "specId": "behavior",
-        "blockId": "blk-39a425343a964aec833e2152fd208691"
+        "project": "argentsea",
+        "specId": "behavior"
       }
     ]
   },
