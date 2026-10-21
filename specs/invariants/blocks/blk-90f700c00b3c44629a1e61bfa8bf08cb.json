@@ -7,7 +7,7 @@
     "scope": "The two configuration-conditioned PropertyGroup elements in ArgentSea.Sql.csproj (Condition \"$(Configuration)|$(Platform)\"==\"Debug|AnyCPU\" and ==\"Release|AnyCPU\")."
   },
   "metadata": {
-    "status": "Draft",
+    "status": "Rejected",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
