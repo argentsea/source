@@ -3,7 +3,7 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "ArgentSea.Sql.csproj's PackageReference to Microsoft.Data.SqlClient (version 7.1.1) carries no Condition attribute: unlike the project file's two Optimize PropertyGroups, which are each conditioned on '$(Configuration)|$(Platform)', the SqlClient reference is declared the same way regardless of configuration or platform as written in this file.",
+    "statement": "ArgentSea.Sql.csproj's PackageReference to Microsoft.Data.SqlClient carries no Condition attribute: unlike the project file's two Optimize PropertyGroups, which are each conditioned on '$(Configuration)|$(Platform)', the SqlClient reference is declared the same way regardless of configuration or platform as written in this file.",
     "scope": "The PackageReference to Microsoft.Data.SqlClient declared in ArgentSea.Sql.csproj."
   },
   "metadata": {

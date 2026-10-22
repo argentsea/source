@@ -6,7 +6,7 @@
     "subject": "SQL Server Provider Package",
     "where": "ArgentSea.Sql.csproj sets GeneratePackageOnBuild to true, IncludeSymbols to true and SymbolPackageFormat to snupkg",
     "trigger": "the project is built",
-    "response": "pack the ArgentSea.Sql NuGet package (version 2.1.0, assembly and file version 2.1.0.0, MIT licence expression, packing readme.md and argentsea-logo.png at the package root as its readme and icon) together with a separate .snupkg symbol package rather than embedding debugging symbols in the main package",
+    "response": "pack the ArgentSea.Sql NuGet package (with a package version that moves independently of its assembly and file version, MIT licence expression, packing readme.md and argentsea-logo.png at the package root as its readme and icon) together with a separate .snupkg symbol package rather than embedding debugging symbols in the main package",
     "postcondition": "every build of the SQL Server database provider yields a publishable package and its companion symbol package without a separate pack step"
   },
   "metadata": {

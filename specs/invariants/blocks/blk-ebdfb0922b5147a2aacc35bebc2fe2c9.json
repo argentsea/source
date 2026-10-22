@@ -3,7 +3,7 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "ArgentSea Core's published package declares exactly these external dependencies, at these pinned versions: Microsoft.CSharp 4.7.0, Microsoft.Extensions.Configuration 10.0.13, Microsoft.Extensions.Logging 10.0.13, Microsoft.Extensions.Options 10.0.13, Microsoft.Extensions.Options.ConfigurationExtensions 10.0.13, Polly 8.8.0, and System.Collections.Immutable 10.0.13. Polly is the package's only non-Microsoft dependency; it is the resilience library (retry and circuit-breaking) that ArgentSea Core's platform-neutral resilient command execution is implemented on top of.",
+    "statement": "ArgentSea Core's published package declares exactly these external dependencies, each with an explicit version: Microsoft.CSharp, Microsoft.Extensions.Configuration, Microsoft.Extensions.Logging, Microsoft.Extensions.Options, Microsoft.Extensions.Options.ConfigurationExtensions, Polly, and System.Collections.Immutable. Polly is the package's only non-Microsoft dependency; it is the resilience library (retry and circuit-breaking) that ArgentSea Core's platform-neutral resilient command execution is implemented on top of.",
     "scope": "ArgentSea Core NuGet package dependency declarations (ArgentSea.Shared/src/ArgentSea.csproj PackageReference items)."
   },
   "metadata": {

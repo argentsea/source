@@ -3,7 +3,7 @@
   "specId": "invariants",
   "type": "Invariant",
   "fields": {
-    "statement": "ArgentSea.Orleans.Sql.csproj's ItemGroup declares PackageReference entries for Microsoft.Orleans.Runtime, Microsoft.Orleans.Reminders, and Microsoft.Orleans.Sdk, all pinned to version 10.4.0; the file references none of the three Orleans packages at any other version, and declares no other PackageReference.",
+    "statement": "ArgentSea.Orleans.Sql.csproj's ItemGroup declares PackageReference entries for Microsoft.Orleans.Runtime, Microsoft.Orleans.Reminders, and Microsoft.Orleans.Sdk, all at one and the same version; the file references none of the three Orleans packages at any other version, and declares no other PackageReference.",
     "scope": "ArgentSea.Orleans.Sql.csproj PackageReference ItemGroup: Microsoft.Orleans.Runtime, Microsoft.Orleans.Reminders, Microsoft.Orleans.Sdk."
   },
   "metadata": {

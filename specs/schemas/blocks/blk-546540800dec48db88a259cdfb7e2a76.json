@@ -4,7 +4,7 @@
   "type": "Schema",
   "fields": {
     "name": "ArgentSea.Orleans package manifest",
-    "description": "Identity and compilation configuration declared in the two PropertyGroup blocks of ArgentSea.Orleans.csproj: the .NET target and language settings the package compiles under, its assembly/package version numbers, and the NuGet metadata used when it is packed. The <Description> element is declared twice in the same PropertyGroup (line 9, then again at line 14) with different text; this file does not itself establish which declaration MSBuild resolves at build time, only that both are present.",
+    "description": "Identity and compilation configuration declared in the two PropertyGroup blocks of ArgentSea.Orleans.csproj: the .NET target and language settings the package compiles under, its assembly and package version properties, and the NuGet metadata used when it is packed.",
     "members": [
       {
         "name": "TargetFramework",
@@ -32,21 +32,21 @@
         "type": "nvarchar(20)",
         "description": "The compiled assembly's version.",
         "required": true,
-        "notes": "2.1.0.0"
+        "notes": "set explicitly; does not move with the package Version"
       },
       {
         "name": "FileVersion",
         "type": "nvarchar(20)",
         "description": "The compiled assembly file's version resource.",
         "required": true,
-        "notes": "2.1.0.0"
+        "notes": "set explicitly; does not move with the package Version"
       },
       {
         "name": "Version",
         "type": "nvarchar(20)",
         "description": "The NuGet package version.",
         "required": true,
-        "notes": "2.1.0"
+        "notes": "set explicitly; moves with each release independently of AssemblyVersion/FileVersion"
       },
       {
         "name": "Title",
@@ -58,9 +58,9 @@
       {
         "name": "Description",
         "type": "nvarchar(max)",
-        "description": "The NuGet package description. Declared twice in the same PropertyGroup with different text; this file does not itself establish which declaration MSBuild resolves to.",
+        "description": "The NuGet package description, declared exactly once.",
         "required": true,
-        "notes": "Line 9: 'This library depends on the core ArgentSea library and provides extensions to allow it to provide storage services to Microsoft Orleans..' (doubled trailing full stop as written). Line 14: 'Abstrations which enable ArgentSea to serve as a data provider for Microsoft Orleans.' (misspelling of 'Abstractions' as written)."
+        "notes": "declared once"
       },
       {
         "name": "Copyright",
