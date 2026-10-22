@@ -10,7 +10,7 @@
     "postcondition": "so that ArgentSea.Pg's symbol-package format and its separation from the main package are explicit configuration choices rather than left to NuGet packaging defaults"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

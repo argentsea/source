@@ -182,7 +182,7 @@ namespace ArgentSea.Test
         [Fact]
         [Trait("Spec", "blk-9c6558d4aab04ee29f1589e5317b7900")]
         [Trait("Spec", "blk-cce005d48ad44ea0aff90fe2a57857cd")]
-        [Trait("Spec", "blk-4491ecdb11c8413dbf6a235fd0af58d2")]
+        [Trait("Spec", "blk-f59f7cd154a041b88bed267ca48c9598")]
         public void TheKeyFamilyImplementsIShardKeyAndIKeyedModelExposesAMatchingKey()
         {
             IShardKey key = new ShardKey<int, short>(4, 400, 5);

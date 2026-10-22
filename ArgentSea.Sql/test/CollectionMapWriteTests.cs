@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Data;
@@ -104,10 +104,10 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+        [Trait("Spec", "blk-110eeb9f9d5a4351b53aa654d13c9a06")]
         [Trait("Spec", "blk-48f70a8f347b4bb8aa4490079567c4c9")]
         [Trait("Spec", "blk-0539e7af93cc455ba620a90d60dd1467")]
-        [Trait("Spec", "blk-49e115d193124835b2d157144da977ec")]
+        [Trait("Spec", "blk-82cc202eaf4149669f3ef0f34d643bc4")]
         public void AddSqlTableValuedParameter_EmptyCollection_ProducesNullReferenceNotAnEmptyEnumeration()
         {
             // Arrange
@@ -171,7 +171,7 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+        [Trait("Spec", "blk-110eeb9f9d5a4351b53aa654d13c9a06")]
         [Trait("Spec", "blk-b4e0ec89a80e4a8098bbb175a16a3743")]
         public void CreateInputParameters_EmptyCollectionProperty_SendsNullTvpValue()
         {

@@ -9,7 +9,7 @@
     "response": "prepare the command by calling NpgsqlCommand.Prepare(); when multiplexing is enabled, skip preparation"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

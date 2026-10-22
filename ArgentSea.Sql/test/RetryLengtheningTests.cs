@@ -52,7 +52,6 @@ namespace ArgentSea.Sql.Test
 
         [Fact]
         [Trait("Spec", "blk-94549f430b8c4cb99db26efb95e3a4e2")]
-        [Trait("Spec", "blk-b7157e6187b34d4cb5eb55d0b25c9cdf")]
         public void ObsoleteFibonacciAliasHasTheLengtheningValue()
         {
 #pragma warning disable CS0618 // the obsolete alias is the subject of this test

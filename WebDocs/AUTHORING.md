@@ -108,7 +108,7 @@ id). Batches: `database.Write.RunAsync(batch, cancellationToken)`.
 `Lazy<QueryStatement>`; the SQL file is `SQL/GetCustomer.sql` (or `.psql` once Pg services are registered; a host
 with both providers uses `SqlQueryStatement` / `PgQueryStatement`). Convention: one static `Queries` class exposing
 every query as a static property, so usage is visible by reference count. Procedures are preferred for SQL Server;
-statement files for PostgreSQL (Npgsql runs a Pg `QueryProcedure` as `CALL`, so it calls procedures only; read rows from a function through a statement file).
+statement files for PostgreSQL functions (Npgsql 7+ runs a Pg `QueryProcedure` as `CALL <name>`, so `QueryProcedure` calls `CREATE PROCEDURE` routines only; read rows from a PostgreSQL `CREATE FUNCTION` through a `QueryStatement` file). `PgFunctionQuery` ships in the `ArgentSea.Orleans.Pg` package, not in `ArgentSea.Pg`.
 
 **Parameters.** `var prms = new ParameterCollection();` then provider extension methods such as
 `prms.AddSqlIntInputParameter("@CustomerId", id)`, `prms.AddSqlNVarCharOutputParameter("@Name", 255)` (Pg:
@@ -120,7 +120,7 @@ copied to every connection, so never keep a reference to an output parameter obj
 `[MapToSqlDateTime2("@Created")]`, `[MapToSqlUniqueIdentifier(...)]`, `[MapToSqlDecimal("@Price", 9, 2)]`;
 PostgreSQL `[MapToPgInteger("customer_id")]`, `[MapToPgVarchar("name", 255)]`, `[MapToPgTimestamp(...)]`,
 `[MapToPgUuid(...)]`, `[MapToPgNumeric("price", 9, 2)]`, `[MapToPgArray(...)]`, `[MapToPgHstore(...)]`. The .NET
-type must match the attribute's database type exactly (no casting). Optional trailing `required: true` flag: a null
+type must match one of the attribute's supported CLR representations (on SQL Server, `ulong`/`uint`/`ushort`/`sbyte` and nullable forms also map via unchecked same-width integer attributes or fixed-width big-endian `Binary`/`VarBinary`, and integer attributes accept enums of any underlying width; undeclared pairings throw `InvalidMapTypeException`). Optional trailing `required: true` flag: a null
 in that column means "no record" (single result → null, list → row omitted). Nullable value types and nullable enums
 map null ↔ DBNull; `Guid.Empty`, `double.NaN`, `float.NaN` are null sentinels on non-nullable properties. Nested
 models: `[MapToModel]` on a property whose type is itself mapped (flattened into the same parameters/columns).

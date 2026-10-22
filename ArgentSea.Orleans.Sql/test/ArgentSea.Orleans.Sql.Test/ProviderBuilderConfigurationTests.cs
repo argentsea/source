@@ -10,8 +10,8 @@ public class ProviderBuilderConfigurationTests
         => new ConfigurationBuilder().AddInMemoryCollection(values).Build();
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
-    [Trait("Spec", "blk-9205f247b71a41b8bc98746a5d68727e")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
+    [Trait("Spec", "blk-d08a58cad02549279309b6cc41df6fd4")]
     public void ResolveKey_ProviderSectionWins()
     {
         var config = Config(new()
@@ -27,8 +27,8 @@ public class ProviderBuilderConfigurationTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
-    [Trait("Spec", "blk-242e632bcc3e4bfca54b139ed4dee1bb")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
+    [Trait("Spec", "blk-b7f391c29d5049c5b5adf2aa224cd3dc")]
     public void ResolveKey_ProviderSectionWithoutKey_FallsBackToOrleansData()
     {
         var config = Config(new()
@@ -43,8 +43,8 @@ public class ProviderBuilderConfigurationTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
-    [Trait("Spec", "blk-242e632bcc3e4bfca54b139ed4dee1bb")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
+    [Trait("Spec", "blk-b7f391c29d5049c5b5adf2aa224cd3dc")]
     public void ResolveKey_OrleansDataWithoutKey_UsesDefault()
     {
         var config = Config(new() { ["OrleansData:ValidateGrainKeys"] = "false" });
@@ -55,7 +55,7 @@ public class ProviderBuilderConfigurationTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
     public void ResolveKey_NoProviderKeyAndNoOrleansData_Throws()
     {
         var config = Config(new() { ["Something:Else"] = "x" });

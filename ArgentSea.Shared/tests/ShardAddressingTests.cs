@@ -101,7 +101,6 @@ namespace ArgentSea.Test
         [Fact]
         [Trait("Spec", "blk-2b6f841e451845c1b1cbeac82c608259")]
         [Trait("Spec", "blk-31f6e73d962f45b48abccc064405a84f")]
-        [Trait("Spec", "blk-1038cbe9e45a46e78ec27c4583ed6e59")]
         public void ShardInstanceExposesExactlyShardIdReadAndWriteAndNoneCanBeReassigned()
         {
             var type = typeof(ShardInstance<FakeShardSetsOptions>);
@@ -125,7 +124,7 @@ namespace ArgentSea.Test
         #region Connection state
 
         [Fact]
-        [Trait("Spec", "blk-40ff4b4cb78948cca0124bca55911db4")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         [Trait("Spec", "blk-dfbe80d34b56419890a3e24db9e5f7d8")]
         public void MockResultsIsNeverNullAndIsTheSameDictionaryOnEveryRead()
         {
@@ -200,7 +199,7 @@ namespace ArgentSea.Test
         #region ReturnValueAsync family
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncWithoutParametersReturnsTheProcedureReturnValue()
         {
             var services = new FakeProviderServices();
@@ -217,7 +216,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncWithAShardParameterNameSendsTheShardId()
         {
             var services = new FakeProviderServices();
@@ -235,7 +234,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncReadsANamedOutputParameter()
         {
             var services = new FakeProviderServices();
@@ -254,7 +253,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncBuildsAKeyWhoseShardIdComesFromTheNamedOutput()
         {
             var services = new FakeProviderServices();
@@ -273,7 +272,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncBuildsAKeyFromTheFirstRowWhenNoOutputParameterMatches()
         {
             var services = new FakeProviderServices();
@@ -288,7 +287,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncChildKeyUsesTheEndpointShardIdWhenNoShardOutputIsNamed()
         {
             var services = new FakeProviderServices();
@@ -310,7 +309,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e3303a5d0a6a45a7853f7dee97543f8e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ReturnValueAsyncKeyOverloadsWithAShardParameterNameSendTheShardId()
         {
             var services = new FakeProviderServices();
@@ -337,7 +336,7 @@ namespace ArgentSea.Test
         #region ListAsync family
 
         [Fact]
-        [Trait("Spec", "blk-3e1d5489bad6432893426d0e3407fdb8")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ListAsyncReturnsTheNamedColumnOfEveryRow()
         {
             var services = new FakeProviderServices();
@@ -366,7 +365,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3e1d5489bad6432893426d0e3407fdb8")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ListAsyncBuildsKeysFromTheShardColumnWhenOneIsNamed()
         {
             var services = new FakeProviderServices();
@@ -380,7 +379,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3e1d5489bad6432893426d0e3407fdb8")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ListAsyncBuildsChildKeysFromTheEndpointOrTheShardColumn()
         {
             var services = new FakeProviderServices();
@@ -396,7 +395,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3e1d5489bad6432893426d0e3407fdb8")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ListAsyncOverloadsWithAShardParameterNameSendTheShardId()
         {
             var services = new FakeProviderServices();
@@ -416,7 +415,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3e1d5489bad6432893426d0e3407fdb8")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ListAsyncReturnsAnEmptyListWhenTheQueryYieldsNoRows()
         {
             var services = new FakeProviderServices();
@@ -433,7 +432,7 @@ namespace ArgentSea.Test
         #region MapListAsync family
 
         [Fact]
-        [Trait("Spec", "blk-227a5ba93576403ab607bb6dec80bf08")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapListAsyncReturnsOneNewModelPerRow()
         {
             var services = new FakeProviderServices();
@@ -448,7 +447,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-227a5ba93576403ab607bb6dec80bf08")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapListAsyncVariantsSendTheParametersAsIsOrWithTheShardId()
         {
             var services = new FakeProviderServices();
@@ -471,7 +470,7 @@ namespace ArgentSea.Test
         #region MapReaderAsync and MapReaderWithCollectionsAsync families
 
         [Fact]
-        [Trait("Spec", "blk-442183723e8e4c988bcd907ca510bf7e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderAsyncConstructsTheModelFromTheFirstResultSet()
         {
             var services = new FakeProviderServices();
@@ -488,7 +487,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-442183723e8e4c988bcd907ca510bf7e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderAsyncWithAnInstancePopulatesAndReturnsThatInstance()
         {
             var services = new FakeProviderServices();
@@ -507,7 +506,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-442183723e8e4c988bcd907ca510bf7e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderAsyncMapsAdditionalResultSetsToListPropertiesOfTheirType()
         {
             var services = new FakeProviderServices();
@@ -524,7 +523,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-442183723e8e4c988bcd907ca510bf7e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderAsyncThrowsWhenTheModelResultSetHasMoreThanOneRow()
         {
             var services = new FakeProviderServices();
@@ -538,7 +537,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-442183723e8e4c988bcd907ca510bf7e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderAsyncReturnsNullWhenTheRequiredColumnIsNullOrNoRowIsReturned()
         {
             var services = new FakeProviderServices();
@@ -555,7 +554,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-442183723e8e4c988bcd907ca510bf7e")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderAsyncWithAShardParameterNameSendsTheShardId()
         {
             var services = new FakeProviderServices();
@@ -574,7 +573,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-4316bdad84244bedbb95c6162ce7be98")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderWithCollectionsAsyncFillsCollectionPropertiesFromTheFollowingResultSets()
         {
             var services = new FakeProviderServices();
@@ -596,7 +595,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-4316bdad84244bedbb95c6162ce7be98")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapReaderWithCollectionsAsyncThrowsWhenACollectionResultSetIsMissing()
         {
             var services = new FakeProviderServices();
@@ -614,7 +613,7 @@ namespace ArgentSea.Test
         #region MapOutputAsync family
 
         [Fact]
-        [Trait("Spec", "blk-e2ecccf4af964c5abb42137a3429257a")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapOutputAsyncConstructsTheModelFromOutputParameters()
         {
             var services = new FakeProviderServices();
@@ -632,7 +631,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e2ecccf4af964c5abb42137a3429257a")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapOutputAsyncMapsReaderResultSetsToListPropertiesAndHydratesAnInstance()
         {
             var services = new FakeProviderServices();
@@ -653,7 +652,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e2ecccf4af964c5abb42137a3429257a")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapOutputAsyncReturnsNullWhenTheRequiredOutputIsNull()
         {
             var services = new FakeProviderServices();
@@ -668,7 +667,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e2ecccf4af964c5abb42137a3429257a")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task MapOutputAsyncWithAShardParameterNameSendsTheShardId()
         {
             var services = new FakeProviderServices();
@@ -690,7 +689,7 @@ namespace ArgentSea.Test
         #region QueryAsync family
 
         [Fact]
-        [Trait("Spec", "blk-9133bd2aa6a647cbbd882229fba04e54")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task QueryAsyncReturnsWhatTheHandlerProducesAndForwardsIsTopOne()
         {
             var services = new FakeProviderServices();
@@ -717,7 +716,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-9133bd2aa6a647cbbd882229fba04e54")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task QueryAsyncThreadsTheOptionalArgumentAndShardIdThroughToTheHandler()
         {
             var services = new FakeProviderServices();
@@ -744,7 +743,7 @@ namespace ArgentSea.Test
         #region RunAsync families
 
         [Fact]
-        [Trait("Spec", "blk-66bbc3e1abb0488f9f872e5aabab5f92")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task RunAsyncExecutesTheQueryAsANonQueryAndCompletes()
         {
             var services = new FakeProviderServices();
@@ -762,7 +761,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-66bbc3e1abb0488f9f872e5aabab5f92")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task RunAsyncThrowsTheProvidersFailure()
         {
             var services = new FakeProviderServices();
@@ -776,7 +775,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-c986c1ae849b478b8708afd317cb78f5")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task RunAsyncWithAShardBatchExecutesItInOneTransactionAndReturnsItsResult()
         {
             var services = new FakeProviderServices();

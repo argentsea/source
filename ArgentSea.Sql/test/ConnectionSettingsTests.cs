@@ -173,7 +173,7 @@ namespace ArgentSea.Sql.Test
         [Fact]
         [Trait("Spec", "blk-ae1b6c75740c4fce8cdf7b5301550d2a")]
         [Trait("Spec", "blk-bcf40cddec984e70be95a1fe48b962e0")]
-        [Trait("Spec", "blk-6d0dfdad34f9467db4ae1002f3d4a997")]
+        [Trait("Spec", "blk-ee15a8daa2a64336be7fcd2006ca9a0c")]
         public void TheSettingSurfaceIsTheDocumentedTwentyTwoOptionalAttributes()
         {
             var expected = new[] { "ApplicationIntent", "ApplicationName", "ConnectTimeout", "CurrentLanguage", "DataSource", "Encrypt", "FailoverPartner", "InitialCatalog", "LoadBalanceTimeout", "MaxPoolSize", "MinPoolSize", "MultipleActiveResultSets", "MultiSubnetFailover", "PacketSize", "PersistSecurityInfo", "Pooling", "Replication", "TransactionBinding", "TrustServerCertificate", "TypeSystemVersion", "UserInstance", "WorkstationID" };
@@ -195,9 +195,7 @@ namespace ArgentSea.Sql.Test
         [Trait("Spec", "blk-eef589a1bd1d4383be32c801507ef3b3")]
         [Trait("Spec", "blk-a13f0c353d17427db836e5c29d591830")]
         [Trait("Spec", "blk-fc813402dab8486dbb8bb81c1308a70f")]
-        [Trait("Spec", "blk-b1f69097a4f14064be31690a580a74cb")]
         [Trait("Spec", "blk-f19df31ab55d4d93b792f24b8130b39e")]
-        [Trait("Spec", "blk-12183d54e82a4cac868418dd8e5588de")]
         public void ShardOptionsExposeTheConfiguredObjectsThroughTheProviderNeutralViews()
         {
             var shard = new SqlShardConnectionOptions.SqlShardConnectionConfiguration { ShardId = 7 };
@@ -220,9 +218,7 @@ namespace ArgentSea.Sql.Test
         [Fact]
         [Trait("Spec", "blk-f2b6b873ef204169bb5f81282b3844f1")]
         [Trait("Spec", "blk-5a0dc5cc8524446991962a1836842293")]
-        [Trait("Spec", "blk-e0effff43c6b4d4daa3244a3bb19ec2a")]
-        [Trait("Spec", "blk-35f71b01862347519a764f640aac5eb7")]
-        [Trait("Spec", "blk-c1d9ea2b1b1b4a028977d8bb27ae20a3")]
+        [Trait("Spec", "blk-c6c1b3ed2c4f42ef93d90e9eec984cc2")]
         [Trait("Spec", "blk-7b4446fda6c54187b28306e0c1a12746")]
         public void DatabaseOptionsExposeTheSameEntriesAndDistinctDefaultEndpoints()
         {

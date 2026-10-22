@@ -9,7 +9,7 @@
     "postcondition": "the rendered body of each brace-delimited block is indented one level deeper than its enclosing construct and is dedented again when the construct closes"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

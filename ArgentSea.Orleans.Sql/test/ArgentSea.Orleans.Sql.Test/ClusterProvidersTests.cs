@@ -408,9 +408,7 @@ public class ClusterProvidersTests
 
     [Fact]
     [Trait("Spec", "blk-878290f0225f42e2a0918be1cc8c6693")]
-    [Trait("Spec", "blk-46e89b65b0d54ec9b781190ca4e5af28")]
     [Trait("Spec", "blk-566c476d46b8403da27b52d87ef4263e")]
-    [Trait("Spec", "blk-00b33c29672b456f993c6fd5dad3cbbb")]
     public async Task GatewayProviderMetadataComesFromTheClientOptionsWhoseDefaultsAreDeclared()
     {
         var defaults = new ClusterClientDbOptions { DatabaseKey = "Common", GatewayListQuery = new QueryProcedure("rdr.OrleansClusterGatewayListV1", ["@ClusterId"]) };

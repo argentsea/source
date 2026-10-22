@@ -120,7 +120,6 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-c7f15cb6bff142a492c0db286d8f224e")]
-        [Trait("Spec", "blk-b21c9b0dc9df4b13925dae53e6070b3a")]
         public void ShardSetExposesItsMembersDefaultShardAndOperationSurfaces()
         {
             var shardSets = FakeShardSets.Builder(new FakeProviderServices()).AddShardSet(ShardSetName, 7, new short[] { 3, 7, 11 }).Build();
@@ -148,7 +147,7 @@ namespace ArgentSea.Test
         [Fact]
         [Trait("Spec", "blk-af8ab827d9814361bc241e8960527dd9")]
         [Trait("Spec", "blk-097b051667ce4413b78ab451a420de53")]
-        [Trait("Spec", "blk-aced36156609442283540c1ed93448a2")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         public async Task ReadAllQueryCombinesTheModelsOfEveryShard()
         {
             var services = new FakeProviderServices();
@@ -164,7 +163,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3b2dbcf708a74889921056adf0a5e6e4")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         [Trait("Spec", "blk-af8ab827d9814361bc241e8960527dd9")]
         public async Task ReadAllCombinesEachShardsListAndQueriesOnlyReadEndpoints()
         {
@@ -183,7 +182,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3b2dbcf708a74889921056adf0a5e6e4")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         public async Task ReadAllListAsyncBuildsKeysFromEachShardOrFromTheShardColumn()
         {
             var services = new FakeProviderServices();
@@ -203,7 +202,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-6b117f2188e648b3b1394989c164e2f0")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         public async Task ReadAllMapListCombinesTheMappedRowsOfEveryShard()
         {
             var services = new FakeProviderServices();
@@ -218,7 +217,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-ad3fc122f7884f549a33223992fbf8d5")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         public async Task ReadAllMapReaderCombinesTheMappedModelsAndDropsShardsWithoutARow()
         {
             var services = new FakeProviderServices();
@@ -239,7 +238,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-cdff9835ba4b4062bc7a50e9a81ae452")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         public async Task ReadAllMapOutputCombinesTheOutputMappedModelsOfEveryShard()
         {
             var services = new FakeProviderServices();
@@ -253,7 +252,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-aced36156609442283540c1ed93448a2")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         [Trait("Spec", "blk-af8ab827d9814361bc241e8960527dd9")]
         public async Task ReadAllDropsNullShardResultsAndSendsEachShardItsOwnId()
         {
@@ -276,7 +275,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-aced36156609442283540c1ed93448a2")]
+        [Trait("Spec", "blk-62f61258b59d4719a8b5e22869ee73c5")]
         public async Task ReadAllQueryPassesTheCallerArgumentToEveryShardsHandler()
         {
             var services = new FakeProviderServices();
@@ -530,9 +529,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-d1f618732fbe428cb976c50415f70579")]
-        [Trait("Spec", "blk-049294be42fb4cd79f7f4c41c2c88e8c")]
-        [Trait("Spec", "blk-853aff7ed55a4a34b101098a064b5e20")]
+        [Trait("Spec", "blk-52e8b0e366e94a518ce0112694da3175")]
         public async Task ReadFirstMappingFamiliesReturnTheFirstMappedModelFromTheSelectedShards()
         {
             var services = new FakeProviderServices();

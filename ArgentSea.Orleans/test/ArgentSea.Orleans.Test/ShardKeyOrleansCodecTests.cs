@@ -62,7 +62,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-958c2a7e32b640f8a62cda0d194fadbf")]
+        [Trait("Spec", "blk-67158cfafab944f28c38b6bafc5ae730")]
         [Trait("Spec", "blk-aa4b5e2417884c8596bb5d00f88d4a5e")]
         public void AReferenceFieldIsResolvedThroughOrleansReferenceHandlingWithoutReadingAnyKeyBytes()
         {
@@ -94,7 +94,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-958c2a7e32b640f8a62cda0d194fadbf")]
+        [Trait("Spec", "blk-67158cfafab944f28c38b6bafc5ae730")]
         public void WritingTheSameKeyTwiceInOneSessionNeverProducesAReferenceField()
         {
             var key = new ShardKey<int>(1, 2);
@@ -119,9 +119,8 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-f7c7ad67a313423c93c6cc2d0879ab13")]
-        [Trait("Spec", "blk-f8cd232c3d50449aad3f306b66210337")]
         [Trait("Spec", "blk-29988f43ddb2412291fb928738c7af65")]
+        [Trait("Spec", "blk-f8cd232c3d50449aad3f306b66210337")]
         public void DeepCopyRebuildsAnEqualKeyOfTheSameArityFromItsBytes()
         {
             var one = new ShardKey<int>(42, 123456);

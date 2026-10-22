@@ -36,9 +36,8 @@ namespace ArgentSea.Orleans.Test
         [Fact]
         [Trait("Spec", "blk-99b2b5d7d06841dca53da5da2e70b2d6")]
         [Trait("Spec", "blk-f4ca7618f59f45eda1eb6588177965c0")]
-        [Trait("Spec", "blk-81c09807f0d04d49aa194824ffe80fa7")]
         [Trait("Spec", "blk-40233d060df34e109af2dde22c05553f")]
-        [Trait("Spec", "blk-e74fd76a011d498ebea99b436405ca07")]
+        [Trait("Spec", "blk-10a87b096ba148f995c4a86656e6f08f")]
         public void ShardDefinitionWithEagerProceduresReturnsTheSameInstancesGrainTypeAndFormat()
         {
             var definition = new OrleansShardQueryDefinitions("OrderGrain", Read, QueryResultFormat.OutputArgs, Write, Clear);
@@ -52,9 +51,8 @@ namespace ArgentSea.Orleans.Test
 
         [Fact]
         [Trait("Spec", "blk-0a1e09d3a0cd4dcdbdf60d9b1983f067")]
-        [Trait("Spec", "blk-51c59cfd430541c79b30bf9b23f07234")]
         [Trait("Spec", "blk-1220e024c55b499b8d52535e9e6d993d")]
-        [Trait("Spec", "blk-e74fd76a011d498ebea99b436405ca07")]
+        [Trait("Spec", "blk-10a87b096ba148f995c4a86656e6f08f")]
         public void DbDefinitionWithEagerProceduresReturnsTheSameInstancesGrainTypeAndFormat()
         {
             var definition = new OrleansDbQueryDefinitions("orders", Read, QueryResultFormat.ResultSet, Write, Clear);
@@ -69,8 +67,8 @@ namespace ArgentSea.Orleans.Test
         [Fact]
         [Trait("Spec", "blk-0a1e09d3a0cd4dcdbdf60d9b1983f067")]
         [Trait("Spec", "blk-f4ca7618f59f45eda1eb6588177965c0")]
-        [Trait("Spec", "blk-81c09807f0d04d49aa194824ffe80fa7")]
-        [Trait("Spec", "blk-51c59cfd430541c79b30bf9b23f07234")]
+        [Trait("Spec", "blk-40233d060df34e109af2dde22c05553f")]
+        [Trait("Spec", "blk-1220e024c55b499b8d52535e9e6d993d")]
         public void DeferredStatementRolesResolveTheLazyValueWhenAccessed()
         {
             var lazyRead = LazyStatement("ReadOrder", "SELECT 1");
@@ -118,7 +116,7 @@ namespace ArgentSea.Orleans.Test
         [Fact]
         [Trait("Spec", "blk-3f36d01b73e74bee9a8709de1cf5b555")]
         [Trait("Spec", "blk-d59cd454751f4f1d872725e2fde6fadc")]
-        [Trait("Spec", "blk-81c09807f0d04d49aa194824ffe80fa7")]
+        [Trait("Spec", "blk-40233d060df34e109af2dde22c05553f")]
         public void ShardDefinitionWithoutAClearRoleThrowsNamingClearQuery()
         {
             var definition = new OrleansShardQueryDefinitions("OrderGrain", Read, QueryResultFormat.ResultSet, Write, (QueryProcedure)null!);
@@ -132,7 +130,7 @@ namespace ArgentSea.Orleans.Test
         [Fact]
         [Trait("Spec", "blk-dacbff83c8724e9aac6e15aceb600ad6")]
         [Trait("Spec", "blk-ce21daa2abe448cdb9a3e9c4643b4d3c")]
-        [Trait("Spec", "blk-51c59cfd430541c79b30bf9b23f07234")]
+        [Trait("Spec", "blk-1220e024c55b499b8d52535e9e6d993d")]
         public void DbDefinitionWithoutAWriteRoleThrowsNamingWriteQuery()
         {
             var definition = new OrleansDbQueryDefinitions("orders", Read, QueryResultFormat.ResultSet, (QueryProcedure)null!, Clear);

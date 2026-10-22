@@ -87,7 +87,7 @@ namespace ArgentSea.Pg.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-ea77cfefbac44660a3cae162e0a78e5a")]
+        [Trait("Spec", "blk-6da4600392654036b9a6be1ea0c48f12")]
         public void DiagnosticSettingsAreAppliedWhenSupplied()
         {
             var connection = new PgConnectionConfiguration { Host = "h", IncludeErrorDetails = true, LogParameters = true };
@@ -204,11 +204,9 @@ namespace ArgentSea.Pg.Test
         [Trait("Spec", "blk-31b4d9b5832743b0840f59fd89939886")]
         [Trait("Spec", "blk-724161b41bdb40ff84491716cf6d0ca9")]
         [Trait("Spec", "blk-a66606d46e7549218536082e5f1334b4")]
-        [Trait("Spec", "blk-5e92a409b8d2468bb5a5233c5b3a5f23")]
         [Trait("Spec", "blk-6989f98e233742dc8b6704a4fb640fe3")]
         [Trait("Spec", "blk-ad5ce644b591498997c8ca4bf7e7b195")]
         [Trait("Spec", "blk-78027f6b8bfc4ef18f919a327340dca7")]
-        [Trait("Spec", "blk-70f3f96071504a1991c99bd60fe9178b")]
         public void ShardSetOptionsExposeTheConfiguredArrayAndObjectsWithoutCopying()
         {
             var s1 = new PgShardConnectionOptions.PgShardConnectionConfiguration { ShardId = 1 };
@@ -232,7 +230,6 @@ namespace ArgentSea.Pg.Test
         [Trait("Spec", "blk-5b269d324c6b48c4a40f596ae60a27e3")]
         [Trait("Spec", "blk-fc40e528574d4e4e955a844df31dcd7f")]
         [Trait("Spec", "blk-1db453c809c44182aeae2e188b28f2ee")]
-        [Trait("Spec", "blk-7da052ec763441d8ba829f64bde519af")]
         [Trait("Spec", "blk-77629f39d38b451582ac97e64b2b88d8")]
         public void AShardConfigurationExposesItsAssignedEndpointsAndStartsWithTwoDistinctOnes()
         {
@@ -254,9 +251,7 @@ namespace ArgentSea.Pg.Test
         [Trait("Spec", "blk-3ebafd328e244ca783b773ec5461d015")]
         [Trait("Spec", "blk-87a90dc9f11b45ad845e05deb8b062f7")]
         [Trait("Spec", "blk-9d6f0b2fe756400d83e15d1808d6d774")]
-        [Trait("Spec", "blk-dbf4e37dd8e4466391df45f277524793")]
         [Trait("Spec", "blk-b32f0bfb763d4197854f42ca24d44e64")]
-        [Trait("Spec", "blk-66468152fe5c430b938abc9d20ee19e7")]
         public void DatabaseOptionsExposeTheSameEntriesAndDistinctDefaultEndpoints()
         {
             var entry = new PgDbConnectionConfiguration { DatabaseKey = "MainDb" };

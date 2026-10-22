@@ -84,7 +84,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-86dbeaf076634c90bf77166c6296107b")]
-        [Trait("Spec", "blk-3e17aeca6d5b4e5699ee82ee0efc1864")]
+        [Trait("Spec", "blk-21df1e68973e42949dbc9b414d1f4527")]
         public async Task ExhaustedRetriesRethrowTheLastFailureUnwrapped()
         {
             var services = new FakeProviderServices();
@@ -410,7 +410,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task ReturnValueFallsBackToTheFirstRowColumnWhenNoOutputParameterMatches()
         {
             var services = new FakeProviderServices();
@@ -463,7 +463,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task QueryNameMockShortCircuitsEveryQueryDrivenMethod()
         {
             var services = new FakeProviderServices();
@@ -486,7 +486,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task MockedExecutionsDoNotCountAgainstTheCircuitBreaker()
         {
             var services = new FakeProviderServices();
@@ -507,7 +507,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task MocksAreKeyedByQueryNameSoOtherQueriesStillExecute()
         {
             var services = new FakeProviderServices();
@@ -528,7 +528,7 @@ namespace ArgentSea.Test
         #region Shard id binding and execution plumbing
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task ShardIdIsBoundToTheNamedParameterWithoutTouchingTheCallersCollection()
         {
             var services = new FakeProviderServices();
@@ -545,7 +545,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task ACallerSuppliedValueForTheShardParameterTakesPrecedenceOverTheShardId()
         {
             var services = new FakeProviderServices();
@@ -561,7 +561,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task WithoutAShardParameterNameTheParameterValuesAreLeftUntouched()
         {
             var services = new FakeProviderServices();
@@ -602,7 +602,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task CancellationDuringExecutionIsObservedByTheProvider()
         {
             var services = new FakeProviderServices();
@@ -620,7 +620,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task AnAlreadyCancelledTokenIsRejectedBeforeAnyConnectionOpens()
         {
             var services = new FakeProviderServices();
@@ -635,7 +635,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-151aea99a7e6422092ed0301164dee11")]
+        [Trait("Spec", "blk-6f28a0ef4ab3401a88e8304df6c914e2")]
         public async Task ReturnValueAddsAReturnValueParameterWhenTheCallerSuppliesNone()
         {
             var services = new FakeProviderServices();

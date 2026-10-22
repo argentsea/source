@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -1341,7 +1341,7 @@ namespace ArgentSea.Sql.Test
 
 		[Fact]
 		[Trait("Spec", "blk-a66adaef2f1d429bb26b2e05e419f643")]
-		[Trait("Spec", "blk-6941025a47ca4f83b1782012b4a16e03")]
+		[Trait("Spec", "blk-0539e7af93cc455ba620a90d60dd1467")]
 		[Trait("Spec", "blk-c097ca91f3854f53b45b348090cbf3f0")]
 		public void ValidateTvpColumnSubsetOrdinals()
 		{

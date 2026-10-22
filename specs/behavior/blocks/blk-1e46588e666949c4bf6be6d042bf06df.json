@@ -9,7 +9,7 @@
     "postcondition": "an operand is wrapped in parentheses exactly when the renderer's fixed operator-precedence table requires them to preserve the operand's original grouping, and is left unparenthesized otherwise"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

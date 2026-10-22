@@ -7,7 +7,7 @@
     "scope": "ArgentSea Core package manifest (ArgentSea.Shared/src/ArgentSea.csproj PropertyGroup)."
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,
@@ -22,25 +22,10 @@
     "owner": null,
     "orderKey": "mmmmmm",
     "sectionId": "argent-sea-core",
-    "verificationStatus": "Verified",
+    "verificationStatus": "Unverified",
     "schemaVersion": "1",
     "packId": "universal"
   },
   "references": [],
-  "evidenceLinks": [
-    {
-      "relation": "Verifies",
-      "target": {
-        "kind": "file",
-        "path": "ArgentSea.Shared/tests/PackageInvariantTests.cs",
-        "lines": null,
-        "label": null
-      },
-      "note": "PackageInvariantTests pass against the 2.1.0 project files at commit ea8e9aa3 (ArgentSea.Test 623/623).",
-      "evidenceId": "evi-66b2d659cd1d4c18bf79bd1147bfcf80",
-      "verifiedContentHash": "fields-sha256-v1:496c8dc1ed905fa0eccc75a87706b0bc4ae45c72c53d6d5e760cf33f73d743e3",
-      "recordedAt": "2026-10-21T05:31:11.5779309+00:00",
-      "isVerificationBasis": true
-    }
-  ]
+  "evidenceLinks": []
 }

@@ -208,9 +208,9 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-a3d535a43b884796b1d266713a679aba")]
-        [Trait("Spec", "blk-aae7d609ee1b4dea9b78106b4b1426c3")]
-        [Trait("Spec", "blk-8ae1f2c04b204c4ab567842590ff387d")]
+        [Trait("Spec", "blk-a7ad7834a9e7457aa98a63b326ce70f3")]
+        [Trait("Spec", "blk-7e52b0a5787c4dfc807dd5137f61d5c3")]
+        [Trait("Spec", "blk-819adff89883499c866bcaa1a3e45aa4")]
         public void AJsonMappedPropertyCannotBeProjectedIntoATvpRow()
         {
             Action act = () => TvpMapper.ToTvpRecord(new JsonRow { Id = 1 }, null);
@@ -256,7 +256,7 @@ namespace ArgentSea.Sql.Test
         [Fact]
         [Trait("Spec", "blk-a66adaef2f1d429bb26b2e05e419f643")]
         [Trait("Spec", "blk-c097ca91f3854f53b45b348090cbf3f0")]
-        [Trait("Spec", "blk-6941025a47ca4f83b1782012b4a16e03")]
+        [Trait("Spec", "blk-0539e7af93cc455ba620a90d60dd1467")]
         public void AColumnListSelectsAndReordersTheRecordByNormalizedName()
         {
             var row = new SentinelRow { Key = Guid.NewGuid(), Score = 1.5, Count = 7, Status = Status.Shipped };
@@ -421,7 +421,7 @@ namespace ArgentSea.Sql.Test
 
         [Theory]
         [Trait("Spec", "blk-4dfb8fa847e245408aa4654aaaa087d0")]
-        [Trait("Spec", "blk-12ba6c965cca4c08983142307c8543fc")]
+        [Trait("Spec", "blk-d3cb8531e7f849c5baaecff4c9e150c9")]
         [Trait("Spec", "blk-2cf54380bb1d42169fdeee43a54820e4")]
         [Trait("Spec", "blk-5cad24a381cb4586aa4ca009cb6da523")]
         [Trait("Spec", "blk-659577321b9445b8b52fa4b61291f06a")]
@@ -432,8 +432,8 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-12ba6c965cca4c08983142307c8543fc")]
-        [Trait("Spec", "blk-8ae1f2c04b204c4ab567842590ff387d")]
+        [Trait("Spec", "blk-d3cb8531e7f849c5baaecff4c9e150c9")]
+        [Trait("Spec", "blk-819adff89883499c866bcaa1a3e45aa4")]
         [Trait("Spec", "blk-1b2097798c3243a89b307bf23468644d")]
         public void EveryAttributeTargetsItsDeclaredSqlDbTypeAndRetainsItsDimensions()
         {
@@ -520,7 +520,7 @@ namespace ArgentSea.Sql.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-187fdb8334744b06ba98b54cb51c5ae6")]
+        [Trait("Spec", "blk-93ec2444b0f145ab8e8e548ffc126ae1")]
         [Trait("Spec", "blk-c28591a43fea48bd932d4ae526b3c5ef")]
         [Trait("Spec", "blk-48f70a8f347b4bb8aa4490079567c4c9")]
         [Trait("Spec", "blk-0539e7af93cc455ba620a90d60dd1467")]

@@ -3,7 +3,7 @@
   "specId": "glossary",
   "type": "Term",
   "fields": {
-    "definition": "A `Query` that names a server-side stored procedure (`CommandType.StoredProcedure`), so the SQL implementation lives in the database rather than in application binaries. On SQL Server it invokes a stored procedure via `EXEC`; on PostgreSQL (`Npgsql` 7+) it emits `CALL <name>(...)` and invokes a PostgreSQL procedure (`CREATE PROCEDURE`) only—PostgreSQL functions (`CREATE FUNCTION`, including set-returning functions) must be invoked via `QueryStatement` (`SELECT * FROM fn(...)`) or `PgFunctionQuery`.",
+    "definition": "A `Query` that names a server-side stored procedure (`CommandType.StoredProcedure`), so the SQL implementation lives in the database rather than in application binaries. On SQL Server it invokes a stored procedure via `EXEC`; on PostgreSQL (`Npgsql` 7+) it emits `CALL <name>(...)` and invokes a PostgreSQL procedure (`CREATE PROCEDURE`) only—PostgreSQL functions (`CREATE FUNCTION`, including set-returning functions) must be invoked via `QueryStatement` (`SELECT * FROM fn(...)`).",
     "name": "QueryProcedure",
     "synonyms": [
       "stored procedure query"

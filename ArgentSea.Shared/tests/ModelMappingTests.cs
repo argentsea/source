@@ -1047,7 +1047,6 @@ namespace ArgentSea.Test
         [Fact]
         [Trait("Spec", "blk-74f0d7480cb745a09f617f02fd44ed40")]
         [Trait("Spec", "blk-304e56fc40d845c0b5317d4916301c29")]
-        [Trait("Spec", "blk-829c21fd121145b38a08d7ea612e570d")]
         [Trait("Spec", "blk-24b13dadb4864807854d811fe54b0fe5")]
         public void MapAttributeMissingExceptionMessagesAndShardElementLadderMatchTheContract()
         {
@@ -1086,7 +1085,6 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-07a265867fe344829eb3941e63ff0199")]
-        [Trait("Spec", "blk-d4b2effd5ead43238d5f127b11986fc9")]
         public void MapShardKeyAttributeExposesItsRetainedNamesAndShardParameter()
         {
             var attribute = typeof(ChildKeyWithShardId).GetProperty(nameof(ChildKeyWithShardId.Key))!.GetCustomAttribute<MapShardKeyAttribute>()!;
@@ -1108,7 +1106,6 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-d6d9747f251a48e5a061da41ff7c9995")]
-        [Trait("Spec", "blk-7cc0f1eb547544479693400fcf368edd")]
         public void ParameterMapAttributeBaseExposesFixedAndOverridableMetadata()
         {
             var twoArgument = new FakeMapAttribute("Name");
@@ -1134,7 +1131,6 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-f4cedcbbe01845b2b66eb88af9cc5685")]
-        [Trait("Spec", "blk-81e4b717b5f1407fa0ca58cf06ff93c4")]
         public void CollectionMapAttributeBaseIsConstructedOnlyByDerivedAttributesAndExposesItsNameReadOnly()
         {
             typeof(CollectionMapAttributeBase).IsAbstract.Should().BeTrue();

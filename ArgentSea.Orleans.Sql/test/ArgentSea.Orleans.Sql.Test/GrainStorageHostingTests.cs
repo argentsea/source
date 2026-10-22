@@ -111,9 +111,7 @@ public class GrainStorageHostingTests
 
     [Fact]
     [Trait("Spec", "blk-83b96d8a89ac45899e606ccc897222a6")]
-    [Trait("Spec", "blk-ac98c04bdb17447d9d01fd404f2540fa")]
-    [Trait("Spec", "blk-5d9be4829a8c493ab541cedbf04e0c9a")]
-    [Trait("Spec", "blk-a15aa975eb0d4dbaa3346b8e898dd737")]
+    [Trait("Spec", "blk-2a0afb7f75b24c5d97e8c0d334d75b30")]
     [Trait("Spec", "blk-7e04fd4beed94b3bb0b0f47847434a4c")]
     public void TheSiloBuilderDbOverloadsReturnTheBuilderAndRegisterTheDatabaseFactoryUnderTheName()
     {
@@ -133,9 +131,8 @@ public class GrainStorageHostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-01ee3ac6eaa44fa2840e65a7855f1166")]
-    [Trait("Spec", "blk-89bc0faa30a44ab5bc9c72ca6476f406")]
-    [Trait("Spec", "blk-a15aa975eb0d4dbaa3346b8e898dd737")]
+    [Trait("Spec", "blk-25461c5ab652456ebd6cedc749dfe24f")]
+    [Trait("Spec", "blk-2a0afb7f75b24c5d97e8c0d334d75b30")]
     [Trait("Spec", "blk-7e04fd4beed94b3bb0b0f47847434a4c")]
     public void TheSiloBuilderShardOverloadsReturnTheBuilderAndRegisterTheShardFactoryUnderTheName()
     {
@@ -226,9 +223,9 @@ public class GrainStorageHostingTests
         => new ConfigurationBuilder().AddInMemoryCollection(values).Build();
 
     [Fact]
-    [Trait("Spec", "blk-324fc1bb2edd4bd69c7875fc9ec60a98")]
-    [Trait("Spec", "blk-242e632bcc3e4bfca54b139ed4dee1bb")]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
+    [Trait("Spec", "blk-2c15faa36c5343e782da1e8d9bb6816f")]
+    [Trait("Spec", "blk-b7f391c29d5049c5b5adf2aa224cd3dc")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
     public void TheDbProviderBuilderRegistersCreateDbUnderTheNameAndResolvesTheDatabaseKeyFromTheProviderSectionThenOrleansData()
     {
         var providerSection = Config(new() { ["Orleans:GrainStorage:catalog:ProviderType"] = "ArgentSeaSqlDb", ["Orleans:GrainStorage:catalog:DatabaseKey"] = "Catalog", ["OrleansData:DatabaseKey"] = "Common" });
@@ -257,9 +254,9 @@ public class GrainStorageHostingTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-324fc1bb2edd4bd69c7875fc9ec60a98")]
-    [Trait("Spec", "blk-9205f247b71a41b8bc98746a5d68727e")]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
+    [Trait("Spec", "blk-2c15faa36c5343e782da1e8d9bb6816f")]
+    [Trait("Spec", "blk-d08a58cad02549279309b6cc41df6fd4")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
     public void TheShardProviderBuilderRegistersCreateShardsUnderTheNameAndResolvesTheShardSetKeyFromTheProviderSectionThenOrleansData()
     {
         var providerSection = Config(new() { ["Orleans:GrainStorage:orders:ProviderType"] = "ArgentSeaSql", ["Orleans:GrainStorage:orders:ShardSetKey"] = "Orders", ["OrleansData:ShardSetKey"] = "Legacy" });

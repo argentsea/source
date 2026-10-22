@@ -27,7 +27,7 @@ public class ProviderTypeResolutionTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
     public void ArgentSeaSqlGrainStorageIsShardSetStorageKeyedByShardSetKey()
     {
         using var services = BuildSilo(new()
@@ -41,7 +41,7 @@ public class ProviderTypeResolutionTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
     public void ArgentSeaSqlDbGrainStorageIsSingleDatabaseStorageKeyedByDatabaseKey()
     {
         using var services = BuildSilo(new()
@@ -74,7 +74,7 @@ public class ProviderTypeResolutionTests
     }
 
     [Fact]
-    [Trait("Spec", "blk-6f418939dc074229857ac55313f1fffa")]
+    [Trait("Spec", "blk-566af5dfe48e44a9a243401a545ffa14")]
     [Trait("Spec", "blk-f7091204d4e14a5781c28d75c0239c1c")]
     [Trait("Spec", "blk-90920a87867a4469b540c803c23d0d32")]
     public void NoTwoRegistrationsShareAProviderKeyAndTheRetiredArgentSeaTypeIsGone()

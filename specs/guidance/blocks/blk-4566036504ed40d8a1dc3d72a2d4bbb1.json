@@ -9,18 +9,17 @@
         "*.sql",
         "*.psql"
       ],
-      "semanticAnchor": "declaring QueryProcedure, QueryStatement, SqlQueryStatement, PgQueryStatement, or PgFunctionQuery in a static Queries catalog for SQL Server stored procedures and PostgreSQL procedures or functions",
+      "semanticAnchor": "declaring QueryProcedure, QueryStatement, SqlQueryStatement, or PgQueryStatement in a static Queries catalog for SQL Server stored procedures and PostgreSQL procedures or functions",
       "symbols": [
         "QueryProcedure",
         "QueryStatement",
         "SqlQueryStatement",
-        "PgQueryStatement",
-        "PgFunctionQuery"
+        "PgQueryStatement"
       ]
     },
-    "body": "Declare all `Query` definitions in a static `Queries` catalog class. Use `QueryProcedure` (`CommandType.StoredProcedure`) for SQL Server stored procedures (`EXEC`) and PostgreSQL `CREATE PROCEDURE` routines (`CALL` in Npgsql 7+). Use `QueryStatement` (`CommandType.Text`) or `PgFunctionQuery` for PostgreSQL `CREATE FUNCTION` and set-returning functions (`SELECT * FROM fn(...)`), because `CommandType.StoredProcedure` in Npgsql 7+ emits `CALL` and cannot invoke PostgreSQL functions. When both SQL Server and PostgreSQL statement files are used in the same process, use `SqlQueryStatement` (`.sql`) and `PgQueryStatement` (`.psql`) rather than mutating the shared static `QueryStatement.Extension` property.",
+    "body": "Declare all `Query` definitions in a static `Queries` catalog class. Use `QueryProcedure` (`CommandType.StoredProcedure`) for SQL Server stored procedures (`EXEC`) and PostgreSQL `CREATE PROCEDURE` routines (`CALL` in Npgsql 7+). Use `QueryStatement` (`CommandType.Text`) for PostgreSQL `CREATE FUNCTION` and set-returning functions (`SELECT * FROM fn(...)`), because `CommandType.StoredProcedure` in Npgsql 7+ emits `CALL` and cannot invoke PostgreSQL functions. (`PgFunctionQuery` ships in the `ArgentSea.Orleans.Pg` package for that package's own schema functions; application code uses `QueryStatement`.) When both SQL Server and PostgreSQL statement files are used in the same process, use `SqlQueryStatement` (`.sql`) and `PgQueryStatement` (`.psql`) rather than mutating the shared static `QueryStatement.Extension` property.",
     "scope": "targeted",
-    "title": "QueryProcedure vs. QueryStatement and PgFunctionQuery selection"
+    "title": "QueryProcedure vs. QueryStatement selection"
   },
   "metadata": {
     "status": "Draft",

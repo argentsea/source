@@ -44,9 +44,9 @@ If you are referencing a database where creating stored procedures would be prob
 > [!CAUTION]
 > PostgreSQL clients are generally advised to use the `QueryStatement` class, rather than `QueryProcedure`.
 
-You can use the `QueryProcedure` type to call a PostgreSQL function. The longstanding behavior of the [Npgsql](http://www.npgsql.org/) provider is to implicitly change the query to “SELECT * FROM &lt;functionName&gt;”. Consequently, this class can only invoke *functions*, not stored procedures. To invoke stored procedures, use “CALL &lt;sprocName&gt;” in the `QueryStatement` class instead.
+You can use the `QueryProcedure` type (`CommandType.StoredProcedure`) to call a PostgreSQL stored procedure (`CREATE PROCEDURE`). In Npgsql 7+, `CommandType.StoredProcedure` emits `CALL <procedureName>(...)` and invokes stored procedures only. To invoke PostgreSQL functions (`CREATE FUNCTION`, including set-returning functions), use `SELECT * FROM <functionName>(...)` in a `QueryStatement` file. (The `PgFunctionQuery` type ships in the `ArgentSea.Orleans.Pg` package, for that package's own schema functions; it is not part of `ArgentSea.Pg`.)
 
-A `QueryProcedure` class requires the function name in its constructor. Optionally, you can add parameter names. The advantage of providing parameters names is described below.
+A `QueryProcedure` class requires the stored procedure name in its constructor. Optionally, you can add parameter names. The advantage of providing parameter names is described below.
 
 ***
 

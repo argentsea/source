@@ -30,7 +30,7 @@ public class TvpEmptyCollectionIntegrationTests
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+    [Trait("Spec", "blk-110eeb9f9d5a4351b53aa654d13c9a06")]
     public void EmptyAndNonEmptyTvp_RoundTripThroughSqlServer_AsZeroRowsAndPopulatedRows()
     {
         _fixture.SkipUnlessAvailable();
@@ -50,7 +50,7 @@ public class TvpEmptyCollectionIntegrationTests
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+    [Trait("Spec", "blk-110eeb9f9d5a4351b53aa654d13c9a06")]
     public void EmptyImmutableArrayTvp_RoundTripsThroughSqlServer_AsZeroRows()
     {
         _fixture.SkipUnlessAvailable();
@@ -63,7 +63,7 @@ public class TvpEmptyCollectionIntegrationTests
     }
 
     [SkippableFact]
-    [Trait("Spec", "blk-d22d4497b08f42a5b90cf5094683b123")]
+    [Trait("Spec", "blk-110eeb9f9d5a4351b53aa654d13c9a06")]
     [Trait("Spec", "blk-d7c0d2f1f8e8497a98767b974e1d6bc0")]
     public void DefaultImmutableArrayTvp_RoundTripsThroughSqlServer_AsZeroRows()
     {

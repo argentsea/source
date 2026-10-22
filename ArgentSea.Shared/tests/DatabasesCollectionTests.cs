@@ -139,7 +139,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-643a8cdaf4e34817b6037c584c960aa0")]
-        [Trait("Spec", "blk-b17909a579d94fa5a6a00a8869eb1bd1")]
+        [Trait("Spec", "blk-555c07ab1e724e48beeef741f9ab9996")]
         public void DatabaseUsesEachEndpointWhenBothAreSuppliedAndThePairIsGetOnly()
         {
             var database = Build(new FakeProviderServices())[Key];

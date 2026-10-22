@@ -7,7 +7,7 @@
     "scope": "ShardKeyOrleansSerializer<TShard,TChild>, ShardKeyOrleansSerializer<TShard,TChild,TGrandChild>, and ShardKeyOrleansSerializer<TShard,TChild,TGrandChild,TGreatGrandChild>"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

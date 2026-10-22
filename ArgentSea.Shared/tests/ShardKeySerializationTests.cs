@@ -20,7 +20,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-7c0129dd747d4252a68b59a5127cb96e")]
-        [Trait("Spec", "blk-c3ba6c6f80be402d9ad69ee801b3b3f1")]
+        [Trait("Spec", "blk-2632e46de8eb4fc2b7ea40af22c27a3d")]
         public void TypeMetadataPacksSixBitCodesIntoOneTwoOrThreeBytes()
         {
             ShardKeySerialization.TryEncodeTypeMetadata(typeof(Guid), out var one).Should().BeTrue();
@@ -40,7 +40,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-3ae75246ea2e459fb01a9eb3fe57a9bf")]
-        [Trait("Spec", "blk-e596ae1931fc4ac3a475fed5dec5f5ac")]
+        [Trait("Spec", "blk-2632e46de8eb4fc2b7ea40af22c27a3d")]
         [Trait("Spec", "blk-49dcb2e37a5347a298d76da7c90ecf87")]
         [Trait("Spec", "blk-baea8bad2d8240e48d5ab5ab75237209")]
         public void KeyDataTypeCodesMapTypesAndRecoverEnumsAsTheirUnderlyingPrimitive()
@@ -61,8 +61,8 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-05cd1742ecda4c8a9ff1a414d2542829")]
-        [Trait("Spec", "blk-3a6dab58d93b47819bc21fe537907f0b")]
-        [Trait("Spec", "blk-56470b42a1de4f66b751ab1de113c352")]
+        [Trait("Spec", "blk-07f0a2a6b26440119539afd3ea70f6f9")]
+        [Trait("Spec", "blk-3b3ef157df48459ca3c5b0d3be15261f")]
         public void ThrowIfMetadataMismatchNamesTheTypeAtTheMismatchedPosition()
         {
             Action stringAgainstGuid = () => ShardKeySerialization.ThrowIfMetadataMismatch(new byte[] { 0x04 }, typeof(string));
@@ -89,7 +89,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-56470b42a1de4f66b751ab1de113c352")]
+        [Trait("Spec", "blk-3b3ef157df48459ca3c5b0d3be15261f")]
         public void DeserializingBytesOfADifferentKeyShapeThrowsInvalidShardKeyMetadataException()
         {
             var guidKey = new ShardKey<Guid>(1, Guid.NewGuid()).ToArray();
@@ -106,7 +106,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-e22203afb5f94d98a193cdfc697fb876")]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void TryConvertFromBytesDecodesAnInt32AndAdvancesTheCursor()
         {
             ReadOnlySpan<byte> data = new byte[] { 0x01, 0x00, 0x00, 0x00 };
@@ -121,7 +121,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-eb6e1a65b28b4c3f8fdc0cadffa70db7")]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void TryConvertFromBytesReturnsFalseForAnUnrecognizedTypeWithoutThrowing()
         {
             ReadOnlySpan<byte> data = new byte[] { 0x07 };
@@ -136,9 +136,9 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-385c95f5b55a4937981cb0686346a44b")]
-        [Trait("Spec", "blk-377cea45df6144a09584071253d0f5b3")]
-        [Trait("Spec", "blk-3c0acf9b86f94014bedafc479851232f")]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-b2e0180d5dde43ff8c755e24e25c06f9")]
+        [Trait("Spec", "blk-23ce8afeb9564280b5d1e19de4a89620")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void TryConvertFromBytesMeasuresFixedWidthValuesFromTheCursorNotTheSpanStart()
         {
             ReadOnlySpan<byte> five = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x2A };
@@ -167,7 +167,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-61f517296c924f84855ba218fba84336")]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void TryConvertFromBytesReturnsFalseWhenAVariableLengthPartDeclaresMoreBytesThanRemain()
         {
             ReadOnlySpan<byte> data = new byte[] { 0x07, 0x41 };
@@ -185,7 +185,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void VariableLengthPartsWithAZeroLengthByteShortCircuitToTheirEmptyValue()
         {
             ReadOnlySpan<byte> data = new byte[] { 0x00, 0x00, 0x00 };
@@ -204,7 +204,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-e6f478a56795435ea70080ee9cdd564a")]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void GetValueBytesPrefixesAStringWithItsLengthAndFlagByte()
         {
             ShardKeySerialization.GetValueBytes("AB").Should().Equal(0x05, 0x41, 0x42);
@@ -219,7 +219,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         [Trait("Spec", "blk-49dcb2e37a5347a298d76da7c90ecf87")]
         [Trait("Spec", "blk-7d8433e1617e48b29bfdb7be9d115e18")]
         public void EnumKeyPartsRoundTripAsTheirUnderlyingTypeAndReadBackAsTheEnum()
@@ -305,8 +305,8 @@ namespace ArgentSea.Test
         [Fact]
         [Trait("Spec", "blk-5770536dd9e9496c88277e1173e41a82")]
         [Trait("Spec", "blk-f0d1fcc0704a4870bd2f9d7ea7ae7c70")]
-        [Trait("Spec", "blk-47c1a251f6944b8399d1a25a4ea9695f")]
-        [Trait("Spec", "blk-056c5f3fd0a64eea9dffe5549e0b588a")]
+        [Trait("Spec", "blk-c8968aa909454df6b1591aca05705038")]
+        [Trait("Spec", "blk-fade934144ca47e586f5aed81b1bed01")]
         public void TheExternalStringChecksumRejectsAnAlteredPrefix()
         {
             StringExtensions.SerializeToExternalString(new byte[] { 0x00 }).Should().Be("AAt1");
@@ -318,7 +318,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-47c1a251f6944b8399d1a25a4ea9695f")]
+        [Trait("Spec", "blk-c8968aa909454df6b1591aca05705038")]
         public void AKeyExternalStringWithACorruptedChecksumIsRejectedWithTheDocumentedMessage()
         {
             var external = new ShardKey<int>(1, 42).ToExternalString();
@@ -369,8 +369,7 @@ namespace ArgentSea.Test
         [Fact]
         [Trait("Spec", "blk-7b9c62c5475e49499cee996ea98f177e")]
         [Trait("Spec", "blk-c148c82173f14cfb9439a074444b4de6")]
-        [Trait("Spec", "blk-a3444630c58c46fb903aca5e02760c3d")]
-        [Trait("Spec", "blk-6d2272b6ef59433ab62510a23273d238")]
+        [Trait("Spec", "blk-af9b3d057c3343e3970d20c2dfa62ca8")]
         public void AllowEmojisAndAllowMultilineRetainSurrogatesAndNormalizeLineFeeds()
         {
             var emoji = char.ConvertFromUtf32(0x1F603);

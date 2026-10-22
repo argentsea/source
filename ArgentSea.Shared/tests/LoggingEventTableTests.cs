@@ -123,24 +123,16 @@ namespace ArgentSea.Test
 
         [Theory]
         [MemberData(nameof(Cases))]
-        [Trait("Spec", "blk-abc42ce2cbf448278919e14586a16c1a")]
-        [Trait("Spec", "blk-36c34508e6e1465d9f851eb2ae4766fd")]
-        [Trait("Spec", "blk-ca70152bf9fa440d9eb6d57fc5ad30ef")]
-        [Trait("Spec", "blk-860f5b1abf194ddea94eea2d0f7e237d")]
-        [Trait("Spec", "blk-805df5b3d8854fca85f8eac3741f9b6a")]
-        [Trait("Spec", "blk-5bb293884a0642ec95a6af4951dc3712")]
-        [Trait("Spec", "blk-a8f95790014d4e30a5b095f38dc8cafb")]
-        [Trait("Spec", "blk-b93bf711042342e09e6c0850221ae7d7")]
-        [Trait("Spec", "blk-fde5bc17103f4097a05f6df357f04705")]
-        [Trait("Spec", "blk-6c3a5dabb90943cfb4d1d234eac1033c")]
-        [Trait("Spec", "blk-3e4daa26d49e4a889e6812830124cfb5")]
-        [Trait("Spec", "blk-64c08c5b6cd742c393b1320b2bd16cf3")]
-        [Trait("Spec", "blk-5340d35b9eb3497c87d01ced6700bd3e")]
-        [Trait("Spec", "blk-504a75adc6494b1b9275f6ce68126570")]
-        [Trait("Spec", "blk-6565dc6a77354ba8a2692ce5e2955f78")]
-        [Trait("Spec", "blk-8cc0d157123145c488c9b2cae55023af")]
-        [Trait("Spec", "blk-5ac10e97a55d4b65823a1e2e4d68bc99")]
-        [Trait("Spec", "blk-6cf8bb8f39a441549df1df52a8f40372")]
+        [Trait("Spec", "blk-b7995b773d6c451eb11adf89f4a25ac5")]
+        [Trait("Spec", "blk-046dbaa7c4c54b268338ead11e1a46c8")]
+        [Trait("Spec", "blk-be24183c6c0a4c44b1bbfa30a92eb49b")]
+        [Trait("Spec", "blk-0c5d4ddafb48417c881237e91e9f18cc")]
+        [Trait("Spec", "blk-f5516ad4a678460eabde2779c9779ec0")]
+        [Trait("Spec", "blk-b494ccd7a3e84199989eecd5278d375d")]
+        [Trait("Spec", "blk-c6aca41740c4406f9eb3b30d4cf725dd")]
+        [Trait("Spec", "blk-9b35f16faed048aaae2b98e7196e2c19")]
+        [Trait("Spec", "blk-470359cb5a0b4532ac0838dfd57e84fd")]
+        [Trait("Spec", "blk-40e2369216c74aad97c27b3abb71eede")]
         public void EveryWrapperEmitsExactlyOneEventWithItsDocumentedIdNameLevelAndTemplate(LogEventCase wrapper)
         {
             var logger = new RecordingLogger();
@@ -195,7 +187,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-37977366bbdb485ebad77635ea3f17fd")]
+        [Trait("Spec", "blk-36632b4e401b43108fd3dfa028f721e4")]
         public void EveryEventDelegateIsCreatedOnceInTheStaticConstructor()
         {
             typeof(LoggingExtensions).TypeInitializer.Should().NotBeNull("the delegates are compiled in a static constructor");
@@ -212,7 +204,7 @@ namespace ArgentSea.Test
 
         [Theory]
         [MemberData(nameof(GuardedCases))]
-        [Trait("Spec", "blk-37977366bbdb485ebad77635ea3f17fd")]
+        [Trait("Spec", "blk-36632b4e401b43108fd3dfa028f721e4")]
         public void GuardedWrappersEmitNothingWhenTheirLevelIsDisabled(LogEventCase wrapper)
         {
             var logger = new RecordingLogger { MinimumLevel = wrapper.Guard!.Value + 1 };
@@ -224,9 +216,9 @@ namespace ArgentSea.Test
 
         [Theory]
         [MemberData(nameof(ExpressionTreeCases))]
-        [Trait("Spec", "blk-8cc0d157123145c488c9b2cae55023af")]
-        [Trait("Spec", "blk-6565dc6a77354ba8a2692ce5e2955f78")]
-        [Trait("Spec", "blk-e6b2448d351a47e6b17d152202f47d05")]
+        [Trait("Spec", "blk-470359cb5a0b4532ac0838dfd57e84fd")]
+        [Trait("Spec", "blk-b7995b773d6c451eb11adf89f4a25ac5")]
+        [Trait("Spec", "blk-598c5e558a4f48e994b59683f396a550")]
         public void ExpressionTreeWrappersRenderOnlyWhenDebugIsEnabled(string method)
         {
             var disabled = new RecordingLogger { MinimumLevel = LogLevel.Information };
@@ -243,8 +235,8 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-3e4daa26d49e4a889e6812830124cfb5")]
-        [Trait("Spec", "blk-64c08c5b6cd742c393b1320b2bd16cf3")]
+        [Trait("Spec", "blk-b7995b773d6c451eb11adf89f4a25ac5")]
+        [Trait("Spec", "blk-c6aca41740c4406f9eb3b30d4cf725dd")]
         public void BuildSqlResultsHandlerScopeOpensADisposableScopeAndReturnsNullForANullLogger()
         {
             var logger = new ScopeRecordingLogger();
@@ -262,7 +254,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-0cfffb849a1844d884112eb51625d35e")]
+        [Trait("Spec", "blk-24f006cc9dc44d80969ff318f8172287")]
         public void BatchStepEndNamesTheStepAndConnection()
         {
             var logger = new RecordingLogger();
@@ -277,7 +269,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-344945c1c13043a3aa52a115b6b863ba")]
+        [Trait("Spec", "blk-01777ee8ff2f4d67a3fdf5feaad5afe8")]
         public void DataReaderIsNullReportsTheProcedureAndConnection()
         {
             var logger = new RecordingLogger();
@@ -291,8 +283,8 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-9d51af3c3e2e4c659ff706705a75c92e")]
-        [Trait("Spec", "blk-6c3a5dabb90943cfb4d1d234eac1033c")]
+        [Trait("Spec", "blk-c015c5523f194bb4873b2cc0fcfa8125")]
+        [Trait("Spec", "blk-b494ccd7a3e84199989eecd5278d375d")]
         public void NullShardChildArgumentsLogsOnlyWhenAnIdentityIsNull()
         {
             var logger = new RecordingLogger { MinimumLevel = LogLevel.Information };
@@ -314,7 +306,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-860f5b1abf194ddea94eea2d0f7e237d")]
+        [Trait("Spec", "blk-be24183c6c0a4c44b1bbfa30a92eb49b")]
         public void TheFourCacheKindsAreDistinguishableByEventNameAndMessage()
         {
             var logger = new RecordingLogger();

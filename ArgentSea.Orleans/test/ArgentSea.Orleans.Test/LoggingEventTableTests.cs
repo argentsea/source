@@ -89,8 +89,8 @@ namespace ArgentSea.Orleans.Test
         [Theory]
         [MemberData(nameof(Cases))]
         [Trait("Spec", "blk-d0cc6db246764e9eb27c2cf3f1941f24")]
-        [Trait("Spec", "blk-e62546e07b5e474cafcee04228744da9")]
-        [Trait("Spec", "blk-60264363d5764142a958f490ae9c643c")]
+        [Trait("Spec", "blk-72f17c7ae63e45af81152a200221bf01")]
+        [Trait("Spec", "blk-96f914b6d2ba4a4cb2baed7c60cd508d")]
         [Trait("Spec", "blk-50b608096168489f837b63331c85832e")]
         public void EveryWrapperEmitsExactlyOneEventWithItsDocumentedIdNameLevelAndTemplate(LogEventCase wrapper)
         {
@@ -162,7 +162,7 @@ namespace ArgentSea.Orleans.Test
 
         [Theory]
         [MemberData(nameof(GuardedCases))]
-        [Trait("Spec", "blk-e62546e07b5e474cafcee04228744da9")]
+        [Trait("Spec", "blk-72f17c7ae63e45af81152a200221bf01")]
         public void GuardedWrappersEmitNothingWhenTheirLevelIsDisabled(LogEventCase wrapper)
         {
             var logger = new RecordingLogger { MinimumLevel = wrapper.Guard!.Value + 1 };

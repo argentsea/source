@@ -74,7 +74,6 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-94549f430b8c4cb99db26efb95e3a4e2")]
-        [Trait("Spec", "blk-b7157e6187b34d4cb5eb55d0b25c9cdf")]
         public void SequenceLengtheningDeclaresFourModesAndAnObsoleteFibonacciAlias()
         {
             ((int)SequenceLengthening.Linear).Should().Be(0);
@@ -113,7 +112,7 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-51e9323067b543f49dfae73626ea678b")]
-        [Trait("Spec", "blk-94614e41ce874ded97b9ffd09b398796")]
+        [Trait("Spec", "blk-e762b989990a42f6a1bca7346f9c068d")]
         public void ResilienceSettingsNeverRaisePropertyChanged()
         {
             var level = new Level();
@@ -199,15 +198,10 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-3dea74e8f57942d39ed5c3f7debc53d7")]
-        [Trait("Spec", "blk-26f0c8879c4f4171a5fe113e4a7731ff")]
         [Trait("Spec", "blk-d4ca447227c6464aab769f60463e0a83")]
-        [Trait("Spec", "blk-a2cae80999924a728548648ce1dcafaf")]
         [Trait("Spec", "blk-95c703c8194c42a493e3c2691211ecc1")]
-        [Trait("Spec", "blk-a0b018fdab264091a08ee9ac4b949739")]
         [Trait("Spec", "blk-a1acbcd61af44beca41e4daf9694977e")]
-        [Trait("Spec", "blk-13849b75939440c88be41f1d85e6e078")]
         [Trait("Spec", "blk-eff2763239614e469469ff8fc2d907e5")]
-        [Trait("Spec", "blk-2fbc46234dd8400ea009add81047fb8a")]
         public void TheConfigurationInterfacesExposeCollectionsAndConnectionsAsGetOnlyMembers()
         {
             static PropertyInfo Prop(Type type, string name) => type.GetProperty(name)!;

@@ -33,8 +33,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-98e320e2ec3b49189c8c00be74a679b3")]
-        [Trait("Spec", "blk-cc9d08cbfe6d48aab59201a4386d2a64")]
+        [Trait("Spec", "blk-c8dd6f10ebfb4b9c82e3e70c319abb36")]
         [Trait("Spec", "blk-08938b1b1b694b1d985a9ecf74dc11d4")]
         [Trait("Spec", "blk-bf35b4d116cc48b2a1630eb2af5b12d6")]
         public void APeriodBelowOneMinuteIsAdmittedWithAFastReminderWarning()
@@ -51,7 +50,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-98e320e2ec3b49189c8c00be74a679b3")]
+        [Trait("Spec", "blk-c8dd6f10ebfb4b9c82e3e70c319abb36")]
         [Trait("Spec", "blk-08938b1b1b694b1d985a9ecf74dc11d4")]
         public void APeriodOfAtLeastOneMinuteIsAdmittedSilently()
         {

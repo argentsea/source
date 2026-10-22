@@ -188,7 +188,6 @@ namespace ArgentSea.Test
 
         [Fact]
         [Trait("Spec", "blk-12002539c042447ab39231eb4524b990")]
-        [Trait("Spec", "blk-90f700c00b3c44629a1e61bfa8bf08cb")]
         public void CoreAndSqlOptimizeReleaseBuildsAndNotDebugBuilds()
         {
             foreach (var path in new[] { CoreProject, SqlProject })
@@ -260,7 +259,6 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-d6d3d68dcb7e43fc98ee6052f1c330f8")]
         [Trait("Spec", "blk-1bf2e9b856024458aca7786aafa4c318")]
         public void SqlGrantsInternalsToItsTestAssemblyAndTheIntegrationTests()
         {
@@ -307,8 +305,7 @@ namespace ArgentSea.Test
         #region orleans-grain-storage-package
 
         [Fact]
-        [Trait("Spec", "blk-d9e5aef9e5504b31a8cd3f4f5f0cd8b0")]
-        [Trait("Spec", "blk-10084c48c0764214be41173256ac7357")]
+        [Trait("Spec", "blk-8610cf83492a462a941de965ec23c89c")]
         public void OrleansDependsOnOrleansPackagesAndTheCoreAndOnNoDatabasePlatform()
         {
             var project = Load(OrleansProject);
@@ -407,7 +404,6 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-cac267d8b32b44c4b680141e3226b8ff")]
         public void OrleansSqlPacksItsIconAndReadme()
         {
             // The spec recorded the absence of a packed readme; the project folder has one, so it is now packed like every sibling's.

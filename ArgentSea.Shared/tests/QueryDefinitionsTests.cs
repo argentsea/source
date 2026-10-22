@@ -53,7 +53,6 @@ namespace ArgentSea.Test
         [Trait("Spec", "blk-fcd88d6e16e245d68078ad270ce3e20e")]
         [Trait("Spec", "blk-5bdaec2404b34a9e98d438dbbac67797")]
         [Trait("Spec", "blk-3283695957f94e069b461c6e262b3bed")]
-        [Trait("Spec", "blk-bc999773c50445918d9eca47243c6538")]
         public void AQueryExposesTheValuesItWasConstructedWithAndKeepsTheSameParameterArray()
         {
             var names = new[] { "tenantId", "region" };

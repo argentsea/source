@@ -8,7 +8,7 @@
     "response": "emit the PersistanceLifecycleOnStart (event id PersistanceStart, 13) or PersistanceLifecycleOnStop (event id PersistanceStop, 14) Debug events: both events are defined, but the provider lifecycle hooks that would raise them are commented out in both the database-backed and shard providers, so a host never observes either event id"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

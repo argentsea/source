@@ -8,7 +8,7 @@
     "response": "render a dynamic node as `.Dynamic` followed by a binder description derived from the CallSiteBinder's concrete type (for example `Convert Type`, `GetMember Name`, `Call Name`, or `BinaryOperation Op`) and a parenthesized argument list; render a runtime-variables node as `.RuntimeVariables` followed by a parenthesized list of its variables; and render an extension node as `.Extension<RuntimeType>` followed, only when the node reports that it can reduce, by a braced rendering of its reduced expression"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

@@ -14,7 +14,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-39a425343a964aec833e2152fd208691")]
+        [Trait("Spec", "blk-faee456447084061bb18f1b1bbcab911")]
         public void String_part_of_128_utf8_bytes_is_rejected_with_a_clear_exception()
         {
             var key = new ShardKey<string>(3, new string('a', 128));

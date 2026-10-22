@@ -16,7 +16,7 @@ namespace ArgentSea.Orleans.Test
 
         [Fact]
         [Trait("Spec", "blk-b92d0339c55941f5a445fd73d5fb618c")]
-        [Trait("Spec", "blk-423b79d3955d40e883835d9cc1f8b854")]
+        [Trait("Spec", "blk-40522fbb1e094333bc11559ce22536b9")]
         public void ShardPersistenceOptionsUseNonSerializingSerializer()
         {
             IStorageProviderSerializerOptions options = new OrleansShardPersistenceOptions();

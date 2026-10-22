@@ -360,7 +360,6 @@ namespace ArgentSea.Orleans.Test
         [Trait("Spec", "blk-4feff7c4f860482aad1b10303a45f512")]
         [Trait("Spec", "blk-0cecdb69369448b39fda18cab835ecd8")]
         [Trait("Spec", "blk-8af883d10b5445ef8b1936a01bcbf999")]
-        [Trait("Spec", "blk-f8d2890b7423448daa30a5984d350f47")]
         public async Task ShardReadRoutesToTheKeyShardMapsTheRowAndRecordsItExists()
         {
             const string grainType = "ShardReadHit";
@@ -522,7 +521,6 @@ namespace ArgentSea.Orleans.Test
         [Trait("Spec", "blk-3df38bc9d6944e08821268fc06f74093")]
         [Trait("Spec", "blk-2e4e93bd74c445d8b24dcf451658f08b")]
         [Trait("Spec", "blk-40522fbb1e094333bc11559ce22536b9")]
-        [Trait("Spec", "blk-423b79d3955d40e883835d9cc1f8b854")]
         [Trait("Spec", "blk-b05fcc9d29534254923682c2a9708a76")]
         public async Task ShardWriteDelegatesAreCachedPerValidateGrainKeysSetting()
         {
@@ -576,7 +574,6 @@ namespace ArgentSea.Orleans.Test
         [Trait("Spec", "blk-bf4daea8f68d46a1a987aad65e7c6d2c")]
         [Trait("Spec", "blk-2e4e93bd74c445d8b24dcf451658f08b")]
         [Trait("Spec", "blk-40522fbb1e094333bc11559ce22536b9")]
-        [Trait("Spec", "blk-423b79d3955d40e883835d9cc1f8b854")]
         public void ShardPersistenceOptionsDefaultToTheDefaultProviderNameValidatingKeysAndNoQueries()
         {
             var options = new OrleansShardPersistenceOptions();
@@ -607,7 +604,6 @@ namespace ArgentSea.Orleans.Test
 
         [Fact]
         [Trait("Spec", "blk-1b90d7630d384cc0a907f1be231869a1")]
-        [Trait("Spec", "blk-8f0a11f25afd4fbe91a23f21f80c8224")]
         public void DbPersistenceOptionsDefaultToCommonAndTheConstructorKeysDefinitionsByGrainType()
         {
             var defaults = new OrleansDbPersistenceOptions();
@@ -623,7 +619,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-01161845aae94b10bb90bad566c6ac99")]
+        [Trait("Spec", "blk-d7886b791c2f4436975f1c6b53bddec8")]
         public void GrainPersistenceExceptionPreservesMessageAndInnerException()
         {
             var inner = new InvalidOperationException("inner");
@@ -827,7 +823,7 @@ namespace ArgentSea.Orleans.Test
         #region Log events
 
         [Fact]
-        [Trait("Spec", "blk-48b5d1a5f3ea4a94a1531ea0a58547f0")]
+        [Trait("Spec", "blk-3ac4b493e237488ab6d168b6ac6b0725")]
         [Trait("Spec", "blk-d0cc6db246764e9eb27c2cf3f1941f24")]
         public async Task DbDelegateCacheLookupsLogAMissAtDebugThenAHitAtTrace()
         {
@@ -850,7 +846,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-48b5d1a5f3ea4a94a1531ea0a58547f0")]
+        [Trait("Spec", "blk-3ac4b493e237488ab6d168b6ac6b0725")]
         public async Task ShardDelegateCacheLookupsIncludingTheSetShardDelegateLogShardEvents()
         {
             const string grainType = "ShardCacheEvents";
@@ -870,7 +866,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e62546e07b5e474cafcee04228744da9")]
+        [Trait("Spec", "blk-72f17c7ae63e45af81152a200221bf01")]
         [Trait("Spec", "blk-d0cc6db246764e9eb27c2cf3f1941f24")]
         public async Task CompletedCommandsLogTheirTimingAtTraceUnderCmdExecuted()
         {
@@ -904,7 +900,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-e62546e07b5e474cafcee04228744da9")]
+        [Trait("Spec", "blk-72f17c7ae63e45af81152a200221bf01")]
         public async Task NoTimingEventIsLoggedWhenTraceIsDisabledOrTheCallThrowsBeforeItsQuery()
         {
             const string grainType = "DbTimingOff";
@@ -941,7 +937,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-60264363d5764142a958f490ae9c643c")]
+        [Trait("Spec", "blk-96f914b6d2ba4a4cb2baed7c60cd508d")]
         public async Task TheCompiledShardKeyDelegateTracesEachMappedPropertyUnderMapperProcessTrace()
         {
             const string grainType = "ShardMapperTrace";
@@ -957,7 +953,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-8b1b32df08e148fa832435354c7a3e5b")]
+        [Trait("Spec", "blk-ed2c1d1fc09e41c38ebe420b29a0de93")]
         [Trait("Spec", "blk-d0cc6db246764e9eb27c2cf3f1941f24")]
         public async Task CompilingADelegateLogsItsExpressionTreeAtDebugOnly()
         {

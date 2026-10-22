@@ -60,7 +60,6 @@ public class GatewayListProviderTests
 
     [Fact]
     [Trait("Spec", "blk-566c476d46b8403da27b52d87ef4263e")]
-    [Trait("Spec", "blk-00b33c29672b456f993c6fd5dad3cbbb")]
     public void ExplicitConnectionStringIsUsedVerbatim()
     {
         var dbOptions = Options.Create(new SqlDbConnectionOptions { SqlDbConnections = [] });

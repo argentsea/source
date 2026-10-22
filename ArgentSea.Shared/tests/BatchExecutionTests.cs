@@ -426,7 +426,7 @@ namespace ArgentSea.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-c986c1ae849b478b8708afd317cb78f5")]
+        [Trait("Spec", "blk-918258df78454a1e91d1386762e09948")]
         public async Task ShardBatchReturnsTheLastNonDefaultStepResultWithTheExecutingShardsId()
         {
             var services = new FakeProviderServices();

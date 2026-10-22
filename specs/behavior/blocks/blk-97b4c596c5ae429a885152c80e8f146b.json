@@ -8,7 +8,7 @@
     "response": "render a member access as the rendering of its instance (or, for a static member, the declaring type's name) followed by `.MemberName`; render a method call as `.Call` followed by the rendering of its receiver (or the declaring type's name for a static call, or the literal `<UnknownType>` when no declaring type is known), then `.MethodName` and a parenthesized argument list; render a delegate invocation as `.Invoke` followed by the rendering of the invoked expression and a parenthesized argument list; and render an indexer access as its member-style or operand rendering followed by a bracketed argument list"
   },
   "metadata": {
-    "status": "Rejected",
+    "status": "Draft",
     "priority": 0,
     "provenance": "GeneratedProposal",
     "provenanceNote": null,

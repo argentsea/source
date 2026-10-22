@@ -80,7 +80,7 @@ namespace ArgentSea.Orleans.Test
             => GrainId.Create(GrainType.Create(grainType), new IdSpan(key.ToUtf8().ToArray()));
 
         [Fact]
-        [Trait("Spec", "blk-e62546e07b5e474cafcee04228744da9")]
+        [Trait("Spec", "blk-72f17c7ae63e45af81152a200221bf01")]
         public async Task ShardClearLogsTheShardClearEventWithTheShardId()
         {
             const string grainType = "LoggingShardClear";
@@ -98,7 +98,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-48b5d1a5f3ea4a94a1531ea0a58547f0")]
+        [Trait("Spec", "blk-3ac4b493e237488ab6d168b6ac6b0725")]
         public async Task ShardActivationCacheLookupLogsShardCacheEvents()
         {
             const string grainType = "LoggingShardActivation";
@@ -115,7 +115,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-8b1b32df08e148fa832435354c7a3e5b")]
+        [Trait("Spec", "blk-ed2c1d1fc09e41c38ebe420b29a0de93")]
         [Trait("Spec", "blk-d0cc6db246764e9eb27c2cf3f1941f24")]
         public void ActivationExpressionTreeHasItsOwnEvent()
         {
@@ -130,7 +130,7 @@ namespace ArgentSea.Orleans.Test
         }
 
         [Fact]
-        [Trait("Spec", "blk-8b1b32df08e148fa832435354c7a3e5b")]
+        [Trait("Spec", "blk-ed2c1d1fc09e41c38ebe420b29a0de93")]
         public void ExpressionTreeEventsGuardAtDebug()
         {
             var logger = new CapturingLogger<GrainPersistenceLoggingTests> { MinLevel = LogLevel.Information };

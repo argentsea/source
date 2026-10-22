@@ -190,7 +190,7 @@ namespace ArgentSea.Test
 
         // ---------- Tamper / Corruption Detection ----------
         [Fact]
-        [Trait("Spec", "blk-47c1a251f6944b8399d1a25a4ea9695f")]
+        [Trait("Spec", "blk-c8968aa909454df6b1591aca05705038")]
         public void FromExternalString_CorruptedChecksum_Throws()
         {
             var sk = new ShardKey<int>(1, 42);
