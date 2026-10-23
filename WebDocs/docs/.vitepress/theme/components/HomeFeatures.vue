@@ -75,10 +75,10 @@ const features = [
   text-decoration: none !important;
 }
 .icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  margin-bottom: 14px;
+  width: 88px;
+  height: 88px;
+  border-radius: 20px;
+  margin-bottom: 16px;
 }
 .feature h3 {
   margin: 0 0 8px;

@@ -36,7 +36,7 @@ export default defineConfig({
     lineNumbers: false,
     theme: 'github-dark-dimmed'
   },
-  sitemap: { hostname: 'https://docs.argentsea.com' },
+  sitemap: { hostname: 'https://www.argentsea.com' },
   themeConfig: {
     logo: { light: '/images/argentsealogo-black.svg', dark: '/images/argentsealogo-white.svg', alt: 'ArgentSea' },
     siteTitle: false,
@@ -55,11 +55,12 @@ export default defineConfig({
         ]
       },
       {
-        text: 'v2.0',
+        text: 'v2.1',
         items: [
           { text: 'NuGet: ArgentSea.Sql', link: 'https://www.nuget.org/packages/ArgentSea.Sql/' },
           { text: 'NuGet: ArgentSea.Pg', link: 'https://www.nuget.org/packages/ArgentSea.Pg/' },
           { text: 'NuGet: ArgentSea.Orleans.Sql', link: 'https://www.nuget.org/packages/ArgentSea.Orleans.Sql/' },
+          { text: 'NuGet: ArgentSea.Orleans.Pg', link: 'https://www.nuget.org/packages/ArgentSea.Orleans.Pg/' },
           { text: 'Source on GitHub', link: 'https://github.com/argentsea/source' }
         ]
       }

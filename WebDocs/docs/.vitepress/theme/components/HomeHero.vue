@@ -27,6 +27,56 @@ onMounted(() => (mounted.value = true))
         <rect x="0" y="318" width="1200" height="2" fill="url(#horizon)" opacity="0.35" />
       </svg>
     </div>
+    <!-- Moon over the sea, ported from the original argentsea.com landing page (ArgentSea.Home): a fixed
+         680x400 photo flanked by SVG horizon strips that stretch to the edges and fade out. -->
+    <div class="moon-scene" aria-hidden="true">
+      <div class="horizon">
+        <div class="horizon-side">
+          <svg xmlns="http://www.w3.org/2000/svg" height="400" width="100%" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="horizonL" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity="0.3" />
+                <stop offset="1" stop-color="#fff" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="fadeL">
+                <stop offset="0.1" stop-color="#000000" />
+                <stop offset="0.9" stop-color="#000000" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <rect y="246" width="100%" height="40" fill="url(#horizonL)" />
+            <rect width="100%" height="400" fill="url(#fadeL)" />
+          </svg>
+        </div>
+        <div class="horizon-center">
+          <img src="/images/argentsea-home.jpg" alt="" width="680" height="400" />
+          <svg xmlns="http://www.w3.org/2000/svg" height="400" width="680">
+            <defs>
+              <linearGradient id="horizonC" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity="0.3" />
+                <stop offset="1" stop-color="#fff" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <rect y="246" width="680" height="40" fill="url(#horizonC)" />
+          </svg>
+        </div>
+        <div class="horizon-side">
+          <svg xmlns="http://www.w3.org/2000/svg" height="400" width="100%" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="horizonR" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#fff" stop-opacity="0.3" />
+                <stop offset="1" stop-color="#fff" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="fadeR">
+                <stop offset="0.1" stop-color="#000000" stop-opacity="0" />
+                <stop offset="0.9" stop-color="#000000" />
+              </linearGradient>
+            </defs>
+            <rect y="246" width="100%" height="40" fill="url(#horizonR)" />
+            <rect width="100%" height="400" fill="url(#fadeR)" />
+          </svg>
+        </div>
+      </div>
+    </div>
     <div class="hero-inner">
       <img class="hero-logo" src="/images/argentsealogo-gold.svg" alt="ArgentSea" />
       <p class="hero-tag">
@@ -53,8 +103,14 @@ onMounted(() => (mounted.value = true))
 
 <style scoped>
 .hero {
+  /* --pad-top is the hero's top padding; --scene-scale shrinks the moon scene on narrow screens. The scene is
+     placed so its horizon (246px down the 400px photo) sits just below the logo, whose width is min(520px, 80vw)
+     and whose aspect ratio is 239.16 / 64.27. */
+  --pad-top: 88px;
+  --scene-scale: 1;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   background: #0b0b0d;
   color: #e9e9ec;
   border-bottom: 1px solid rgba(235, 220, 158, 0.18);
@@ -79,11 +135,62 @@ onMounted(() => (mounted.value = true))
     transform: translateX(-28px);
   }
 }
+.moon-scene {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--pad-top) + min(520px, 80vw) * 64.27 / 239.16 + 8px - 246px * var(--scene-scale));
+  width: calc(100% / var(--scene-scale));
+  height: 400px;
+  transform: translateX(-50%) scale(var(--scene-scale));
+  transform-origin: top center;
+  /* The photo and fades are pure black; lighten lets the hero background, glow and waves show through them. */
+  mix-blend-mode: lighten;
+  /* Soften the lower reflection, which sits behind the paragraph copy; the moon and horizon stay at full strength. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 300px, rgba(0, 0, 0, 0.4) 350px, rgba(0, 0, 0, 0.3) 400px);
+  mask-image: linear-gradient(to bottom, #000 0, #000 300px, rgba(0, 0, 0, 0.4) 350px, rgba(0, 0, 0, 0.3) 400px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+.on .moon-scene {
+  opacity: 1;
+}
+.horizon {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  overflow: hidden;
+}
+.horizon-side {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+}
+.horizon-side svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.horizon-center {
+  position: relative;
+  flex: 0 0 680px;
+  height: 400px;
+}
+.horizon-center > img,
+.horizon-center > svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+}
 .hero-inner {
   position: relative;
   max-width: 980px;
   margin: 0 auto;
-  padding: 88px 24px 56px;
+  padding: var(--pad-top) 24px 56px;
   text-align: center;
 }
 .hero-logo {
@@ -104,6 +211,11 @@ onMounted(() => (mounted.value = true))
   letter-spacing: -0.01em;
   margin: 0 0 16px;
   line-height: 1.3;
+}
+/* A dark halo keeps the copy legible where it crosses the moon's reflection. */
+.hero-tag,
+.hero-sub {
+  text-shadow: 0 0 2px #0b0b0d, 0 0 8px #0b0b0d, 0 0 16px #0b0b0d, 0 0 28px rgba(11, 11, 13, 0.9);
 }
 .hero-tag span {
   color: #ebdc9e;
@@ -162,8 +274,12 @@ onMounted(() => (mounted.value = true))
   padding: 4px 10px;
 }
 @media (max-width: 640px) {
+  .hero {
+    --pad-top: 56px;
+    --scene-scale: 0.72;
+  }
   .hero-inner {
-    padding: 56px 16px 40px;
+    padding: var(--pad-top) 16px 40px;
   }
 }
 </style>

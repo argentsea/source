@@ -5,7 +5,8 @@
       <h2 class="as-section-title">Your databases. Your cloud. Your .NET.</h2>
       <div class="grid">
         <div class="as-card">
-          <img src="/images/sql-server-h.svg" alt="Microsoft SQL Server" class="logo" />
+          <img src="/images/sql-server-h.svg" alt="Microsoft SQL Server" class="logo on-light" />
+          <img src="/images/sql-server-h-dark.svg" alt="Microsoft SQL Server" class="logo on-dark" />
           <ul>
             <li>SQL Server 2017 and later, SQL Server Express</li>
             <li>Azure SQL Database, including read scale-out and geo-replicas</li>
@@ -14,7 +15,8 @@
           <a href="https://www.nuget.org/packages/ArgentSea.Sql/" target="_blank" rel="noreferrer">ArgentSea.Sql on NuGet →</a>
         </div>
         <div class="as-card">
-          <img src="/images/postgresql-h.svg" alt="PostgreSQL" class="logo" />
+          <img src="/images/postgresql-h.svg" alt="PostgreSQL" class="logo on-light" />
+          <img src="/images/postgresql-h-dark.svg" alt="PostgreSQL" class="logo on-dark" />
           <ul>
             <li>PostgreSQL with hot standbys</li>
             <li>Amazon RDS and Aurora, Azure Database for PostgreSQL</li>
@@ -23,11 +25,12 @@
           <a href="https://www.nuget.org/packages/ArgentSea.Pg/" target="_blank" rel="noreferrer">ArgentSea.Pg on NuGet →</a>
         </div>
         <div class="as-card">
-          <div class="orleans">Microsoft Orleans</div>
+          <img src="/images/OrleansLogo.svg" alt="Microsoft Orleans" class="logo on-light" />
+          <img src="/images/OrleansLogo-dark.svg" alt="Microsoft Orleans" class="logo on-dark" />
           <ul>
             <li>Grain persistence in normal relational tables</li>
             <li>Clustering membership and gateway discovery</li>
-            <li>Reminders, all on SQL Server</li>
+            <li>Reminders, on SQL Server or PostgreSQL</li>
           </ul>
           <a href="/guides/orleans">Read the Orleans guide →</a>
         </div>
@@ -51,20 +54,19 @@
   gap: 18px;
   margin-top: 28px;
 }
+/* Original colour logos. The -dark copies differ only in the wordmark colour, so the text stays readable on dark
+   cards. */
 .logo {
+  display: block;
   height: 40px;
   margin-bottom: 12px;
 }
-.dark .logo {
-  filter: brightness(0) invert(1) opacity(0.9);
+.logo.on-dark,
+.dark .logo.on-light {
+  display: none;
 }
-.orleans {
-  font-weight: 700;
-  font-size: 20px;
-  height: 40px;
-  line-height: 40px;
-  margin-bottom: 12px;
-  color: var(--vp-c-brand-1);
+.dark .logo.on-dark {
+  display: block;
 }
 ul {
   margin: 0 0 14px;
