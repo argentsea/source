@@ -181,11 +181,11 @@ ArgentSea never asks a database which shard it is. If two clients map shard ids 
 Relationships cross shards. A subscriber on shard 2 can list contacts whose records live on shards 1 and 5. The local shard stores each contact's full key (shard id included) and can return stub rows; the detail lives elsewhere. Implement `IKeyedModel<TRecord>` (a `Key` property) on the model and three helpers do the stitching:
 
 ```csharp
-public class Contact : IKeyedModel<int>
+public readonly record struct Contact : IKeyedModel<int>
 {
     [MapSqlShardKey("@ContactShardId", "@ContactId")]
     [MapToSqlInt("@ContactId", true)]
-    public ShardKey<int> Key { get; set; }
+    public ShardKey<int> Key { get; init; }
     // ...
 }
 

@@ -30,7 +30,7 @@ One unit of work in a batch, implementing the abstract `BatchStep`. Most steps e
 
 <p class="glossary-synonyms">Also: <code>ChildId</code>, <code>GrandChildId</code>, <code>GreatGrandChildId</code>, <code>grandchild id</code>, <code>great-grandchild id</code></p>
 
-The second record-key column of a multi-column shard key (`ChildId`). The third and fourth columns are the grandchild id and great-grandchild id. They express a table whose primary key has more than one column, typically a parent id plus an id within that parent (an order and its line number). Like the record id, they are unique only in combination with the shard id.
+A subordinate key component (`ChildId`, `GrandChildId`, `GreatGrandChildId`) of a multi-column `ShardKey`, representing composite primary-key columns beneath `RecordId` within the same shard.
 
 ### Circuit breaker {#circuit-breaker}
 
@@ -102,7 +102,7 @@ The URL-safe string form of a shard key, produced by `ToExternalString()` and re
 
 <p class="glossary-synonyms">Also: <code>shard-set query</code>, <code>cross-shard query</code></p>
 
-One query executed concurrently against every shard of a shard set, or a targeted subset given by shards values. Each shard runs on its own connection, with its own copy of the parameters, under its own resilience strategy. The per-shard results, produced by a result handler, are then combined. The three forms are ReadAll, ReadFirst and shard-set Write.
+A query or batch executed concurrently across every shard of a `ShardSet` (or the subset specified by `ShardsValues`), where each shard runs on its own connection with its own cloned parameter set under its own resilience policy. `ShardSet` provides three fan-out modes: `ReadAll` (combines all non-null shard results), `ReadFirst` (returns the first non-null result and cancels remaining shards), and `Write` (executes on shard write connections and lets all shards finish).
 
 ### Foreign shard {#foreign-shard}
 
@@ -136,7 +136,7 @@ The per-grain-type registration (`OrleansDbQueryDefinitions`, `OrleansShardQuery
 
 <p class="glossary-synonyms">Also: <code>populate existing instance</code></p>
 
-Populating a caller-supplied, already-existing model instance with query results, instead of always constructing a new model. It was introduced in version 2 so that objects whose lifetime ArgentSea does not own, such as Orleans grain state, can be loaded in place. Result handlers therefore receive the instance to fill as their first argument.
+Populating a caller-supplied, already-existing model instance with query results in place instead of constructing a new model instance. This allows objects whose lifecycle ArgentSea does not own (such as Orleans grain state) to be hydrated directly; result handlers therefore receive the target model instance as their first argument.
 
 ## K {#letter-k}
 
@@ -150,9 +150,9 @@ A model that exposes its shard key through a `Key` property by implementing `IKe
 
 ### Map method {#map-method}
 
-<p class="glossary-synonyms">Also: <code>MapReaderAsync</code>, <code>MapOutputAsync</code>, <code>MapListAsync</code>, <code>Query method</code>, <code>QueryAsync</code></p>
+<p class="glossary-synonyms">Also: <code>MapReaderAsync</code>, <code>MapOutputAsync</code>, <code>MapListAsync</code></p>
 
-A data method whose results are built by the Mapper, as opposed to a Query method, which takes a caller-written result handler. There are three families. `MapReader*` builds the root model from a single-row data reader result. `MapOutput*` builds it from output parameters. `MapList*` returns one model per row. MapReader and MapOutput can also fill up to eight result-set list properties from further result sets. On a shard set, the `First` and `All` suffixes select ReadFirst or ReadAll semantics.
+A data method whose results are hydrated into models automatically by the `Mapper`, as opposed to a `QueryAsync` method, which takes a caller-written result handler delegate. There are three families: `MapReader*` builds the root model from a single-row data reader result; `MapOutput*` builds it from output parameters; and `MapList*` returns one model per row. `MapReader` and `MapOutput` can also populate up to eight child list properties (`TReaderResult0`–`TReaderResult7`) from subsequent result sets. On a shard set, the `First` and `All` suffixes select `ReadFirst` or `ReadAll` fan-out semantics.
 
 ### Mapper {#mapper}
 
@@ -164,7 +164,7 @@ ArgentSea's attribute-driven mapper between model properties and query parameter
 
 <p class="glossary-synonyms">Also: <code>MapTo attribute</code>, <code>property mapping attribute</code></p>
 
-A provider-specific attribute on a model property, such as `MapToSqlNVarChar` or `MapToPgVarchar`. It declares the parameter or column name the property binds to, the database type, type options (length, precision, scale, locale) and the optional required flag. The property's .NET type must match the attribute's database type exactly; the Mapper never casts. Properties without a mapping attribute are ignored. The Mapper reads these attributes to build its compiled mapping delegates.
+A provider-specific attribute on a model property, such as `MapToSqlNVarChar` or `MapToPgVarchar`. It declares the parameter or column name the property binds to, the database type, type options (length, precision, scale, locale), and the optional `Required` flag. Each attribute accepts a closed set of .NET property types: either the provider's native CLR type or an explicitly supported reversible conversion (such as `ulong`, `uint`, `ushort`, and `sbyte` integer and big-endian binary representations on SQL Server, and enum underlying integer types), rejecting undeclared coercions at mapping construction time. Properties without a mapping attribute are ignored. The `Mapper` reads these attributes to build its cached compiled mapping delegates.
 
 ### Mock results {#mock-results}
 
@@ -198,15 +198,15 @@ A non-nullable .NET value that ArgentSea treats as database null when writing or
 
 <p class="glossary-synonyms">Also: <code>ArgentSeaOrleansMembershipTable</code>, <code>ArgentSeaGatewayListProvider</code>, <code>ArgentSeaOrleansReminderTable</code>, <code>Orleans clustering</code>, <code>Orleans reminders</code></p>
 
-The implementations of the Orleans membership table, gateway list provider and reminder table in ArgentSea.Orleans.Sql and ArgentSea.Orleans.Pg. They store cluster membership, client gateway discovery and grain reminders in SQL Server or PostgreSQL through versioned database routines, with reader (`rdr`) and writer (`wtr`) schemas. Because Orleans' membership and reminder types are sealed and cannot carry mapping attributes, these providers use ADO.NET directly rather than the Mapper.
+ArgentSea.Orleans.Sql's implementations of the Orleans membership table, gateway list provider and reminder table. They store cluster membership, client gateway discovery and grain reminders in SQL Server through versioned stored procedures, with reader (`rdr`) and writer (`wtr`) schemas. Because Orleans' membership and reminder types are sealed and cannot carry mapping attributes, these providers use ADO.NET directly rather than the Mapper.
 
 ## P {#letter-p}
 
 ### Parameter collection {#parameter-collection}
 
-<p class="glossary-synonyms">Also: <code>ParameterCollection</code>, <code>QueryParameterCollection (older docs)</code></p>
+<p class="glossary-synonyms">Also: <code>ParameterCollection</code></p>
 
-`ParameterCollection` is a free-standing `DbParameterCollection` that can be created without a command object. Parameters can therefore be declared once, on the caller's thread, before any connection exists, and then copied onto each connection's command. Because every connection gets its own copy, a caller must not hold references to the original output parameters expecting them to receive results. ArgentSea's typed parameter extension methods and the Mapper work both on it and on any provider command's `Parameters`.
+`ParameterCollection` is a free-standing `DbParameterCollection` implementation that can be instantiated on the caller's thread before a database connection or command exists, and then cloned per shard or retry onto each connection's `DbCommand`. Because each execution receives its own parameter copies, callers must read output values via result handlers rather than holding references to the original input `DbParameter` instances. ArgentSea's typed parameter extension methods and the `Mapper` operate uniformly on `ParameterCollection` and on provider `DbParameterCollection` instances.
 
 ## Q {#letter-q}
 
@@ -232,19 +232,19 @@ ArgentSea's pattern for coding data access, which splits it into two parts. The 
 
 <p class="glossary-synonyms">Also: <code>ParameterNames</code>, <code>parameter list</code></p>
 
-The optional list of parameter names declared on a Query. When present, only parameters whose names are in the list are applied to the command, so one model can feed queries that each expect a different subset of its mapped parameters (an INSERT without `LastModified`, an UPDATE with it). When absent, every parameter in the collection is sent. Extra or missing parameters are errors raised by the database, not by ArgentSea.
+The optional `ParameterNames` filter declared on a `Query`. When present, only parameters from the `ParameterCollection` whose names appear in `ParameterNames` are copied onto the command, allowing one model or parameter collection to supply multiple queries with different parameter subsets.
 
 ### QueryProcedure {#queryprocedure}
 
 <p class="glossary-synonyms">Also: <code>stored procedure query</code></p>
 
-A Query that names a stored procedure (SQL Server) or a function (PostgreSQL) and executes with command type StoredProcedure, so the SQL itself lives and evolves in the database. It is the preferred form for SQL Server. With PostgreSQL it can call only functions; stored procedures are invoked with `CALL` from a QueryStatement.
+A `Query` that names a server-side stored procedure (`CommandType.StoredProcedure`), so the SQL implementation lives in the database rather than in application binaries. On SQL Server it invokes a stored procedure via `EXEC`; on PostgreSQL (`Npgsql` 7+) it emits `CALL <name>(...)` and invokes a PostgreSQL procedure (`CREATE PROCEDURE`) only—PostgreSQL functions (`CREATE FUNCTION`, including set-returning functions) must be invoked via `QueryStatement` (`SELECT * FROM fn(...)`).
 
 ### QueryStatement {#querystatement}
 
 <p class="glossary-synonyms">Also: <code>SQL statement file</code>, <code>statement query</code></p>
 
-A Query whose parameterized SQL text lives in a file deployed beside the application rather than compiled into it. The default location is the `SQL` folder with extension `.sql`, or `.psql` once PostgreSQL services are registered (the default extension is one process-wide value). A host that registers both SQL Server and PostgreSQL services creates statements through `SqlQueryStatement` and `PgQueryStatement`, which each use their own extension (`.sql` and `.psql`) regardless of the shared default. The file is loaded lazily on first use and cached, and the query executes with command type Text. It is the preferred form for PostgreSQL and for databases the team cannot add procedures to. A missing file surfaces only at first use.
+A `Query` whose parameterized SQL text lives in a file deployed beside the application rather than compiled into application binaries, executing with `CommandType.Text`. The default folder is `SQL` and the default extension is `.sql` (or `.psql` once PostgreSQL services are registered via `QueryStatement.Extension`). A host that registers both SQL Server and PostgreSQL services can use `SqlQueryStatement` (`.sql`) and `PgQueryStatement` (`.psql`) to avoid sharing the process-wide default extension. The SQL file is loaded lazily on first use and cached. On PostgreSQL (`Npgsql` 7+), `QueryStatement` is required when invoking PostgreSQL functions (`SELECT * FROM fn(...)`), because `QueryProcedure` (`CommandType.StoredProcedure`) emits `CALL` and invokes `CREATE PROCEDURE` routines only.
 
 ## R {#letter-r}
 
@@ -264,19 +264,19 @@ The two data connections, `Read` and `Write`, that every database and every shar
 
 <p class="glossary-synonyms">Also: <code>ShardSetReadAll</code>, <code>read-all fan-out</code></p>
 
-The fan-out form that runs a query on the read connection of every targeted shard, waits for all of them, and returns every non-null per-shard result combined into one list. It is used when a result may span shards, such as all users with a given attribute.
+The `ShardSet.ReadAll` (`ReadQueryAllAsync`) fan-out mode that executes a query concurrently on the read connection of every targeted shard, waits for all shards to complete (cancelling remaining shard reads if one faults), and combines all non-null per-shard results into a single list.
 
 ### ReadFirst {#readfirst}
 
 <p class="glossary-synonyms">Also: <code>ShardSetReadFirst</code>, <code>read-first fan-out</code>, <code>TopOne</code></p>
 
-The fan-out form that runs a query on the read connection of every targeted shard and returns the first non-null result any shard produces. It then cancels the remaining shard queries and ignores their failures. When no shard produces a result it returns the default value, unless the caller cancelled (the call throws OperationCanceledException) or a shard failed (the failure is rethrown). It is intended for lookups by an attribute that should be unique across the set but is not the shard key (a user by login name). If the attribute is not actually unique, duplicates are silently discarded.
+The `ShardSet.ReadFirst` (`ReadQueryFirstAsync`) fan-out mode that executes a query concurrently on the read connection of every targeted shard, returns the first non-null result produced by any shard, and cancels remaining in-flight shard queries via a linked token.
 
 ### Record id {#record-id}
 
 <p class="glossary-synonyms">Also: <code>RecordId</code></p>
 
-A record's own key value within its shard: the first record-key column of a shard key (`RecordId`). It is unique only within one shard; combined with the shard id it becomes unique across the shard set. Its type may be any of the key types the shard key serializer supports, such as integers, Guid, string, dates and times, decimal or byte arrays.
+The primary record-key component (`RecordId`) of a `ShardKey` within its shard. It is unique within one shard and, combined with `ShardId` (and any child key components), forms a globally unique identity across the shard set.
 
 ### Required mapping {#required-mapping}
 
@@ -304,9 +304,9 @@ A settable `List<Model>` or `IList<Model>` property of a model that the Mapper f
 
 ### Retry backoff {#retry-backoff}
 
-<p class="glossary-synonyms">Also: <code>retry sequence lengthening</code>, <code>RetryLengthening</code>, <code>SequenceLengthening</code></p>
+<p class="glossary-synonyms">Also: <code>RetryLengthening</code>, <code>SequenceLengthening</code></p>
 
-How long the resilience strategy waits before each retry of a transient error. The wait is computed from `RetryInterval` (milliseconds) and the `RetryLengthening` sequence, which is one of Linear (1, 2, 3, 4… × interval), Lengthening (1, 3, 5, 7… × interval), HalfSquare or Squaring and defaults to Lengthening. `Fibonacci` is an obsolete alias of Lengthening kept so existing configuration still binds; the progression was never a Fibonacci sequence. `RetryCount` caps the number of retries. All three settings participate in the configuration hierarchy and fall back to built-in defaults when unset.
+The delay the resilience policy waits before each retry of a transient error, computed from `RetryInterval` (default `250` ms) and the `RetryLengthening` (`SequenceLengthening`) strategy: `Lengthening` (`(2n - 1) * interval`, i.e., `1, 3, 5, 7... * interval`, the default; `Fibonacci` is retained as an `[Obsolete]` alias), `Linear` (`n * interval`), `HalfSquare` (`floor(n^2 / 2) * interval`, i.e., `0, 2, 4, 8, 12... * interval`, so the first retry is immediate), or `Squaring` (`2^(n - 1) * interval`, i.e., `1, 2, 4, 8, 16... * interval`). `RetryCount` (default `6`) caps the maximum number of retry attempts. All three settings participate in the connection configuration hierarchy.
 
 ## S {#letter-s}
 
@@ -336,9 +336,9 @@ The provider attribute (`MapSqlShardKey`, `MapPgShardKey`; base `MapShardKeyAttr
 
 ### Shard key type metadata {#shard-key-type-metadata}
 
-<p class="glossary-synonyms">Also: <code>type metadata</code>, <code>DataOrigin (obsolete)</code></p>
+<p class="glossary-synonyms">Also: <code>type metadata</code>, <code>ShardKeyTypeMetadata</code></p>
 
-A compact code for the .NET types of a shard key's record-key columns, embedded in every serialized shard key: binary, UTF-8 and the external key. Deserializing checks it against the expected generic types, so bytes produced for one key shape cannot be read as another. It also lets a ghost shard key reconstruct a key whose types are unknown at compile time. It identifies key *types*, not tables: keys of the same types from different tables are indistinguishable. In older documentation it replaces the per-table DataOrigin character.
+A compact byte header encoding the arity and `.NET` `ShardKeyType` of a `ShardKey`'s record-id and child-id components, embedded at the front of every serialized representation (binary, UTF-8, and external string). Deserialization validates this header against the target generic type arguments so bytes produced for one key shape cannot be decoded as an incompatible key type, and `GhostShardKey` uses it to reconstruct and display keys whose generic types are not known at compile time. It identifies key component types rather than specific database tables.
 
 ### Shard set {#shard-set}
 
@@ -356,7 +356,7 @@ The injectable singleton (`SqlShardSets`, `PgShardSets`; base `ShardSetsBase`) t
 
 <p class="glossary-synonyms">Also: <code>ShardSetWrite</code></p>
 
-The fan-out form (`ShardSet.Write`) that runs a command or shard-set batch on the write connection of every targeted shard, for changes that must be applied across the set. Writes addressed to one record belong on that record's shard (or the default shard) instead.
+The `ShardSet.Write` (`RunAllAsync`, `BatchAllAsync`, `WriteQueryAllAsync`) fan-out mode that executes a command or batch concurrently on the write connection of every targeted shard without cancelling sibling shards on failure.
 
 ### Sharding {#sharding}
 
@@ -368,7 +368,7 @@ Partitioning one dataset across multiple databases (shards) so that each owns a 
 
 <p class="glossary-synonyms">Also: <code>shard key</code>, <code>ShardKey&lt;TRecord&gt;</code></p>
 
-ArgentSea's immutable value type implementing the virtual compound key. It holds a shard id plus a record key of one to four columns: `ShardKey<TRecord>`, `ShardKey<TRecord, TChild>`, `ShardKey<TRecord, TChild, TGrandChild>` and `ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>`. It also embeds shard key type metadata. Equality compares the shard id and the key values. Because it is a struct it cannot be null: an absent key is `ShardKey.Empty` (shard 0, default key values), or the property is declared `Nullable<ShardKey<…>>`. It serializes to bytes, UTF-8 and an external key.
+ArgentSea's immutable value type implementing the virtual compound key. It combines a `short` `ShardId` (`0` = empty) with one to four key components (`RecordId`, `ChildId`, `GrandChildId`, `GreatGrandChildId`): `ShardKey<TRecord>`, `ShardKey<TRecord, TChild>`, `ShardKey<TRecord, TChild, TGrandChild>`, and `ShardKey<TRecord, TChild, TGrandChild, TGreatGrandChild>`. It embeds `ShardKeyTypeMetadata` in binary, UTF-8, and external string representations, while value equality compares only `ShardId` and the key component values.
 
 ### Shards values {#shards-values}
 
@@ -382,7 +382,7 @@ The optional targeting argument (`ShardsValues`) of a shard-set query. It lists 
 
 <p class="glossary-synonyms">Also: <code>TVP</code>, <code>TvpMapper</code></p>
 
-A SQL Server parameter that carries a set of rows, used to save many records in one round trip. ArgentSea builds one from a list of models, with each model converted to a `SqlDataRecord` by the compiled TVP mapper, or from a collection property marked with a collection mapping attribute. An empty or null row set is sent as a null parameter value.
+A SQL Server structured parameter (`SqlDbType.Structured`) that carries a set of rows to save many records in one round trip. ArgentSea builds one from a sequence of models (converted to `SqlDataRecord` rows by the compiled `TvpMapper`) via `AddSqlTableValuedParameter`, or from a collection property marked with `[MapToSqlTableValuedParameter]`. An empty or null row set is sent with `Value = null`.
 
 ### Tenanting {#tenanting}
 

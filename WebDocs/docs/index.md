@@ -17,17 +17,17 @@ pageClass: as-home
 ::: code-group
 
 ```csharp [SQL Server]
-public class Customer : IKeyedModel<int>
+public readonly record struct Customer : IKeyedModel<int>
 {
     [MapSqlShardKey("@CustomerId")]
     [MapToSqlInt("@CustomerId")]
-    public ShardKey<int> Key { get; set; }
+    public ShardKey<int> Key { get; init; }
 
     [MapToSqlNVarChar("@Name", 100)]
-    public string Name { get; set; } = "";
+    public string Name { get; init; }
 
     [MapToSqlNVarChar("@Email", 255)]
-    public string? Email { get; set; }
+    public string? Email { get; init; }
 }
 
 public static class Queries
@@ -40,7 +40,7 @@ public class CustomerStore(SqlShardSets shardSets, ILogger<CustomerStore> logger
 {
     private readonly SqlShardSets.ShardSet _customers = shardSets["Customers"];
 
-    public Task<Customer?> GetAsync(ShardKey<int> key, CancellationToken cancellation)
+    public Task<Customer> GetAsync(ShardKey<int> key, CancellationToken cancellation)
     {
         var prms = new ParameterCollection()
             .AddSqlIntInputParameter("@CustomerId", key.RecordId);
@@ -51,17 +51,17 @@ public class CustomerStore(SqlShardSets shardSets, ILogger<CustomerStore> logger
 ```
 
 ```csharp [PostgreSQL]
-public class Customer : IKeyedModel<int>
+public readonly record struct Customer : IKeyedModel<int>
 {
     [MapPgShardKey("customer_id")]
     [MapToPgInteger("customer_id")]
-    public ShardKey<int> Key { get; set; }
+    public ShardKey<int> Key { get; init; }
 
     [MapToPgVarchar("name", 100)]
-    public string Name { get; set; } = "";
+    public string Name { get; init; }
 
     [MapToPgVarchar("email", 255)]
-    public string? Email { get; set; }
+    public string? Email { get; init; }
 }
 
 public static class Queries
@@ -76,7 +76,7 @@ public class CustomerStore(PgShardSets shardSets, ILogger<CustomerStore> logger)
 {
     private readonly PgShardSets.ShardSet _customers = shardSets["Customers"];
 
-    public Task<Customer?> GetAsync(ShardKey<int> key, CancellationToken cancellation)
+    public Task<Customer> GetAsync(ShardKey<int> key, CancellationToken cancellation)
     {
         var prms = new ParameterCollection()
             .AddPgIntegerInputParameter("customer_id", key.RecordId);

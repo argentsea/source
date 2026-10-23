@@ -53,7 +53,7 @@ No, and it is not meant to be. `ToExternalString()` produces a URL-safe form of 
 
 ## Can I use it with Orleans?
 
-Yes. `ArgentSea.Orleans.Sql` (SQL Server) and `ArgentSea.Orleans.Pg` (PostgreSQL) store grain state in third-normal-form tables through per-grain-type read, write and clear Queries, so grain data can be queried across grains with SQL. It also provides cluster membership, the gateway list and reminders, and it can persist each tenant's grains in that tenant's own database behind one cluster. See [Orleans](/guides/orleans).
+Yes. `ArgentSea.Orleans.Sql` (SQL Server) and `ArgentSea.Orleans.Pg` (PostgreSQL) store grain state in third-normal-form tables through per-grain-type read, write and clear Queries, so grain data can be queried across grains with SQL. Every other Orleans provider stores each grain's state as an opaque blob, so this is the only way to report across grains without activating them; the grain remains authoritative for its state and the tables are its queryable projection. It also provides cluster membership, the gateway list and reminders, and it can persist each tenant's grains in that tenant's own database behind one cluster. See [Orleans](/guides/orleans).
 
 ## What .NET versions are supported?
 

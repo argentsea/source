@@ -37,7 +37,7 @@ It is not a walled garden either. Setting parameters, executing a command and re
 
 ## Where it comes from
 
-ArgentSea was built to run a high-volume, sharded commercial system. Version 1 ran in production for years and handled billions of dollars in transactions. Version 2 reworked the framework for .NET 10 and for Microsoft Orleans: it can now persist grain state in ordinary third-normal-form tables, provide cluster membership and reminders, and serve many tenant databases behind a single Orleans cluster. It is open source under the MIT license.
+ArgentSea was built to run a high-volume, sharded commercial system. Version 1 ran in production for years and handled billions of dollars in transactions. Version 2 reworked the framework for .NET 10 and for Microsoft Orleans: it is the only Orleans storage provider that persists grain state in ordinary third-normal-form tables rather than serialized blobs, so grain state can be queried across grains with SQL while the grain stays authoritative; it also provides cluster membership and reminders, and serves many tenant databases behind a single Orleans cluster. It is open source under the MIT license.
 
 ## Who it is for
 

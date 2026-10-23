@@ -5,13 +5,13 @@ description: Persist Microsoft Orleans grain state in ordinary relational tables
 
 # Orleans
 
-ArgentSea is a storage, clustering and reminder provider for [Microsoft Orleans](https://learn.microsoft.com/dotnet/orleans/). It stores grain state in third-normal-form tables instead of serialized blobs, so grain data can be queried, counted and aggregated across grains with plain SQL. It is also the only provider that lets a single Orleans cluster persist each tenant's grains in that tenant's own database.
+ArgentSea is a storage, clustering and reminder provider for [Microsoft Orleans](https://learn.microsoft.com/dotnet/orleans/). Among Orleans storage providers it is unique in two ways. Every other provider stores a grain's state as an opaque serialized blob; ArgentSea persists it in third-normal-form tables, so grain data can be queried, counted and aggregated across grains with plain SQL, which Orleans on its own makes hard. And it is the only provider that lets a single cluster persist each tenant's grains in that tenant's own database. The grain stays the authority on its own state; the tables are where that state becomes visible to SQL.
 
 ## Why a different kind of provider
 
 Orleans' standard storage providers serialize a grain's state into an opaque blob and write it to one row keyed by the grain id. That is fast to implement, but it has two costs. The data is invisible to SQL: you cannot ask "which subscribers have lapsed?" or "how many orders are open per region?" without activating every grain. And the blob format is coupled to the .NET type that produced it, so a renamed property or a changed serializer becomes a data migration.
 
-ArgentSea takes the other route. For each grain state type you register three Query objects: a read, a write and a clear. When Orleans asks the provider to read state, ArgentSea derives the key parameters from the grain id, runs the read Query, and hydrates the state object with [the Mapper](/guides/mapping). Writes map the state's properties to parameters and run the write Query; clears run the clear Query. Your stored procedures own the table design, so grain state lives in whatever normalized shape you choose and is reportable, indexable and governable like any other data.
+ArgentSea takes the other route. For each grain state type you register three Query objects: a read, a write and a clear. When Orleans asks the provider to read state, ArgentSea derives the key parameters from the grain id, runs the read Query, and hydrates the state object with [the Mapper](/guides/mapping). Writes map the state's properties to parameters and run the write Query; clears run the clear Query. Your stored procedures own the table design, so grain state lives in whatever normalized shape you choose and is reportable, indexable and governable like any other data. The division of labour is simple: the grain remains authoritative for its state and every change goes through it, while reports, dashboards and cross-grain views read the tables directly instead of activating grains.
 
 Because the whole stack is ArgentSea, you also get its [configuration hierarchy](/guides/configuration), [retry and circuit breaker](/guides/resilience) and [structured logging](/guides/logging) on every grain read and write.
 
@@ -83,7 +83,7 @@ When the read Query returns no row, the provider does not fail. It creates defau
 
 ## The grain state model
 
-Grain state is an ordinary ArgentSea model. For the sharded provider it needs one non-nullable `ShardKey` property carrying a `MapSqlShardKey` attribute; marking it as the record identifier (the trailing `true`) makes the choice explicit when a model has several keys. Implementing `IKeyedModel<T>` is optional but unlocks the key helpers described in [Sharding](/guides/sharding).
+Grain state is an ordinary ArgentSea model, declared as a class rather than a record struct: the provider hydrates the existing state instance and relies on a null result to tell a missing record from a found one, which a value type cannot express. For the sharded provider it needs one non-nullable `ShardKey` property carrying a `MapSqlShardKey` attribute; marking it as the record identifier (the trailing `true`) makes the choice explicit when a model has several keys. Implementing `IKeyedModel<T>` is optional but unlocks the key helpers described in [Sharding](/guides/sharding).
 
 ```csharp
 public class SubscriberState : IKeyedModel<int>

@@ -78,37 +78,37 @@ var app = builder.Build();
 
 ## 3. Create the model
 
-A model is a plain class whose properties carry mapping attributes. Each attribute names the parameter or column the property corresponds to and fixes its database type. The .NET property type must match the database type exactly (an `int` for `int`/`integer`, a `string` for `nvarchar`/`varchar`); ArgentSea does not cast.
+A model is a plain class or struct whose properties carry mapping attributes; these examples use `readonly record struct`, which the Mapper fills through its `init` accessors (see [Classes or structs](/guides/mapping#classes-or-structs)). Each attribute names the parameter or column the property corresponds to and fixes its database type. The .NET property type must match the database type exactly (an `int` for `int`/`integer`, a `string` for `nvarchar`/`varchar`); ArgentSea does not cast.
 
 ::: code-group
 ```csharp [SQL Server]
 using ArgentSea.Sql;
 
-public class Subscriber
+public readonly record struct Subscriber
 {
     [MapToSqlInt("@SubscriberId")]
-    public int SubscriberId { get; set; }
+    public int SubscriberId { get; init; }
 
     [MapToSqlNVarChar("@Name", 255)]
-    public string Name { get; set; }
+    public string Name { get; init; }
 
     [MapToSqlDateTime2("@Expiration")]
-    public DateTime? Expiration { get; set; }
+    public DateTime? Expiration { get; init; }
 }
 ```
 ```csharp [PostgreSQL]
 using ArgentSea.Pg;
 
-public class Subscriber
+public readonly record struct Subscriber
 {
     [MapToPgInteger("subscriber_id")]
-    public int SubscriberId { get; set; }
+    public int SubscriberId { get; init; }
 
     [MapToPgVarchar("name", 255)]
-    public string Name { get; set; }
+    public string Name { get; init; }
 
     [MapToPgTimestamp("expiration")]
-    public DateTime? Expiration { get; set; }
+    public DateTime? Expiration { get; init; }
 }
 ```
 :::
@@ -263,7 +263,7 @@ With the store registered, a minimal-API endpoint is a few lines:
 app.MapGet("/subscribers/{id:int}", async (int id, SubscriberStore store, CancellationToken cancellation) =>
 {
     var subscriber = await store.GetAsync(id, cancellation);
-    return subscriber is null ? Results.NotFound() : Results.Ok(subscriber);
+    return subscriber == default ? Results.NotFound() : Results.Ok(subscriber); // a struct model has no null: a missing row is default
 });
 
 app.MapPut("/subscribers/{id:int}", async (int id, Subscriber subscriber, SubscriberStore store, CancellationToken cancellation) =>

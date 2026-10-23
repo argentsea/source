@@ -49,13 +49,13 @@ A model and an application target exactly one database provider. You cannot mix 
 
 A `ShardKey` record id (and child, grandchild and great-grandchild ids) can be any of the types below, including the nullable form and enums backed by the integer types. The generic constraint is `IComparable`, but serialization and the Mapper's expression trees work from this fixed list.
 
-- `byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong` (and enums with these underlying types)
+- `byte`, `short`, `int`, `long` (and enums with these underlying types)
 - `char`, `string`
 - `decimal`, `double`, `float`
 - `Guid`
-- `DateTime`, `DateTimeOffset`, `TimeSpan`
+- `DateTime`, `DateOnly`, `TimeSpan`
 
-`bool` is not supported. The database must also be able to store the type: there is no natural SQL Server or PostgreSQL column for `uint`, `ushort`, `ulong` or `sbyte`, so in practice keys use the signed integers, `string`, `Guid` and the date types. The shard id itself is always `short`.
+`bool`, `DateTimeOffset`, `TimeOnly` and the unsigned integers (`sbyte`, `ushort`, `uint`, `ulong`) are not key types: the key's type metadata has no code for them, even though the SQL Server mapping attributes accept the unsigned types for ordinary columns. In practice keys use the signed integers, `string`, `Guid` and the date types. The shard id itself is always `short`.
 
 ## Licence and source
 

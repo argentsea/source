@@ -19,48 +19,52 @@ Each attribute names the parameter or column and fixes the database type. The pr
 ```csharp [SQL Server]
 using ArgentSea.Sql;
 
-public class Customer
+public readonly record struct Customer
 {
     [MapToSqlInt("@CustomerId", true)]
-    public int CustomerId { get; set; }
+    public int CustomerId { get; init; }
 
     [MapToSqlNVarChar("@Name", 255)]
-    public string Name { get; set; }
+    public string Name { get; init; }
 
     [MapToSqlDecimal("@CreditLimit", 9, 2)]
-    public decimal? CreditLimit { get; set; }
+    public decimal? CreditLimit { get; init; }
 
     [MapToSqlSmallInt("@StatusId")]
-    public CustomerStatus Status { get; set; }   // enum : short
+    public CustomerStatus Status { get; init; }   // enum : short
 
     [MapToSqlDateTime2("@Created")]
-    public DateTime Created { get; set; }
+    public DateTime Created { get; init; }
 }
 ```
 ```csharp [PostgreSQL]
 using ArgentSea.Pg;
 
-public class Customer
+public readonly record struct Customer
 {
     [MapToPgInteger("customer_id", true)]
-    public int CustomerId { get; set; }
+    public int CustomerId { get; init; }
 
     [MapToPgVarchar("name", 255)]
-    public string Name { get; set; }
+    public string Name { get; init; }
 
     [MapToPgNumeric("credit_limit", 9, 2)]
-    public decimal? CreditLimit { get; set; }
+    public decimal? CreditLimit { get; init; }
 
     [MapToPgSmallint("status_id")]
-    public CustomerStatus Status { get; set; }   // enum : short
+    public CustomerStatus Status { get; init; }   // enum : short
 
     [MapToPgTimestamp("created")]
-    public DateTime Created { get; set; }
+    public DateTime Created { get; init; }
 }
 ```
 :::
 
 The `true` on the key column is the `required` flag, explained below. Properties without an attribute are ignored. On SQL Server the `@` prefix is optional: the Mapper adds it for parameters and drops it for columns. On PostgreSQL names are used exactly as written, so match your column case. Each property has one name, so name the parameter the same as the column it carries.
+
+## Classes or structs
+
+A model may be a class or a struct. The Mapper needs only a parameterless constructor and properties it can set, and `init` accessors qualify, so the examples here use `readonly record struct`: immutable, compared by value, and without a heap allocation per row. Three things change when a model is a struct. There is no null, so a single-row method whose record does not exist returns `default`; test for it with `== default`, or with `Key.IsEmpty` on a keyed model. A row whose required column is null is not dropped from a list the way it is for a class; it arrives as `default` and you filter it yourself. And a property marked `[MapToModel]` must still be a class, because nested models are flattened by reference. Two places call for a class regardless: inheritance, which structs do not have, and Orleans grain state, where the provider tells a missing record from a found one by a null result.
 
 ## Performance
 
@@ -127,12 +131,12 @@ Mapping a `Customer` now expects `@StreetAddress` and `@PostalCode` alongside `@
 One-to-many data comes from additional result sets, not from extra columns. Give the parent a settable `List<T>` property and name the element types, in result-set order, as extra generic arguments on the data method. No attribute is needed; the Mapper matches each result set to the property whose element type it fits.
 
 ```csharp
-public class Order
+public readonly record struct Order
 {
     [MapToSqlInt("@OrderId", true)]
-    public int OrderId { get; set; }
+    public int OrderId { get; init; }
 
-    public List<OrderItem> Items { get; set; }
+    public List<OrderItem> Items { get; init; }
 }
 
 // Result set 1: one Order row. Result set 2: its OrderItem rows.
@@ -146,7 +150,7 @@ The first generic argument is the return type; the rest describe the result sets
 
 ## Inheritance
 
-Attributes are inherited. A `CustomerSummary` base class with the key and name, and a `Customer` subclass with the remaining columns, lets list queries map the small type and detail queries the full one, with shared attributes declared once.
+Attributes are inherited, which is the main reason to prefer a class over a record struct for a family of models. A `CustomerSummary` base class with the key and name, and a `Customer` subclass with the remaining columns, lets list queries map the small type and detail queries the full one, with shared attributes declared once.
 
 ## Using the Mapper directly
 
@@ -196,6 +200,6 @@ await _db.Write.RunAsync(batch, cancellation);
 ```
 :::
 
-On SQL Server, `AddSqlTableValuedParameter` converts each model to a `SqlDataRecord` with a compiled delegate, like every other Mapper operation; a list property can also carry `[MapToSqlTableValuedParameter("@Items", "dbo.OrderItemType")]` so that `CreateInputParameters` on the parent sends it. On PostgreSQL, the bulk load is a batch step built on Npgsql's binary COPY: a table name without a schema creates a temporary table dropped on commit, while `schema.table` creates the table if it does not exist. See [Batches](/guides/batches).
+On SQL Server, `AddSqlTableValuedParameter` converts each model to a `SqlDataRecord` with a compiled delegate, like every other Mapper operation; a list property can also carry `[MapToSqlTableValuedParameter("@Items", "dbo.OrderItemType")]` so that `CreateInputParameters` on the parent sends it. A null or empty collection is sent as a null parameter value, which SQL Server reads as an empty table; the one exception is a lazily produced `IEnumerable<SqlDataRecord>` that is not a collection, which the SqlClient driver rejects when it turns out to yield no rows, so buffer it or pass null. On PostgreSQL, the bulk load is a batch step built on Npgsql's binary COPY: a table name without a schema creates a temporary table dropped on commit, while `schema.table` creates the table if it does not exist. See [Batches](/guides/batches).
 
 **Next:** [Sharding](/guides/sharding)

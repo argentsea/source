@@ -32,7 +32,7 @@ ArgentSea treats data distribution as a day-one concern and gives every piece of
 | Surviving transient failures | Per-endpoint [retry and circuit breaking](/guides/resilience), on by default, always logged |
 | Mapping without a performance tax | A [Mapper](/guides/mapping) that compiles attribute metadata into cached delegates |
 | SQL that DBAs can own | [Queries](/guides/queries) as stored procedures or deployed statement files; no generated SQL |
-| Orleans with a queryable store | A [provider](/guides/orleans) that persists grain state in normal tables and runs tenants behind one cluster |
+| Orleans with a queryable store | The only [provider](/guides/orleans) that persists grain state in normalized tables instead of blobs, so SQL can query across grains; it also runs tenants behind one cluster |
 
 The unifying idea is that **sharded and single-database calls have the same shape**: build parameters, name a query, pick `Read` or `Write`, hand the results to the Mapper. The queries, models, mapping attributes, configuration and habits you build against one database all carry over to a shard set.
 

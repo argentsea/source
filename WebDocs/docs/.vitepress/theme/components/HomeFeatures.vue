@@ -40,7 +40,7 @@ const features = [
     icon: '/images/tooling.svg',
     link: '/guides/orleans',
     text:
-      'Persist Microsoft Orleans grain state in third-normal-form tables you can query across grains, cluster silos through SQL, and run many tenant databases behind one cluster.'
+      'The only Microsoft Orleans storage provider that keeps grain state in third-normal-form tables instead of blobs, so SQL can query across grains. It clusters silos through SQL and runs many tenant databases behind one cluster.'
   }
 ]
 </script>

@@ -57,13 +57,13 @@ Parameters are declared in a free-standing `ParameterCollection` before any conn
 The Mapper moves values between model properties and the database: into input parameters, out of output parameters, out of data-reader rows, and (on SQL Server) into table-valued parameter rows. You describe the mapping with attributes on your model.
 
 ```csharp
-public class Order
+public readonly record struct Order
 {
-    [MapToSqlBigInt("@OrderId")]            public long OrderId { get; set; }
-    [MapToSqlDateTime2("@Placed")]          public DateTime Placed { get; set; }
-    [MapToSqlDecimal("@Total", 12, 2)]      public decimal Total { get; set; }
-    [MapToSqlNVarChar("@Note", 500)]        public string? Note { get; set; }
-    public List<OrderItem> Items { get; set; } = [];   // filled from a second result set
+    [MapToSqlBigInt("@OrderId")]            public long OrderId { get; init; }
+    [MapToSqlDateTime2("@Placed")]          public DateTime Placed { get; init; }
+    [MapToSqlDecimal("@Total", 12, 2)]      public decimal Total { get; init; }
+    [MapToSqlNVarChar("@Note", 500)]        public string? Note { get; init; }
+    public List<OrderItem> Items { get; init; }   // filled from a second result set
 }
 ```
 

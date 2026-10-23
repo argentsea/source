@@ -149,7 +149,9 @@ var prices = await _db.Read.QueryAsync<string, PriceList>(
     Queries.GetPriceList, prms, PriceListHandler, false, "USD", cancellation);
 ```
 
-If you have no argument to pass, declare `TArg` as `object` and use the `QueryAsync<TModel>` overload without it. A custom handler can also call the Mapper for part of the result, for instance `rdr.ToList<OrderItem>(logger)` for one result set and hand-written code for the next.
+If you have no argument to pass, declare `TArg` as `object` and use the `QueryAsync<TModel>` overload without it.
+
+Three rules keep a handler safe. Read output parameter values from the `parameters` collection the handler receives, never from the `ParameterCollection` you built: ArgentSea copies your parameters onto each connection's own command, so your originals are never filled. Keep the handler stateless: on a shard set it runs concurrently for every shard, and a transient failure re-runs the whole operation, handler included, so a handler that appends to a shared list or mutates the input parameters produces duplicates. If a fan-out needs different parameter values per shard, pass them through `ShardsValues` rather than through handler state. A custom handler can also call the Mapper for part of the result, for instance `rdr.ToList<OrderItem>(logger)` for one result set and hand-written code for the next.
 
 ## The escape hatch
 

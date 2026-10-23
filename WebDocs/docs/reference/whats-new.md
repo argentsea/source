@@ -15,7 +15,7 @@ Version 2 targets `net10.0` only and drops .NET Standard. Dependencies move to M
 
 ### Orleans support
 
-New packages `ArgentSea.Orleans` (abstract) and `ArgentSea.Orleans.Sql` make ArgentSea a storage provider that persists grain state in third-normal-form tables, plus a membership table, gateway list provider and reminder table. Shard keys serialize as grain keys, so one cluster can serve many tenant databases. See [Orleans](/guides/orleans).
+New packages `ArgentSea.Orleans` (abstract) and `ArgentSea.Orleans.Sql` make ArgentSea the only Orleans storage provider that persists grain state in third-normal-form tables rather than serialized blobs, so grain state can be queried across grains with SQL, plus a membership table, gateway list provider and reminder table. Shard keys serialize as grain keys, so one cluster can serve many tenant databases. See [Orleans](/guides/orleans).
 
 Version 2.1 adds `ArgentSea.Orleans.Pg`, the same providers over PostgreSQL. It also renames the configuration-driven Orleans provider types (`ArgentSeaSql` and `ArgentSeaSqlDb` replace `ArgentSea`) and makes the SQL Server membership table enforce its etags through new V2 procedures, which needs a whole-cluster upgrade. See [Upgrading from 2.0](/guides/orleans#upgrading-from-2-0).
 

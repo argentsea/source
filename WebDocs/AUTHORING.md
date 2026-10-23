@@ -22,9 +22,11 @@ ArgentSea's elevator pitch (keep these claims consistent everywhere):
   use, skip or override; there is always an escape hatch to raw ADO.NET.
 - **Static SQL, loosely coupled**: SQL lives in stored procedures (SQL Server) or deployed `.sql`/`.psql` files
   (PostgreSQL), never generated from C#; the parameter set and result shape are the contract.
-- A first-class **Microsoft Orleans provider**: persists grain state in ordinary third-normal-form tables (so grain
-  data can be queried across grains with SQL), and provides clustering and reminders. ShardKey values serialize as
-  grain keys. Uniquely, it can run tenants/shards behind a single cluster.
+- A first-class **Microsoft Orleans provider**, unique among Orleans storage providers in two ways: it persists grain
+  state in ordinary third-normal-form tables rather than serialized blobs (so grain data can be queried, counted and
+  aggregated across grains with SQL, which Orleans alone makes hard; the grain stays authoritative for its state and
+  the tables are its queryable projection), and it can run tenants/shards behind a single cluster. It also provides
+  clustering and reminders. ShardKey values serialize as grain keys. Lead with the normalized-storage distinction.
 - MIT licensed. Version 1 ran in production for years and handled billions of dollars of transactions. Version 2 is
   current (2.1.0), targets .NET 10.
 
@@ -124,6 +126,14 @@ type must match one of the attribute's supported CLR representations (on SQL Ser
 in that column means "no record" (single result → null, list → row omitted). Nullable value types and nullable enums
 map null ↔ DBNull; `Guid.Empty`, `double.NaN`, `float.NaN` are null sentinels on non-nullable properties. Nested
 models: `[MapToModel]` on a property whose type is itself mapped (flattened into the same parameters/columns).
+
+**Model types.** Examples use `readonly record struct` models (an illustrative mix with classes is fine); describe both.
+The Mapper needs a parameterless constructor and settable or `init` properties; `required` members are not allowed
+because they break the `new()` constraint, and struct field initializers need an explicit constructor, so omit `= ""`
+initializers in struct examples. State these struct differences wherever an example reads one row: there is no null, so a
+missing record is `default` (`== default`, or `Key.IsEmpty` on a keyed model); a row whose required column is null is not
+dropped from a list but arrives as `default`; `[MapToModel]` nested types must be classes; inheritance needs classes; and
+Orleans grain state must be a class, because the provider uses a null result for "no record".
 Result-set list properties: `List<T>` properties filled by extra result sets, in the order of the generic arguments,
 no attribute needed. Mapper extension methods: `prms.CreateInputParameters(model, logger)`,
 `prms.CreateOutputParameters<TModel>(logger)`, `prms.ToModel<TModel>(logger)`, `rdr.ToModel<TModel>(logger)`,

@@ -88,34 +88,34 @@ The `Customer` model looks like the `Subscriber` from the previous quickstart, w
 using ArgentSea;
 using ArgentSea.Sql;
 
-public class Customer : IKeyedModel<int>
+public readonly record struct Customer : IKeyedModel<int>
 {
     [MapSqlShardKey("@CustomerId")]
     [MapToSqlInt("@CustomerId")]
-    public ShardKey<int> Key { get; set; }
+    public ShardKey<int> Key { get; init; }
 
     [MapToSqlNVarChar("@Name", 255)]
-    public string Name { get; set; }
+    public string Name { get; init; }
 
     [MapToSqlNVarChar("@Email", 255)]
-    public string Email { get; set; }
+    public string Email { get; init; }
 }
 ```
 ```csharp [PostgreSQL]
 using ArgentSea;
 using ArgentSea.Pg;
 
-public class Customer : IKeyedModel<int>
+public readonly record struct Customer : IKeyedModel<int>
 {
     [MapPgShardKey("customer_id")]
     [MapToPgInteger("customer_id")]
-    public ShardKey<int> Key { get; set; }
+    public ShardKey<int> Key { get; init; }
 
     [MapToPgVarchar("name", 255)]
-    public string Name { get; set; }
+    public string Name { get; init; }
 
     [MapToPgVarchar("email", 255)]
-    public string Email { get; set; }
+    public string Email { get; init; }
 }
 ```
 :::
@@ -280,7 +280,7 @@ app.MapGet("/customers/{id}", async (string id, CustomerStore store, Cancellatio
 {
     var key = ShardKey<int>.FromExternalString(id);
     var customer = await store.GetAsync(key, cancellation);
-    return customer is null ? Results.NotFound() : Results.Ok(customer);
+    return customer.Key.IsEmpty ? Results.NotFound() : Results.Ok(customer); // a missing customer comes back with an empty key
 });
 
 app.MapGet("/customers", (CustomerStore store, CancellationToken cancellation)
