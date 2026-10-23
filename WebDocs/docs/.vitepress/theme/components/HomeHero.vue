@@ -156,6 +156,10 @@ onMounted(() => (mounted.value = true))
   opacity: 1;
 }
 .horizon {
+  /* Opaque black, as on the original page: the photo column and the transparent side strips must composite
+     against the same black before the scene is blended into the hero, or the side strips pick up the hero's
+     glow and no longer match the strip over the photo. */
+  background: #000;
   width: 100%;
   height: 400px;
   display: flex;
