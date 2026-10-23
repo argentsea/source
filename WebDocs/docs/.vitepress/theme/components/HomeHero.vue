@@ -206,6 +206,8 @@ onMounted(() => (mounted.value = true))
   transform: none;
 }
 .hero-tag {
+  /* Set explicitly: the site-wide `.vp-doc p` colour is dark in light mode, but the hero is always dark. */
+  color: #e9e9ec;
   font-size: clamp(20px, 2.6vw, 30px);
   font-weight: 600;
   letter-spacing: -0.01em;

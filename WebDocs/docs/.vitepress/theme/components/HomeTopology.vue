@@ -23,7 +23,7 @@ const tenants = ['Tenant A', 'Tenant B', 'Tenant C', 'Tenant D']
           <a class="link" href="/introduction/core-concepts">Walk through the core concepts →</a>
         </div>
         <div class="diagram as-anim" aria-label="Diagram: an application fanning out across tenant databases, each with a write primary and read replica">
-          <svg viewBox="0 0 520 360">
+          <svg viewBox="-8 0 528 360">
             <defs>
               <linearGradient id="appg" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0" stop-color="#c9a85a" />
@@ -32,14 +32,14 @@ const tenants = ['Tenant A', 'Tenant B', 'Tenant C', 'Tenant D']
             </defs>
             <!-- app node -->
             <g>
-              <rect x="20" y="140" width="120" height="80" rx="12" fill="url(#appg)" />
-              <text x="80" y="174" text-anchor="middle" class="t-dark b">Your app</text>
-              <text x="80" y="196" text-anchor="middle" class="t-dark s">SqlShardSets["Tenants"]</text>
+              <rect x="0" y="140" width="172" height="80" rx="12" fill="url(#appg)" />
+              <text x="86" y="174" text-anchor="middle" class="t-dark b">Your app</text>
+              <text x="86" y="196" text-anchor="middle" class="t-dark s">SqlShardSets["Tenants"]</text>
             </g>
             <!-- links -->
             <g fill="none" stroke-width="2">
               <path v-for="(t, i) in tenants" :key="t" class="link-path" :style="{ animationDelay: `${i * 0.5}s` }"
-                :d="`M140 180 C 230 180, 230 ${50 + i * 86}, 300 ${50 + i * 86}`" />
+                :d="`M172 180 C 240 180, 240 ${50 + i * 86}, 300 ${50 + i * 86}`" />
             </g>
             <!-- tenants -->
             <g v-for="(t, i) in tenants" :key="t" :transform="`translate(300, ${22 + i * 86})`">
