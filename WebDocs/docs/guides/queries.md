@@ -101,6 +101,8 @@ var customer = await _databases["MyDb"].Read.MapReaderAsync<Customer>(Queries.Ge
 
 ArgentSea *copies* the collection onto each connection's command. Do not keep a reference to an output parameter you added and expect it to hold a value afterwards; read output values from the collection the handler receives (the Mapper does this for you). On a shard set the only change is the connection: `shardSet.ReadAll` returns a `List<Customer>` combined from every shard, `ReadFirst` returns the first non-null result, and `Write` runs on every shard. See [Sharding](/guides/sharding) for shard selection and the shard id parameter.
 
+<QueryPipeline />
+
 ## Data methods
 
 Every data method takes a `Query`, a `DbParameterCollection` (null when there are none) and a `CancellationToken`. The families differ in what they return and whether the Mapper is involved.

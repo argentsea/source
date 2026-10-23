@@ -39,6 +39,8 @@ Each delay is a multiple of `RetryInterval`, and `RetryLengthening` chooses the 
 
 `Lengthening` retries quickly at first, then gives a struggling server progressively more room. `HalfSquare` retries once immediately before backing off. `Squaring` is classic exponential backoff. The value `Fibonacci` from earlier versions still binds and behaves exactly like `Lengthening` (the series was never a Fibonacci sequence) but is marked obsolete; prefer `Lengthening` in new configuration.
 
+<RetryTimeline />
+
 Retries and timeouts compound: six `Lengthening` retries wait about nine seconds in total before counting the connect attempts themselves. ArgentSea sets the connect timeout well below the drivers' 15-second defaults so a dead server surfaces quickly: 5 seconds on SQL Server unless you override `ConnectTimeout`, and 2 seconds on PostgreSQL unless a configuration level sets `Timeout`. The SQL Server figure follows Microsoft's minimum recommendation for mirrored and availability-group endpoints; the PostgreSQL figure targets fast failover inside a datacenter. On a high-latency link raise the timeout and the interval rather than the retry count.
 
 ## The circuit breaker

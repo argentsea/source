@@ -7,9 +7,18 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
   lastUpdated: false,
-  appearance: true,
+  appearance: 'dark',
   head: [
     ['link', { rel: 'icon', href: '/images/favicon.ico' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap'
+      }
+    ],
     ['meta', { name: 'theme-color', content: '#0b0b0d' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'ArgentSea' }],
@@ -25,7 +34,7 @@ export default defineConfig({
   ],
   markdown: {
     lineNumbers: false,
-    theme: { light: 'github-light', dark: 'github-dark-dimmed' }
+    theme: 'github-dark-dimmed'
   },
   sitemap: { hostname: 'https://docs.argentsea.com' },
   themeConfig: {
