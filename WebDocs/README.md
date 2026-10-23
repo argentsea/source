@@ -20,10 +20,16 @@ Then open the URL VitePress prints (usually http://localhost:5173). Edits to Mar
 npm run docs:build
 ```
 
-The static site lands in `docs/.vitepress/dist`. Deploy that folder to any static host (GitHub Pages, Azure Static
-Web Apps, Netlify, an S3 bucket). The site uses clean URLs (`/guides/mapping`, no `.html`), so the host must serve
-`guides/mapping.html` for that path or be configured to rewrite; GitHub Pages and most static hosts do this by
-default. `npm run docs:preview` serves the built output locally.
+The static site lands in `docs/.vitepress/dist`; `npm run docs:preview` serves it locally.
+
+Production deployment is automated: the GitHub Actions workflow
+[`.github/workflows/docs.yml`](../.github/workflows/docs.yml) builds this folder on every push to `main` that touches
+`WebDocs/**` (or on a manual run) and publishes `dist` to GitHub Pages at https://docs.argentsea.com. The custom
+domain comes from `docs/public/CNAME`, which VitePress copies into the output root. See
+[`DEPLOYMENT.md`](DEPLOYMENT.md) for how the workflow works and for the one-time Pages switchover.
+
+The site uses clean URLs (`/guides/mapping`, no `.html`), so any other static host must serve `guides/mapping.html`
+for that path or be configured to rewrite; GitHub Pages and most static hosts do this by default.
 
 ## Layout
 
@@ -39,6 +45,7 @@ WebDocs/
     getting-started/         installation, two quickstarts, testing
     guides/                  configuration, resilience, logging, queries, mapping, sharding, batches, orleans
     reference/               glossary (generated), faq, whats-new, platforms
+    public/CNAME             custom domain marker for GitHub Pages (docs.argentsea.com)
     public/images/           logos and icons (copied from ArgentSea.Home/images)
     .vitepress/
       config.mts             site title, nav, sidebar, search, footer
@@ -89,6 +96,12 @@ npm run glossary
 
 ## Retiring the old docs
 
-`ArgentSea.DocFx` and `ArgentSea.Home` remain in the repository until this site is deployed to
-`docs.argentsea.com` / `www.argentsea.com`. The DocFx API reference (`/api/...`) is not reproduced here; if an API
-reference is wanted alongside this site, generate it with `docfx` from the XML comments and link it from the nav.
+`ArgentSea.DocFx` and `ArgentSea.Home` remain in the repository until this site is live at `docs.argentsea.com`.
+[`DEPLOYMENT.md`](DEPLOYMENT.md) describes the switchover in order: release the domain from the old `argentsea/docs`
+Pages repository, point this repository's Pages settings at the workflow with the custom domain, run the workflow,
+verify, then retire the `argentsea.com` landing page (redirect the apex here, or move the apex domain onto this
+site; GitHub Pages allows one custom domain per repository).
+
+The DocFx API reference (`/api/...`) is not reproduced here, so those old URLs will 404 after the switchover. If an
+API reference is wanted alongside this site, generate it with `docfx` from the XML comments into
+`docs/public/api` and link it from the nav; `DEPLOYMENT.md` covers that and the redirect alternative.

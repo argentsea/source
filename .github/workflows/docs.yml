@@ -1,0 +1,61 @@
+# Builds the VitePress documentation site in WebDocs/ and deploys it to GitHub Pages.
+# Follows the VitePress GitHub Pages recipe: https://vitepress.dev/guide/deploy#github-pages
+# The one-time repository switchover (Pages source, custom domain) is described in WebDocs/DEPLOYMENT.md.
+name: docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'WebDocs/**'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+# Allow only one concurrent deployment; let an in-progress run finish rather than cancelling it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: WebDocs/package-lock.json
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: WebDocs
+
+      - name: Build site
+        run: npm run docs:build
+        working-directory: WebDocs
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: WebDocs/docs/.vitepress/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
